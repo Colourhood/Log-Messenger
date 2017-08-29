@@ -9,6 +9,10 @@
 import UIKit
 import CoreData
 
+class HomeCollectionViewController {
+
+}
+
 class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var friendPicture: UIImageView!;
     @IBOutlet weak var friendName: UILabel!;
@@ -18,6 +22,8 @@ class HomeTableViewCell: UITableViewCell {
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var HomeTableView: UITableView!;
+    
+    var selectedConversation: MessageStack?;
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,15 +37,19 @@ class HomeViewController: UIViewController {
     }
     
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+//     In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        if (segue.identifier == "HomeToMessageSegue") {
+            print("This segue was called");
+            
+            if let messageViewController = segue.destination as? MessageViewController {
+                messageViewController.friendConversation = self.selectedConversation;
+            }
+        }
     }
-    */
 
 }
 
@@ -54,6 +64,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return userResults!;
     }
+    
+    //Table View Delegate Methods
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MessageDataExample.getConversations().count;
@@ -75,6 +87,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell?.mostRecentMessageFromConversation.text = mostRecentMessage;
         
         return cell!;
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        print("Will select row");
+        
+        let friendConversationData = MessageDataExample.getConversations()[indexPath.row];
+        self.selectedConversation = friendConversationData;
+        
+        return indexPath;
     }
 
 }

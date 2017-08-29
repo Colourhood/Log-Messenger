@@ -51,6 +51,10 @@ class LOGUser {
         return self.email;
     }
     
+    func getFirstName() -> String? {
+        return self.firstName;
+    }
+    
     func getFullName() -> String? {
         return "\(self.firstName!) \(self.lastName!)";
     }

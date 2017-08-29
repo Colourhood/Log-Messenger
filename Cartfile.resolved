@@ -1,1 +1,2 @@
-github "airbnb/lottie-ios" "8f86819ffff85ae4786393a07f453fefb80cfbec"
+github "Alamofire/Alamofire" "4.5.0"
+github "airbnb/lottie-ios" "1c815ddc14a7161f16291b8da04fd153643785de"

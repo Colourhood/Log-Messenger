@@ -15,14 +15,15 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var MessageLabel: UILabel!;
     @IBOutlet weak var MessageView: UIView!;
     @IBOutlet weak var UserImage: UIImageView!
-
 }
 
 class MessageViewController: UIViewController {
     
     @IBOutlet weak var NewMessageTextField: UITextField!;
-    @IBOutlet weak var NewMessageButton: UIButton!;
     @IBOutlet weak var MessagesTableView: UITableView!;
+    @IBOutlet weak var MessageNavigator: UINavigationItem!
+    
+    var friendConversation: MessageStack?;
 
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -31,20 +32,17 @@ class MessageViewController: UIViewController {
         
         MessagesTableView.estimatedRowHeight = 50;
         MessagesTableView.rowHeight = UITableViewAutomaticDimension;
-        
         NewMessageTextField.autocorrectionType = .no;
-        NewMessageButton.layer.cornerRadius = 5;
+        MessageNavigator.title = self.friendConversation?.conversationWithFriend?.getFullName();
         // Do any additional setup after loading the view, typically from a nib.
+        
+        print("What is the value of friendConversation?: \(String(describing: friendConversation))");
     }
     
     deinit {
         deregisterFromKeyboardNotifications();
     }
-    
-    @IBAction func SendMessage() {
-        
-    }
-    
+  
 }
 
 extension MessageViewController: UITextFieldDelegate {
@@ -95,15 +93,9 @@ extension MessageViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
     }// if implemented, called in place of textFieldDidEndEditing:
     
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true;
     } // return NO to not change text
-    
-    
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        return false;
-    } // called when clear button pressed. return NO to ignore (no notifications)
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true;
@@ -115,8 +107,9 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     
     //A computer property inside the extension that contains a list of messages as example
     var MessageDataSource: MessageStack {
-        let messages = MessageDataExample.katherineAndreiConversation;
-        return messages;
+        let messages = self.friendConversation;
+        
+        return messages!;
     }
     
     var currentUserCoreData: [UserCoreData] {
@@ -140,7 +133,10 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         let messageData = MessageDataSource.messageStack[indexPath.row];
 //        let sender = messageData.senderInfo?.handle;
         let email = messageData.messageSender?.getEmail();
+        let name = messageData.messageSender?.getFirstName();
+        let picture = messageData.messageSender?.getPicture();
         let messageSent = messageData.message;
+        
         
         var cell: MessageTableViewCell?;
         
@@ -155,7 +151,8 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        cell?.SenderToReceiverLabel.text = "\(email!)";
+        cell?.SenderToReceiverLabel.text = name;
+        cell?.UserImage.image = picture;
         cell?.MessageLabel.text = messageSent;
         cell?.MessageView.layer.cornerRadius = 10;
         

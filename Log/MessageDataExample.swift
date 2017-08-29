@@ -12,7 +12,7 @@ import UIKit
 class MessageDataExample {
     
     static let andrei = LOGUser.init(handle: "grrrlikestaquitos", email: "andreicrimson@gmail.com", firstName: "Andrei", lastName: "Villasana", picture: UIImage(named: "andreiUserIcon"));
-    static let katherine = LOGUser.init(handle: "katherine", email: "stevenpin@gmail.com", firstName: "Katherine", lastName: "Li", picture: UIImage(named: "katherineUserIcon"));
+    static let katherine = LOGUser.init(handle: "katherine", email: "katherineli@gmail.com", firstName: "Katherine", lastName: "Li", picture: UIImage(named: "katherineUserIcon"));
     static let sebastian = LOGUser.init(handle: "theradkiz", email: "sebastianfolzo@gmail.com", firstName: "Sebastian", lastName: "Folzo", picture: UIImage(named: "defaultUserIcon"));
     
     static let date = Date.init();

@@ -1,1 +1,2 @@
 github "airbnb/lottie-ios" "master"
+github "Alamofire/Alamofire" ~> 4.4
