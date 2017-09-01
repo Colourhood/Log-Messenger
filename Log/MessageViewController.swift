@@ -102,11 +102,10 @@ extension MessageViewController: UITextFieldDelegate {
 
 extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     
-    //A computer property inside the extension that contains a list of messages as example
-    var MessageDataSource: MessageStack {
+    //A computed property inside the extension that contains a list of messages as example
+    var MessageDataSource: MessageStack? {
         let messages = self.friendConversation;
-        
-        return messages!;
+        return messages;
     }
     
     var currentUserCoreData: [UserCoreData] {
@@ -120,26 +119,28 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MessageDataSource.messageStack.count;
+        if (MessageDataSource != nil) {
+            return (MessageDataSource?.messageStack.count)!;
+        }
+        return 0;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
 //        let mockLoggedInUserEmail = "andreicrimson@gmail.com";
-        
-        let messageData = MessageDataSource.messageStack[indexPath.row];
+        let messageData = MessageDataSource?.messageStack[indexPath.row];
 //        let sender = messageData.senderInfo?.handle;
-        let email = messageData.messageSender?.getEmail();
-        let name = messageData.messageSender?.getFirstName();
-        let picture = messageData.messageSender?.getPicture();
-        let messageSent = messageData.message;
+        let email = messageData?.messageSender?.getEmail();
+        let name = messageData?.messageSender?.getFirstName();
+        let picture = messageData?.messageSender?.getPicture();
+        let messageSent = messageData?.message;
         
         
         var cell: MessageTableViewCell?;
         
         for user in currentUserCoreData {
             
-            let coreDataEmail = user.email!;
+            let coreDataEmail = user.email;
             
             if (email == coreDataEmail) {
                 cell = self.MessagesTableView.dequeueReusableCell(withIdentifier: "Message Sender Cell", for: indexPath) as? MessageTableViewCell;
