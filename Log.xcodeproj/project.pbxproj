@@ -22,7 +22,27 @@
 		548A8E1B1F4CFAE400DD56C0 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548A8E1A1F4CFAE400DD56C0 /* CoreDataController.swift */; };
 		54A05D7A1F4D74C4005B091F /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A05D781F4D74C4005B091F /* User+CoreDataClass.swift */; };
 		54A05D7B1F4D74C4005B091F /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A05D791F4D74C4005B091F /* User+CoreDataProperties.swift */; };
+		54EEB1211F57770700AA548B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1201F57770700AA548B /* Alamofire.framework */; };
+		54EEB1221F57770700AA548B /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1201F57770700AA548B /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54EEB1251F57770E00AA548B /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1241F57770E00AA548B /* Lottie.framework */; };
+		54EEB1261F57770E00AA548B /* Lottie.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1241F57770E00AA548B /* Lottie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54EEB1281F577E2B00AA548B /* LOGHTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EEB1271F577E2B00AA548B /* LOGHTTP.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		54EEB1231F57770700AA548B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				54EEB1221F57770700AA548B /* Alamofire.framework in Embed Frameworks */,
+				54EEB1261F57770E00AA548B /* Lottie.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		543D24181F51183C00ACDC9D /* MessageStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageStack.swift; sourceTree = "<group>"; };
@@ -42,6 +62,9 @@
 		548A8E1A1F4CFAE400DD56C0 /* CoreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		54A05D781F4D74C4005B091F /* User+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		54A05D791F4D74C4005B091F /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		54EEB1201F57770700AA548B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		54EEB1241F57770E00AA548B /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
+		54EEB1271F577E2B00AA548B /* LOGHTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGHTTP.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54EEB1211F57770700AA548B /* Alamofire.framework in Frameworks */,
+				54EEB1251F57770E00AA548B /* Lottie.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +83,8 @@
 		5454F35E1F4A5843002D9AB5 = {
 			isa = PBXGroup;
 			children = (
+				54EEB1241F57770E00AA548B /* Lottie.framework */,
+				54EEB1201F57770700AA548B /* Alamofire.framework */,
 				5454F3691F4A5843002D9AB5 /* Log */,
 				5454F3681F4A5843002D9AB5 /* Products */,
 			);
@@ -83,6 +110,7 @@
 				5454F3711F4A5844002D9AB5 /* Assets.xcassets */,
 				5454F3761F4A5844002D9AB5 /* Info.plist */,
 				5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */,
+				54EEB1271F577E2B00AA548B /* LOGHTTP.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -144,6 +172,7 @@
 				5454F3631F4A5843002D9AB5 /* Sources */,
 				5454F3641F4A5843002D9AB5 /* Frameworks */,
 				5454F3651F4A5843002D9AB5 /* Resources */,
+				54EEB1231F57770700AA548B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -214,6 +243,7 @@
 				5454F36D1F4A5844002D9AB5 /* MessageViewController.swift in Sources */,
 				548A8E131F4C161900DD56C0 /* AppState.xcdatamodeld in Sources */,
 				54A05D7A1F4D74C4005B091F /* User+CoreDataClass.swift in Sources */,
+				54EEB1281F577E2B00AA548B /* LOGHTTP.swift in Sources */,
 				5454F3831F4ABB4D002D9AB5 /* Message.swift in Sources */,
 				544EE7621F4EA01F00CD3380 /* HomeViewController.swift in Sources */,
 				5454F36B1F4A5844002D9AB5 /* AppDelegate.swift in Sources */,
@@ -342,6 +372,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = BJE27J35HP;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Log/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.colourhood.Log;
@@ -355,6 +389,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = BJE27J35HP;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Log/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.colourhood.Log;
