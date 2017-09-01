@@ -22,29 +22,17 @@ class HomeTableViewCell: UITableViewCell {
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var HomeTableView: UITableView!;
-    
     var selectedConversation: MessageStack?;
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
     // MARK: - Navigation
-
-//     In a storyboard-based application, you will often want to do a little preparation before navigation
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if (segue.identifier == "HomeToMessageSegue") {
-            print("This segue was called");
-            
             if let messageViewController = segue.destination as? MessageViewController {
                 messageViewController.friendConversation = self.selectedConversation;
             }
@@ -90,8 +78,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        print("Will select row");
-        
         let friendConversationData = MessageDataExample.getConversations()[indexPath.row];
         self.selectedConversation = friendConversationData;
         

@@ -34,9 +34,6 @@ class MessageViewController: UIViewController {
         MessagesTableView.rowHeight = UITableViewAutomaticDimension;
         NewMessageTextField.autocorrectionType = .no;
         MessageNavigator.title = self.friendConversation?.conversationWithFriend?.getFullName();
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        print("What is the value of friendConversation?: \(String(describing: friendConversation))");
     }
     
     deinit {
