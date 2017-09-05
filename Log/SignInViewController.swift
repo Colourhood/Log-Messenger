@@ -70,7 +70,7 @@ class SignInViewController: UIViewController {
             
             if (self.loginOrSignupTypeText == "Sign Up") {
                 //Create a request to create a new user from the log_node_database
-                LOGHTTP().post(url: "/user/createUser", parameters: ["username": email!, "password": password!]);
+                LOGHTTP().post(url: "/user/signup", parameters: ["username": email!, "password": password!]);
             } else if (self.loginOrSignupTypeText == "Sign In") {
                 //Create a request to log in possible existing user
             }
