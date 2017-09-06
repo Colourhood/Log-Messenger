@@ -73,6 +73,7 @@ class SignInViewController: UIViewController {
                 LOGHTTP().post(url: "/user/signup", parameters: ["username": email!, "password": password!]);
             } else if (self.loginOrSignupTypeText == "Sign In") {
                 //Create a request to log in possible existing user
+                LOGHTTP().post(url: "/user/login", parameters: ["username": email!, "password": password!]);
             }
             
             CoreDataController.saveContext();
