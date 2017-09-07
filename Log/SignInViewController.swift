@@ -108,25 +108,11 @@ class SignInViewController: UIViewController {
 extension SignInViewController: UITextFieldDelegate {
     
     enum TextFieldTags: Int {
-        case email = 0, password
+        case email = 0,
+             password
     }
     
     /* UITextField Delegate Methods*/
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return true;
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-    }
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        return true;
-    } // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-    } // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
-    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
@@ -144,6 +130,6 @@ extension SignInViewController: UITextFieldDelegate {
             break;
         }
         return true;
-    } // called when 'return' key pressed. return NO to ignore.
+    }
     
 }
