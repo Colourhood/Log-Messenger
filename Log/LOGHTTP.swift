@@ -28,21 +28,23 @@ struct LOGHTTP {
         }
     }
     
-    func post(url: String, parameters: Parameters) -> Void {
-        Alamofire.request(apiURL+url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { (response) in
-            print(response.request as Any);
-            print(response.response as Any);
-            print(response.data!);
-            print(response.result);
-            
-            switch(response.result) {
-                case .success(let data):
-                    print("It was a success \(data)");
-                    break;
-                case .failure(let error):
-                    print("Error \(error)");
-                    break;
-            }
-        }
+    func post(url: String, parameters: Parameters) -> Alamofire.DataRequest {
+        let request = Alamofire.request(apiURL+url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: httpHeaders);
+        //{ (response) in
+//            print(response.request!);
+//            print(response.response!);
+//            print(response.data!);
+//            print(response.result);
+//            
+//            switch(response.result) {
+//                case .success(let data):
+//                    print("It was a success \(data)");
+//                    break;
+//                case .failure(let error):
+//                    print("Error \(error)");
+//                    break;
+//            }
+//        }
+        return request;
     }
 }
