@@ -73,14 +73,33 @@ class SignInViewController: UIViewController {
                 LOGHTTP().post(url: "/user/signup", parameters: ["username": email!, "password": password!]);
             } else if (self.loginOrSignupTypeText == "Sign In") {
                 //Create a request to log in possible existing user
-                LOGHTTP().post(url: "/user/login", parameters: ["username": email!, "password": password!]);
+                let request = LOGHTTP().post(url: "/user/login", parameters: ["username": email!, "password": password!]);
+                request.responseJSON(completionHandler: { (response) in
+                    switch (response.result) {
+                        case .success(let json):
+                            if let statusCode = response.response?.statusCode {
+                                if (statusCode == 200 ||
+                                    statusCode < 400) {
+                                    
+                                    let jsonDic = json as! NSDictionary;
+                                    let username = jsonDic["username"];
+                                    
+                                    userCoreData.email = username as? String;
+                                }
+                            }
+                            break;
+                        case .failure(let error):
+                            print("There was an error with the login response \(error)");
+                            break;
+                    }
+                }).resume();
             }
             
             CoreDataController.saveContext();
             
-//            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate;
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil);
-//            appDelegate.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController");
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate;
+            let storyboard = UIStoryboard(name: "Main", bundle: nil);
+            appDelegate.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController");
         }
     }
 
