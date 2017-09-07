@@ -55,36 +55,68 @@ class SignInViewController: UIViewController {
         checkTextField();
     }
     
+    func setUserInCoreData(username: String) {
+        let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: CoreDataController.getContext()) as! UserCoreData;
+        userCoreData.email = username;
+        CoreDataController.saveContext();
+    }
+    
+    func instantiateHomeView() {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate;
+        let storyboard = UIStoryboard(name: "Main", bundle: nil);
+        appDelegate.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController");
+    }
+    
     
     fileprivate func checkTextField() {
         let email = self.emailTextField.text;
         let password = self.passwordTextField.text;
         
-        if (!(email?.isEmpty)! ||
-            !(password?.isEmpty)!) {
-            
-            let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: CoreDataController.getContext()) as! UserCoreData;
-//            Attempt to sign up or login targeting the server
-//            save user details based from server response
-//            userCoreData.email = self.emailTextField.text;
+        if (!(email?.isEmpty)! || !(password?.isEmpty)!) {
             
             if (self.loginOrSignupTypeText == "Sign Up") {
-                //Create a request to create a new user from the log_node_database
-                LOGHTTP().post(url: "/user/signup", parameters: ["username": email!, "password": password!]);
-            } else if (self.loginOrSignupTypeText == "Sign In") {
-                //Create a request to log in possible existing user
-                let request = LOGHTTP().post(url: "/user/login", parameters: ["username": email!, "password": password!]);
+                let request = LOGHTTP().post(url: "/user/signup", parameters: ["username": email!, "password": password!]);
                 request.responseJSON(completionHandler: { (response) in
+                    
                     switch (response.result) {
                         case .success(let json):
+                            let jsonDict = json as! NSDictionary;
+                            
                             if let statusCode = response.response?.statusCode {
-                                if (statusCode == 200 ||
-                                    statusCode < 400) {
-                                    
-                                    let jsonDic = json as! NSDictionary;
-                                    let username = jsonDic["username"];
-                                    
-                                    userCoreData.email = username as? String;
+                                if (statusCode == 200) {
+                                    print("Succesful JSON response: \(json)");
+                                    if let username = jsonDict["username"] {
+                                        self.setUserInCoreData(username: username as! String);
+                                        self.instantiateHomeView();
+                                    }
+                                } else {
+                                    print("Status code error: \(json)")
+                                }
+                            }
+                            
+                            break;
+                        case .failure(let error):
+                            print("There was an error with the sign up response \(error)");
+                            break;
+                    }
+                }).resume();
+            } else if (self.loginOrSignupTypeText == "Sign In") {
+                let request = LOGHTTP().post(url: "/user/login", parameters: ["username": email!, "password": password!]);
+                request.responseJSON(completionHandler: { (response) in
+                    
+                    switch (response.result) {
+                        case .success(let json):
+                            let jsonDict = json as! NSDictionary;
+                            
+                            if let statusCode = response.response?.statusCode {
+                                if (statusCode == 200) {
+                                    print("Succesful JSON response: \(json)");
+                                    if let username = jsonDict["username"] {
+                                        self.setUserInCoreData(username: username as! String);
+                                        self.instantiateHomeView();
+                                    }
+                                } else {
+                                    print("Status code error: \(json)");
                                 }
                             }
                             break;
@@ -94,12 +126,6 @@ class SignInViewController: UIViewController {
                     }
                 }).resume();
             }
-            
-            CoreDataController.saveContext();
-            
-            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate;
-            let storyboard = UIStoryboard(name: "Main", bundle: nil);
-            appDelegate.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController");
         }
     }
 
