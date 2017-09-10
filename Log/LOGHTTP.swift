@@ -15,8 +15,8 @@ let httpHeaders: HTTPHeaders = [ "Accept": "application/json" ];
 
 struct LOGHTTP {
     
-    func get(url: String, parameters: Parameters) -> Alamofire.DataRequest {
-        return Alamofire.request(apiURL+url, method: .get, parameters: parameters, encoding: URLEncoding.default);
+    func get(url: String) -> Alamofire.DataRequest {
+        return Alamofire.request(apiURL+url, method: .get, encoding: URLEncoding.default);
     }
     
     func post(url: String, parameters: Parameters) -> Alamofire.DataRequest {
