@@ -30,9 +30,8 @@ class HomeViewController: UIViewController {
     var username: String? {
         if let name = UserDefaults.standard.string(forKey: "username") {
             return name;
-        } else {
-            return "";
         }
+        return nil;
     }
     
     func getRecentMessages(completion: @escaping (NSArray) -> Void) {
@@ -116,23 +115,18 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     //Table View Delegate Methods
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return MessageDataExample.getConversations().count; // Sample Hardcoded Data
         return self.recentMessages.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        let friendConversationData = MessageDataExample.getConversations()[indexPath.row]; //Sample Hardcoded Data
         let friendConversationData = self.recentMessages[indexPath.row];
-        
 //        let friendName = friendConversationData.conversationWithFriend?.getFullName();
         let friendEmail = friendConversationData.conversationWithFriend?.getEmail();
-        print("What is the value of friend email: \(friendEmail!)");
         let mostRecentMessage = friendConversationData.messageStack[0].message;
         let userImage = friendConversationData.conversationWithFriend?.getPicture();
         
         var cell: HomeTableViewCell?;
-        
         cell = self.HomeTableView.dequeueReusableCell(withIdentifier: "Friend Conversation Cell", for: indexPath) as? HomeTableViewCell;
         cell?.friendName.text = friendEmail;
         cell?.friendPicture.image = userImage;
@@ -142,7 +136,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-//        let friendConversationData = MessageDataExample.getConversations()[indexPath.row]; //Sample Hardcoded Data
         let friendConversationData = self.recentMessages[indexPath.row];
         self.selectedConversation = friendConversationData;
         
