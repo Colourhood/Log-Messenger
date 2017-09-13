@@ -39,15 +39,11 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!;
     @IBOutlet weak var passwordTextField: UITextField!;
     @IBOutlet weak var signInButton: UIButton!;
-    @IBOutlet weak var loginOrSignupLabel: UILabel?;
     
     var loginOrSignupTypeText: String?;
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("What was chosen and it's value:  \(loginOrSignupTypeText!)");
-        loginOrSignupLabel?.text = self.loginOrSignupTypeText;
         // Do any additional setup after loading the view.
     }
     
@@ -70,64 +66,53 @@ class SignInViewController: UIViewController {
         appDelegate.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController");
     }
     
+    func handleLoginSignUpRequest(url: String, completion: @escaping (NSDictionary) -> Void) {
+        let email = self.emailTextField.text;
+        let password = self.passwordTextField.text;
+        
+        let request = LOGHTTP().post(url: url, parameters: ["username": email!, "password": password!]);
+        request.responseJSON(completionHandler: { (response) in
+            switch (response.result) {
+                case .success(let json):
+                    let jsonDict = json as! NSDictionary;
+                    if let statusCode = response.response?.statusCode {
+                        if (statusCode == 200) {
+                            completion(jsonDict);
+                        }
+                    } else {
+                        print("Status code error: \(json)");
+                    }
+                    break;
+                case .failure(let error):
+                    print("Error: \(error)");
+                    break;
+            }
+        }).resume();
+    }
+    
     
     fileprivate func checkTextField() {
         let email = self.emailTextField.text;
         let password = self.passwordTextField.text;
         
-        if (!(email?.isEmpty)! || !(password?.isEmpty)!) {
+        if (!(email?.isEmpty)! && !(password?.isEmpty)!) {
             
             if (self.loginOrSignupTypeText == "Sign Up") {
-                let request = LOGHTTP().post(url: "/user/signup", parameters: ["username": email!, "password": password!]);
-                request.responseJSON(completionHandler: { (response) in
-                    
-                    switch (response.result) {
-                        case .success(let json):
-                            let jsonDict = json as! NSDictionary;
-                            
-                            if let statusCode = response.response?.statusCode {
-                                if (statusCode == 200) {
-                                    print("Succesful JSON response: \(json)");
-                                    if let username = jsonDict["username"] {
-                                        self.setUserInCoreData(username: username as! String);
-                                        self.instantiateHomeView();
-                                    }
-                                } else {
-                                    print("Status code error: \(json)")
-                                }
+                print("Trying to use sign up request");
+                handleLoginSignUpRequest(url: "/user/signup", completion: { (json) in
+                            if let username = json["username"] {
+                                self.setUserInCoreData(username: username as! String);
+                                self.instantiateHomeView();
                             }
-                            
-                            break;
-                        case .failure(let error):
-                            print("There was an error with the sign up response \(error)");
-                            break;
-                    }
-                }).resume();
+                });
             } else if (self.loginOrSignupTypeText == "Sign In") {
-                let request = LOGHTTP().post(url: "/user/login", parameters: ["username": email!, "password": password!]);
-                request.responseJSON(completionHandler: { (response) in
-                    
-                    switch (response.result) {
-                        case .success(let json):
-                            let jsonDict = json as! NSDictionary;
-                            
-                            if let statusCode = response.response?.statusCode {
-                                if (statusCode == 200) {
-                                    print("Succesful JSON response: \(json)");
-                                    if let username = jsonDict["username"] {
-                                        self.setUserInCoreData(username: username as! String);
-                                        self.instantiateHomeView();
-                                    }
-                                } else {
-                                    print("Status code error: \(json)");
-                                }
-                            }
-                            break;
-                        case .failure(let error):
-                            print("There was an error with the login response \(error)");
-                            break;
+                print("Trying to use login request");
+                handleLoginSignUpRequest(url: "/user/login", completion: { (json) in
+                    if let username = json["username"] {
+                        self.setUserInCoreData(username: username as! String);
+                        self.instantiateHomeView();
                     }
-                }).resume();
+                });
             }
         }
     }
