@@ -11,5 +11,4 @@ import Foundation
 class MessageStack {
     var messageStack: [Message] = [];
     var conversationWithFriend: LOGUser?;
-    
 }

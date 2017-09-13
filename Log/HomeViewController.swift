@@ -22,11 +22,71 @@ class HomeTableViewCell: UITableViewCell {
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var HomeTableView: UITableView!;
+    
+    var recentMessages: [MessageStack] = [];
     var selectedConversation: MessageStack?;
+    
+    //computed variable
+    var username: String? {
+        if let name = UserDefaults.standard.string(forKey: "username") {
+            return name;
+        } else {
+            return "";
+        }
+    }
+    
+    func getRecentMessages(completion: @escaping (NSArray) -> Void) {
+        let request = LOGHTTP().get(url: "/user/messages/\(username!)");
+        
+        request.responseJSON(completionHandler: { (response) in
+            switch (response.result) {
+                case .success(let json):
+                    let jsonArray = json as! NSArray;
+                    completion(jsonArray);
+                    break;
+                case .failure(let error):
+                    print("Error: \(error)");
+                    break;
+            }
+        }).resume();
+    };
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getRecentMessages { (responseData) in
+            print("Data: \(responseData)");
+            
+            for messagePackets in responseData {
+                let conversationArray = messagePackets as! NSArray;
+                let recentMessageDict = conversationArray[0] as! NSDictionary;
+                
+                let sentBy = recentMessageDict.object(forKey: "sentBy") as! String;
+                let sentTo = recentMessageDict.object(forKey: "sentTo") as! String;
+                let message = recentMessageDict.object(forKey: "message") as! String;
+                
+                let conversation = MessageStack();
+                
+                switch (self.username!) {
+                    case sentBy:
+                        conversation.conversationWithFriend = LOGUser.init(handle: sentTo, email: sentTo, firstName: sentTo, lastName: sentTo, picture: UIImage(named: "defaultUserIcon"));
+                        conversation.messageStack.append(Message.init(messageSender: conversation.conversationWithFriend, message: message, dateSent: MessageDataExample.date));
+                        break;
+                    case sentTo:
+                        conversation.conversationWithFriend = LOGUser.init(handle: sentBy, email: sentBy, firstName: sentBy, lastName: sentBy, picture: UIImage(named: "defaultUserIcon"));
+                        conversation.messageStack.append(Message.init(messageSender: conversation.conversationWithFriend, message: message, dateSent: MessageDataExample.date));
+                        break;
+                    default:
+                        break;
+                }
+                
+                self.recentMessages.append(conversation);
+                self.HomeTableView.reloadData();
+            }
+        }
     }
 
     // MARK: - Navigation
@@ -56,21 +116,25 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     //Table View Delegate Methods
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MessageDataExample.getConversations().count;
+//        return MessageDataExample.getConversations().count; // Sample Hardcoded Data
+        return self.recentMessages.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let friendConversationData = MessageDataExample.getConversations()[indexPath.row];
+//        let friendConversationData = MessageDataExample.getConversations()[indexPath.row]; //Sample Hardcoded Data
+        let friendConversationData = self.recentMessages[indexPath.row];
         
-        let friendName = friendConversationData.conversationWithFriend?.getFullName();
-        let mostRecentMessage = friendConversationData.messageStack.last?.message;
+//        let friendName = friendConversationData.conversationWithFriend?.getFullName();
+        let friendEmail = friendConversationData.conversationWithFriend?.getEmail();
+        print("What is the value of friend email: \(friendEmail!)");
+        let mostRecentMessage = friendConversationData.messageStack[0].message;
         let userImage = friendConversationData.conversationWithFriend?.getPicture();
         
         var cell: HomeTableViewCell?;
         
         cell = self.HomeTableView.dequeueReusableCell(withIdentifier: "Friend Conversation Cell", for: indexPath) as? HomeTableViewCell;
-        cell?.friendName.text = friendName;
+        cell?.friendName.text = friendEmail;
         cell?.friendPicture.image = userImage;
         cell?.mostRecentMessageFromConversation.text = mostRecentMessage;
         
@@ -78,7 +142,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let friendConversationData = MessageDataExample.getConversations()[indexPath.row];
+//        let friendConversationData = MessageDataExample.getConversations()[indexPath.row]; //Sample Hardcoded Data
+        let friendConversationData = self.recentMessages[indexPath.row];
         self.selectedConversation = friendConversationData;
         
         return indexPath;

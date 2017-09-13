@@ -59,6 +59,9 @@ class SignInViewController: UIViewController {
         let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: CoreDataController.getContext()) as! UserCoreData;
         userCoreData.email = username;
         CoreDataController.saveContext();
+        
+        let userDefaults = UserDefaults.standard;
+        userDefaults.set(username, forKey: "username");
     }
     
     func instantiateHomeView() {

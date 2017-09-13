@@ -56,7 +56,8 @@ class LOGUser {
     }
     
     func getFullName() -> String? {
-        return "\(self.firstName!) \(self.lastName!)";
+        let fullName: String? = "\(String(describing: self.firstName)) \(String(describing: self.lastName))"
+        return fullName;
     }
     
     func getPicture() -> UIImage? {
