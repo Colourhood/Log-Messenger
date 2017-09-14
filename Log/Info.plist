@@ -4,6 +4,12 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>NSCameraUsageDescription</key>
+	<string>The app needs to access pictures in order to select a profile picture.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The app needs to access pictures in order to select a profile picture.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The app doesn&apos;t use your location</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
