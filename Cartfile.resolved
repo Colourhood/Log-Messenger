@@ -1,2 +1,4 @@
-github "Alamofire/Alamofire" "4.5.0"
-github "airbnb/lottie-ios" "1c815ddc14a7161f16291b8da04fd153643785de"
+github "Alamofire/Alamofire" "4.5.1"
+github "airbnb/lottie-ios" "861c517d163812d7eebc9a570e89a88786a1bf55"
+github "hyperoslo/ImagePicker" "2.1.1"
+github "ruslanskorb/RSKImageCropper" "1.6.3"
