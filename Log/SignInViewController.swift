@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 import ImagePicker
 
 class InitialViewController: UIViewController {
@@ -65,45 +64,11 @@ class SignInViewController: UIViewController {
         present(imagePickerController, animated: true, completion: nil);
     }
     
-    func setUserInCoreData(username: String) {
-        let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: CoreDataController.getContext()) as! UserCoreData;
-        userCoreData.email = username;
-        CoreDataController.saveContext();
-        
-        let userDefaults = UserDefaults.standard;
-        userDefaults.set(username, forKey: "username");
-    }
-    
     func instantiateHomeView() {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate;
         let storyboard = UIStoryboard(name: "Main", bundle: nil);
         appDelegate.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController");
     }
-    
-    func handleLoginSignUpRequest(url: String, completion: @escaping (NSDictionary) -> Void) {
-        let email = self.emailTextField.text;
-        let password = self.passwordTextField.text;
-        
-        let request = LOGHTTP().post(url: url, parameters: ["username": email!, "password": password!]);
-        request.responseJSON(completionHandler: { (response) in
-            switch (response.result) {
-                case .success(let json):
-                    let jsonDict = json as! NSDictionary;
-                    if let statusCode = response.response?.statusCode {
-                        if (statusCode == 200) {
-                            completion(jsonDict);
-                        }
-                    } else {
-                        print("Status code error: \(json)");
-                    }
-                    break;
-                case .failure(let error):
-                    print("Error: \(error)");
-                    break;
-            }
-        }).resume();
-    }
-    
     
     fileprivate func checkTextField() {
         let email = self.emailTextField.text;
@@ -113,17 +78,19 @@ class SignInViewController: UIViewController {
             
             if (self.loginOrSignupTypeText == "Sign Up") {
                 print("Trying to use sign up request");
-                handleLoginSignUpRequest(url: "/user/signup", completion: { (json) in
-                            if let username = json["username"] {
-                                self.setUserInCoreData(username: username as! String);
-                                self.instantiateHomeView();
-                            }
+                
+                SignInController.handleLoginSignUpRequest(url: "/user/signup", email: email!, password: password!, completion: { (json) in
+                    if let username = json["username"] {
+                        SignInController.setUserInCoreData(username: username as! String);
+                        self.instantiateHomeView();
+                    }
                 });
             } else if (self.loginOrSignupTypeText == "Sign In") {
                 print("Trying to use login request");
-                handleLoginSignUpRequest(url: "/user/login", completion: { (json) in
+                
+                SignInController.handleLoginSignUpRequest(url: "/user/login", email: email!, password: password!, completion: { (json) in
                     if let username = json["username"] {
-                        self.setUserInCoreData(username: username as! String);
+                        SignInController.setUserInCoreData(username: username as! String);
                         self.instantiateHomeView();
                     }
                 });
