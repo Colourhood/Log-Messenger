@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 
 class HomeCollectionViewController {
 
@@ -26,37 +25,13 @@ class HomeViewController: UIViewController {
     var recentMessages: [MessageStack] = [];
     var selectedConversation: MessageStack?;
     
-    //computed variable
-    var username: String? {
-        if let name = UserDefaults.standard.string(forKey: "username") {
-            return name;
-        }
-        return nil;
-    }
-    
-    func getRecentMessages(completion: @escaping (NSArray) -> Void) {
-        let request = LOGHTTP().get(url: "/user/messages/\(username!)");
-        
-        request.responseJSON(completionHandler: { (response) in
-            switch (response.result) {
-                case .success(let json):
-                    let jsonArray = json as! NSArray;
-                    completion(jsonArray);
-                    break;
-                case .failure(let error):
-                    print("Error: \(error)");
-                    break;
-            }
-        }).resume();
-    };
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getRecentMessages { (responseData) in
+        HomeController.getRecentMessages { (responseData) in
             print("Data: \(responseData)");
             
             for messagePackets in responseData {
@@ -69,7 +44,7 @@ class HomeViewController: UIViewController {
                 
                 let conversation = MessageStack();
                 
-                switch (self.username!) {
+                switch (HomeController.username!) {
                     case sentBy:
                         conversation.conversationWithFriend = LOGUser.init(handle: sentTo, email: sentTo, firstName: sentTo, lastName: sentTo, picture: UIImage(named: "defaultUserIcon"));
                         conversation.messageStack.append(Message.init(messageSender: conversation.conversationWithFriend, message: message, dateSent: MessageDataExample.date));
@@ -102,24 +77,12 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
-    var currentUserCoreData: [UserCoreData] {
-        var userResults: [UserCoreData]?;
-        let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest();
-        do {
-            userResults = try CoreDataController.getContext().fetch(fetchRequest);
-        } catch {
-        }
-        return userResults!;
-    }
-    
     //Table View Delegate Methods
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.recentMessages.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let friendConversationData = self.recentMessages[indexPath.row];
 //        let friendName = friendConversationData.conversationWithFriend?.getFullName();
         let friendEmail = friendConversationData.conversationWithFriend?.getEmail();
