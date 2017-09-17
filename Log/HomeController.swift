@@ -7,19 +7,8 @@
 //
 
 import Foundation
-import CoreData
 
 class HomeController {
-    //User in CoreData
-    static var currentUserCoreData: [UserCoreData] {
-        var userResults: [UserCoreData]?;
-        let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest();
-        do {
-            userResults = try CoreDataController.getContext().fetch(fetchRequest);
-        } catch {
-        }
-        return userResults!;
-    }
     
     //computed variable
     static var username: String? {

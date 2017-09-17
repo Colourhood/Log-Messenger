@@ -12,15 +12,29 @@ import CoreData
 class CoreDataController {
     
     private init () {
-    
     }
     
     class func getContext() -> NSManagedObjectContext {
-        return (CoreDataController.persistentContainer.viewContext);
+        return (self.persistentContainer.viewContext);
+    }
+    
+    static var currentUserCoreData: [UserCoreData] {
+        var userResults: [UserCoreData]?;
+        let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest();
+        do {
+            userResults = try self.getContext().fetch(fetchRequest);
+        } catch {
+        }
+        return userResults!;
+    }
+    
+    class func setUser(username: String) {
+        let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: CoreDataController.getContext()) as! UserCoreData;
+        userCoreData.email = username;
+        CoreDataController.saveContext();
     }
     
     // MARK: - Core Data Stack
-    
     static var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation

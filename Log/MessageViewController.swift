@@ -108,16 +108,6 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         return messages;
     }
     
-    var currentUserCoreData: [UserCoreData] {
-        var userResults: [UserCoreData]?;
-        let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest();
-        do {
-            userResults = try CoreDataController.getContext().fetch(fetchRequest);
-        } catch {
-        }
-        return userResults!;
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (MessageDataSource != nil) {
             return (MessageDataSource?.messageStack.count)!;
@@ -138,8 +128,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         
         var cell: MessageTableViewCell?;
         
-        for user in currentUserCoreData {
-            
+        for user in CoreDataController.currentUserCoreData {
             let coreDataEmail = user.email;
             
             if (email == coreDataEmail) {

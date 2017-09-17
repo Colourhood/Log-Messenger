@@ -9,7 +9,6 @@
 import UIKit
 
 class HomeCollectionViewController {
-
 }
 
 class HomeTableViewCell: UITableViewCell {

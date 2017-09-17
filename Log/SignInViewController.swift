@@ -81,7 +81,8 @@ class SignInViewController: UIViewController {
                 
                 SignInController.handleLoginSignUpRequest(url: "/user/signup", email: email!, password: password!, completion: { (json) in
                     if let username = json["username"] {
-                        SignInController.setUserInCoreData(username: username as! String);
+                        CoreDataController.setUser(username: username as! String);
+                        LOGUserDefaults.setUser(username: username as! String);
                         self.instantiateHomeView();
                     }
                 });
@@ -90,7 +91,8 @@ class SignInViewController: UIViewController {
                 
                 SignInController.handleLoginSignUpRequest(url: "/user/login", email: email!, password: password!, completion: { (json) in
                     if let username = json["username"] {
-                        SignInController.setUserInCoreData(username: username as! String);
+                        CoreDataController.setUser(username: username as! String);
+                        LOGUserDefaults.setUser(username: username as! String);
                         self.instantiateHomeView();
                     }
                 });

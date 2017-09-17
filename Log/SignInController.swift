@@ -32,14 +32,5 @@ class SignInController {
             }
         }).resume();
     }
-    
-    class func setUserInCoreData(username: String) {
-        let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: CoreDataController.getContext()) as! UserCoreData;
-        userCoreData.email = username;
-        CoreDataController.saveContext();
-        
-        let userDefaults = UserDefaults.standard;
-        userDefaults.set(username, forKey: "username");
-    }
 
 }
