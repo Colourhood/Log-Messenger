@@ -15,6 +15,7 @@
 		542364DD1F6CE1BD00C47CB5 /* SampleUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364DC1F6CE1BD00C47CB5 /* SampleUnitTest.swift */; };
 		542364DF1F6DB82E00C47CB5 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364DE1F6DB82E00C47CB5 /* HomeController.swift */; };
 		542364E11F6DFA2700C47CB5 /* LOGUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364E01F6DFA2700C47CB5 /* LOGUserDefaults.swift */; };
+		542364E31F6E755400C47CB5 /* MessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364E21F6E755400C47CB5 /* MessageController.swift */; };
 		543D24191F51183C00ACDC9D /* MessageStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543D24181F51183C00ACDC9D /* MessageStack.swift */; };
 		544EE7621F4EA01F00CD3380 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544EE7611F4EA01F00CD3380 /* HomeViewController.swift */; };
 		5454F36B1F4A5844002D9AB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454F36A1F4A5844002D9AB5 /* AppDelegate.swift */; };
@@ -76,6 +77,7 @@
 		542364DC1F6CE1BD00C47CB5 /* SampleUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUnitTest.swift; sourceTree = "<group>"; };
 		542364DE1F6DB82E00C47CB5 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		542364E01F6DFA2700C47CB5 /* LOGUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGUserDefaults.swift; sourceTree = "<group>"; };
+		542364E21F6E755400C47CB5 /* MessageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageController.swift; sourceTree = "<group>"; };
 		543D24181F51183C00ACDC9D /* MessageStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageStack.swift; sourceTree = "<group>"; };
 		544EE7611F4EA01F00CD3380 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5454F3671F4A5843002D9AB5 /* Log.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Log.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -202,6 +204,7 @@
 				548A8E1A1F4CFAE400DD56C0 /* CoreDataController.swift */,
 				542364DE1F6DB82E00C47CB5 /* HomeController.swift */,
 				542364E01F6DFA2700C47CB5 /* LOGUserDefaults.swift */,
+				542364E21F6E755400C47CB5 /* MessageController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				548A8E151F4C9A8300DD56C0 /* SignInViewController.swift in Sources */,
 				5454F3851F4B6679002D9AB5 /* MessageDataExample.swift in Sources */,
 				543D24191F51183C00ACDC9D /* MessageStack.swift in Sources */,
+				542364E31F6E755400C47CB5 /* MessageController.swift in Sources */,
 				548A8E1B1F4CFAE400DD56C0 /* CoreDataController.swift in Sources */,
 				5454F36D1F4A5844002D9AB5 /* MessageViewController.swift in Sources */,
 				548A8E131F4C161900DD56C0 /* AppState.xcdatamodeld in Sources */,

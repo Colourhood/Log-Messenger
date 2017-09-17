@@ -10,8 +10,9 @@ import Foundation
 
 class HomeController {
     
-    class func getRecentMessages(username: String?, completion: @escaping (NSArray) -> Void) {
-        let request = LOGHTTP().get(url: "/user/messages/\(username!)");
+    class func getRecentMessages(completion: @escaping (NSArray) -> Void) {
+        let username = LOGUserDefaults.username!
+        let request = LOGHTTP().get(url: "/user/messages/\(username)");
         
         request.responseJSON(completionHandler: { (response) in
             switch (response.result) {
