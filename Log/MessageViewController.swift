@@ -117,7 +117,6 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        let mockLoggedInUserEmail = "andreicrimson@gmail.com";
         let messageData = MessageDataSource?.messageStack[indexPath.row];
 //        let sender = messageData.senderInfo?.handle;
         let email = messageData?.messageSender?.getEmail();

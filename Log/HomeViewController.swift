@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        HomeController.getRecentMessages { (responseData) in
+        HomeController.getRecentMessages(username: LOGUserDefaults.username!) { (responseData) in
             print("Data: \(responseData)");
             
             for messagePackets in responseData {
@@ -43,7 +43,7 @@ class HomeViewController: UIViewController {
                 
                 let conversation = MessageStack();
                 
-                switch (HomeController.username!) {
+                switch (LOGUserDefaults.username!) {
                     case sentBy:
                         conversation.conversationWithFriend = LOGUser.init(handle: sentTo, email: sentTo, firstName: sentTo, lastName: sentTo, picture: UIImage(named: "defaultUserIcon"));
                         conversation.messageStack.append(Message.init(messageSender: conversation.conversationWithFriend, message: message, dateSent: MessageDataExample.date));
