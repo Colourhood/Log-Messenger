@@ -22,7 +22,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var HomeTableView: UITableView!;
     
     var recentMessages: [MessageStack] = [];
-    var selectedConversation: MessageStack?;
+    var selectedConversationWithFriend: LOGUser?;
+    
+    //#MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +32,7 @@ class HomeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        HomeController.getRecentMessages(username: LOGUserDefaults.username!) { (responseData) in
-            print("Data: \(responseData)");
+        HomeController.getRecentMessages() { (responseData) in
             
             for messagePackets in responseData {
                 let conversationArray = messagePackets as! NSArray;
@@ -67,11 +68,12 @@ class HomeViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "HomeToMessageSegue") {
             if let messageViewController = segue.destination as? MessageViewController {
-                messageViewController.friendConversation = self.selectedConversation;
+                let messageStack = MessageStack();
+                messageStack.conversationWithFriend = self.selectedConversationWithFriend;
+                messageViewController.friendConversation = messageStack;
             }
         }
     }
-
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -99,7 +101,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         let friendConversationData = self.recentMessages[indexPath.row];
-        self.selectedConversation = friendConversationData;
+        self.selectedConversationWithFriend = friendConversationData.conversationWithFriend;
         
         return indexPath;
     }

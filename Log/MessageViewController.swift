@@ -24,6 +24,7 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var MessageNavigator: UINavigationItem!
     
     var friendConversation: MessageStack?;
+    
 
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -33,7 +34,31 @@ class MessageViewController: UIViewController {
         MessagesTableView.estimatedRowHeight = 50;
         MessagesTableView.rowHeight = UITableViewAutomaticDimension;
         NewMessageTextField.autocorrectionType = .no;
-        MessageNavigator.title = self.friendConversation?.conversationWithFriend?.getFullName();
+        MessageNavigator.title = self.friendConversation?.conversationWithFriend?.getFirstName()!;
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //Network request to get all(for now) messages between two users
+        let friendname = self.friendConversation?.conversationWithFriend?.getEmail();
+        MessageController.getMessagesForFriend(friendname: friendname!, completionHandler: { (response) in
+            print("Messages between these two friends:\n \(response)");
+            
+            let messages = response["messages"] as! NSArray; //Array of messages for key 'messages'
+            
+            for messagePacket in messages {
+                
+                let messageDict = messagePacket as! NSDictionary;
+                let sentBy = messageDict["sentBy"] as? String;
+                let message = messageDict["message"] as? String;
+                let senderUser = LOGUser.init(handle: sentBy, email: sentBy, firstName: sentBy, lastName: sentBy, picture: UIImage(named: "defaultUserIcon"));
+                
+                let LogMessage = Message.init(messageSender: senderUser, message: message, dateSent: Date.init());
+                
+                self.friendConversation?.messageStack.append(LogMessage);
+                self.MessagesTableView.reloadData();  
+            }
+            
+        });
     }
     
     deinit {
@@ -127,14 +152,12 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         
         var cell: MessageTableViewCell?;
         
-        for user in CoreDataController.currentUserCoreData {
-            let coreDataEmail = user.email;
+        let useremail = LOGUserDefaults.username!;
             
-            if (email == coreDataEmail) {
-                cell = self.MessagesTableView.dequeueReusableCell(withIdentifier: "Message Sender Cell", for: indexPath) as? MessageTableViewCell;
-            } else {
-                cell = self.MessagesTableView.dequeueReusableCell(withIdentifier: "Message Receiver Cell", for: indexPath) as? MessageTableViewCell;
-            }
+        if (email == useremail) {
+            cell = self.MessagesTableView.dequeueReusableCell(withIdentifier: "Message Sender Cell", for: indexPath) as? MessageTableViewCell;
+        } else {
+            cell = self.MessagesTableView.dequeueReusableCell(withIdentifier: "Message Receiver Cell", for: indexPath) as? MessageTableViewCell;
         }
         
         cell?.SenderToReceiverLabel.text = name;
