@@ -71,12 +71,12 @@ class SignInViewController: UIViewController {
     }
     
     fileprivate func checkTextField() {
-        let email = self.emailTextField.text;
-        let password = self.passwordTextField.text;
+        let email = emailTextField.text;
+        let password = passwordTextField.text;
         
         if (!(email?.isEmpty)! && !(password?.isEmpty)!) {
             
-            if (self.loginOrSignupTypeText == "Sign Up") {
+            if (loginOrSignupTypeText == "Sign Up") {
                 print("Trying to use sign up request");
                 
                 SignInController.handleLoginSignUpRequest(url: "/user/signup", email: email!, password: password!, completion: { (json) in
@@ -86,7 +86,7 @@ class SignInViewController: UIViewController {
                         self.instantiateHomeView();
                     }
                 });
-            } else if (self.loginOrSignupTypeText == "Sign In") {
+            } else if (loginOrSignupTypeText == "Sign In") {
                 print("Trying to use login request");
                 
                 SignInController.handleLoginSignUpRequest(url: "/user/login", email: email!, password: password!, completion: { (json) in
@@ -155,12 +155,12 @@ extension SignInViewController: RSKImageCropViewControllerDelegate {
     func imageCropViewController(_ controller: RSKImageCropViewController, willCropImage originalImage: UIImage) {}
     
     func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
-        self.imageButton.setImage(croppedImage, for: .normal);
+        imageButton.setImage(croppedImage, for: .normal);
         self.dismiss(animated: true, completion: nil);
     }
     
     func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
-        self.imageButton.setImage(croppedImage, for: .normal);
+        imageButton.setImage(croppedImage, for: .normal);
         self.dismiss(animated: true, completion: nil);
     }
 }

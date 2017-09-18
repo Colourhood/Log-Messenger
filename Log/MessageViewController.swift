@@ -34,27 +34,26 @@ class MessageViewController: UIViewController {
         MessagesTableView.estimatedRowHeight = 50;
         MessagesTableView.rowHeight = UITableViewAutomaticDimension;
         NewMessageTextField.autocorrectionType = .no;
-        MessageNavigator.title = self.friendConversation?.conversationWithFriend?.getFirstName()!;
+        MessageNavigator.title = friendConversation?.getFriendProfile()?.getFirstName();
     }
     
     override func viewWillAppear(_ animated: Bool) {
         //Network request to get all(for now) messages between two users
-        let friendname = self.friendConversation?.conversationWithFriend?.getEmail();
+        let friendname = friendConversation?.getFriendProfile()?.getEmail();
         MessageController.getMessagesForFriend(friendname: friendname!, completionHandler: { (response) in
             print("Messages between these two friends:\n \(response)");
             
             let messages = response["messages"] as! NSArray; //Array of messages for key 'messages'
             
             for messagePacket in messages {
-                
                 let messageDict = messagePacket as! NSDictionary;
                 let sentBy = messageDict["sentBy"] as? String;
                 let message = messageDict["message"] as? String;
                 let senderUser = LOGUser.init(handle: sentBy, email: sentBy, firstName: sentBy, lastName: sentBy, picture: UIImage(named: "defaultUserIcon"));
                 
-                let LogMessage = Message.init(messageSender: senderUser, message: message, dateSent: Date.init());
+                let messageObj = Message.init(messageSender: senderUser, message: message, dateSent: Date.init());
                 
-                self.friendConversation?.messageStack.append(LogMessage);
+                self.friendConversation?.appendMessageToMessageStack(messageObj: messageObj);
                 self.MessagesTableView.reloadData();  
             }
             
@@ -129,25 +128,27 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     
     //A computed property inside the extension that contains a list of messages as example
     var MessageDataSource: MessageStack? {
-        let messages = self.friendConversation;
+        let messages = friendConversation;
         return messages;
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (MessageDataSource != nil) {
-            return (MessageDataSource?.messageStack.count)!;
+            return (MessageDataSource?.getStackOfMessages().count)!;
         }
         return 0;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let messageData = MessageDataSource?.messageStack[indexPath.row];
-//        let sender = messageData.senderInfo?.handle;
-        let email = messageData?.messageSender?.getEmail();
-        let name = messageData?.messageSender?.getFirstName();
-        let picture = messageData?.messageSender?.getPicture();
-        let messageSent = messageData?.message;
+        let messageData = MessageDataSource?.getStackOfMessages()[indexPath.row];
+        
+        let messageProfile = messageData?.getMessageLOGSender();
+//        let sender = messageProfile?.getHandle();
+        let email = messageProfile?.getEmail();
+        let name = messageProfile?.getFirstName();
+        let picture = messageProfile?.getPicture();
+        let messageSent = messageData?.getMessage();
         
         
         var cell: MessageTableViewCell?;
@@ -155,9 +156,9 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         let useremail = LOGUserDefaults.username!;
             
         if (email == useremail) {
-            cell = self.MessagesTableView.dequeueReusableCell(withIdentifier: "Message Sender Cell", for: indexPath) as? MessageTableViewCell;
+            cell = MessagesTableView.dequeueReusableCell(withIdentifier: "Message Sender Cell", for: indexPath) as? MessageTableViewCell;
         } else {
-            cell = self.MessagesTableView.dequeueReusableCell(withIdentifier: "Message Receiver Cell", for: indexPath) as? MessageTableViewCell;
+            cell = MessagesTableView.dequeueReusableCell(withIdentifier: "Message Receiver Cell", for: indexPath) as? MessageTableViewCell;
         }
         
         cell?.SenderToReceiverLabel.text = name;

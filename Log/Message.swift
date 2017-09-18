@@ -8,11 +8,11 @@
 
 import Foundation
 
-class Message {
+struct Message {
     
-    var messageSender: LOGUser?;
-    var message: String?;
-    var dateSent: Date?;
+    private var messageSender: LOGUser?;
+    private var message: String?;
+    private var dateSent: Date?;
     
     init(messageSender: LOGUser?, message: String?, dateSent: Date?) {
         guard let _ = messageSender else {
@@ -28,7 +28,18 @@ class Message {
         self.messageSender = messageSender;
         self.message = message;
         self.dateSent = dateSent;
-        
+    }
+    
+    func getMessageLOGSender() -> LOGUser? {
+        return self.messageSender;
+    }
+    
+    func getMessage() -> String? {
+        return self.message;
+    }
+    
+    func getDateMessageSent() -> Date? {
+        return self.dateSent;
     }
     
 }

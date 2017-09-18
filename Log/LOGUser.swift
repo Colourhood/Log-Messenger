@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class LOGUser {
+struct LOGUser {
     
     private var handle: String?;
     private var email: String?;
@@ -44,24 +44,24 @@ class LOGUser {
     }
     
     func getHandle() -> String? {
-        return self.handle;
+        return handle;
     }
     
     func getEmail() -> String? {
-        return self.email;
+        return email;
     }
     
     func getFirstName() -> String? {
-        return self.firstName;
+        return firstName;
     }
     
     func getFullName() -> String? {
-        let fullName: String? = "\(String(describing: self.firstName)) \(String(describing: self.lastName))"
+        let fullName: String? = "\(String(describing: firstName)) \(String(describing: lastName))"
         return fullName;
     }
     
     func getPicture() -> UIImage? {
-        return self.picture;
+        return picture;
     }
     
 }
