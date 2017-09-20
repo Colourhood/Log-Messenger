@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5411416B1F72207000CAF4CD /* credentials.json in Resources */ = {isa = PBXBuildFile; fileRef = 5411416A1F72207000CAF4CD /* credentials.json */; };
 		542364CF1F6CE0B700C47CB5 /* LogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364CE1F6CE0B700C47CB5 /* LogTests.swift */; };
 		542364D71F6CE0FC00C47CB5 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364D61F6CE0FC00C47CB5 /* SignInController.swift */; };
 		542364D81F6CE13200C47CB5 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1201F57770700AA548B /* Alamofire.framework */; };
@@ -36,6 +37,11 @@
 		54A27A231F69E1E800DC0ACA /* ImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54A27A211F69E1E800DC0ACA /* ImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54A27A251F6A02BA00DC0ACA /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A27A241F6A02BA00DC0ACA /* RSKImageCropper.framework */; };
 		54A27A261F6A02BA00DC0ACA /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54A27A241F6A02BA00DC0ACA /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54B917841F71E11100D39504 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B917831F71E11000D39504 /* AWSS3.framework */; };
+		54B917851F71E11100D39504 /* AWSS3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54B917831F71E11000D39504 /* AWSS3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54B917871F71E35E00D39504 /* AWSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B917861F71E35E00D39504 /* AWSConfig.swift */; };
+		54B917891F71E5E100D39504 /* AWSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B917881F71E5E100D39504 /* AWSCore.framework */; };
+		54B9178A1F71E5E100D39504 /* AWSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54B917881F71E5E100D39504 /* AWSCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54EEB1211F57770700AA548B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1201F57770700AA548B /* Alamofire.framework */; };
 		54EEB1221F57770700AA548B /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1201F57770700AA548B /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54EEB1251F57770E00AA548B /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1241F57770E00AA548B /* Lottie.framework */; };
@@ -64,6 +70,8 @@
 				54A27A231F69E1E800DC0ACA /* ImagePicker.framework in Embed Frameworks */,
 				54EEB1261F57770E00AA548B /* Lottie.framework in Embed Frameworks */,
 				54A27A261F6A02BA00DC0ACA /* RSKImageCropper.framework in Embed Frameworks */,
+				54B917851F71E11100D39504 /* AWSS3.framework in Embed Frameworks */,
+				54B9178A1F71E5E100D39504 /* AWSCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +79,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5411416A1F72207000CAF4CD /* credentials.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = credentials.json; path = ../../../.aws/credentials.json; sourceTree = "<group>"; };
 		542364CC1F6CE0B700C47CB5 /* LogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		542364CE1F6CE0B700C47CB5 /* LogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTests.swift; sourceTree = "<group>"; };
 		542364D01F6CE0B700C47CB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -100,6 +109,9 @@
 		54A27A211F69E1E800DC0ACA /* ImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImagePicker.framework; path = Carthage/Build/iOS/ImagePicker.framework; sourceTree = "<group>"; };
 		54A27A241F6A02BA00DC0ACA /* RSKImageCropper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RSKImageCropper.framework; path = Carthage/Build/iOS/RSKImageCropper.framework; sourceTree = "<group>"; };
 		54A27A271F6A031700DC0ACA /* Log-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Log-Bridging-Header.h"; sourceTree = "<group>"; };
+		54B917831F71E11000D39504 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSS3.framework; path = Carthage/Build/iOS/AWSS3.framework; sourceTree = "<group>"; };
+		54B917861F71E35E00D39504 /* AWSConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSConfig.swift; sourceTree = "<group>"; };
+		54B917881F71E5E100D39504 /* AWSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCore.framework; path = Carthage/Build/iOS/AWSCore.framework; sourceTree = "<group>"; };
 		54EEB1201F57770700AA548B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		54EEB1241F57770E00AA548B /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
 		54EEB1271F577E2B00AA548B /* LOGHTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGHTTP.swift; sourceTree = "<group>"; };
@@ -124,6 +136,8 @@
 				54A27A221F69E1E800DC0ACA /* ImagePicker.framework in Frameworks */,
 				54EEB1251F57770E00AA548B /* Lottie.framework in Frameworks */,
 				54A27A251F6A02BA00DC0ACA /* RSKImageCropper.framework in Frameworks */,
+				54B917841F71E11100D39504 /* AWSS3.framework in Frameworks */,
+				54B917891F71E5E100D39504 /* AWSCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +172,7 @@
 		5454F35E1F4A5843002D9AB5 = {
 			isa = PBXGroup;
 			children = (
+				5411416A1F72207000CAF4CD /* credentials.json */,
 				5454F3691F4A5843002D9AB5 /* Log */,
 				542364CD1F6CE0B700C47CB5 /* LogTests */,
 				5454F3681F4A5843002D9AB5 /* Products */,
@@ -189,6 +204,7 @@
 				5454F3761F4A5844002D9AB5 /* Info.plist */,
 				5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */,
 				54EEB1271F577E2B00AA548B /* LOGHTTP.swift */,
+				54B917861F71E35E00D39504 /* AWSConfig.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -248,6 +264,8 @@
 		54A27A151F69DC5500DC0ACA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				54B917881F71E5E100D39504 /* AWSCore.framework */,
+				54B917831F71E11000D39504 /* AWSS3.framework */,
 				54A27A241F6A02BA00DC0ACA /* RSKImageCropper.framework */,
 				54A27A211F69E1E800DC0ACA /* ImagePicker.framework */,
 				54EEB1241F57770E00AA548B /* Lottie.framework */,
@@ -350,6 +368,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5411416B1F72207000CAF4CD /* credentials.json in Resources */,
 				5454F3751F4A5844002D9AB5 /* LaunchScreen.storyboard in Resources */,
 				5454F3721F4A5844002D9AB5 /* Assets.xcassets in Resources */,
 				5454F3701F4A5844002D9AB5 /* Main.storyboard in Resources */,
@@ -378,6 +397,7 @@
 				5454F3851F4B6679002D9AB5 /* MessageDataExample.swift in Sources */,
 				543D24191F51183C00ACDC9D /* MessageStack.swift in Sources */,
 				542364E31F6E755400C47CB5 /* MessageController.swift in Sources */,
+				54B917871F71E35E00D39504 /* AWSConfig.swift in Sources */,
 				548A8E1B1F4CFAE400DD56C0 /* CoreDataController.swift in Sources */,
 				5454F36D1F4A5844002D9AB5 /* MessageViewController.swift in Sources */,
 				548A8E131F4C161900DD56C0 /* AppState.xcdatamodeld in Sources */,
@@ -500,7 +520,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -544,7 +564,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -563,6 +583,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Log/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.colourhood.Log;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -583,6 +604,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Log/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.colourhood.Log;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -601,6 +623,7 @@
 				542364D41F6CE0B700C47CB5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5454F3621F4A5843002D9AB5 /* Build configuration list for PBXProject "Log" */ = {
 			isa = XCConfigurationList;
