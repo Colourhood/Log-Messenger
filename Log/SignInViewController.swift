@@ -8,6 +8,7 @@
 
 import UIKit
 import ImagePicker
+import Alamofire
 
 class InitialViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!;
@@ -78,8 +79,12 @@ class SignInViewController: UIViewController {
             
             if (loginOrSignupTypeText == "Sign Up") {
                 print("Trying to use sign up request");
+
+                let userImageString = ConvertImage.convertUIImageToPNG(image: (imageButton.imageView?.image!)!);
                 
-                SignInController.handleLoginSignUpRequest(url: "/user/signup", email: email!, password: password!, completion: { (json) in
+                let parameters: Parameters = ["username": email!, "password": password!];
+                
+                SignInController.handleLoginSignUpRequest(url: "/user/signup", parameters: parameters, completion: { (json) in
                     if let username = json["username"] {
                         CoreDataController.setUser(username: username as! String);
                         LOGUserDefaults.setUser(username: username as! String);
@@ -89,7 +94,9 @@ class SignInViewController: UIViewController {
             } else if (loginOrSignupTypeText == "Sign In") {
                 print("Trying to use login request");
                 
-                SignInController.handleLoginSignUpRequest(url: "/user/login", email: email!, password: password!, completion: { (json) in
+                let parameters: Parameters = ["username": email!, "password": password!];
+                
+                SignInController.handleLoginSignUpRequest(url: "/user/login", parameters: parameters, completion: { (json) in
                     if let username = json["username"] {
                         CoreDataController.setUser(username: username as! String);
                         LOGUserDefaults.setUser(username: username as! String);

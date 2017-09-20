@@ -8,12 +8,13 @@
 
 import Foundation
 import CoreData
+import Alamofire
 
 class SignInController {
         
-    class func handleLoginSignUpRequest(url: String, email: String?, password: String?, completion: @escaping (NSDictionary) -> Void) {
+    class func handleLoginSignUpRequest(url: String, parameters: Parameters, completion: @escaping (NSDictionary) -> Void) {
         
-        let request = LOGHTTP().post(url: url, parameters: ["username": email!, "password": password!]);
+        let request = LOGHTTP().post(url: url, parameters: parameters);
         request.responseJSON(completionHandler: { (response) in
             switch (response.result) {
             case .success(let json):
