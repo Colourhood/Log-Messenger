@@ -78,7 +78,7 @@ extension MessageViewController: UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil);
     }
     
-    func keyboardDidShow(notification: NSNotification) {
+    @objc func keyboardDidShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if (self.view.frame.origin.y == 0) {
                 self.view.frame.origin.y -= keyboardSize.height;
@@ -86,7 +86,7 @@ extension MessageViewController: UITextFieldDelegate {
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if (self.view.frame.origin.y != 0) {
                 self.view.frame.origin.y += keyboardSize.height;
