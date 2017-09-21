@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5411416B1F72207000CAF4CD /* credentials.json in Resources */ = {isa = PBXBuildFile; fileRef = 5411416A1F72207000CAF4CD /* credentials.json */; };
+		541141711F72590C00CAF4CD /* credentials.json in Resources */ = {isa = PBXBuildFile; fileRef = 541141701F72590C00CAF4CD /* credentials.json */; };
 		541141751F725F3A00CAF4CD /* EnumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141741F725F3A00CAF4CD /* EnumType.swift */; };
+		541141771F72638500CAF4CD /* LOGS3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141761F72638500CAF4CD /* LOGS3.swift */; };
+		541141791F72FA9C00CAF4CD /* LOGFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141781F72FA9C00CAF4CD /* LOGFileManager.swift */; };
 		542364CF1F6CE0B700C47CB5 /* LogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364CE1F6CE0B700C47CB5 /* LogTests.swift */; };
 		542364D71F6CE0FC00C47CB5 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364D61F6CE0FC00C47CB5 /* SignInController.swift */; };
 		542364D81F6CE13200C47CB5 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1201F57770700AA548B /* Alamofire.framework */; };
@@ -80,8 +82,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5411416A1F72207000CAF4CD /* credentials.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = credentials.json; path = ../../../.aws/credentials.json; sourceTree = "<group>"; };
+		541141701F72590C00CAF4CD /* credentials.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = credentials.json; path = ../../../../.aws/credentials.json; sourceTree = "<group>"; };
 		541141741F725F3A00CAF4CD /* EnumType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumType.swift; sourceTree = "<group>"; };
+		541141761F72638500CAF4CD /* LOGS3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGS3.swift; sourceTree = "<group>"; };
+		541141781F72FA9C00CAF4CD /* LOGFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGFileManager.swift; sourceTree = "<group>"; };
 		542364CC1F6CE0B700C47CB5 /* LogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		542364CE1F6CE0B700C47CB5 /* LogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTests.swift; sourceTree = "<group>"; };
 		542364D01F6CE0B700C47CB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -146,6 +150,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		541141721F725EE200CAF4CD /* AWS */ = {
+			isa = PBXGroup;
+			children = (
+				541141701F72590C00CAF4CD /* credentials.json */,
+				54B917861F71E35E00D39504 /* AWSConfig.swift */,
+				541141761F72638500CAF4CD /* LOGS3.swift */,
+			);
+			name = AWS;
+			sourceTree = "<group>";
+		};
 		541141731F725F2200CAF4CD /* Enums */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +188,8 @@
 		542364E71F70546B00C47CB5 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				54EEB1271F577E2B00AA548B /* LOGHTTP.swift */,
+				541141781F72FA9C00CAF4CD /* LOGFileManager.swift */,
 				542364E81F70549F00C47CB5 /* ConvertImage.swift */,
 			);
 			name = Helper;
@@ -182,7 +198,6 @@
 		5454F35E1F4A5843002D9AB5 = {
 			isa = PBXGroup;
 			children = (
-				5411416A1F72207000CAF4CD /* credentials.json */,
 				5454F3691F4A5843002D9AB5 /* Log */,
 				542364CD1F6CE0B700C47CB5 /* LogTests */,
 				5454F3681F4A5843002D9AB5 /* Products */,
@@ -203,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				541141731F725F2200CAF4CD /* Enums */,
+				541141721F725EE200CAF4CD /* AWS */,
 				542364E71F70546B00C47CB5 /* Helper */,
 				542364E41F70534B00C47CB5 /* Protocol */,
 				548A8E101F4C156300DD56C0 /* CoreData */,
@@ -214,8 +230,6 @@
 				5454F3711F4A5844002D9AB5 /* Assets.xcassets */,
 				5454F3761F4A5844002D9AB5 /* Info.plist */,
 				5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */,
-				54EEB1271F577E2B00AA548B /* LOGHTTP.swift */,
-				54B917861F71E35E00D39504 /* AWSConfig.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -379,7 +393,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5411416B1F72207000CAF4CD /* credentials.json in Resources */,
+				541141711F72590C00CAF4CD /* credentials.json in Resources */,
 				5454F3751F4A5844002D9AB5 /* LaunchScreen.storyboard in Resources */,
 				5454F3721F4A5844002D9AB5 /* Assets.xcassets in Resources */,
 				5454F3701F4A5844002D9AB5 /* Main.storyboard in Resources */,
@@ -410,6 +424,7 @@
 				542364E31F6E755400C47CB5 /* MessageController.swift in Sources */,
 				54B917871F71E35E00D39504 /* AWSConfig.swift in Sources */,
 				548A8E1B1F4CFAE400DD56C0 /* CoreDataController.swift in Sources */,
+				541141791F72FA9C00CAF4CD /* LOGFileManager.swift in Sources */,
 				5454F36D1F4A5844002D9AB5 /* MessageViewController.swift in Sources */,
 				548A8E131F4C161900DD56C0 /* AppState.xcdatamodeld in Sources */,
 				54A05D7A1F4D74C4005B091F /* User+CoreDataClass.swift in Sources */,
@@ -417,6 +432,7 @@
 				542364E11F6DFA2700C47CB5 /* LOGUserDefaults.swift in Sources */,
 				5454F3831F4ABB4D002D9AB5 /* Message.swift in Sources */,
 				544EE7621F4EA01F00CD3380 /* HomeViewController.swift in Sources */,
+				541141771F72638500CAF4CD /* LOGS3.swift in Sources */,
 				5454F36B1F4A5844002D9AB5 /* AppDelegate.swift in Sources */,
 				54A05D7B1F4D74C4005B091F /* User+CoreDataProperties.swift in Sources */,
 				5454F3811F4A5F7C002D9AB5 /* LOGUser.swift in Sources */,

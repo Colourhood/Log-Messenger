@@ -10,8 +10,7 @@ import Foundation
 import Alamofire
 
 private let apiURL: String = "http://localhost:7555/api";
-
-let httpHeaders: HTTPHeaders = [ "Accept": "application/json" ];
+private let httpHeaders: HTTPHeaders = [ "Accept": "application/json" ];
 
 struct LOGHTTP {
     

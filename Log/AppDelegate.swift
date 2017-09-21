@@ -16,6 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        //Creation of necessary directories for the app - created under Documents
+        LOGFileManager.createDirectoriesInDocuments();
+        
+        //Initial Configuration for AWS
+        AWSConfig.setAWS();
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil);
         
         let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest();
