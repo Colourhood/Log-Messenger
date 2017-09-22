@@ -26,25 +26,18 @@ class LogTests: XCTestCase {
         self.password = nil;
     }
     
-    func testLogInEndpoint() {
-        let expect = expectation(description: "Login in succeeded");
-        
-        SignInController.handleLoginSignUpRequest(url: "/user/login", email: self.username, password: self.username) { (json) in
-            if let userkey = json["username"] as? String {
-                if (userkey == self.username) {
-                    expect.fulfill();
-                }
-            }
-        }
-        
-        waitForExpectations(timeout: 5) { (error) in
-            print("Error: Test timed out");
-        };
-    }
-    
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let promise = expectation(description: "These are equal to each other");
+        
+        let number = 1;
+        
+        if (number == 1) {
+            promise.fulfill();
+        }
+        
+        waitForExpectations(timeout: 4, handler: nil);
     }
     
     func testPerformanceExample() {
