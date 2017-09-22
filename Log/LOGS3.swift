@@ -35,4 +35,25 @@ struct LOGS3 {
         return (transferManager.upload(uploadRequest));
     }
     
+    static func downloadFromS3(key: String?, fileURLPath: URL, completionHandler: @escaping (Any?) -> Void) {
+        let downloadRequest = AWSS3TransferManagerDownloadRequest();
+            downloadRequest?.bucket = S3Bucket;
+            downloadRequest?.key = key;
+            downloadRequest?.downloadingFileURL = fileURLPath;
+        
+        startDownloadRequest(downloadRequest: downloadRequest!).continueWith(executor: AWSExecutor.mainThread()) { (task) -> Void in
+            if let error = task.error {
+                print("There was an error with download task \(error)");
+            }
+            if let result = task.result {
+                completionHandler(result);
+            }
+            completionHandler(nil);
+        }
+    }
+    
+    private static func startDownloadRequest(downloadRequest: AWSS3TransferManagerDownloadRequest) -> AWSTask<AnyObject> {
+        return (transferManager.download(downloadRequest));
+    }
+    
 }
