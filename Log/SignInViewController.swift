@@ -79,9 +79,10 @@ class SignInViewController: UIViewController {
             
             if (loginOrSignupTypeText == "Sign Up") {
                 let userImageData = ConvertImage.convertUIImageToPNG(image: (imageButton.imageView?.image!)!);
-                LOGFileManager.createFile(file: userImageData,
-                                          fileName: EnumType.imgf.profilePicture.rawValue,
-                                          directory: EnumType.dir.Images.rawValue);
+                LOGFileManager.createFileInDocuments(file: userImageData,
+                                                     fileName: EnumType.imgf.profilePicture.rawValue,
+                                                     directory: EnumType.dir.Images.rawValue);
+                
                 print("Trying to use sign up request");
                 
                 let parameters: Parameters = ["username": email!, "password": password!];
@@ -90,8 +91,9 @@ class SignInViewController: UIViewController {
                     if let username = json["username"] {
                         
                         let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: EnumType.imgf.profilePicture.rawValue, directory: EnumType.dir.Images.rawValue);
+                        let key = "\(EnumType.imgf.profilePicture.rawValue):\(username)";
                         
-                        LOGS3.uploadToS3(key: "\(EnumType.imgf.profilePicture.rawValue):\(username)", fileURL: profileImageURL, completionHandler: { (result) in
+                        LOGS3.uploadToS3(key: key, fileURL: profileImageURL, completionHandler: { (result) in
                             if (result != nil) {
                                 CoreDataController.setUser(username: username as! String);
                                 LOGUserDefaults.setUser(username: username as! String);
@@ -107,9 +109,17 @@ class SignInViewController: UIViewController {
                 
                 SignInController.handleLoginSignUpRequest(url: "/user/login", parameters: parameters, completion: { (json) in
                     if let username = json["username"] {
-                        CoreDataController.setUser(username: username as! String);
-                        LOGUserDefaults.setUser(username: username as! String);
-                        self.instantiateHomeView();
+                        
+                        let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: EnumType.imgf.profilePicture.rawValue, directory: EnumType.dir.Images.rawValue);
+                        let key = "\(EnumType.imgf.profilePicture.rawValue):\(username)";
+                        
+                        LOGS3.downloadFromS3(key: key, fileURLPath: profileImageURL, completionHandler: { (result) in
+                            if (result != nil) {
+                                CoreDataController.setUser(username: username as! String);
+                                LOGUserDefaults.setUser(username: username as! String);
+                                self.instantiateHomeView();
+                            }
+                        });
                     }
                 });
             }
