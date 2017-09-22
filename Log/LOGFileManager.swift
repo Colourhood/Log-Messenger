@@ -32,9 +32,9 @@ struct LOGFileManager {
     }
     
     //# Mark - Creating Files
-    static func createFile(file: Data?, fileName: String, directory: String) {
+    static func createFileInDocuments(file: Data?, fileName: String, directory: String) {
         let storedFilePath = "\(directory)/\(fileName)";
-        let targetDirectoryPath = documentsDirectoryPath.appendingPathComponent(storedFilePath, isDirectory: false);
+        let targetDirectoryPath = documentsDirectoryPath.appendingPathComponent(storedFilePath);
         do {
             if let _ = file {
                 try file?.write(to: targetDirectoryPath);
@@ -44,10 +44,9 @@ struct LOGFileManager {
         }
     }
     
-    
     //# Mark - Fetching Files
     static func getAllFilesAtDirectory(directory: String?) -> [String]? {
-        let targetDirectoryPath = documentsDirectoryPath.appendingPathComponent(directory!, isDirectory: false).path;
+        let targetDirectoryPath = documentsDirectoryPath.appendingPathComponent(directory!).path;
         
         do {
             let contents = try fileManager.contentsOfDirectory(atPath: targetDirectoryPath);
@@ -59,7 +58,7 @@ struct LOGFileManager {
     }
     
     static func getFileInDocuments(filename: String) -> Data? {
-        let targetDirectoryPath = documentsDirectoryPath.appendingPathComponent(filename, isDirectory: false).path;
+        let targetDirectoryPath = documentsDirectoryPath.appendingPathComponent(filename).path;
         return (fileManager.contents(atPath: targetDirectoryPath));
     }
     
@@ -67,14 +66,15 @@ struct LOGFileManager {
         return (fileManager.contents(atPath: filepath));
     }
     
-    static func getFileURLInDocuments(filename: String) -> URL {
-        let urlPath = documentsDirectoryPath.appendingPathComponent(filename, isDirectory: false);
+    //# Mark - Get URL Paths
+    static func getFileURLInDocumentsForDirectory(filename: String, directory: String) -> URL {
+        let storedFilePath = "\(directory)/\(filename)";
+        let urlPath = documentsDirectoryPath.appendingPathComponent(storedFilePath);
         return urlPath;
     }
     
-    static func getFileURLInDocumentsForDirectory(filename: String, directory: String) -> URL {
-        let storedFilePath = "\(directory)/\(filename)";
-        let urlPath = documentsDirectoryPath.appendingPathComponent(storedFilePath, isDirectory: false);
+    static func getFileURLInDocuments(filename: String) -> URL {
+        let urlPath = documentsDirectoryPath.appendingPathComponent(filename);
         return urlPath;
     }
     
