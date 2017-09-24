@@ -10,7 +10,7 @@ import Foundation
 
 struct ConvertImage {
 
-    static func convertUIImageToPNG(image: UIImage) -> Data? {
+    static func convertUIImageToPNGData(image: UIImage) -> Data? {
         if let imageData = UIImagePNGRepresentation(image) {
             return imageData;
         }

@@ -71,57 +71,58 @@ class SignInViewController: UIViewController {
         appDelegate.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController");
     }
     
+    private func handleLogin(parameters: Parameters) {
+        SignInController.handleLoginSignUpRequest(url: "/user/login", parameters: parameters, completion: { (json) in
+            if let username = json["username"] {
+                
+                let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: EnumType.imgf.profilePicture.rawValue, directory: EnumType.dir.Images.rawValue);
+                let key = "\(EnumType.imgf.profilePicture.rawValue):\(username)";
+                
+                LOGS3.downloadFromS3(key: key, fileURLPath: profileImageURL, completionHandler: { (result) in
+                    if (result != nil) {
+                        CoreDataController.setUser(username: username as! String);
+                        LOGUserDefaults.setUser(username: username as! String);
+                        self.instantiateHomeView();
+                    }
+                });
+            }
+        });
+    }
+    
+    private func handleSignUp(parameters: Parameters) {
+        let userImageData = ConvertImage.convertUIImageToPNGData(image: (imageButton.imageView?.image!)!);
+        LOGFileManager.createFileInDocuments(file: userImageData,
+                                             fileName: EnumType.imgf.profilePicture.rawValue,
+                                             directory: EnumType.dir.Images.rawValue);
+        
+        SignInController.handleLoginSignUpRequest(url: "/user/signup", parameters: parameters, completion: { (json) in
+            if let username = json["username"] {
+                
+                let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: EnumType.imgf.profilePicture.rawValue, directory: EnumType.dir.Images.rawValue);
+                let key = "\(EnumType.imgf.profilePicture.rawValue):\(username)";
+                
+                LOGS3.uploadToS3(key: key, fileURL: profileImageURL, completionHandler: { (result) in
+                    if (result != nil) {
+                        CoreDataController.setUser(username: username as! String);
+                        LOGUserDefaults.setUser(username: username as! String);
+                        self.instantiateHomeView();
+                    }
+                });
+            }
+        });
+    }
+    
     fileprivate func checkTextField() {
         let email = emailTextField.text;
         let password = passwordTextField.text;
         
         if (!(email?.isEmpty)! && !(password?.isEmpty)!) {
+            let parameters: Parameters = ["username": email!, "password": password!];
             
             if (loginOrSignupTypeText == "Sign Up") {
-                let userImageData = ConvertImage.convertUIImageToPNG(image: (imageButton.imageView?.image!)!);
-                LOGFileManager.createFileInDocuments(file: userImageData,
-                                                     fileName: EnumType.imgf.profilePicture.rawValue,
-                                                     directory: EnumType.dir.Images.rawValue);
-                
-                print("Trying to use sign up request");
-                
-                let parameters: Parameters = ["username": email!, "password": password!];
-                
-                SignInController.handleLoginSignUpRequest(url: "/user/signup", parameters: parameters, completion: { (json) in
-                    if let username = json["username"] {
-                        
-                        let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: EnumType.imgf.profilePicture.rawValue, directory: EnumType.dir.Images.rawValue);
-                        let key = "\(EnumType.imgf.profilePicture.rawValue):\(username)";
-                        
-                        LOGS3.uploadToS3(key: key, fileURL: profileImageURL, completionHandler: { (result) in
-                            if (result != nil) {
-                                CoreDataController.setUser(username: username as! String);
-                                LOGUserDefaults.setUser(username: username as! String);
-                                self.instantiateHomeView();
-                            }
-                        });
-                    }
-                });
+                handleSignUp(parameters: parameters);
             } else if (loginOrSignupTypeText == "Sign In") {
-                print("Trying to use login request");
-                
-                let parameters: Parameters = ["username": email!, "password": password!];
-                
-                SignInController.handleLoginSignUpRequest(url: "/user/login", parameters: parameters, completion: { (json) in
-                    if let username = json["username"] {
-                        
-                        let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: EnumType.imgf.profilePicture.rawValue, directory: EnumType.dir.Images.rawValue);
-                        let key = "\(EnumType.imgf.profilePicture.rawValue):\(username)";
-                        
-                        LOGS3.downloadFromS3(key: key, fileURLPath: profileImageURL, completionHandler: { (result) in
-                            if (result != nil) {
-                                CoreDataController.setUser(username: username as! String);
-                                LOGUserDefaults.setUser(username: username as! String);
-                                self.instantiateHomeView();
-                            }
-                        });
-                    }
-                });
+                handleLogin(parameters: parameters);
             }
         }
     }

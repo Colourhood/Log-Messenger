@@ -153,8 +153,8 @@
 		541141721F725EE200CAF4CD /* AWS */ = {
 			isa = PBXGroup;
 			children = (
-				541141701F72590C00CAF4CD /* credentials.json */,
 				54B917861F71E35E00D39504 /* AWSConfig.swift */,
+				541141701F72590C00CAF4CD /* credentials.json */,
 				541141761F72638500CAF4CD /* LOGS3.swift */,
 			);
 			name = AWS;
@@ -188,7 +188,6 @@
 		542364E71F70546B00C47CB5 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				54EEB1271F577E2B00AA548B /* LOGHTTP.swift */,
 				541141781F72FA9C00CAF4CD /* LOGFileManager.swift */,
 				542364E81F70549F00C47CB5 /* ConvertImage.swift */,
 			);
@@ -217,19 +216,20 @@
 		5454F3691F4A5843002D9AB5 /* Log */ = {
 			isa = PBXGroup;
 			children = (
-				541141731F725F2200CAF4CD /* Enums */,
-				541141721F725EE200CAF4CD /* AWS */,
-				542364E71F70546B00C47CB5 /* Helper */,
-				542364E41F70534B00C47CB5 /* Protocol */,
-				548A8E101F4C156300DD56C0 /* CoreData */,
-				5454F37C1F4A589F002D9AB5 /* Model */,
-				5454F37D1F4A58A5002D9AB5 /* View */,
-				5454F37E1F4A58B7002D9AB5 /* Controller */,
-				5454F37F1F4A590D002D9AB5 /* Storyboard */,
-				5454F36A1F4A5844002D9AB5 /* AppDelegate.swift */,
-				5454F3711F4A5844002D9AB5 /* Assets.xcassets */,
 				5454F3761F4A5844002D9AB5 /* Info.plist */,
+				5454F36A1F4A5844002D9AB5 /* AppDelegate.swift */,
 				5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */,
+				5454F3711F4A5844002D9AB5 /* Assets.xcassets */,
+				541141721F725EE200CAF4CD /* AWS */,
+				5454F37E1F4A58B7002D9AB5 /* Controller */,
+				548A8E101F4C156300DD56C0 /* CoreData */,
+				541141731F725F2200CAF4CD /* Enums */,
+				542364E71F70546B00C47CB5 /* Helper */,
+				54EA72781F7789D9005D8F5F /* HTTP */,
+				5454F37C1F4A589F002D9AB5 /* Model */,
+				542364E41F70534B00C47CB5 /* Protocol */,
+				5454F37F1F4A590D002D9AB5 /* Storyboard */,
+				5454F37D1F4A58A5002D9AB5 /* View */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -260,11 +260,11 @@
 		5454F37E1F4A58B7002D9AB5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				542364D61F6CE0FC00C47CB5 /* SignInController.swift */,
 				548A8E1A1F4CFAE400DD56C0 /* CoreDataController.swift */,
 				542364DE1F6DB82E00C47CB5 /* HomeController.swift */,
 				542364E01F6DFA2700C47CB5 /* LOGUserDefaults.swift */,
 				542364E21F6E755400C47CB5 /* MessageController.swift */,
+				542364D61F6CE0FC00C47CB5 /* SignInController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -297,6 +297,14 @@
 				54EEB1201F57770700AA548B /* Alamofire.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		54EA72781F7789D9005D8F5F /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				54EEB1271F577E2B00AA548B /* LOGHTTP.swift */,
+			);
+			path = HTTP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

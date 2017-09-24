@@ -13,23 +13,16 @@ import Alamofire
 class SignInController {
         
     class func handleLoginSignUpRequest(url: String, parameters: Parameters, completion: @escaping (NSDictionary) -> Void) {
-        
         let request = LOGHTTP().post(url: url, parameters: parameters);
         request.responseJSON(completionHandler: { (response) in
             switch (response.result) {
-            case .success(let json):
-                let jsonDict = json as! NSDictionary;
-                if let statusCode = response.response?.statusCode {
-                    if (statusCode == 200) {
-                        completion(jsonDict);
-                    }
-                } else {
-                    print("Status code error: \(json)");
-                }
-                break;
-            case .failure(let error):
-                print("Error: \(error)");
-                break;
+                case .success(let json):
+                    let jsonDict = json as! NSDictionary;
+                    completion(jsonDict);
+                    break;
+                case .failure(let error):
+                    print("Error: \(error)");
+                    break;
             }
         }).resume();
     }
