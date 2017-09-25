@@ -34,6 +34,12 @@ class CoreDataController {
         CoreDataController.saveContext();
     }
     
+    class func setImage(image: Data) {
+        let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: CoreDataController.getContext()) as! UserCoreData;
+        userCoreData.image = image;
+        CoreDataController.saveContext();
+    }
+    
     // MARK: - Core Data Stack
     static var persistentContainer: NSPersistentContainer = {
         /*
