@@ -73,19 +73,28 @@ class SignInViewController: UIViewController {
     
     private func handleLogin(parameters: Parameters) {
         SignInController.handleLoginSignUpRequest(url: "/user/login", parameters: parameters, completion: { (json) in
-            if let username = json["username"] {
+            
+            let username = json["username"];
+            let image = json["image"];
+            let error = json["error"];
+            
+            if ((username != nil) && (image != nil)) {
+                let imageDict = image as! NSDictionary;
+                let imageData = NSKeyedArchiver.archivedData(withRootObject: imageDict["data"] as! NSArray);
                 
-                let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: EnumType.imgf.profilePicture.rawValue, directory: EnumType.dir.Images.rawValue);
-                let key = "\(EnumType.imgf.profilePicture.rawValue):\(username)";
-                
-                LOGS3.downloadFromS3(key: key, fileURLPath: profileImageURL, completionHandler: { (result) in
-                    if (result != nil) {
-                        CoreDataController.setUser(username: username as! String);
-                        LOGUserDefaults.setUser(username: username as! String);
-                        self.instantiateHomeView();
-                    }
-                });
+                CoreDataController.setUser(username: username as! String);
+                CoreDataController.setImage(image: imageData);
+                LOGUserDefaults.setUser(username: username as! String);
+                self.instantiateHomeView();
+            } else if ((username != nil) && (error != nil)) {
+                CoreDataController.setUser(username: username as! String);
+                LOGUserDefaults.setUser(username: username as! String);
+                self.instantiateHomeView();
+            } else {
+                //Error occurred
+                print("Error: \(error!)");
             }
+            
         });
     }
     
