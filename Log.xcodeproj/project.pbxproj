@@ -237,8 +237,6 @@
 		5454F37C1F4A589F002D9AB5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				54A05D781F4D74C4005B091F /* User+CoreDataClass.swift */,
-				54A05D791F4D74C4005B091F /* User+CoreDataProperties.swift */,
 				5454F3801F4A5F7C002D9AB5 /* LOGUser.swift */,
 				5454F3821F4ABB4D002D9AB5 /* Message.swift */,
 				543D24181F51183C00ACDC9D /* MessageStack.swift */,
@@ -260,7 +258,6 @@
 		5454F37E1F4A58B7002D9AB5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				548A8E1A1F4CFAE400DD56C0 /* CoreDataController.swift */,
 				542364DE1F6DB82E00C47CB5 /* HomeController.swift */,
 				542364E01F6DFA2700C47CB5 /* LOGUserDefaults.swift */,
 				542364E21F6E755400C47CB5 /* MessageController.swift */,
@@ -282,6 +279,9 @@
 			isa = PBXGroup;
 			children = (
 				548A8E111F4C161900DD56C0 /* AppState.xcdatamodeld */,
+				548A8E1A1F4CFAE400DD56C0 /* CoreDataController.swift */,
+				54A05D781F4D74C4005B091F /* User+CoreDataClass.swift */,
+				54A05D791F4D74C4005B091F /* User+CoreDataProperties.swift */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
