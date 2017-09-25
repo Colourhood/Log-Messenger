@@ -218,7 +218,6 @@
 			children = (
 				5454F3761F4A5844002D9AB5 /* Info.plist */,
 				5454F36A1F4A5844002D9AB5 /* AppDelegate.swift */,
-				5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */,
 				5454F3711F4A5844002D9AB5 /* Assets.xcassets */,
 				541141721F725EE200CAF4CD /* AWS */,
 				5454F37E1F4A58B7002D9AB5 /* Controller */,
@@ -229,6 +228,7 @@
 				5454F37C1F4A589F002D9AB5 /* Model */,
 				542364E41F70534B00C47CB5 /* Protocol */,
 				5454F37F1F4A590D002D9AB5 /* Storyboard */,
+				5463A6661F79079F00F23156 /* UserDefaults */,
 				5454F37D1F4A58A5002D9AB5 /* View */,
 			);
 			path = Log;
@@ -273,6 +273,14 @@
 				5454F3731F4A5844002D9AB5 /* LaunchScreen.storyboard */,
 			);
 			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		5463A6661F79079F00F23156 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */,
+			);
+			name = UserDefaults;
 			sourceTree = "<group>";
 		};
 		548A8E101F4C156300DD56C0 /* CoreData */ = {
