@@ -99,16 +99,19 @@ class SignInViewController: UIViewController {
     }
     
     private func handleSignUp(parameters: Parameters) {
+        
+        let filename = EnumType.imgf.profilePicture.rawValue;
+        let ext = EnumType.ext.PNG.rawValue;
+        let directory = EnumType.dir.Images.rawValue;
+
         let userImageData = ConvertImage.convertUIImageToPNGData(image: (imageButton.imageView?.image!)!);
-        LOGFileManager.createFileInDocuments(file: userImageData,
-                                             fileName: EnumType.imgf.profilePicture.rawValue,
-                                             directory: EnumType.dir.Images.rawValue);
+        LOGFileManager.createFileInDocuments(file: userImageData, fileName: filename, directory: directory);
         
         SignInController.handleLoginSignUpRequest(url: "/user/signup", parameters: parameters, completion: { (json) in
             if let username = json["username"] {
                 
-                let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: EnumType.imgf.profilePicture.rawValue, directory: EnumType.dir.Images.rawValue);
-                let key = "\(EnumType.imgf.profilePicture.rawValue):\(username).\(EnumType.img.PNG.rawValue)";
+                let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: filename, directory: directory);
+                let key = "\(filename):\(username).\(ext)";
                 
                 LOGS3.uploadToS3(key: key, fileURL: profileImageURL, contentType: EnumType.mime.PNG.rawValue, completionHandler: { (result) in
                     if (result != nil) {
