@@ -22,7 +22,7 @@ struct LOGHTTP {
         return Alamofire.request(apiURL+url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: httpHeaders);
     }
     
-    static func put(url: String, parameters: Parameters) -> Alamofire.DataRequest {
+    static func put(url: String) -> Alamofire.DataRequest {
         return Alamofire.request(apiURL+url, method: .put, encoding: URLEncoding.default, headers: httpHeaders);
     }
 }
