@@ -14,11 +14,12 @@ struct LOGS3 {
     private static let S3Bucket = AWSConfig.AWSConfig["bucket"] as! String
     private static let transferManager = AWSS3TransferManager.default();
     
-    static func uploadToS3(key: String?, fileURL: URL, completionHandler: @escaping (Any?) -> Void) {
+    static func uploadToS3(key: String, fileURL: URL, contentType: String, completionHandler: @escaping (Any?) -> Void) {
         let uploadRequest = AWSS3TransferManagerUploadRequest();
             uploadRequest?.bucket = S3Bucket;
             uploadRequest?.key = key;
             uploadRequest?.body = fileURL;
+            uploadRequest?.contentType = contentType;
         
         startUploadRequest(uploadRequest: uploadRequest!).continueWith(executor: AWSExecutor.mainThread()) { (task) -> Void in
             if let error = task.error {

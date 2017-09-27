@@ -108,9 +108,9 @@ class SignInViewController: UIViewController {
             if let username = json["username"] {
                 
                 let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: EnumType.imgf.profilePicture.rawValue, directory: EnumType.dir.Images.rawValue);
-                let key = "\(EnumType.imgf.profilePicture.rawValue):\(username)";
+                let key = "\(EnumType.imgf.profilePicture.rawValue):\(username).\(EnumType.img.PNG.rawValue)";
                 
-                LOGS3.uploadToS3(key: key, fileURL: profileImageURL, completionHandler: { (result) in
+                LOGS3.uploadToS3(key: key, fileURL: profileImageURL, contentType: EnumType.mime.PNG.rawValue, completionHandler: { (result) in
                     if (result != nil) {
                         CoreDataController.setUser(username: username as! String);
                         LOGUserDefaults.setUser(username: username as! String);
