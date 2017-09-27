@@ -27,6 +27,9 @@ struct MessageController {
             }
         });
     }
+    
+    static func sendNewMessage(parameters: Parameters, completionHandler: @escaping (NSDictionary) -> Void) {
+        let request = LOGHTTP.post(url: "/url/messages", parameters: parameters);
         
         request.responseJSON(completionHandler: { (response) in
             switch(response.result) {
