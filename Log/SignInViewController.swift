@@ -79,12 +79,10 @@ class SignInViewController: UIViewController {
             let error = json["error"];
             
             if ((username != nil) && (image != nil)) {
-                let imageDict = image as! NSDictionary;
-                let imageData = NSKeyedArchiver.archivedData(withRootObject: imageDict["data"] as! NSArray);
+                let response = image as! String;
+                let imageData = NSData(base64Encoded: response, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0)));
                 
-                print("Contents of image data \(imageDict)");
-                
-                CoreDataController.setUser(username: username as! String, image: imageData as NSData);
+                CoreDataController.setUser(username: username as! String, image: imageData);
                 LOGUserDefaults.setUser(username: username as! String);
                 self.instantiateHomeView();
             } else if ((username != nil) && (error != nil)) {
