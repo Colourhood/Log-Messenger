@@ -62,6 +62,12 @@ struct LOGFileManager {
         return (fileManager.contents(atPath: targetDirectoryPath));
     }
     
+    static func getFileInDocuments(filename: String, directory: String) -> Data? {
+        let storedFilePath = "\(directory)/\(filename)";
+        let targetDirectoryPath = documentsDirectoryPath.appendingPathComponent(storedFilePath).path;
+        return (fileManager.contents(atPath: targetDirectoryPath));
+    }
+    
     static func getFile(filepath: String) -> Data? {
         return (fileManager.contents(atPath: filepath));
     }
