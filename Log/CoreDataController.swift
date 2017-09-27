@@ -28,6 +28,8 @@ class CoreDataController {
         return userResults!;
     }
     
+    // # Mark - Setters
+    
     class func setUser(username: String) {
         let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: CoreDataController.getContext()) as! UserCoreData;
         userCoreData.email = username;
@@ -38,6 +40,27 @@ class CoreDataController {
         let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: CoreDataController.getContext()) as! UserCoreData;
         userCoreData.image = image;
         CoreDataController.saveContext();
+    }
+    
+    // #Mark - Getter
+    
+    class func getUserProfile() -> UserCoreData? {
+        let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest();
+        fetchRequest.fetchLimit = 1; //Fetch only one object - Current User
+        
+        do {
+            let searchResults = try CoreDataController.getContext().fetch(fetchRequest);
+            
+            if (searchResults.count > 0) {
+                let result = searchResults[0];
+                return(result);
+            } else {
+                return(nil);
+            }
+        } catch {
+            //Process error
+        }
+        return nil;
     }
     
     // MARK: - Core Data Stack

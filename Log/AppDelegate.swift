@@ -25,26 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil);
         
-        let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest();
-        
-        do {
-            let searchResults = try CoreDataController.getContext().fetch(fetchRequest);
-            
-            if (searchResults.count > 0) {
-                for result in searchResults as [UserCoreData] {
-                    if ((result.email != nil) || (result.firstName != nil) || (result.lastName != nil) || (result.handle != nil)) {
-//                        self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MessageViewController");
-                        self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController");
+        let result = CoreDataController.getUserProfile();
+        if ((result?.email != nil) || (result?.firstName != nil) || (result?.lastName != nil) || (result?.handle != nil)) {
+//      self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MessageViewController");
+            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController");
 
-                    } else {
-                        self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController");
-                    }
-                }
-            } else {
-                self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController");
-            }
-        } catch {
-            //PROCESS ERROR
+        } else {
+            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController");
         }
         
         return true
