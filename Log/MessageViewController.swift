@@ -24,7 +24,6 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var MessageNavigator: UINavigationItem!
     
     var friendConversation: MessageStack?;
-    
 
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -38,8 +37,14 @@ class MessageViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        let result = CoreDataController.getUserProfile();
         //Network request to get all(for now) messages between two users
-        let friendname = friendConversation?.getFriendProfile()?.getEmail();
+        let friendProfile = friendConversation?.getFriendProfile();
+        let friendname = friendProfile!.getEmail();
+        
+        let userProfile = LOGUser.init(handle: result?.email, email: result?.email, firstName: result?.email, lastName: result?.email, picture: UIImage.init(data: (result?.image)! as Data));
+        let username = userProfile.getEmail();
+        
         MessageController.getMessagesForFriend(friendname: friendname!, completionHandler: { (response) in
             print("Messages between these two friends:\n \(response)");
             
@@ -49,10 +54,17 @@ class MessageViewController: UIViewController {
                 let messageDict = messagePacket as! NSDictionary;
                 let sentBy = messageDict["sentBy"] as? String;
                 let message = messageDict["message"] as? String;
-                let senderUser = LOGUser.init(handle: sentBy, email: sentBy, firstName: sentBy, lastName: sentBy, picture: UIImage(named: "defaultUserIcon"));
+                var senderUser: LOGUser?;
                 
+                if (sentBy == friendname) {
+                    senderUser = friendProfile;
+                } else if (sentBy == username) {
+                    senderUser = userProfile;
+                }
+                
+
                 let messageObj = Message.init(messageSender: senderUser, message: message, dateSent: Date.init());
-                
+
                 self.friendConversation?.appendMessageToMessageStack(messageObj: messageObj);
                 self.MessagesTableView.reloadData();  
             }
