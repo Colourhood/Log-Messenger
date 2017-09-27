@@ -21,39 +21,35 @@ class CoreDataController {
     static var currentUserCoreData: [UserCoreData] {
         var userResults: [UserCoreData]?;
         let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest();
+        fetchRequest.fetchLimit = 1;
+        fetchRequest.returnsObjectsAsFaults = false;
+        
         do {
             userResults = try self.getContext().fetch(fetchRequest);
         } catch {
+            // Process Error
         }
         return userResults!;
     }
     
     // # Mark - Setters
-    
-    class func setUser(username: String) {
-        let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: CoreDataController.getContext()) as! UserCoreData;
+    class func setUser(username: String, image: NSData?) {
+        let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: getContext()) as! UserCoreData;
         userCoreData.email = username;
-        CoreDataController.saveContext();
-    }
-    
-    class func setImage(image: Data) {
-        let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: CoreDataController.getContext()) as! UserCoreData;
         userCoreData.image = image;
-        CoreDataController.saveContext();
+        saveContext();
     }
     
     // #Mark - Getter
-    
     class func getUserProfile() -> UserCoreData? {
         let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest();
-        fetchRequest.fetchLimit = 1; //Fetch only one object - Current User
+        fetchRequest.returnsObjectsAsFaults = false;
         
         do {
-            let searchResults = try CoreDataController.getContext().fetch(fetchRequest);
+            let searchResults = try getContext().fetch(fetchRequest);
             
             if (searchResults.count > 0) {
-                let result = searchResults[0];
-                return(result);
+                return(searchResults[0]);
             } else {
                 return(nil);
             }

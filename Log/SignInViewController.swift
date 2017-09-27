@@ -82,12 +82,13 @@ class SignInViewController: UIViewController {
                 let imageDict = image as! NSDictionary;
                 let imageData = NSKeyedArchiver.archivedData(withRootObject: imageDict["data"] as! NSArray);
                 
-                CoreDataController.setUser(username: username as! String);
-                CoreDataController.setImage(image: imageData);
+                print("Contents of image data \(imageDict)");
+                
+                CoreDataController.setUser(username: username as! String, image: imageData as NSData);
                 LOGUserDefaults.setUser(username: username as! String);
                 self.instantiateHomeView();
             } else if ((username != nil) && (error != nil)) {
-                CoreDataController.setUser(username: username as! String);
+                CoreDataController.setUser(username: username as! String, image: nil);
                 LOGUserDefaults.setUser(username: username as! String);
                 self.instantiateHomeView();
             } else {
@@ -115,8 +116,10 @@ class SignInViewController: UIViewController {
                 
                 LOGS3.uploadToS3(key: key, fileURL: profileImageURL, contentType: EnumType.mime.PNG.rawValue, completionHandler: { (result) in
                     if (result != nil) {
-                        CoreDataController.setUser(username: username as! String);
+                        
+                        CoreDataController.setUser(username: username as! String, image: userImageData! as NSData);
                         LOGUserDefaults.setUser(username: username as! String);
+                        print(CoreDataController.currentUserCoreData);
                         self.instantiateHomeView();
                     }
                 });
