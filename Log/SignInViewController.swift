@@ -86,7 +86,8 @@ class SignInViewController: UIViewController {
                 LOGUserDefaults.setUser(username: username as! String);
                 self.instantiateHomeView();
             } else if ((username != nil) && (error != nil)) {
-                CoreDataController.setUser(username: username as! String, image: nil);
+                let defaultImageData = ConvertImage.convertUIImageToPNGData(image: UIImage(named: "defaultUserIcon")!)! as NSData;
+                CoreDataController.setUser(username: username as! String, image: defaultImageData);
                 LOGUserDefaults.setUser(username: username as! String);
                 self.instantiateHomeView();
             } else {
