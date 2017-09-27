@@ -8,9 +8,9 @@
 
 import Foundation
 
-class LOGUserDefaults {
+struct LOGUserDefaults {
     
-    class func setUser(username: String) {
+    static func setUser(username: String) {
         UserDefaults.standard.set(username, forKey: "username");
     }
     

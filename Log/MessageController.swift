@@ -7,12 +7,26 @@
 //
 
 import Foundation
+import Alamofire
 
-class MessageController {
+struct MessageController {
     
-    class func getMessagesForFriend(friendname: String, completionHandler: @escaping (NSDictionary) -> Void) {
+    static func getMessagesForFriend(friendname: String, completionHandler: @escaping (NSDictionary) -> Void) {
         let currentUsername = LOGUserDefaults.username!;
-        let request = LOGHTTP().get(url: "/user/messages/\(currentUsername)/\(friendname)");
+        let request = LOGHTTP.get(url: "/user/messages/\(currentUsername)/\(friendname)");
+        
+        request.responseJSON(completionHandler: { (response) in
+            switch(response.result) {
+                case .success(let json):
+                    let jsonDict = json as! NSDictionary;
+                    completionHandler(jsonDict);
+                    break;
+                case .failure(let error):
+                    print("Error: \(error)");
+                    break;
+            }
+        });
+    }
         
         request.responseJSON(completionHandler: { (response) in
             switch(response.result) {

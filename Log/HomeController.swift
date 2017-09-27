@@ -8,11 +8,11 @@
 
 import Foundation
 
-class HomeController {
+struct HomeController {
     
-    class func getRecentMessages(completion: @escaping (NSArray) -> Void) {
+    static func getRecentMessages(completion: @escaping (NSArray) -> Void) {
         let username = LOGUserDefaults.username!
-        let request = LOGHTTP().get(url: "/user/messages/\(username)");
+        let request = LOGHTTP.get(url: "/user/messages/\(username)");
         
         request.responseJSON(completionHandler: { (response) in
             switch (response.result) {
