@@ -25,6 +25,12 @@ struct EnumType {
         case TIFF = "tiff"
     }
     
+    enum mime: String {
+        case PNG = "image/png"
+        case IJPEG = "image/jpeg"
+        case IJPG = "image/jpg"
+    }
+    
     
     enum dir: String {
         case Images = "Images"
