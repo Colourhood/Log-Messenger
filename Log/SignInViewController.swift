@@ -74,22 +74,25 @@ class SignInViewController: UIViewController {
     private func handleLogin(parameters: Parameters) {
         SignInController.handleLoginSignUpRequest(url: "/user/login", parameters: parameters, completion: { (json) in
             
-            let username = json["username"];
+            let username = json.object(forKey: "username") as! String?;
             let image = json["image"];
             let error = json["error"];
             
-            if ((username != nil) && (image != nil)) {
-                let response = image as! String;
-                let imageData = NSData(base64Encoded: response, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0)));
-                
-                CoreDataController.setUser(username: username as! String, image: imageData);
-                LOGUserDefaults.setUser(username: username as! String);
-                self.instantiateHomeView();
-            } else if ((username != nil) && (error != nil)) {
-                let defaultImageData = ConvertImage.convertUIImageToPNGData(image: UIImage(named: "defaultUserIcon")!)! as NSData;
-                CoreDataController.setUser(username: username as! String, image: defaultImageData);
-                LOGUserDefaults.setUser(username: username as! String);
-                self.instantiateHomeView();
+            if let _ = username {
+                if (image != nil) {
+                    let response = image as! String;
+                    let imageData = NSData(base64Encoded: response, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0)));
+                    
+                    CoreDataController.setUser(username: username!, image: imageData);
+                    LOGUserDefaults.setUser(username: username!);
+                    self.instantiateHomeView();
+                } else {
+                    let defaultImageData = ConvertImage.convertUIImageToPNGData(image: UIImage(named: "defaultUserIcon")!)! as NSData;
+                    
+                    CoreDataController.setUser(username: username!, image: defaultImageData);
+                    LOGUserDefaults.setUser(username: username!);
+                    self.instantiateHomeView();
+                }
             } else {
                 //Error occurred
                 print("Error: \(error!)");
@@ -108,16 +111,16 @@ class SignInViewController: UIViewController {
         LOGFileManager.createFileInDocuments(file: userImageData, fileName: filename, directory: directory);
         
         SignInController.handleLoginSignUpRequest(url: "/user/signup", parameters: parameters, completion: { (json) in
-            if let username = json["username"] {
-                
+            let username = json.object(forKey: "username") as! String?;
+            
+            if let _ = username {
                 let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: filename, directory: directory);
-                let key = "\(filename):\(username).\(ext)";
+                let key = "\(filename):\(username!).\(ext)";
                 
                 LOGS3.uploadToS3(key: key, fileURL: profileImageURL, contentType: EnumType.mime.PNG.rawValue, completionHandler: { (result) in
-                    if (result != nil) {
-                        
-                        CoreDataController.setUser(username: username as! String, image: userImageData! as NSData);
-                        LOGUserDefaults.setUser(username: username as! String);
+                    if let _ = result {
+                        CoreDataController.setUser(username: username!, image: userImageData! as NSData);
+                        LOGUserDefaults.setUser(username: username!);
                         print(CoreDataController.currentUserCoreData);
                         self.instantiateHomeView();
                     }
