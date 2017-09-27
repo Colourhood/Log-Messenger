@@ -16,9 +16,6 @@ struct EnumType {
         case JSON = "json"
         case Text = "txt"
         case PDF = "pdf"
-    }
-    
-    enum img: String {
         case PNG = "png"
         case JPEG = "jpeg"
         case JPG = "jpg"
