@@ -42,7 +42,7 @@ class MessageViewController: UIViewController {
         let friendProfile = friendConversation?.getFriendProfile();
         let friendname = friendProfile!.getEmail();
         
-        let userProfile = LOGUser.init(handle: currentUser?.email, email: currentUser?.email, firstName: currentUser?.email, lastName: currentUser?.email, picture: UIImage.init(data: (currentUser?.image)! as Data));
+        let userProfile = LOGUser.init(handle: nil, email: currentUser?.email, firstName: nil, lastName: nil, picture: UIImage.init(data: (currentUser?.image)! as Data));
         let username = userProfile.getEmail();
         
         MessageController.getMessagesForFriend(friendname: friendname!, completionHandler: { (response) in
@@ -78,12 +78,11 @@ class MessageViewController: UIViewController {
     }
     
     fileprivate func sendMessage(message: String) {
-        let sentBy = CoreDataController.getUserProfile()?.email;
-        let sentTo = friendConversation?.getFriendProfile()?.getEmail();
-        
-        let parameters = ["sentBy": sentBy, "sentTo": sentTo, "message": message];
-        MessageController.sendNewMessage(parameters: parameters) { (json) in
-            
+        if let sentBy = CoreDataController.getUserProfile()?.email,
+           let sentTo = friendConversation?.getFriendProfile()?.getEmail() {
+            let parameters = ["sentBy": sentBy, "sentTo": sentTo, "message": message];
+            MessageController.sendNewMessage(parameters: parameters) { (json) in
+            }
         }
     }
   
