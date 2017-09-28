@@ -31,6 +31,7 @@
 		5454F3811F4A5F7C002D9AB5 /* LOGUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454F3801F4A5F7C002D9AB5 /* LOGUser.swift */; };
 		5454F3831F4ABB4D002D9AB5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454F3821F4ABB4D002D9AB5 /* Message.swift */; };
 		5454F3851F4B6679002D9AB5 /* MessageDataExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */; };
+		545AE9381F7D0AF700482107 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 545AE9371F7D0AF700482107 /* .swiftlint.yml */; };
 		548A8E131F4C161900DD56C0 /* AppState.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 548A8E111F4C161900DD56C0 /* AppState.xcdatamodeld */; };
 		548A8E151F4C9A8300DD56C0 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548A8E141F4C9A8300DD56C0 /* SignInViewController.swift */; };
 		548A8E1B1F4CFAE400DD56C0 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548A8E1A1F4CFAE400DD56C0 /* CoreDataController.swift */; };
@@ -107,6 +108,7 @@
 		5454F3801F4A5F7C002D9AB5 /* LOGUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGUser.swift; sourceTree = "<group>"; };
 		5454F3821F4ABB4D002D9AB5 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDataExample.swift; sourceTree = "<group>"; };
+		545AE9371F7D0AF700482107 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		548A8E121F4C161900DD56C0 /* AppState.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppState.xcdatamodel; sourceTree = "<group>"; };
 		548A8E141F4C9A8300DD56C0 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		548A8E1A1F4CFAE400DD56C0 /* CoreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 		5454F35E1F4A5843002D9AB5 = {
 			isa = PBXGroup;
 			children = (
+				545AE9371F7D0AF700482107 /* .swiftlint.yml */,
 				5454F3691F4A5843002D9AB5 /* Log */,
 				542364CD1F6CE0B700C47CB5 /* LogTests */,
 				5454F3681F4A5843002D9AB5 /* Products */,
@@ -344,6 +347,7 @@
 				5454F3641F4A5843002D9AB5 /* Frameworks */,
 				5454F3651F4A5843002D9AB5 /* Resources */,
 				54EEB1231F57770700AA548B /* Embed Frameworks */,
+				545AE9361F7D077A00482107 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -410,6 +414,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				545AE9381F7D0AF700482107 /* .swiftlint.yml in Resources */,
 				541141711F72590C00CAF4CD /* credentials.json in Resources */,
 				5454F3751F4A5844002D9AB5 /* LaunchScreen.storyboard in Resources */,
 				5454F3721F4A5844002D9AB5 /* Assets.xcassets in Resources */,
@@ -418,6 +423,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		545AE9361F7D077A00482107 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		542364C81F6CE0B700C47CB5 /* Sources */ = {
