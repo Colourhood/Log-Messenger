@@ -24,6 +24,7 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var MessageNavigator: UINavigationItem!
     
     var friendConversation: MessageStack?;
+    let userData = CoreDataController.getUserProfile();
 
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -37,12 +38,11 @@ class MessageViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let currentUser = CoreDataController.getUserProfile();
         //Network request to get all(for now) messages between two users
         let friendProfile = friendConversation?.getFriendProfile();
         let friendname = friendProfile!.getEmail();
         
-        let userProfile = LOGUser.init(handle: nil, email: currentUser?.email, firstName: nil, lastName: nil, picture: UIImage.init(data: (currentUser?.image)! as Data));
+        let userProfile = LOGUser.init(handle: nil, email: userData?.email, firstName: nil, lastName: nil, picture: UIImage.init(data: (userData?.image)! as Data));
         let username = userProfile.getEmail();
         
         MessageController.getMessagesForFriend(friendname: friendname!, completionHandler: { (response) in
@@ -127,22 +127,16 @@ extension MessageViewController: UITextFieldDelegate {
 
 extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     
-    //A computed property inside the extension that contains a list of messages as example
-    var MessageDataSource: MessageStack? {
-        let messages = friendConversation;
-        return messages;
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (MessageDataSource != nil) {
-            return (MessageDataSource?.getStackOfMessages().count)!;
+        if let _ = friendConversation {
+            return (friendConversation?.getStackOfMessages().count)!;
         }
         return 0;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let messageData = MessageDataSource?.getStackOfMessages()[indexPath.row];
+        let messageData = friendConversation?.getStackOfMessages()[indexPath.row];
         
         let messageProfile = messageData?.getMessageLOGSender();
 //        let sender = messageProfile?.getHandle();
@@ -153,10 +147,8 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         
         
         var cell: MessageTableViewCell?;
-        
-        let useremail = LOGUserDefaults.username!;
             
-        if (email == useremail) {
+        if (email == userData?.email) {
             cell = MessagesTableView.dequeueReusableCell(withIdentifier: "Message Sender Cell", for: indexPath) as? MessageTableViewCell;
         } else {
             cell = MessagesTableView.dequeueReusableCell(withIdentifier: "Message Receiver Cell", for: indexPath) as? MessageTableViewCell;

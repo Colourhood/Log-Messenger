@@ -18,24 +18,7 @@ struct LOGUser {
     private var lastName: String?;
     private var picture: UIImage?;
 
-    init(handle: String?, email: String?, firstName: String?, lastName: String?, picture: UIImage?) {
-        guard let _ = handle else {
-            //No handle was passed
-            return;
-        }
-        guard let _ = email else {
-            //No email was passed
-            return;
-        }
-        guard let _ = firstName else {
-            //No first name was passed
-            return;
-        }
-        guard let _ = lastName else {
-            //No last name was passed
-            return;
-        }
-        
+    init(handle: String?, email: String?, firstName: String?, lastName: String?, picture: UIImage?) {        
         self.handle = handle;
         self.email = email;
         self.firstName = firstName;

@@ -11,21 +11,22 @@ import Foundation
 struct MessageController {
     
     static func getMessagesForFriend(friendname: String, completionHandler: @escaping ([String: Any]) -> Void) {
-        let currentUsername = LOGUserDefaults.username!;
-        let request = LOGHTTP.get(url: "/user/messages/\(currentUsername)/\(friendname)");
-        
-        request.responseJSON(completionHandler: { (response) in
-            switch(response.result) {
-                case .success(let json):
-                    if let jsonDict = json as? [String: Any] {
-                        completionHandler(jsonDict);
-                    }
-                    break;
-                case .failure(let error):
-                    print("Error: \(error)");
-                    break;
-            }
-        });
+        if let username = CoreDataController.getUserProfile()?.email {
+            let request = LOGHTTP.get(url: "/user/messages/\(username)/\(friendname)");
+            
+            request.responseJSON(completionHandler: { (response) in
+                switch(response.result) {
+                    case .success(let json):
+                        if let jsonDict = json as? [String: Any] {
+                            completionHandler(jsonDict);
+                        }
+                        break;
+                    case .failure(let error):
+                        print("Error: \(error)");
+                        break;
+                }
+            });
+        }
     }
     
     static func sendNewMessage(parameters: [String: Any], completionHandler: @escaping ([String: Any]) -> Void) {

@@ -15,20 +15,21 @@ struct LOGS3 {
     private static let transferManager = AWSS3TransferManager.default();
     
     static func uploadToS3(key: String, fileURL: URL, contentType: String, completionHandler: @escaping (Any?) -> Void) {
-        let uploadRequest = AWSS3TransferManagerUploadRequest();
-            uploadRequest?.bucket = S3Bucket;
-            uploadRequest?.key = key;
-            uploadRequest?.body = fileURL;
-            uploadRequest?.contentType = contentType;
+        if let uploadRequest = AWSS3TransferManagerUploadRequest() {
+            uploadRequest.bucket = S3Bucket;
+            uploadRequest.key = key;
+            uploadRequest.body = fileURL;
+            uploadRequest.contentType = contentType;
         
-        startUploadRequest(uploadRequest: uploadRequest!).continueWith(executor: AWSExecutor.mainThread()) { (task) -> Void in
-            if let error = task.error {
-                print("There was an error with upload task \(error)");
+            startUploadRequest(uploadRequest: uploadRequest).continueWith(executor: AWSExecutor.mainThread()) { (task) -> Void in
+                if let error = task.error {
+                    print("There was an error with upload task \(error)");
+                }
+                if let result = task.result {
+                    completionHandler(result);
+                }
+                completionHandler(nil);
             }
-            if let result = task.result {
-                completionHandler(result);
-            }
-            completionHandler(nil);
         }
     }
     
@@ -37,19 +38,20 @@ struct LOGS3 {
     }
     
     static func downloadFromS3(key: String?, fileURLPath: URL, completionHandler: @escaping (Any?) -> Void) {
-        let downloadRequest = AWSS3TransferManagerDownloadRequest();
-            downloadRequest?.bucket = S3Bucket;
-            downloadRequest?.key = key;
-            downloadRequest?.downloadingFileURL = fileURLPath;
+        if let downloadRequest = AWSS3TransferManagerDownloadRequest() {
+            downloadRequest.bucket = S3Bucket;
+            downloadRequest.key = key;
+            downloadRequest.downloadingFileURL = fileURLPath;
         
-        startDownloadRequest(downloadRequest: downloadRequest!).continueWith(executor: AWSExecutor.mainThread()) { (task) -> Void in
-            if let error = task.error {
-                print("There was an error with download task \(error)");
+            startDownloadRequest(downloadRequest: downloadRequest).continueWith(executor: AWSExecutor.mainThread()) { (task) -> Void in
+                if let error = task.error {
+                    print("There was an error with download task \(error)");
+                }
+                if let result = task.result {
+                    completionHandler(result);
+                }
+                completionHandler(nil);
             }
-            if let result = task.result {
-                completionHandler(result);
-            }
-            completionHandler(nil);
         }
     }
     

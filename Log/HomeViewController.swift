@@ -33,6 +33,9 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         HomeController.getRecentMessages() { (responseData) in
+            guard let username = CoreDataController.getUserProfile()?.email else {
+                return;
+            }
             
             for messagePackets in responseData {
                 guard let conversationArray = messagePackets as? NSArray else {
@@ -51,7 +54,7 @@ class HomeViewController: UIViewController {
                 var conversation = MessageStack();
                 var friendProfile: LOGUser?;
                 
-                switch (LOGUserDefaults.username!) {
+                switch (username) {
                     case sentBy:
                         friendProfile = LOGUser.init(handle: sentTo, email: sentTo, firstName: sentTo, lastName: sentTo, picture: UIImage(named: "defaultUserIcon"));
                         break;

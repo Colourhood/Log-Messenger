@@ -45,8 +45,8 @@ struct LOGFileManager {
     }
     
     //# Mark - Fetching Files
-    static func getAllFilesAtDirectory(directory: String?) -> [String]? {
-        let targetDirectoryPath = documentsDirectoryPath.appendingPathComponent(directory!).path;
+    static func getAllFilesAtDirectory(directory: String) -> [String]? {
+        let targetDirectoryPath = documentsDirectoryPath.appendingPathComponent(directory).path;
         
         do {
             let contents = try fileManager.contentsOfDirectory(atPath: targetDirectoryPath);
