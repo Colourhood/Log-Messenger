@@ -9,11 +9,11 @@
 import Foundation
 
 struct MessageController {
-    
+
     static func getMessagesForFriend(friendname: String, completionHandler: @escaping ([String: Any]) -> Void) {
         if let username = CoreDataController.getUserProfile()?.email {
             let request = LOGHTTP.get(url: "/user/messages/\(username)/\(friendname)");
-            
+
             request.responseJSON(completionHandler: { (response) in
                 switch(response.result) {
                     case .success(let json):
@@ -28,10 +28,10 @@ struct MessageController {
             });
         }
     }
-    
+
     static func sendNewMessage(parameters: [String: Any], completionHandler: @escaping ([String: Any]) -> Void) {
         let request = LOGHTTP.post(url: "/url/messages", parameters: parameters);
-        
+
         request.responseJSON(completionHandler: { (response) in
             switch(response.result) {
                 case .success(let json):

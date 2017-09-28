@@ -9,37 +9,27 @@
 import Foundation
 
 struct Message {
-    
-    private var messageSender: LOGUser?;
-    private var message: String?;
-    private var dateSent: Date?;
-    
-    init(messageSender: LOGUser?, message: String?, dateSent: Date?) {
-        guard let _ = messageSender else {
-            return;
-        }
-        guard let _ = message else {
-            return;
-        }
-        guard let _ = dateSent else {
-            return;
-        }
-        
+
+    private var messageSender: LOGUser;
+    private var message: String;
+    private var dateSent: Date;
+
+    init(messageSender: LOGUser, message: String, dateSent: Date) {
         self.messageSender = messageSender;
         self.message = message;
         self.dateSent = dateSent;
     }
-    
-    func getMessageLOGSender() -> LOGUser? {
+
+    func getMessageLOGSender() -> LOGUser {
         return self.messageSender;
     }
-    
-    func getMessage() -> String? {
+
+    func getMessage() -> String {
         return self.message;
     }
-    
-    func getDateMessageSent() -> Date? {
+
+    func getDateMessageSent() -> Date {
         return self.dateSent;
     }
-    
+
 }

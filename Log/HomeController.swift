@@ -9,11 +9,11 @@
 import Foundation
 
 struct HomeController {
-    
+
     static func getRecentMessages(completion: @escaping ([AnyObject]) -> Void) {
         if let username = CoreDataController.getUserProfile()?.email {
             let request = LOGHTTP.get(url: "/user/messages/\(username)");
-            
+
             request.responseJSON(completionHandler: { (response) in
                 switch (response.result) {
                 case .success(let json):
@@ -28,5 +28,5 @@ struct HomeController {
             }).resume();
         }
     }
-    
+
 }

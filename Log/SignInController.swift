@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 struct SignInController {
-        
+
     static func handleLoginSignUpRequest(url: String, parameters: [String: Any], completion: @escaping ([String: Any]) -> Void) {
         let request = LOGHTTP.post(url: url, parameters: parameters);
         request.responseJSON(completionHandler: { (response) in

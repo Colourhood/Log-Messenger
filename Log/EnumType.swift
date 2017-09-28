@@ -8,36 +8,28 @@
 
 import Foundation
 
-struct EnumType {
-    
-    static let allDirectories = [dir.Images];
-    
-    enum ext: String {
-        case JSON = "json"
-        case Text = "txt"
-        case PDF = "pdf"
-        case PNG = "png"
-        case JPEG = "jpeg"
-        case JPG = "jpg"
-        case TIFF = "tiff"
-    }
-    
-    enum mime: String {
-        case PNG = "image/png"
-        case IJPEG = "image/jpeg"
-        case IJPG = "image/jpg"
-    }
-    
-    
-    enum dir: String {
-        case Images = "Images"
-    }
-    
-    enum imgf: String {
-        case profilePicture = "profilePicture"
-    }
-    
-    
+enum EnumType {
 
-    
+    static let allDirectories = [Images];
+
+    // # Mark - File Types
+    static let JSON = "json";
+    static let Text = "txt";
+    static let PDF = "pdf";
+    static let PNG = "png";
+    static let JPEG = "jpeg";
+    static let JPG = "jpg";
+    static let TIFF = "tiff";
+
+    // # Mark - MIME Content Types
+    static let MPNG = "image/png";
+    static let MJPEG = "image/jpeg";
+    static let MJPG = "image/jpg";
+
+    // # Mark - Directory Name
+    static let Images = "Images";
+
+    // # Mark - Filenames
+    static let profilePicture = "profilePicture";
+
 }
