@@ -8,7 +8,6 @@
 
 import UIKit
 import ImagePicker
-import Alamofire
 
 class InitialViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!;
@@ -72,7 +71,7 @@ class SignInViewController: UIViewController {
         }
     }
     
-    private func handleLogin(parameters: Parameters) {
+    private func handleLogin(parameters: [String: Any]) {
         SignInController.handleLoginSignUpRequest(url: "/user/login", parameters: parameters, completion: { (json) in
             
             if let username = json["username"] as? String {
@@ -99,7 +98,7 @@ class SignInViewController: UIViewController {
         });
     }
     
-    private func handleSignUp(parameters: Parameters) {
+    private func handleSignUp(parameters: [String: Any]) {
         let filename = EnumType.imgf.profilePicture.rawValue;
         let ext = EnumType.ext.PNG.rawValue;
         let directory = EnumType.dir.Images.rawValue;
@@ -128,7 +127,7 @@ class SignInViewController: UIViewController {
     fileprivate func checkTextField() {
         if let email = emailTextField.text, let password = passwordTextField.text {
             if (!email.isEmpty && !password.isEmpty) {
-                let parameters: Parameters = ["username": email, "password": password];
+                let parameters = ["username": email, "password": password];
                 if (loginOrSignupTypeText == "Sign Up") {
                     handleSignUp(parameters: parameters);
                 } else if (loginOrSignupTypeText == "Sign In") {

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 
 struct MessageController {
     
@@ -29,7 +28,7 @@ struct MessageController {
         });
     }
     
-    static func sendNewMessage(parameters: Parameters, completionHandler: @escaping ([String: Any]) -> Void) {
+    static func sendNewMessage(parameters: [String: Any], completionHandler: @escaping ([String: Any]) -> Void) {
         let request = LOGHTTP.post(url: "/url/messages", parameters: parameters);
         
         request.responseJSON(completionHandler: { (response) in

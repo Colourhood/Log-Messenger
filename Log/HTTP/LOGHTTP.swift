@@ -18,7 +18,7 @@ struct LOGHTTP {
         return Alamofire.request(apiURL+url, method: .get, encoding: URLEncoding.default, headers: httpHeaders);
     }
     
-    static func post(url: String, parameters: Parameters) -> Alamofire.DataRequest {
+    static func post(url: String, parameters: [String: Any]) -> Alamofire.DataRequest {
         return Alamofire.request(apiURL+url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: httpHeaders);
     }
     

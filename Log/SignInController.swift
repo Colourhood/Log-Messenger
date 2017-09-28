@@ -8,11 +8,10 @@
 
 import Foundation
 import CoreData
-import Alamofire
 
 struct SignInController {
         
-    static func handleLoginSignUpRequest(url: String, parameters: Parameters, completion: @escaping ([String: Any]) -> Void) {
+    static func handleLoginSignUpRequest(url: String, parameters: [String: Any], completion: @escaping ([String: Any]) -> Void) {
         let request = LOGHTTP.post(url: url, parameters: parameters);
         request.responseJSON(completionHandler: { (response) in
             switch (response.result) {
