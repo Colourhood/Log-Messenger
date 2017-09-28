@@ -70,10 +70,10 @@ class MessageViewController: UIViewController {
                             }
                         }
                         self.messagesTableView.reloadData();
+                        self.messagesTableView.scrollToBottom();
                     }
                 }
             }
-
         });
     }
 
@@ -90,7 +90,6 @@ class MessageViewController: UIViewController {
             }
         }
     }
-
 }
 
 extension MessageViewController: UITextFieldDelegate {
@@ -120,7 +119,7 @@ extension MessageViewController: UITextFieldDelegate {
             }
         }
     }
-
+    
     /* UITextField Delegate Methods*/
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true;
@@ -163,5 +162,11 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
         return cell!;
     }
-
+}
+extension UITableView {
+    func scrollToBottom() {
+        let rows = self.numberOfRows(inSection: 0)
+        let indexPath = IndexPath(row: rows - 1, section: 0)
+        self.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
 }
