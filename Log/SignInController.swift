@@ -12,13 +12,14 @@ import Alamofire
 
 struct SignInController {
         
-    static func handleLoginSignUpRequest(url: String, parameters: Parameters, completion: @escaping (NSDictionary) -> Void) {
+    static func handleLoginSignUpRequest(url: String, parameters: Parameters, completion: @escaping ([String: Any]) -> Void) {
         let request = LOGHTTP.post(url: url, parameters: parameters);
         request.responseJSON(completionHandler: { (response) in
             switch (response.result) {
                 case .success(let json):
-                    let jsonDict = json as! NSDictionary;
-                    completion(jsonDict);
+                    if let jsonDict = json as? [String: Any] {
+                        completion(jsonDict);
+                    }
                     break;
                 case .failure(let error):
                     print("Error: \(error)");

@@ -37,36 +37,37 @@ class MessageViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let result = CoreDataController.getUserProfile();
+        let currentUser = CoreDataController.getUserProfile();
         //Network request to get all(for now) messages between two users
         let friendProfile = friendConversation?.getFriendProfile();
         let friendname = friendProfile!.getEmail();
         
-        let userProfile = LOGUser.init(handle: result?.email, email: result?.email, firstName: result?.email, lastName: result?.email, picture: UIImage.init(data: (result?.image)! as Data));
+        let userProfile = LOGUser.init(handle: currentUser?.email, email: currentUser?.email, firstName: currentUser?.email, lastName: currentUser?.email, picture: UIImage.init(data: (currentUser?.image)! as Data));
         let username = userProfile.getEmail();
         
         MessageController.getMessagesForFriend(friendname: friendname!, completionHandler: { (response) in
             print("Messages between these two friends:\n \(response)");
             
-            let messages = response["messages"] as! NSArray; //Array of messages for key 'messages'
+            //Array of messages for key 'messages'
+            if let messages = response["messages"] as? [AnyObject] {
             
-            for messagePacket in messages {
-                let messageDict = messagePacket as! NSDictionary;
-                let sentBy = messageDict["sentBy"] as? String;
-                let message = messageDict["message"] as? String;
-                var senderUser: LOGUser?;
-                
-                if (sentBy == friendname) {
-                    senderUser = friendProfile;
-                } else if (sentBy == username) {
-                    senderUser = userProfile;
+                for messagePacket in messages {
+                    if let messageDict = messagePacket as? [String: Any] {
+                        let sentBy = messageDict["sentBy"] as? String;
+                        let message = messageDict["message"] as? String;
+                        var senderUser: LOGUser?;
+                        
+                        if (sentBy == friendname) {
+                            senderUser = friendProfile;
+                        } else if (sentBy == username) {
+                            senderUser = userProfile;
+                        }
+
+                        let messageObj = Message.init(messageSender: senderUser, message: message, dateSent: Date.init());
+                        self.friendConversation?.appendMessageToMessageStack(messageObj: messageObj);
+                        self.MessagesTableView.reloadData();
+                    }
                 }
-                
-
-                let messageObj = Message.init(messageSender: senderUser, message: message, dateSent: Date.init());
-
-                self.friendConversation?.appendMessageToMessageStack(messageObj: messageObj);
-                self.MessagesTableView.reloadData();  
             }
             
         });
@@ -74,6 +75,16 @@ class MessageViewController: UIViewController {
     
     deinit {
         deregisterFromKeyboardNotifications();
+    }
+    
+    fileprivate func sendMessage(message: String) {
+        let sentBy = CoreDataController.getUserProfile()?.email;
+        let sentTo = friendConversation?.getFriendProfile()?.getEmail();
+        
+        let parameters = ["sentBy": sentBy, "sentTo": sentTo, "message": message];
+        MessageController.sendNewMessage(parameters: parameters) { (json) in
+            
+        }
     }
   
 }
@@ -108,31 +119,10 @@ extension MessageViewController: UITextFieldDelegate {
     
     
     /* UITextField Delegate Methods*/
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return true;
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-    }
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        return true;
-    } // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-    } // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
-    
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
-    }// if implemented, called in place of textFieldDidEndEditing:
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return true;
-    } // return NO to not change text
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
         return true;
-    } // called when 'return' key pressed. return NO to ignore.
+    }
 
 }
 

@@ -11,7 +11,7 @@ import AWSS3
 
 struct LOGS3 {
     
-    private static let S3Bucket = AWSConfig.AWSConfig["bucket"] as! String
+    private static let S3Bucket = AWSConfig.AWSConfig["bucket"] as? String;
     private static let transferManager = AWSS3TransferManager.default();
     
     static func uploadToS3(key: String, fileURL: URL, contentType: String, completionHandler: @escaping (Any?) -> Void) {

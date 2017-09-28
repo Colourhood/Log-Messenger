@@ -35,12 +35,18 @@ class HomeViewController: UIViewController {
         HomeController.getRecentMessages() { (responseData) in
             
             for messagePackets in responseData {
-                let conversationArray = messagePackets as! NSArray;
-                let recentMessageDict = conversationArray[0] as! NSDictionary;
+                guard let conversationArray = messagePackets as? NSArray else {
+                    return;
+                }
+                guard let recentMessageDict = conversationArray[0] as? NSDictionary else {
+                    return;
+                }
                 
-                let sentBy = recentMessageDict.object(forKey: "sentBy") as! String;
-                let sentTo = recentMessageDict.object(forKey: "sentTo") as! String;
-                let message = recentMessageDict.object(forKey: "message") as! String;
+                guard let sentBy = recentMessageDict["sentBy"] as? String,
+                      let sentTo = recentMessageDict["sentTo"] as? String,
+                      let message = recentMessageDict["message"] as? String else {
+                    return
+                }
                 
                 var conversation = MessageStack();
                 var friendProfile: LOGUser?;

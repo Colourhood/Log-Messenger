@@ -23,12 +23,14 @@ struct AWSConfig {
     ];
     
     static func setAWS() {
-        let credentialProvider = AWSCognitoCredentialsProvider(regionType: AWSConfig["cognitoRegion"] as! AWSRegionType,
-                                                               identityPoolId: AWSConfig["cognitoID"] as! String);
-        let awsServiceConfig = AWSServiceConfiguration(region: AWSConfig["bucketRegion"] as! AWSRegionType,
-                                                       credentialsProvider: credentialProvider);
-        
-        AWSServiceManager.default().defaultServiceConfiguration = awsServiceConfig;
+        if let cognitoRegion = AWSConfig["cognitoRegion"] as? AWSRegionType,
+           let idendityPoolId = AWSConfig["cognitoID"] as? String,
+           let bucketRegion = AWSConfig["bucketRegion"] as? AWSRegionType {
+            
+            let credentialProvider = AWSCognitoCredentialsProvider(regionType: cognitoRegion, identityPoolId: idendityPoolId);
+            let awsServiceConfig = AWSServiceConfiguration(region: bucketRegion, credentialsProvider: credentialProvider);
+            AWSServiceManager.default().defaultServiceConfiguration = awsServiceConfig;
+        }
         print("What is in here? \(credentialsJSON)");
     }
     

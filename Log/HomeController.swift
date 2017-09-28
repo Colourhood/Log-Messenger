@@ -10,15 +10,16 @@ import Foundation
 
 struct HomeController {
     
-    static func getRecentMessages(completion: @escaping (NSArray) -> Void) {
+    static func getRecentMessages(completion: @escaping ([AnyObject]) -> Void) {
         let username = LOGUserDefaults.username!
         let request = LOGHTTP.get(url: "/user/messages/\(username)");
         
         request.responseJSON(completionHandler: { (response) in
             switch (response.result) {
             case .success(let json):
-                let jsonArray = json as! NSArray;
-                completion(jsonArray);
+                if let jsonArray = json as? [AnyObject] {
+                    completion(jsonArray);
+                }
                 break;
             case .failure(let error):
                 print("Error: \(error)");
