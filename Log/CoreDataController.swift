@@ -11,14 +11,13 @@ import CoreData
 
 class CoreDataController {
     
-    private init () {
-    }
+    private init () {} //Private unaccessible initializer
     
     class func getContext() -> NSManagedObjectContext {
         return (self.persistentContainer.viewContext);
     }
     
-    static var currentUserCoreData: [UserCoreData] {
+    static var currentUserCoreData: [UserCoreData]? {
         var userResults: [UserCoreData]?;
         let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest();
         fetchRequest.fetchLimit = 1;
@@ -29,7 +28,7 @@ class CoreDataController {
         } catch {
             // Process Error
         }
-        return userResults!;
+        return userResults;
     }
     
     // # Mark - Setters
