@@ -25,7 +25,6 @@ class MessageViewController: UIViewController {
     
     var friendConversation: MessageStack?;
     
-
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -54,16 +53,15 @@ class MessageViewController: UIViewController {
                 let messageObj = Message.init(messageSender: senderUser, message: message, dateSent: Date.init());
                 
                 self.friendConversation?.appendMessageToMessageStack(messageObj: messageObj);
-                self.MessagesTableView.reloadData();  
+                self.MessagesTableView.reloadData();
+                self.MessagesTableView.scrollToBottom()
             }
-            
         });
     }
     
     deinit {
         deregisterFromKeyboardNotifications();
     }
-  
 }
 
 extension MessageViewController: UITextFieldDelegate {
@@ -94,7 +92,6 @@ extension MessageViewController: UITextFieldDelegate {
         }
     }
     
-    
     /* UITextField Delegate Methods*/
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -121,7 +118,6 @@ extension MessageViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true;
     } // called when 'return' key pressed. return NO to ignore.
-
 }
 
 extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
@@ -168,6 +164,12 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell!;
     }
-
+}
+extension UITableView {
+    func scrollToBottom() {
+        let rows = self.numberOfRows(inSection: 0)
+        let indexPath = IndexPath(row: rows - 1, section: 0)
+        self.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
 }
 
