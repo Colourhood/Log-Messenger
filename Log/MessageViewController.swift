@@ -90,6 +90,7 @@ class MessageViewController: UIViewController {
             }
         }
     }
+
 }
 
 extension MessageViewController: UITextFieldDelegate {
@@ -119,7 +120,7 @@ extension MessageViewController: UITextFieldDelegate {
             }
         }
     }
-    
+
     /* UITextField Delegate Methods*/
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true;
@@ -162,6 +163,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
         return cell!;
     }
+
 }
 extension UITableView {
     func scrollToBottom() {
