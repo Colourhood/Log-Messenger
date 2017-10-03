@@ -6,3 +6,9 @@ xcode_project: Log.xcodeproj
 branches:
   only:
     - master
+before_install:
+  - brew update
+  - brew install swiftlint || true
+  - brew install carthage
+  - carthage update --platform iOS
+  
