@@ -1,5 +1,5 @@
 github "Alamofire/Alamofire" "4.5.1"
-github "airbnb/lottie-ios" "62bd5416b664c2a303efca58b4b04b9f99903f9a"
-github "aws/aws-sdk-ios" "2.6.1"
+github "airbnb/lottie-ios" "973c08da8ccf3dbc171bcd9e8748e6368c5a2107"
+github "aws/aws-sdk-ios" "2.6.2"
 github "hyperoslo/ImagePicker" "2.1.1"
 github "ruslanskorb/RSKImageCropper" "1.6.3"

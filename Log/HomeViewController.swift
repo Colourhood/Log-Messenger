@@ -68,6 +68,7 @@ class HomeViewController: UIViewController {
                     self.recentMessages.append(conversation);
                 }
                 self.homeTableView.reloadData();
+                //self.homeTableView.scrollToBottom();
             }
         }
     }
