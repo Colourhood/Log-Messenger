@@ -38,6 +38,10 @@ class MessageViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        fetchMessages();
+    }
+
+    func fetchMessages() {
         //Network request to get all(for now) messages between two users
         let friendProfile = friendConversation?.getFriendProfile();
         let friendname = friendProfile!.getEmail();
@@ -69,7 +73,9 @@ class MessageViewController: UIViewController {
                                 self.friendConversation?.appendMessageToMessageStack(messageObj: messageObj);
                             }
                         }
-                        self.messagesTableView.reloadData();
+                        DispatchQueue.main.async {
+                            self.messagesTableView.reloadData();
+                        }
                         self.messagesTableView.scrollToBottom();
                     }
                 }
@@ -167,8 +173,8 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 }
 extension UITableView {
     func scrollToBottom() {
-        let rows = self.numberOfRows(inSection: 0)
-        let indexPath = IndexPath(row: rows - 1, section: 0)
-        self.scrollToRow(at: indexPath, at: .top, animated: false)
+        let rows = self.numberOfRows(inSection: 0);
+        let indexPath = IndexPath(row: rows - 1, section: 0);
+        self.scrollToRow(at: indexPath, at: .top, animated: false);
     }
 }
