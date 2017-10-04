@@ -5,7 +5,7 @@ An iOS instant messaging app (currently in progress) - written using Swift.
 
 I was motivated to start this project because I always wondered if it were **possible** for **one** person to create an entire instant-messaging app, I am here to test that challenge (with support of close friends as well!)
     
-# Getting Started**
+# Getting Started
 
 **Pre-Requisites**
 
@@ -55,7 +55,9 @@ We will creating a diretory called *.aws* in the users root directory and storin
 There are three ways to do this:
 
 Method #1 - Select `Product` then `Run`
+
 Method #2 - Press [Command-R]
+
 Method #2 - Within the Xcode IDE Select the 'play' button
 
 # Installing New Dependencies (Carthage)
