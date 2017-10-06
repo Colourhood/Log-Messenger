@@ -49,7 +49,8 @@ class MessageViewController: UIViewController {
         let userProfile = LOGUser.init(handle: nil, email: userData?.email, firstName: nil, lastName: nil, picture: UIImage.init(data: (userData?.image)! as Data));
         let username = userProfile.getEmail();
 
-        MessageController.getMessagesForFriend(friendname: friendname!, completionHandler: { (response) in
+        MessageController.getMessagesForFriend(friendname: friendname!, completionHandler: { [weak self] (response) in
+            guard let `self` = self else { return }
             print("Messages between these two friends:\n \(response)");
 
             //Array of messages for key 'messages'
