@@ -75,8 +75,8 @@ class MessageViewController: UIViewController {
                         }
                         DispatchQueue.main.async {
                             self.messagesTableView.reloadData();
+                            self.messagesTableView.scrollToBottom();
                         }
-                        self.messagesTableView.scrollToBottom();
                     }
                 }
             }
