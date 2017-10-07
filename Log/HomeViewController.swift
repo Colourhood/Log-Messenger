@@ -30,44 +30,52 @@ class HomeViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        HomeController.getRecentMessages { (responseData) in
+        fetchRecentMessages();
+    }
+
+    func fetchRecentMessages() {
+        HomeController.getRecentMessages { [weak self] (responseData) in
+            guard let `user` = self else { return }
             guard let username = CoreDataController.getUserProfile()?.email else {
                 return;
             }
 
             for messagePackets in responseData {
                 guard let conversationArray = messagePackets as? NSArray,
-                      let recentMessageDict = conversationArray[0] as? [String: Any] else {
-                    return;
+                    let recentMessageDict = conversationArray[0] as? [String: Any] else {
+                        return;
                 }
 
                 guard let sentBy = recentMessageDict["sentBy"] as? String,
-                      let sentTo = recentMessageDict["sentTo"] as? String,
-                      let message = recentMessageDict["message"] as? String else {
-                    return
+                    let sentTo = recentMessageDict["sentTo"] as? String,
+                    let message = recentMessageDict["message"] as? String else {
+                        return
                 }
 
                 var conversation = MessageStack();
                 var friendProfile: LOGUser?;
 
                 switch (username) {
-                    case sentBy:
-                        friendProfile = LOGUser.init(handle: sentTo, email: sentTo, firstName: sentTo, lastName: sentTo, picture: UIImage(named: "defaultUserIcon"));
-                        break;
-                    case sentTo:
-                        friendProfile = LOGUser.init(handle: sentBy, email: sentBy, firstName: sentBy, lastName: sentBy, picture: UIImage(named: "defaultUserIcon"));
-                        break;
-                    default:
-                        break;
+                case sentBy:
+                    friendProfile = LOGUser.init(handle: sentTo, email: sentTo, firstName: sentTo, lastName: sentTo, picture: UIImage(named: "defaultUserIcon"));
+                    break;
+                case sentTo:
+                    friendProfile = LOGUser.init(handle: sentBy, email: sentBy, firstName: sentBy, lastName: sentBy, picture: UIImage(named: "defaultUserIcon"));
+                    break;
+                default:
+                    break;
                 }
 
                 if let friendProfile = friendProfile {
                     let recentMessage = Message.init(messageSender: friendProfile, message: message, dateSent: Date.init());
                     conversation.setFriendProfile(friendProfile: friendProfile);
                     conversation.setStackOfMessages(stack: [recentMessage]);
-                    self.recentMessages.append(conversation);
+                    self?.recentMessages.append(conversation);
                 }
-                self.homeTableView.reloadData();
+
+                DispatchQueue.main.async {
+                    self?.homeTableView.reloadData();
+                }
                 //self.homeTableView.scrollToBottom();
             }
         }
