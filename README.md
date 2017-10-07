@@ -5,7 +5,7 @@ An iOS instant messaging app (currently in progress) - written using Swift.
 
 I was motivated to start this project because I always wondered if it were **possible** for **one** person to create an entire instant-messaging app, I am here to test that challenge (with support of close friends as well!)
     
-# Getting Started**
+# Getting Started
 
 **Pre-Requisites**
 
@@ -55,7 +55,9 @@ We will creating a diretory called *.aws* in the users root directory and storin
 There are three ways to do this:
 
 Method #1 - Select `Product` then `Run`
+
 Method #2 - Press [Command-R]
+
 Method #2 - Within the Xcode IDE Select the 'play' button
 
 # Installing New Dependencies (Carthage)
@@ -63,6 +65,19 @@ Method #2 - Within the Xcode IDE Select the 'play' button
 *If you are new to Carthage I recommend reading their documentation to installing new dependencies!*
 
 [Carthage Documentation](https://github.com/Carthage/Carthage)
+
+# Swiftlint Rules
+
+**disabled_rules**
+- trailing_semicolon
+- control_statement
+
+**excluded**
+- Carthage *Otherwise we would get hundrends of warnings from dependencies who do not adhere to Swiftlint's standard*
+- line_length: 200 *Arbitrary decision*
+
+*Recommendation*
+In Xcode, go to `Preferences` and under `Text Editing` within the sub-section `while editing` select the boxes next to it. This releases some of the stress of having to go through each file and take care of the white-spaces during code implementation.
 
 # License
 

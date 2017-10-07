@@ -175,7 +175,11 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 extension UITableView {
     func scrollToBottom() {
         let rows = self.numberOfRows(inSection: 0);
-        let indexPath = IndexPath(row: rows - 1, section: 0);
-        self.scrollToRow(at: indexPath, at: .top, animated: false);
+        let rows = self.numberOfRows(inSection: 0)
+        // This will guarantee rows - 1 >= 0
+        if rows > 0 {
+            let indexPath = IndexPath(row: rows - 1, section: 0)
+                self.scrollToRow(at: indexPath, at: .top, animated: false)
+        }
     }
 }
