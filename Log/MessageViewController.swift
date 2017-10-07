@@ -74,12 +74,13 @@ class MessageViewController: UIViewController {
                                 self.friendConversation?.appendMessageToMessageStack(messageObj: messageObj);
                             }
                         }
-                        DispatchQueue.main.async {
-                            self.messagesTableView.reloadData();
-                            self.messagesTableView.scrollToBottom();
-                        }
                     }
                 }
+            }
+
+            DispatchQueue.main.async {
+                self.messagesTableView.reloadData();
+                self.messagesTableView.scrollToBottom();
             }
         });
     }

@@ -72,11 +72,10 @@ class HomeViewController: UIViewController {
                     conversation.setStackOfMessages(stack: [recentMessage]);
                     self.recentMessages.append(conversation);
                 }
+            }
 
-                DispatchQueue.main.async {
-                    self.homeTableView.reloadData();
-                }
-                //self.homeTableView.scrollToBottom();
+            DispatchQueue.main.async {
+                self.homeTableView.reloadData();
             }
         }
     }
