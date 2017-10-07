@@ -35,7 +35,7 @@ class HomeViewController: UIViewController {
 
     func fetchRecentMessages() {
         HomeController.getRecentMessages { [weak self] (responseData) in
-            guard let `user` = self else { return }
+            guard let `self` = self else { return }
             guard let username = CoreDataController.getUserProfile()?.email else {
                 return;
             }
@@ -70,11 +70,11 @@ class HomeViewController: UIViewController {
                     let recentMessage = Message.init(messageSender: friendProfile, message: message, dateSent: Date.init());
                     conversation.setFriendProfile(friendProfile: friendProfile);
                     conversation.setStackOfMessages(stack: [recentMessage]);
-                    self?.recentMessages.append(conversation);
+                    self.recentMessages.append(conversation);
                 }
 
                 DispatchQueue.main.async {
-                    self?.homeTableView.reloadData();
+                    self.homeTableView.reloadData();
                 }
                 //self.homeTableView.scrollToBottom();
             }
