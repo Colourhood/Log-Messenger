@@ -1,3 +1,6 @@
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/Colourhood/Log-Messenger.svg?columns=all)](http://waffle.io/Colourhood/Log-Messenger)
+[![Build Status](https://travis-ci.org/Colourhood/Log-Messenger.svg?branch=master)](https://travis-ci.org/Colourhood/Log-Messenger)
+
 # Log-Messenger
 An iOS instant messaging app (currently in progress) - written using Swift.
 
