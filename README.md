@@ -79,7 +79,8 @@ Method #2 - Within the Xcode IDE Select the 'play' button
 - Carthage *Otherwise we would get hundrends of warnings from dependencies who do not adhere to Swiftlint's standard*
 - line_length: 200 *Arbitrary decision*
 
-*Recommendation*
+**Recommendation**
+
 In Xcode, go to `Preferences` and under `Text Editing` within the sub-section `while editing` select the boxes next to it. This releases some of the stress of having to go through each file and take care of the white-spaces during code implementation.
 
 # License
