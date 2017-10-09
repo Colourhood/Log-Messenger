@@ -56,14 +56,14 @@ class HomeViewController: UIViewController {
                 var friendProfile: LOGUser?;
 
                 switch (username) {
-                case sentBy:
-                    friendProfile = LOGUser.init(handle: sentTo, email: sentTo, firstName: sentTo, lastName: sentTo, picture: UIImage(named: "defaultUserIcon"));
-                    break;
-                case sentTo:
-                    friendProfile = LOGUser.init(handle: sentBy, email: sentBy, firstName: sentBy, lastName: sentBy, picture: UIImage(named: "defaultUserIcon"));
-                    break;
-                default:
-                    break;
+                    case sentBy:
+                        friendProfile = LOGUser.init(handle: sentTo, email: sentTo, firstName: sentTo, lastName: sentTo, picture: UIImage(named: "defaultUserIcon"));
+                        break;
+                    case sentTo:
+                        friendProfile = LOGUser.init(handle: sentBy, email: sentBy, firstName: sentBy, lastName: sentBy, picture: UIImage(named: "defaultUserIcon"));
+                        break;
+                    default:
+                        break;
                 }
 
                 if let friendProfile = friendProfile {

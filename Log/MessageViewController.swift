@@ -51,7 +51,7 @@ class MessageViewController: UIViewController {
 
         MessageController.getMessagesForFriend(friendname: friendname!, completionHandler: { [weak self] (response) in
             guard let `self` = self else { return }
-            print("Messages between these two friends:\n \(response)");
+            //print("Messages between these two friends:\n \(response)");
 
             //Array of messages for key 'messages'
             if let messages = response["messages"] as? [AnyObject] {
@@ -87,6 +87,7 @@ class MessageViewController: UIViewController {
 
     deinit {
         deregisterFromKeyboardNotifications();
+        print("MessageView deinit was called")
     }
 
     fileprivate func sendMessage(message: String) {
@@ -181,5 +182,11 @@ extension UITableView {
             let indexPath = IndexPath(row: rows - 1, section: 0);
             self.scrollToRow(at: indexPath, at: .top, animated: false);
         }
+    }
+}
+
+extension MessageViewController {
+    @IBAction func unwindSegue() {
+        dismiss(animated: false, completion: nil);
     }
 }
