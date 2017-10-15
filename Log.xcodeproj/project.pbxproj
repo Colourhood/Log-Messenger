@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54112AD91F90011000474045 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54112AD81F90010400474045 /* Starscream.framework */; };
+		54112ADA1F90011000474045 /* Starscream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54112AD81F90010400474045 /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		541141711F72590C00CAF4CD /* credentials.json in Resources */ = {isa = PBXBuildFile; fileRef = 541141701F72590C00CAF4CD /* credentials.json */; };
 		541141751F725F3A00CAF4CD /* EnumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141741F725F3A00CAF4CD /* EnumType.swift */; };
 		541141771F72638500CAF4CD /* LOGS3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141761F72638500CAF4CD /* LOGS3.swift */; };
@@ -46,6 +48,9 @@
 		54B917871F71E35E00D39504 /* AWSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B917861F71E35E00D39504 /* AWSConfig.swift */; };
 		54B917891F71E5E100D39504 /* AWSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B917881F71E5E100D39504 /* AWSCore.framework */; };
 		54B9178A1F71E5E100D39504 /* AWSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54B917881F71E5E100D39504 /* AWSCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54DFFDC61F8F4D4E009F31B3 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */; };
+		54DFFDC71F8F4D4E009F31B3 /* SocketIO.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54DFFDC91F8F4EEE009F31B3 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DFFDC81F8F4EEE009F31B3 /* SocketIOManager.swift */; };
 		54EEB1211F57770700AA548B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1201F57770700AA548B /* Alamofire.framework */; };
 		54EEB1221F57770700AA548B /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1201F57770700AA548B /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54EEB1251F57770E00AA548B /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1241F57770E00AA548B /* Lottie.framework */; };
@@ -72,8 +77,10 @@
 			files = (
 				54EEB1221F57770700AA548B /* Alamofire.framework in Embed Frameworks */,
 				54A27A231F69E1E800DC0ACA /* ImagePicker.framework in Embed Frameworks */,
+				54DFFDC71F8F4D4E009F31B3 /* SocketIO.framework in Embed Frameworks */,
 				54EEB1261F57770E00AA548B /* Lottie.framework in Embed Frameworks */,
 				54A27A261F6A02BA00DC0ACA /* RSKImageCropper.framework in Embed Frameworks */,
+				54112ADA1F90011000474045 /* Starscream.framework in Embed Frameworks */,
 				54B917851F71E11100D39504 /* AWSS3.framework in Embed Frameworks */,
 				54B9178A1F71E5E100D39504 /* AWSCore.framework in Embed Frameworks */,
 			);
@@ -83,6 +90,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		54112AD81F90010400474045 /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 		541141701F72590C00CAF4CD /* credentials.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = credentials.json; path = ../../../../.aws/credentials.json; sourceTree = "<group>"; };
 		541141741F725F3A00CAF4CD /* EnumType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumType.swift; sourceTree = "<group>"; };
 		541141761F72638500CAF4CD /* LOGS3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGS3.swift; sourceTree = "<group>"; };
@@ -120,6 +128,8 @@
 		54B917831F71E11000D39504 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSS3.framework; path = Carthage/Build/iOS/AWSS3.framework; sourceTree = "<group>"; };
 		54B917861F71E35E00D39504 /* AWSConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSConfig.swift; sourceTree = "<group>"; };
 		54B917881F71E5E100D39504 /* AWSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCore.framework; path = Carthage/Build/iOS/AWSCore.framework; sourceTree = "<group>"; };
+		54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = Carthage/Build/iOS/SocketIO.framework; sourceTree = "<group>"; };
+		54DFFDC81F8F4EEE009F31B3 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		54EEB1201F57770700AA548B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		54EEB1241F57770E00AA548B /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
 		54EEB1271F577E2B00AA548B /* LOGHTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGHTTP.swift; sourceTree = "<group>"; };
@@ -142,8 +152,10 @@
 			files = (
 				54EEB1211F57770700AA548B /* Alamofire.framework in Frameworks */,
 				54A27A221F69E1E800DC0ACA /* ImagePicker.framework in Frameworks */,
+				54DFFDC61F8F4D4E009F31B3 /* SocketIO.framework in Frameworks */,
 				54EEB1251F57770E00AA548B /* Lottie.framework in Frameworks */,
 				54A27A251F6A02BA00DC0ACA /* RSKImageCropper.framework in Frameworks */,
+				54112AD91F90011000474045 /* Starscream.framework in Frameworks */,
 				54B917841F71E11100D39504 /* AWSS3.framework in Frameworks */,
 				54B917891F71E5E100D39504 /* AWSCore.framework in Frameworks */,
 			);
@@ -180,18 +192,12 @@
 			path = LogTests;
 			sourceTree = "<group>";
 		};
-		542364E41F70534B00C47CB5 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Protocol;
-			sourceTree = "<group>";
-		};
 		542364E71F70546B00C47CB5 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
 				541141781F72FA9C00CAF4CD /* LOGFileManager.swift */,
 				542364E81F70549F00C47CB5 /* ConvertImage.swift */,
+				54DFFDC81F8F4EEE009F31B3 /* SocketIOManager.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -229,7 +235,6 @@
 				542364E71F70546B00C47CB5 /* Helper */,
 				54EA72781F7789D9005D8F5F /* HTTP */,
 				5454F37C1F4A589F002D9AB5 /* Model */,
-				542364E41F70534B00C47CB5 /* Protocol */,
 				5454F37F1F4A590D002D9AB5 /* Storyboard */,
 				5463A6661F79079F00F23156 /* UserDefaults */,
 				5454F37D1F4A58A5002D9AB5 /* View */,
@@ -300,6 +305,8 @@
 		54A27A151F69DC5500DC0ACA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				54112AD81F90010400474045 /* Starscream.framework */,
+				54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */,
 				54B917881F71E5E100D39504 /* AWSCore.framework */,
 				54B917831F71E11000D39504 /* AWSS3.framework */,
 				54A27A241F6A02BA00DC0ACA /* RSKImageCropper.framework */,
@@ -460,6 +467,7 @@
 				5454F3851F4B6679002D9AB5 /* MessageDataExample.swift in Sources */,
 				543D24191F51183C00ACDC9D /* MessageStack.swift in Sources */,
 				542364E31F6E755400C47CB5 /* MessageController.swift in Sources */,
+				54DFFDC91F8F4EEE009F31B3 /* SocketIOManager.swift in Sources */,
 				54B917871F71E35E00D39504 /* AWSConfig.swift in Sources */,
 				548A8E1B1F4CFAE400DD56C0 /* CoreDataController.swift in Sources */,
 				541141791F72FA9C00CAF4CD /* LOGFileManager.swift in Sources */,
