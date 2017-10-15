@@ -28,18 +28,18 @@ class MessageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad();
+        prepareUI();
 
+        fetchMessages();
+        connectToChatSocket();
         registerForKeyboardNotifications();
+    }
 
+    func prepareUI() {
         messagesTableView.estimatedRowHeight = 50;
         messagesTableView.rowHeight = UITableViewAutomaticDimension;
         newMessageTextField.autocorrectionType = .no;
         messageNavigator.title = friendConversation?.getFriendProfile()?.getFirstName();
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        fetchMessages();
-        connectToChatSocket();
     }
 
     func fetchMessages() {
