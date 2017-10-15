@@ -37,6 +37,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        SocketIOManager.sharedInstance.establishConnection();
+    }
+
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        SocketIOManager.sharedInstance.establishConnection();
+    }
+
     func applicationWillTerminate(_ application: UIApplication) {
         CoreDataController.saveContext();
     }

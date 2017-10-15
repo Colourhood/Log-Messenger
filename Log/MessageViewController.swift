@@ -24,7 +24,7 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var messageNavigator: UINavigationItem!
 
     var friendConversation: MessageStack?;
-    let userData = CoreDataController.getUserProfile();
+    lazy var userData = CoreDataController.getUserProfile();
 
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -39,6 +39,7 @@ class MessageViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         fetchMessages();
+        connectToChatSocket();
     }
 
     func fetchMessages() {
@@ -85,9 +86,23 @@ class MessageViewController: UIViewController {
         });
     }
 
+    func connectToChatSocket() {
+        print("Trying to connect to chat");
+        guard let username = userData?.email,
+              let friendname = friendConversation?.getFriendProfile()?.getEmail() else {
+                return;
+        }
+        SocketIOManager.sharedInstance.addHandler(event: username);
+        SocketIOManager.sharedInstance.emitToEvent(event: username, message: "User connected to chat!");
+    }
+
     deinit {
         deregisterFromKeyboardNotifications();
-        print("MessageView deinit was called")
+        if let username = userData?.email {
+            SocketIOManager.sharedInstance.emitToEvent(event: username, message: "User disconnected from channel");
+            SocketIOManager.sharedInstance.removeHandler(event: username);
+        }
+        print("MessageView deinit was called");
     }
 
     fileprivate func sendMessage(message: String) {
