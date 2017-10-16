@@ -19,7 +19,7 @@ struct LOGFileManager {
 
     //# Mark - Creating Directories
     static func createDirectoriesInDocuments() {
-        for directory in EnumType.allDirectories {
+        for directory in Constants.allDirectories {
             if let directoryPath = documentsDirectoryPath?.appendingPathComponent(directory, isDirectory: true) {
                 do {
                     try fileManager.createDirectory(at: directoryPath, withIntermediateDirectories: false, attributes: nil);

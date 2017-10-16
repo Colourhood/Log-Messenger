@@ -11,7 +11,7 @@ import AWSCore
 
 struct AWSConfig {
 
-    static private let awsCredentialsPath = Bundle.main.path(forResource: "credentials", ofType: EnumType.JSON);
+    static private let awsCredentialsPath = Bundle.main.path(forResource: "credentials", ofType: Constants.JSON);
     static var credentialsJSON: [String: Any]? {
         do {
             let data = try Data(contentsOf: URL(fileURLWithPath: awsCredentialsPath!));

@@ -100,9 +100,9 @@ class SignInViewController: UIViewController {
     }
 
     private func handleSignUp(parameters: [String: Any]) {
-        let filename = EnumType.profilePicture;
-        let ext = EnumType.PNG;
-        let directory = EnumType.Images;
+        let filename = Constants.profilePicture;
+        let ext = Constants.PNG;
+        let directory = Constants.Images;
 
         guard let image = imageButton.imageView?.image else { return; }
         guard let userImageData = ConvertImage.convertUIImageToPNGData(image: image) else { return; }
@@ -113,7 +113,7 @@ class SignInViewController: UIViewController {
                 if let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: filename, directory: directory) {
                     let key = "\(filename):\(username).\(ext)";
 
-                    LOGS3.uploadToS3(key: key, fileURL: profileImageURL, contentType: EnumType.MPNG, completionHandler: { (result) in
+                    LOGS3.uploadToS3(key: key, fileURL: profileImageURL, contentType: Constants.MPNG, completionHandler: { (result) in
                         if (result != nil) {
                             CoreDataController.setUser(username: username, image: userImageData as NSData);
                             LOGUserDefaults.setUser(username: username);

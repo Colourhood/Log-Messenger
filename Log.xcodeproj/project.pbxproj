@@ -10,7 +10,7 @@
 		54112AD91F90011000474045 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54112AD81F90010400474045 /* Starscream.framework */; };
 		54112ADA1F90011000474045 /* Starscream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54112AD81F90010400474045 /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		541141711F72590C00CAF4CD /* credentials.json in Resources */ = {isa = PBXBuildFile; fileRef = 541141701F72590C00CAF4CD /* credentials.json */; };
-		541141751F725F3A00CAF4CD /* EnumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141741F725F3A00CAF4CD /* EnumType.swift */; };
+		541141751F725F3A00CAF4CD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141741F725F3A00CAF4CD /* Constants.swift */; };
 		541141771F72638500CAF4CD /* LOGS3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141761F72638500CAF4CD /* LOGS3.swift */; };
 		541141791F72FA9C00CAF4CD /* LOGFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141781F72FA9C00CAF4CD /* LOGFileManager.swift */; };
 		542364CF1F6CE0B700C47CB5 /* LogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364CE1F6CE0B700C47CB5 /* LogTests.swift */; };
@@ -92,7 +92,7 @@
 /* Begin PBXFileReference section */
 		54112AD81F90010400474045 /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 		541141701F72590C00CAF4CD /* credentials.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = credentials.json; path = ../../../../.aws/credentials.json; sourceTree = "<group>"; };
-		541141741F725F3A00CAF4CD /* EnumType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumType.swift; sourceTree = "<group>"; };
+		541141741F725F3A00CAF4CD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		541141761F72638500CAF4CD /* LOGS3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGS3.swift; sourceTree = "<group>"; };
 		541141781F72FA9C00CAF4CD /* LOGFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGFileManager.swift; sourceTree = "<group>"; };
 		542364CC1F6CE0B700C47CB5 /* LogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,14 +174,6 @@
 			name = AWS;
 			sourceTree = "<group>";
 		};
-		541141731F725F2200CAF4CD /* Enums */ = {
-			isa = PBXGroup;
-			children = (
-				541141741F725F3A00CAF4CD /* EnumType.swift */,
-			);
-			name = Enums;
-			sourceTree = "<group>";
-		};
 		542364CD1F6CE0B700C47CB5 /* LogTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +187,7 @@
 		542364E71F70546B00C47CB5 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				541141741F725F3A00CAF4CD /* Constants.swift */,
 				541141781F72FA9C00CAF4CD /* LOGFileManager.swift */,
 				542364E81F70549F00C47CB5 /* ConvertImage.swift */,
 				54DFFDC81F8F4EEE009F31B3 /* SocketIOManager.swift */,
@@ -231,7 +224,6 @@
 				541141721F725EE200CAF4CD /* AWS */,
 				5454F37E1F4A58B7002D9AB5 /* Controller */,
 				548A8E101F4C156300DD56C0 /* CoreData */,
-				541141731F725F2200CAF4CD /* Enums */,
 				542364E71F70546B00C47CB5 /* Helper */,
 				54EA72781F7789D9005D8F5F /* HTTP */,
 				5454F37C1F4A589F002D9AB5 /* Model */,
@@ -483,7 +475,7 @@
 				54A05D7B1F4D74C4005B091F /* User+CoreDataProperties.swift in Sources */,
 				5454F3811F4A5F7C002D9AB5 /* LOGUser.swift in Sources */,
 				542364DF1F6DB82E00C47CB5 /* HomeController.swift in Sources */,
-				541141751F725F3A00CAF4CD /* EnumType.swift in Sources */,
+				541141751F725F3A00CAF4CD /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

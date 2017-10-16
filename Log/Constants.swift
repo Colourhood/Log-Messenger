@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum EnumType {
+struct Constants {
 
     static let allDirectories = [Images];
 
@@ -32,4 +32,11 @@ enum EnumType {
     // # Mark - Filenames
     static let profilePicture = "profilePicture";
 
+    // # Mark - SocketIO Events
+    static let joinRoom = "join room";
+    static let leaveRoom = "leave room";
+
+    static let sendMessage = "send message";
+    static let startTyping = "start typing";
+    static let stopTyping = "stop typing";
 }
