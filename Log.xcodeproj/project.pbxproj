@@ -34,6 +34,8 @@
 		5454F3831F4ABB4D002D9AB5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454F3821F4ABB4D002D9AB5 /* Message.swift */; };
 		5454F3851F4B6679002D9AB5 /* MessageDataExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */; };
 		545AE9381F7D0AF700482107 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 545AE9371F7D0AF700482107 /* .swiftlint.yml */; };
+		5480F5ED1F953A4600453E03 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5480F5EC1F953A3A00453E03 /* CryptoSwift.framework */; };
+		5480F5EE1F953A4600453E03 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5480F5EC1F953A3A00453E03 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		548A8E131F4C161900DD56C0 /* AppState.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 548A8E111F4C161900DD56C0 /* AppState.xcdatamodeld */; };
 		548A8E151F4C9A8300DD56C0 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548A8E141F4C9A8300DD56C0 /* SignInViewController.swift */; };
 		548A8E1B1F4CFAE400DD56C0 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548A8E1A1F4CFAE400DD56C0 /* CoreDataController.swift */; };
@@ -78,6 +80,7 @@
 				54EEB1221F57770700AA548B /* Alamofire.framework in Embed Frameworks */,
 				54A27A231F69E1E800DC0ACA /* ImagePicker.framework in Embed Frameworks */,
 				54DFFDC71F8F4D4E009F31B3 /* SocketIO.framework in Embed Frameworks */,
+				5480F5EE1F953A4600453E03 /* CryptoSwift.framework in Embed Frameworks */,
 				54EEB1261F57770E00AA548B /* Lottie.framework in Embed Frameworks */,
 				54A27A261F6A02BA00DC0ACA /* RSKImageCropper.framework in Embed Frameworks */,
 				54112ADA1F90011000474045 /* Starscream.framework in Embed Frameworks */,
@@ -117,6 +120,7 @@
 		5454F3821F4ABB4D002D9AB5 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDataExample.swift; sourceTree = "<group>"; };
 		545AE9371F7D0AF700482107 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		5480F5EC1F953A3A00453E03 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		548A8E121F4C161900DD56C0 /* AppState.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppState.xcdatamodel; sourceTree = "<group>"; };
 		548A8E141F4C9A8300DD56C0 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		548A8E1A1F4CFAE400DD56C0 /* CoreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
@@ -153,6 +157,7 @@
 				54EEB1211F57770700AA548B /* Alamofire.framework in Frameworks */,
 				54A27A221F69E1E800DC0ACA /* ImagePicker.framework in Frameworks */,
 				54DFFDC61F8F4D4E009F31B3 /* SocketIO.framework in Frameworks */,
+				5480F5ED1F953A4600453E03 /* CryptoSwift.framework in Frameworks */,
 				54EEB1251F57770E00AA548B /* Lottie.framework in Frameworks */,
 				54A27A251F6A02BA00DC0ACA /* RSKImageCropper.framework in Frameworks */,
 				54112AD91F90011000474045 /* Starscream.framework in Frameworks */,
@@ -297,6 +302,7 @@
 		54A27A151F69DC5500DC0ACA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5480F5EC1F953A3A00453E03 /* CryptoSwift.framework */,
 				54112AD81F90010400474045 /* Starscream.framework */,
 				54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */,
 				54B917881F71E5E100D39504 /* AWSCore.framework */,
