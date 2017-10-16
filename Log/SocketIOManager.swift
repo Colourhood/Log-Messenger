@@ -37,7 +37,7 @@ class SocketIOManager: NSObject {
         socket.off(event);
     }
 
-    func emitToEvent(event: String, message: String) {
-        socket.emit(event, message);
+    func emitToEvent(event: String, data: AnyObject) {
+        socket.emit(event, [data]);
     }
 }

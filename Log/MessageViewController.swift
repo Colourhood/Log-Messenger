@@ -9,6 +9,7 @@
 import UIKit
 import QuartzCore
 import CoreData
+import CryptoSwift
 
 class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var senderToReceiverLabel: UILabel!;
@@ -25,13 +26,14 @@ class MessageViewController: UIViewController {
 
     var friendConversation: MessageStack?;
     lazy var userData = CoreDataController.getUserProfile();
+    var chatRoomID: String?;
 
     override func viewDidLoad() {
         super.viewDidLoad();
         prepareUI();
 
         fetchMessages();
-        connectToChatSocket();
+        joinChatRoom();
         registerForKeyboardNotifications();
     }
 
@@ -86,22 +88,9 @@ class MessageViewController: UIViewController {
         });
     }
 
-    func connectToChatSocket() {
-        print("Trying to connect to chat");
-        guard let username = userData?.email,
-              let friendname = friendConversation?.getFriendProfile()?.getEmail() else {
-                return;
-        }
-        SocketIOManager.sharedInstance.addHandler(event: username);
-        SocketIOManager.sharedInstance.emitToEvent(event: username, message: "User connected to chat!");
-    }
-
     deinit {
         deregisterFromKeyboardNotifications();
-        if let username = userData?.email {
-            SocketIOManager.sharedInstance.emitToEvent(event: username, message: "User disconnected from channel");
-            SocketIOManager.sharedInstance.removeHandler(event: username);
-        }
+        leaveChatRoom();
         print("MessageView deinit was called");
     }
 
@@ -189,6 +178,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
 }
+
 extension UITableView {
     func scrollToBottom() {
         let rows = self.numberOfRows(inSection: 0);
@@ -203,5 +193,26 @@ extension UITableView {
 extension MessageViewController {
     @IBAction func unwindSegue() {
         dismiss(animated: false, completion: nil);
+    }
+
+    // # Mark - Crypto
+    private func generateChatRoomID() {
+        if let username = userData?.email, let friendname = friendConversation?.getFriendProfile()?.getEmail() {
+            let sortedArray = [username, friendname].sorted().joined(separator: "");
+            chatRoomID = sortedArray.sha512();
+            print("Chat ID: \(chatRoomID!)");
+        }
+    }
+
+    // # Mark - SocketIO
+    private func joinChatRoom() {
+        generateChatRoomID();
+        let param = ["username": userData?.email, "chatID": chatRoomID];
+        SocketIOManager.sharedInstance.emitToEvent(event: Constants.joinRoom, data: param as AnyObject);
+    }
+
+    func leaveChatRoom() {
+        let param = ["username": userData?.email, "chatID": chatRoomID];
+        SocketIOManager.sharedInstance.emitToEvent(event: Constants.leaveRoom, data: param as AnyObject);
     }
 }
