@@ -208,11 +208,11 @@ extension MessageViewController {
     private func joinChatRoom() {
         generateChatRoomID();
         let param = ["username": userData?.email, "chatID": chatRoomID];
-        SocketIOManager.sharedInstance.emitToEvent(event: Constants.joinRoom, data: param as AnyObject);
+        SocketIOManager.sharedInstance.emit(event: Constants.joinRoom, data: param as AnyObject);
     }
 
     func leaveChatRoom() {
         let param = ["username": userData?.email, "chatID": chatRoomID];
-        SocketIOManager.sharedInstance.emitToEvent(event: Constants.leaveRoom, data: param as AnyObject);
+        SocketIOManager.sharedInstance.emit(event: Constants.leaveRoom, data: param as AnyObject);
     }
 }

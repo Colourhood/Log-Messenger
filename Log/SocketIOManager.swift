@@ -12,7 +12,7 @@ import SocketIO
 private let socketURL: String = "http://127.0.0.1:7555";
 
 class SocketIOManager: NSObject {
-    static let sharedInstance = SocketIOManager(); //- singleton possibility; manage multiple sockets in the app?
+    static let sharedInstance = SocketIOManager();
     var socket: SocketIOClient = SocketIOClient(socketURL: URL(string: socketURL)!);
 
     private override init() {
@@ -27,17 +27,18 @@ class SocketIOManager: NSObject {
         socket.disconnect();
     }
 
-    func addHandler(event: String) {
+    func subscribe(event: String) {
         socket.on(event) { (data, _) in
             print("Received event \(data[0])");
         }
     }
 
-    func removeHandler(event: String) {
+    func unsubscribe(event: String) {
         socket.off(event);
     }
 
-    func emitToEvent(event: String, data: AnyObject) {
+    func emit(event: String, data: AnyObject) {
         socket.emit(event, [data]);
     }
+
 }
