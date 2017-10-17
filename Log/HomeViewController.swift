@@ -30,21 +30,26 @@ class HomeViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        HomeController.getRecentMessages { (responseData) in
+        fetchRecentMessages();
+    }
+
+    func fetchRecentMessages() {
+        HomeController.getRecentMessages { [weak self] (responseData) in
+            guard let `self` = self else { return }
             guard let username = CoreDataController.getUserProfile()?.email else {
                 return;
             }
 
             for messagePackets in responseData {
                 guard let conversationArray = messagePackets as? NSArray,
-                      let recentMessageDict = conversationArray[0] as? [String: Any] else {
-                    return;
+                    let recentMessageDict = conversationArray[0] as? [String: Any] else {
+                        return;
                 }
 
                 guard let sentBy = recentMessageDict["sentBy"] as? String,
-                      let sentTo = recentMessageDict["sentTo"] as? String,
-                      let message = recentMessageDict["message"] as? String else {
-                    return
+                    let sentTo = recentMessageDict["sentTo"] as? String,
+                    let message = recentMessageDict["message"] as? String else {
+                        return
                 }
 
                 var conversation = MessageStack();
@@ -67,8 +72,10 @@ class HomeViewController: UIViewController {
                     conversation.setStackOfMessages(stack: [recentMessage]);
                     self.recentMessages.append(conversation);
                 }
+            }
+
+            DispatchQueue.main.async {
                 self.homeTableView.reloadData();
-                //self.homeTableView.scrollToBottom();
             }
         }
     }

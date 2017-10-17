@@ -38,6 +38,10 @@ class MessageViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        fetchMessages();
+    }
+
+    func fetchMessages() {
         //Network request to get all(for now) messages between two users
         let friendProfile = friendConversation?.getFriendProfile();
         let friendname = friendProfile!.getEmail();
@@ -45,8 +49,9 @@ class MessageViewController: UIViewController {
         let userProfile = LOGUser.init(handle: nil, email: userData?.email, firstName: nil, lastName: nil, picture: UIImage.init(data: (userData?.image)! as Data));
         let username = userProfile.getEmail();
 
-        MessageController.getMessagesForFriend(friendname: friendname!, completionHandler: { (response) in
-            print("Messages between these two friends:\n \(response)");
+        MessageController.getMessagesForFriend(friendname: friendname!, completionHandler: { [weak self] (response) in
+            guard let `self` = self else { return }
+            //print("Messages between these two friends:\n \(response)");
 
             //Array of messages for key 'messages'
             if let messages = response["messages"] as? [AnyObject] {
@@ -69,16 +74,20 @@ class MessageViewController: UIViewController {
                                 self.friendConversation?.appendMessageToMessageStack(messageObj: messageObj);
                             }
                         }
-                        self.messagesTableView.reloadData();
-                        self.messagesTableView.scrollToBottom();
                     }
                 }
+            }
+
+            DispatchQueue.main.async {
+                self.messagesTableView.reloadData();
+                self.messagesTableView.scrollToBottom();
             }
         });
     }
 
     deinit {
         deregisterFromKeyboardNotifications();
+        print("MessageView deinit was called")
     }
 
     fileprivate func sendMessage(message: String) {
@@ -167,11 +176,17 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 }
 extension UITableView {
     func scrollToBottom() {
-        let rows = self.numberOfRows(inSection: 0)
+        let rows = self.numberOfRows(inSection: 0);
         // This will guarantee rows - 1 >= 0
         if rows > 0 {
-            let indexPath = IndexPath(row: rows - 1, section: 0)
-                self.scrollToRow(at: indexPath, at: .top, animated: false)
+            let indexPath = IndexPath(row: rows - 1, section: 0);
+            self.scrollToRow(at: indexPath, at: .top, animated: false);
         }
+    }
+}
+
+extension MessageViewController {
+    @IBAction func unwindSegue() {
+        dismiss(animated: false, completion: nil);
     }
 }

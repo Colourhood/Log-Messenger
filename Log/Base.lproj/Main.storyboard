@@ -42,9 +42,6 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="send"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="xka-In-ll1"/>
-                                                </connections>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -183,7 +180,7 @@
                                         </prototypes>
                                         <connections>
                                             <outlet property="dataSource" destination="BYZ-38-t0r" id="5eA-nw-2Mh"/>
-                                            <outlet property="delegate" destination="BYZ-38-t0r" id="dGo-3Z-e6z"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="Inl-Op-nZ5"/>
                                         </connections>
                                     </tableView>
                                 </subviews>
@@ -204,7 +201,7 @@
                                     <navigationItem title="Katherine" id="bbQ-XH-jZH">
                                         <barButtonItem key="leftBarButtonItem" title="Home" id="UGj-21-WCz">
                                             <connections>
-                                                <segue destination="GVo-ln-PAc" kind="presentation" animates="NO" modalTransitionStyle="crossDissolve" id="ghP-kn-uFA"/>
+                                                <action selector="unwindSegue" destination="BYZ-38-t0r" id="4By-DS-BaO"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
