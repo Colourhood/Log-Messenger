@@ -42,10 +42,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        SocketIOManager.sharedInstance.establishConnection();
+        SocketIOManager.sharedInstance.closeConnection();
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        SocketIOManager.sharedInstance.closeConnection();
         CoreDataController.saveContext();
     }
 
