@@ -28,8 +28,9 @@ class SocketIOManager: NSObject {
     }
 
     func subscribe(event: String) {
+        print("Subscribing to event: \(event)")
         socket.on(event) { (data, _) in
-            print("Received event \(data[0])");
+            print("Incoming event \(data[0])");
         }
     }
 

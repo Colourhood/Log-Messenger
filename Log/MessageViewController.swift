@@ -20,9 +20,15 @@ class MessageTableViewCell: UITableViewCell {
 
 class MessageViewController: UIViewController {
 
+    /*UI-IBOutlets*/
     @IBOutlet weak var newMessageTextField: UITextField!;
     @IBOutlet weak var messagesTableView: UITableView!;
     @IBOutlet weak var messageNavigator: UINavigationItem!
+
+    /*UI-IBActions*/
+    @IBAction func unwindSegue() {
+        dismiss(animated: false, completion: nil);
+    }
 
     var friendConversation: MessageStack?;
     lazy var userData = CoreDataController.getUserProfile();
@@ -136,6 +142,12 @@ extension MessageViewController: UITextFieldDelegate {
 
     /* UITextField Delegate Methods*/
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let message = newMessageTextField.text {
+            if (!message.isEmpty) {
+                messageChat(message: message);
+            }
+        }
+
         return true;
     }
 
@@ -191,9 +203,6 @@ extension UITableView {
 }
 
 extension MessageViewController {
-    @IBAction func unwindSegue() {
-        dismiss(animated: false, completion: nil);
-    }
 
     // # Mark - Crypto
     private func generateChatRoomID() {
@@ -205,14 +214,32 @@ extension MessageViewController {
     }
 
     // # Mark - SocketIO
+    private func subscribeToChatEvents() {
+        SocketIOManager.sharedInstance.subscribe(event: Constants.receiveMessage)
+    }
+
     private func joinChatRoom() {
         generateChatRoomID();
-        let param = ["username": userData?.email, "chatID": chatRoomID];
-        SocketIOManager.sharedInstance.emit(event: Constants.joinRoom, data: param as AnyObject);
+        subscribeToChatEvents();
+
+        if let chatRoomID = chatRoomID {
+            let param = ["username": userData?.email, "chatID": chatRoomID];
+            SocketIOManager.sharedInstance.emit(event: Constants.joinRoom, data: param as AnyObject);
+        }
     }
 
     func leaveChatRoom() {
-        let param = ["username": userData?.email, "chatID": chatRoomID];
-        SocketIOManager.sharedInstance.emit(event: Constants.leaveRoom, data: param as AnyObject);
+        if let chatRoomID = chatRoomID {
+            let param = ["username": userData?.email, "chatID": chatRoomID];
+            SocketIOManager.sharedInstance.unsubscribe(event: Constants.receiveMessage);
+            SocketIOManager.sharedInstance.emit(event: Constants.leaveRoom, data: param as AnyObject);
+        }
     }
+
+    func messageChat(message: String) {
+        print("message chat was called, message: \(message)");
+        let param = ["username": userData?.email, "chatID": chatRoomID, "message": message] as AnyObject;
+        SocketIOManager.sharedInstance.emit(event: Constants.sendMessage, data: param);
+    }
+
 }
