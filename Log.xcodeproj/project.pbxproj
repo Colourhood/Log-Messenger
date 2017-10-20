@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		541141711F72590C00CAF4CD /* credentials.json in Resources */ = {isa = PBXBuildFile; fileRef = 541141701F72590C00CAF4CD /* credentials.json */; };
+		3679425F1F9715A600B4AD91 /* UserProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3679425D1F9715A600B4AD91 /* UserProfileTableViewCell.swift */; };
+		367942601F9715A600B4AD91 /* UserProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3679425E1F9715A600B4AD91 /* UserProfileTableViewCell.xib */; };
+		36AA4CCC1F9702BF0037ED7E /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AA4CCA1F9702BF0037ED7E /* UserProfileViewController.swift */; };
+		36AA4CCD1F9702BF0037ED7E /* UserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36AA4CCB1F9702BF0037ED7E /* UserProfileViewController.xib */; };
 		541141751F725F3A00CAF4CD /* EnumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141741F725F3A00CAF4CD /* EnumType.swift */; };
 		541141771F72638500CAF4CD /* LOGS3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141761F72638500CAF4CD /* LOGS3.swift */; };
 		541141791F72FA9C00CAF4CD /* LOGFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141781F72FA9C00CAF4CD /* LOGFileManager.swift */; };
@@ -83,6 +87,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3679425D1F9715A600B4AD91 /* UserProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTableViewCell.swift; sourceTree = "<group>"; };
+		3679425E1F9715A600B4AD91 /* UserProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileTableViewCell.xib; sourceTree = "<group>"; };
+		36AA4CCA1F9702BF0037ED7E /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		36AA4CCB1F9702BF0037ED7E /* UserProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileViewController.xib; sourceTree = "<group>"; };
 		541141701F72590C00CAF4CD /* credentials.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = credentials.json; path = ../../../../.aws/credentials.json; sourceTree = "<group>"; };
 		541141741F725F3A00CAF4CD /* EnumType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumType.swift; sourceTree = "<group>"; };
 		541141761F72638500CAF4CD /* LOGS3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGS3.swift; sourceTree = "<group>"; };
@@ -251,6 +259,10 @@
 			isa = PBXGroup;
 			children = (
 				5454F36C1F4A5844002D9AB5 /* MessageViewController.swift */,
+				36AA4CCA1F9702BF0037ED7E /* UserProfileViewController.swift */,
+				36AA4CCB1F9702BF0037ED7E /* UserProfileViewController.xib */,
+				3679425D1F9715A600B4AD91 /* UserProfileTableViewCell.swift */,
+				3679425E1F9715A600B4AD91 /* UserProfileTableViewCell.xib */,
 				548A8E141F4C9A8300DD56C0 /* SignInViewController.swift */,
 				544EE7611F4EA01F00CD3380 /* HomeViewController.swift */,
 				54A27A271F6A031700DC0ACA /* Log-Bridging-Header.h */,
@@ -417,6 +429,8 @@
 				545AE9381F7D0AF700482107 /* .swiftlint.yml in Resources */,
 				541141711F72590C00CAF4CD /* credentials.json in Resources */,
 				5454F3751F4A5844002D9AB5 /* LaunchScreen.storyboard in Resources */,
+				36AA4CCD1F9702BF0037ED7E /* UserProfileViewController.xib in Resources */,
+				367942601F9715A600B4AD91 /* UserProfileTableViewCell.xib in Resources */,
 				5454F3721F4A5844002D9AB5 /* Assets.xcassets in Resources */,
 				5454F3701F4A5844002D9AB5 /* Main.storyboard in Resources */,
 			);
@@ -458,6 +472,8 @@
 				542364E91F70549F00C47CB5 /* ConvertImage.swift in Sources */,
 				548A8E151F4C9A8300DD56C0 /* SignInViewController.swift in Sources */,
 				5454F3851F4B6679002D9AB5 /* MessageDataExample.swift in Sources */,
+				3679425F1F9715A600B4AD91 /* UserProfileTableViewCell.swift in Sources */,
+				36AA4CCC1F9702BF0037ED7E /* UserProfileViewController.swift in Sources */,
 				543D24191F51183C00ACDC9D /* MessageStack.swift in Sources */,
 				542364E31F6E755400C47CB5 /* MessageController.swift in Sources */,
 				54B917871F71E35E00D39504 /* AWSConfig.swift in Sources */,
