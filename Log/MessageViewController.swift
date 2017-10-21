@@ -220,6 +220,12 @@ extension MessageViewController {
         SocketIOManager.sharedInstance.subscribe(event: Constants.stopTyping);
     }
 
+    private func unsubscribeFromChatEvents() {
+        SocketIOManager.sharedInstance.unsubscribe(event: Constants.sendMessage);
+        SocketIOManager.sharedInstance.unsubscribe(event: Constants.startTyping);
+        SocketIOManager.sharedInstance.unsubscribe(event: Constants.stopTyping);
+    }
+
     private func joinChatRoom() {
         generateChatRoomID();
         subscribeToChatEvents();
@@ -230,15 +236,16 @@ extension MessageViewController {
         }
     }
 
-    func leaveChatRoom() {
+    private func leaveChatRoom() {
+        unsubscribeFromChatEvents();
+
         if let chatRoomID = chatRoomID {
             let param = ["username": userData?.email, "chatID": chatRoomID];
-            SocketIOManager.sharedInstance.unsubscribe(event: Constants.receiveMessage);
             SocketIOManager.sharedInstance.emit(event: Constants.leaveRoom, data: param as AnyObject);
         }
     }
 
-    func messageChat(message: String) {
+    private func messageChat(message: String) {
         print("message chat was called, message: \(message)");
         let param = ["username": userData?.email, "chatID": chatRoomID, "message": message] as AnyObject;
         SocketIOManager.sharedInstance.emit(event: Constants.sendMessage, data: param);
