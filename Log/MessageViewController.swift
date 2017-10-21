@@ -215,7 +215,9 @@ extension MessageViewController {
 
     // # Mark - SocketIO
     private func subscribeToChatEvents() {
-        SocketIOManager.sharedInstance.subscribe(event: Constants.receiveMessage)
+        SocketIOManager.sharedInstance.subscribe(event: Constants.sendMessage);
+        SocketIOManager.sharedInstance.subscribe(event: Constants.startTyping);
+        SocketIOManager.sharedInstance.subscribe(event: Constants.stopTyping);
     }
 
     private func joinChatRoom() {
