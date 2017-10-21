@@ -37,7 +37,6 @@ struct Constants {
     static let leaveRoom = "leave room";
 
     static let sendMessage = "send message";
-    static let receiveMessage = "receive message";
     static let startTyping = "start typing";
     static let stopTyping = "stop typing";
 }
