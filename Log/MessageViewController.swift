@@ -269,6 +269,7 @@ extension MessageViewController {
     private func messageChat(message: String) {
         print("message chat was called, message: \(message)");
         let param = ["username": userData?.email, "chatID": chatRoomID, "message": message] as AnyObject;
+        SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param);
         SocketIOManager.sharedInstance.emit(event: Constants.sendMessage, data: param);
     }
 
