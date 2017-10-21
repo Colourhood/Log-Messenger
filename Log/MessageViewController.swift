@@ -151,6 +151,27 @@ extension MessageViewController: UITextFieldDelegate {
         return true;
     }
 
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        print("User started typing");
+        return true;
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        print("User is typing");
+        if let chatRoomID = chatRoomID {
+            let param = ["username": userData?.email, "chatID": chatRoomID] as AnyObject;
+            SocketIOManager.sharedInstance.emit(event: Constants.startTyping, data: param);
+        }
+        return true;
+    }
+
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        print("User stopped typing");
+        let param = ["username": userData?.email, "chatID": chatRoomID] as AnyObject;
+        SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param);
+        return true;
+    }
+
 }
 
 extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
