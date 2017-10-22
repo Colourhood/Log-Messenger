@@ -85,7 +85,7 @@ class SignInViewController: UIViewController {
                     guard let image = UIImage(named: "defaultUserIcon") else {
                         return;
                     }
-                    let defaultImageData = ConvertImage.convertUIImageToPNGData(image: image)! as NSData;
+                    let defaultImageData = ConvertImage.convertUIImageToJPEGData(image: image)! as NSData;
                     CoreDataController.setUser(username: username, image: defaultImageData);
                     LOGUserDefaults.setUser(username: username);
                     self.instantiateHomeView();
@@ -101,19 +101,18 @@ class SignInViewController: UIViewController {
 
     private func handleSignUp(parameters: [String: Any]) {
         let filename = Constants.profilePicture;
-        let ext = Constants.PNG;
         let directory = Constants.Images;
 
         guard let image = imageButton.imageView?.image else { return; }
-        guard let userImageData = ConvertImage.convertUIImageToPNGData(image: image) else { return; }
+        guard let userImageData = ConvertImage.convertUIImageToJPEGData(image: image) else { return; }
         LOGFileManager.createFileInDocuments(file: userImageData, fileName: filename, directory: directory);
 
         SignInController.handleLoginSignUpRequest(url: "/user/signup", parameters: parameters, completion: { (json) in
             if let username = json["username"] as? String {
                 if let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: filename, directory: directory) {
-                    let key = "\(filename):\(username).\(ext)";
+                    let key = "\(filename):\(username)";
 
-                    LOGS3.uploadToS3(key: key, fileURL: profileImageURL, contentType: Constants.MPNG, completionHandler: { (result) in
+                    LOGS3.uploadToS3(key: key, fileURL: profileImageURL, completionHandler: { (result) in
                         if (result != nil) {
                             CoreDataController.setUser(username: username, image: userImageData as NSData);
                             LOGUserDefaults.setUser(username: username);
