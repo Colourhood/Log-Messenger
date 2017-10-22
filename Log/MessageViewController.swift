@@ -9,6 +9,7 @@
 import UIKit
 import QuartzCore
 import CoreData
+import CryptoSwift
 
 class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var senderToReceiverLabel: UILabel!;
@@ -19,26 +20,34 @@ class MessageTableViewCell: UITableViewCell {
 
 class MessageViewController: UIViewController {
 
+    /*UI-IBOutlets*/
     @IBOutlet weak var newMessageTextField: UITextField!;
     @IBOutlet weak var messagesTableView: UITableView!;
     @IBOutlet weak var messageNavigator: UINavigationItem!
 
+    /*UI-IBActions*/
+    @IBAction func unwindSegue() {
+        dismiss(animated: false, completion: nil);
+    }
+
     var friendConversation: MessageStack?;
-    let userData = CoreDataController.getUserProfile();
+    lazy var userData = CoreDataController.getUserProfile();
+    var chatRoomID: String?;
 
     override func viewDidLoad() {
         super.viewDidLoad();
+        prepareUI();
 
+        fetchMessages();
+        joinChatRoom();
         registerForKeyboardNotifications();
+    }
 
+    func prepareUI() {
         messagesTableView.estimatedRowHeight = 50;
         messagesTableView.rowHeight = UITableViewAutomaticDimension;
         newMessageTextField.autocorrectionType = .no;
         messageNavigator.title = friendConversation?.getFriendProfile()?.getFirstName();
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        fetchMessages();
     }
 
     func fetchMessages() {
@@ -87,7 +96,8 @@ class MessageViewController: UIViewController {
 
     deinit {
         deregisterFromKeyboardNotifications();
-        print("MessageView deinit was called")
+        leaveChatRoom();
+        print("MessageView deinit was called");
     }
 
     fileprivate func sendMessage(message: String) {
@@ -132,6 +142,33 @@ extension MessageViewController: UITextFieldDelegate {
 
     /* UITextField Delegate Methods*/
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let message = newMessageTextField.text {
+            if (!message.isEmpty) {
+                messageChat(message: message);
+            }
+        }
+
+        return true;
+    }
+
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        print("User started typing");
+        return true;
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        print("User is typing");
+        if let chatRoomID = chatRoomID {
+            let param = ["username": userData?.email, "chatID": chatRoomID] as AnyObject;
+            SocketIOManager.sharedInstance.emit(event: Constants.startTyping, data: param);
+        }
+        return true;
+    }
+
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        print("User stopped typing");
+        let param = ["username": userData?.email, "chatID": chatRoomID] as AnyObject;
+        SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param);
         return true;
     }
 
@@ -174,6 +211,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
 }
+
 extension UITableView {
     func scrollToBottom() {
         let rows = self.numberOfRows(inSection: 0);
@@ -186,7 +224,53 @@ extension UITableView {
 }
 
 extension MessageViewController {
-    @IBAction func unwindSegue() {
-        dismiss(animated: false, completion: nil);
+
+    // # Mark - Crypto
+    private func generateChatRoomID() {
+        if let username = userData?.email, let friendname = friendConversation?.getFriendProfile()?.getEmail() {
+            let sortedArray = [username, friendname].sorted().joined(separator: "");
+            chatRoomID = sortedArray.sha512();
+            print("Chat ID: \(chatRoomID!)");
+        }
     }
+
+    // # Mark - SocketIO
+    private func subscribeToChatEvents() {
+        SocketIOManager.sharedInstance.subscribe(event: Constants.sendMessage);
+        SocketIOManager.sharedInstance.subscribe(event: Constants.startTyping);
+        SocketIOManager.sharedInstance.subscribe(event: Constants.stopTyping);
+    }
+
+    private func unsubscribeFromChatEvents() {
+        SocketIOManager.sharedInstance.unsubscribe(event: Constants.sendMessage);
+        SocketIOManager.sharedInstance.unsubscribe(event: Constants.startTyping);
+        SocketIOManager.sharedInstance.unsubscribe(event: Constants.stopTyping);
+    }
+
+    private func joinChatRoom() {
+        generateChatRoomID();
+        subscribeToChatEvents();
+
+        if let chatRoomID = chatRoomID {
+            let param = ["username": userData?.email, "chatID": chatRoomID];
+            SocketIOManager.sharedInstance.emit(event: Constants.joinRoom, data: param as AnyObject);
+        }
+    }
+
+    private func leaveChatRoom() {
+        unsubscribeFromChatEvents();
+
+        if let chatRoomID = chatRoomID {
+            let param = ["username": userData?.email, "chatID": chatRoomID];
+            SocketIOManager.sharedInstance.emit(event: Constants.leaveRoom, data: param as AnyObject);
+        }
+    }
+
+    private func messageChat(message: String) {
+        print("message chat was called, message: \(message)");
+        let param = ["username": userData?.email, "chatID": chatRoomID, "message": message] as AnyObject;
+        SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param);
+        SocketIOManager.sharedInstance.emit(event: Constants.sendMessage, data: param);
+    }
+
 }

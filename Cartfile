@@ -3,3 +3,5 @@ github "Alamofire/Alamofire" ~> 4.4
 github "hyperoslo/ImagePicker"
 github "ruslanskorb/RSKImageCropper"
 github "aws/aws-sdk-ios"
+github "socketio/socket.io-client-swift"
+github "krzyzanowskim/CryptoSwift"
