@@ -42,26 +42,34 @@ class HomeViewController: UIViewController {
             }
 
             for messagePackets in responseData {
-                guard let conversationArray = messagePackets as? NSArray,
-                    let recentMessageDict = conversationArray[0] as? [String: Any] else {
-                        return;
-                }
-
-                guard let sentBy = recentMessageDict["sentBy"] as? String,
-                    let sentTo = recentMessageDict["sentTo"] as? String,
-                    let message = recentMessageDict["message"] as? String else {
-                        return
-                }
-
                 var conversation = MessageStack();
                 var friendProfile: LOGUser?;
+                var image: UIImage?;
+
+                guard let conversationArray = messagePackets as? NSArray,
+                      let recentMessageDict = conversationArray[0] as? [String: Any],
+                      let sentBy = recentMessageDict["sentBy"] as? String,
+                      let sentTo = recentMessageDict["sentTo"] as? String,
+                      let message = recentMessageDict["message"] as? String else {
+                        return;
+                }
+                let imageString: String? = recentMessageDict["image"] as? String;
+                let error: String? = recentMessageDict["error"] as? String;
+
+                if imageString != nil {
+                    let imageData = NSData(base64Encoded: imageString!, options: NSData.Base64DecodingOptions(rawValue:NSData.Base64DecodingOptions.RawValue(0)));
+                    image = UIImage.init(data: imageData! as Data)!;
+                }
+                if error != nil {
+                    image = UIImage(named: "defaultUserIcon");
+                }
 
                 switch (username) {
                     case sentBy:
-                        friendProfile = LOGUser.init(handle: sentTo, email: sentTo, firstName: sentTo, lastName: sentTo, picture: UIImage(named: "defaultUserIcon"));
+                        friendProfile = LOGUser.init(handle: sentTo, email: sentTo, firstName: sentTo, lastName: sentTo, picture: image);
                         break;
                     case sentTo:
-                        friendProfile = LOGUser.init(handle: sentBy, email: sentBy, firstName: sentBy, lastName: sentBy, picture: UIImage(named: "defaultUserIcon"));
+                        friendProfile = LOGUser.init(handle: sentBy, email: sentBy, firstName: sentBy, lastName: sentBy, picture: image);
                         break;
                     default:
                         break;
