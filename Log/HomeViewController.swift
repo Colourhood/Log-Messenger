@@ -19,7 +19,11 @@ class HomeTableViewCell: UITableViewCell {
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var homeTableView: UITableView!;
-
+    @IBOutlet weak var profileButton: UIButton!
+    @IBOutlet weak var friendSearchBar: UISearchBar!
+    @IBOutlet weak var newMessageButton: UIButton!
+    
+    
     var recentMessages: [MessageStack] = [];
     var selectedConversationWithFriend: LOGUser?;
 
@@ -87,6 +91,11 @@ class HomeViewController: UIViewController {
                 messageViewController.friendConversation = messageStack;
             }
         }
+    }
+    
+    @IBAction func userTappedProfileButton(_ sender: UIButton) {
+        let userProfileVC = UserProfileViewController(nibName: "UserProfileViewController", bundle: nil)
+        self.present(userProfileVC, animated: true, completion: nil)
     }
 }
 
