@@ -10,26 +10,26 @@ import Foundation
 
 struct Message {
 
-    private var messageSender: LOGUser;
+    private var sender: LOGUser;
     private var message: String;
-    private var dateSent: Date;
+    private var date: String;
 
-    init(messageSender: LOGUser, message: String, dateSent: Date) {
-        self.messageSender = messageSender;
+    init(sender: LOGUser, message: String, date: String) {
+        self.sender = sender;
         self.message = message;
-        self.dateSent = dateSent;
+        self.date = date;
     }
 
-    func getMessageLOGSender() -> LOGUser {
-        return self.messageSender;
+    func getSender() -> LOGUser {
+        return self.sender;
     }
 
     func getMessage() -> String {
         return self.message;
     }
 
-    func getDateMessageSent() -> Date {
-        return self.dateSent;
+    func getDate() -> String {
+        return self.date;
     }
 
 }

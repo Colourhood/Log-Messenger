@@ -299,6 +299,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="date" destination="ulA-1m-fgb" id="FrO-xr-9D2"/>
                                             <outlet property="friendName" destination="ER4-t8-K38" id="3tc-s9-tPm"/>
                                             <outlet property="friendPicture" destination="dgH-W8-GvX" id="Wuf-bB-T6q"/>
                                             <outlet property="mostRecentMessageFromConversation" destination="mWJ-01-uKI" id="bTl-8X-ZUN"/>
