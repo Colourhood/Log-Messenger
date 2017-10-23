@@ -15,6 +15,7 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var friendPicture: UIImageView!;
     @IBOutlet weak var friendName: UILabel!;
     @IBOutlet weak var mostRecentMessageFromConversation: UILabel!;
+    @IBOutlet weak var date: UILabel!
 }
 
 class HomeViewController: UIViewController {
@@ -22,8 +23,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var friendSearchBar: UISearchBar!
     @IBOutlet weak var newMessageButton: UIButton!
-    
-    
+
     var recentMessages: [MessageStack] = [];
     var selectedConversationWithFriend: LOGUser?;
 
@@ -36,6 +36,8 @@ class HomeViewController: UIViewController {
 
     func fetchRecentMessages() {
         HomeController.getRecentMessages { [weak self] (responseData) in
+            print("Data from server \(responseData)");
+
             guard let `self` = self else { return }
             guard let username = CoreDataController.getUserProfile()?.email else {
                 return;
@@ -50,7 +52,8 @@ class HomeViewController: UIViewController {
                       let recentMessageDict = conversationArray[0] as? [String: Any],
                       let sentBy = recentMessageDict["sentBy"] as? String,
                       let sentTo = recentMessageDict["sentTo"] as? String,
-                      let message = recentMessageDict["message"] as? String else {
+                      let message = recentMessageDict["message"] as? String,
+                      let date =  recentMessageDict["created_at"] as? String else {
                         return;
                 }
                 let imageString: String? = recentMessageDict["image"] as? String;
@@ -59,24 +62,23 @@ class HomeViewController: UIViewController {
                 if imageString != nil {
                     let imageData = NSData(base64Encoded: imageString!, options: NSData.Base64DecodingOptions(rawValue:NSData.Base64DecodingOptions.RawValue(0)));
                     image = UIImage.init(data: imageData! as Data)!;
-                }
-                if error != nil {
+                } else {
                     image = UIImage(named: "defaultUserIcon");
                 }
 
                 switch (username) {
                     case sentBy:
-                        friendProfile = LOGUser.init(handle: sentTo, email: sentTo, firstName: sentTo, lastName: sentTo, picture: image);
+                        friendProfile = LOGUser.init(email: sentTo, firstName: sentTo, lastName: sentTo, picture: image);
                         break;
                     case sentTo:
-                        friendProfile = LOGUser.init(handle: sentBy, email: sentBy, firstName: sentBy, lastName: sentBy, picture: image);
+                        friendProfile = LOGUser.init(email: sentBy, firstName: sentBy, lastName: sentBy, picture: image);
                         break;
                     default:
                         break;
                 }
 
                 if let friendProfile = friendProfile {
-                    let recentMessage = Message.init(messageSender: friendProfile, message: message, dateSent: Date.init());
+                    let recentMessage = Message.init(sender: friendProfile, message: message, date: date);
                     conversation.setFriendProfile(friendProfile: friendProfile);
                     conversation.setStackOfMessages(stack: [recentMessage]);
                     self.recentMessages.append(conversation);
@@ -100,7 +102,7 @@ class HomeViewController: UIViewController {
             }
         }
     }
-    
+
     @IBAction func userTappedProfileButton(_ sender: UIButton) {
         let userProfileVC = UserProfileViewController(nibName: "UserProfileViewController", bundle: nil)
         self.present(userProfileVC, animated: true, completion: nil)
@@ -120,12 +122,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let friendEmail = friendConversationData.getFriendProfile()?.getEmail();
         let userImage = friendConversationData.getFriendProfile()?.getPicture();
         let mostRecentMessage = friendConversationData.getStackOfMessages()[0].getMessage();
+        let date = friendConversationData.getStackOfMessages()[0].getDate();
 
         var cell: HomeTableViewCell?;
         cell = homeTableView.dequeueReusableCell(withIdentifier: "Friend Conversation Cell", for: indexPath) as? HomeTableViewCell;
         cell?.friendName.text = friendEmail;
         cell?.friendPicture.image = userImage;
         cell?.mostRecentMessageFromConversation.text = mostRecentMessage;
+        //cell?.date.text = date;
 
         return cell!;
     }

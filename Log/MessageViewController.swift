@@ -30,6 +30,7 @@ class MessageViewController: UIViewController {
         dismiss(animated: false, completion: nil);
     }
 
+    /* Class Variables */
     var friendConversation: MessageStack?;
     lazy var userData = CoreDataController.getUserProfile();
     var chatRoomID: String?;
@@ -53,9 +54,9 @@ class MessageViewController: UIViewController {
     func fetchMessages() {
         //Network request to get all(for now) messages between two users
         let friendProfile = friendConversation?.getFriendProfile();
-        let friendname = friendProfile!.getEmail();
+        let friendname = friendProfile?.getEmail();
 
-        let userProfile = LOGUser.init(handle: nil, email: userData?.email, firstName: nil, lastName: nil, picture: UIImage.init(data: (userData?.image)! as Data));
+        let userProfile = LOGUser.init(email: userData?.email, firstName: nil, lastName: nil, picture: UIImage.init(data: (userData?.image)! as Data));
         let username = userProfile.getEmail();
 
         MessageController.getMessagesForFriend(friendname: friendname!, completionHandler: { [weak self] (response) in
@@ -64,11 +65,11 @@ class MessageViewController: UIViewController {
 
             //Array of messages for key 'messages'
             if let messages = response["messages"] as? [AnyObject] {
-
                 for messagePacket in messages {
                     if let messageDict = messagePacket as? [String: Any] {
                         let sentBy = messageDict["sentBy"] as? String;
                         let message = messageDict["message"] as? String;
+                        let date = messageDict["created_at"] as? String;
                         var senderUser: LOGUser?;
 
                         if (sentBy == friendname) {
@@ -77,19 +78,17 @@ class MessageViewController: UIViewController {
                             senderUser = userProfile;
                         }
 
-                        if let senderUser = senderUser {
-                            if let message = message {
-                                let messageObj = Message.init(messageSender: senderUser, message: message, dateSent: Date.init());
+                        if let senderUser = senderUser, let message = message, let date = date {
+                                let messageObj = Message.init(sender: senderUser, message: message, date: date);
                                 self.friendConversation?.appendMessageToMessageStack(messageObj: messageObj);
-                            }
                         }
                     }
                 }
-            }
 
-            DispatchQueue.main.async {
-                self.messagesTableView.reloadData();
-                self.messagesTableView.scrollToBottom();
+                DispatchQueue.main.async {
+                    self.messagesTableView.reloadData();
+                    self.messagesTableView.scrollToBottom();
+                }
             }
         });
     }
@@ -187,7 +186,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
         let messageData = friendConversation?.getStackOfMessages()[indexPath.row];
 
-        let messageProfile = messageData?.getMessageLOGSender();
+        let messageProfile = messageData?.getSender();
 //        let sender = messageProfile?.getHandle();
         let email = messageProfile?.getEmail();
         let name = messageProfile?.getFirstName();

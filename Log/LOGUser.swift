@@ -11,22 +11,16 @@ import UIKit
 
 struct LOGUser {
 
-    private var handle: String?;
     private var email: String?;
     private var firstName: String?;
     private var lastName: String?;
     private var picture: UIImage?;
 
-    init(handle: String?, email: String?, firstName: String?, lastName: String?, picture: UIImage?) {
-        self.handle = handle;
+    init(email: String?, firstName: String?, lastName: String?, picture: UIImage?) {
         self.email = email;
         self.firstName = firstName;
         self.lastName = lastName;
         self.picture = picture;
-    }
-
-    func getHandle() -> String? {
-        return handle;
     }
 
     func getEmail() -> String? {
