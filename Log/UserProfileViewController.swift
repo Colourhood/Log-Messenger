@@ -12,12 +12,12 @@ class UserProfileViewController: UIViewController {
 
     @IBOutlet weak var profileTableView: UITableView!
     @IBOutlet weak var userProfileNavigationBar: UINavigationItem!
-    
+
     let userInfoArray = ["Username", "Phone"]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.profileTableView.register(UserProfileTableViewCell.self, forCellReuseIdentifier: "userProfileTableViewCell")
     }
 
@@ -25,13 +25,12 @@ class UserProfileViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        
+
     }
-    
+
     @IBAction func userTappedDoneButton(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -41,7 +40,7 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -54,7 +53,7 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
             return 1
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell", for: indexPath) as? UserProfileTableViewCell {
             switch indexPath.section {
@@ -69,10 +68,10 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
             }
             return cell
         }
-        
+
         return UITableViewCell()
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
