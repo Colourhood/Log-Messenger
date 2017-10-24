@@ -248,7 +248,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="64" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dzg-TP-Kgd">
-                                <rect key="frame" x="0.0" y="129" width="375" height="592"/>
+                                <rect key="frame" x="0.0" y="129" width="375" height="538"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Friend Conversation Cell" rowHeight="70" id="CP0-b5-1QU" customClass="HomeTableViewCell" customModule="Log" customModuleProvider="target">
@@ -431,7 +431,7 @@
                             <constraint firstItem="LUA-jV-OWW" firstAttribute="top" secondItem="HV8-b5-eeG" secondAttribute="top" constant="13" id="bry-XG-b0h"/>
                             <constraint firstAttribute="trailing" secondItem="Dzg-TP-Kgd" secondAttribute="trailing" id="gFk-FW-cab"/>
                             <constraint firstAttribute="trailing" secondItem="W57-vW-e3i" secondAttribute="trailing" id="hVM-Az-YU4"/>
-                            <constraint firstItem="9Um-Tl-BhN" firstAttribute="top" secondItem="Dzg-TP-Kgd" secondAttribute="bottom" constant="-54" id="nke-68-3jB"/>
+                            <constraint firstItem="9Um-Tl-BhN" firstAttribute="top" secondItem="Dzg-TP-Kgd" secondAttribute="bottom" id="nke-68-3jB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="RTN-4D-QbA"/>
