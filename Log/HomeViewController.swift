@@ -129,7 +129,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell?.friendName.text = friendEmail;
         cell?.friendPicture.image = userImage;
         cell?.mostRecentMessageFromConversation.text = mostRecentMessage;
-        //cell?.date.text = date;
+        cell?.date.text = DateConverter.handleDate(date: date);
 
         return cell!;
     }
