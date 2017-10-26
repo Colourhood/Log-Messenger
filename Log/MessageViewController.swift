@@ -37,6 +37,9 @@ class MessageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad();
+
+        //Delegates
+        SocketIOManager.sharedInstance.delegate = self;
         prepareUI();
 
         fetchMessages();
@@ -222,7 +225,7 @@ extension UITableView {
     }
 }
 
-extension MessageViewController {
+extension MessageViewController: SocketIODelegate {
 
     // # Mark - Crypto
     private func generateChatRoomID() {
@@ -231,6 +234,19 @@ extension MessageViewController {
             chatRoomID = sortedArray.sha512();
             print("Chat ID: \(chatRoomID!)");
         }
+    }
+
+    // # Mark - SocketIODelegates
+    func receivedMessage(message: String) {
+        print("Received socket delegate event: Message - \(message)");
+    }
+
+    func friendStoppedTyping() {
+        print("Received socket delegate event: Friend stopped typing");
+    }
+
+    func friendStartedTyping() {
+        print("Received socket delegate event: Friend started typing");
     }
 
     // # Mark - SocketIO

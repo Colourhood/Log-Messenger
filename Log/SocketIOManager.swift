@@ -11,9 +11,16 @@ import SocketIO
 
 private let socketURL: String = "http://127.0.0.1:7555";
 
+protocol SocketIODelegate: class {
+    func receivedMessage(message: String);
+    func friendStoppedTyping();
+    func friendStartedTyping();
+}
+
 class SocketIOManager: NSObject {
     static let sharedInstance = SocketIOManager();
     var socket: SocketIOClient = SocketIOClient(socketURL: URL(string: socketURL)!);
+    weak var delegate: SocketIODelegate?;
 
     private override init() {
         super.init();
@@ -28,9 +35,13 @@ class SocketIOManager: NSObject {
     }
 
     func subscribe(event: String) {
-        print("Subscribing to event: \(event)")
-        socket.on(event) { (data, _) in
-            print("Incoming event \(data[0])");
+        socket.on(event) { [weak self] (data, _) in
+            guard let `self` = self else { return; }
+            if (data.count > 0) {
+                if let data = data[0] as? [String: String] {
+                    self.handleEvents(data: data);
+                }
+            }
         }
     }
 
@@ -40,6 +51,26 @@ class SocketIOManager: NSObject {
 
     func emit(event: String, data: AnyObject) {
         socket.emit(event, [data]);
+    }
+
+    private func handleEvents(data: [String: String]) {
+        if let delegate = delegate {
+            if let eventName = data["event"] {
+                switch (eventName) {
+                    case Constants.sendMessage:
+                        delegate.receivedMessage(message: data["message"]!);
+                        break;
+                    case Constants.stopTyping:
+                        delegate.friendStoppedTyping();
+                        break;
+                    case Constants.startTyping:
+                        delegate.friendStoppedTyping();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
 }
