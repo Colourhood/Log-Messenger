@@ -36,8 +36,6 @@ class HomeViewController: UIViewController {
 
     func fetchRecentMessages() {
         HomeController.getRecentMessages { [weak self] (responseData) in
-            print("Data from server \(responseData)");
-
             guard let `self` = self else { return }
             guard let username = CoreDataController.getUserProfile()?.email else {
                 return;
