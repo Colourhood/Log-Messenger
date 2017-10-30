@@ -12,7 +12,7 @@ import SocketIO
 private let socketURL: String = "http://192.168.0.10:7555";
 
 protocol SocketIODelegate: class {
-    func receivedMessage(message: String);
+    func receivedMessage(user: String, message: String);
     func friendStoppedTyping();
     func friendStartedTyping();
 }
@@ -58,13 +58,14 @@ class SocketIOManager: NSObject {
             if let eventName = data["event"] {
                 switch (eventName) {
                     case Constants.sendMessage:
-                        delegate.receivedMessage(message: data["message"]!);
+                        guard let user = data["username"], let message = data["message"] else { return; }
+                        delegate.receivedMessage(user: user, message: message);
                         break;
                     case Constants.stopTyping:
                         delegate.friendStoppedTyping();
                         break;
                     case Constants.startTyping:
-                        delegate.friendStoppedTyping();
+                        delegate.friendStartedTyping();
                         break;
                     default:
                         break;
