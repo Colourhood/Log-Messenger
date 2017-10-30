@@ -20,6 +20,11 @@ class MessageTableViewCell: UITableViewCell {
 
 class MessageViewController: UIViewController {
 
+    /* Class Variables */
+    var friendConversation: MessageStack?;
+    var userData = CoreDataController.getUserProfile();
+    var chatRoomID: String?;
+
     /*UI-IBOutlets*/
     @IBOutlet weak var newMessageTextField: UITextField!;
     @IBOutlet weak var messagesTableView: UITableView!;
@@ -29,11 +34,6 @@ class MessageViewController: UIViewController {
     @IBAction func unwindSegue() {
         dismiss(animated: false, completion: nil);
     }
-
-    /* Class Variables */
-    var friendConversation: MessageStack?;
-    lazy var userData = CoreDataController.getUserProfile();
-    var chatRoomID: String?;
 
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -113,8 +113,6 @@ class MessageViewController: UIViewController {
             print(json);
         }
         messageChat(message: message); //Server - SocketIO
-
-
     }
 
 }
@@ -152,8 +150,13 @@ extension MessageViewController: UITextFieldDelegate {
         if let message = newMessageTextField.text {
             if (!message.isEmpty) {
                 sendMessage(message: message); //Server - Database
+                newMessageTextField.text = ""; //Clear text
 
-                newMessageTextField.text = "";
+                let userProfile = LOGUser.init(email: userData?.email, firstName: userData?.email, lastName: userData?.email, picture: UIImage.init(data: (userData?.image)! as Data));
+                let newMessage = Message.init(sender: userProfile, message: message, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat));
+
+                friendConversation?.appendMessageToMessageStack(messageObj: newMessage);
+                updateMessagesTable();
             }
         }
 
