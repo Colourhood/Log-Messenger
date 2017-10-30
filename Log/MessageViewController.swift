@@ -54,6 +54,13 @@ class MessageViewController: UIViewController {
         messageNavigator.title = friendConversation?.getFriendProfile()?.getFirstName();
     }
 
+    func updateMessagesTable() {
+        DispatchQueue.main.async {
+            self.messagesTableView.reloadData();
+            self.messagesTableView.scrollToBottom();
+        }
+    }
+
     func fetchMessages() {
         //Network request to get all(for now) messages between two users
         let friendProfile = friendConversation?.getFriendProfile();
@@ -87,11 +94,7 @@ class MessageViewController: UIViewController {
                         }
                     }
                 }
-
-                DispatchQueue.main.async {
-                    self.messagesTableView.reloadData();
-                    self.messagesTableView.scrollToBottom();
-                }
+                self.updateMessagesTable();
             }
         });
     }
@@ -103,12 +106,11 @@ class MessageViewController: UIViewController {
     }
 
     fileprivate func sendMessage(message: String) {
-        if let sentBy = CoreDataController.getUserProfile()?.email,
-           let sentTo = friendConversation?.getFriendProfile()?.getEmail() {
-            let parameters = ["sentBy": sentBy, "sentTo": sentTo, "message": message];
-            MessageController.sendNewMessage(parameters: parameters) { (json) in
-                print(json);
-            }
+        let sentTo = friendConversation?.getFriendProfile()?.getEmail();
+
+        let parameters = ["sentBy": userData?.email, "sentTo": sentTo, "message": message] as [String: AnyObject];
+        MessageController.sendNewMessage(parameters: parameters) { (json) in
+            print(json);
         }
     }
 
@@ -146,7 +148,10 @@ extension MessageViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let message = newMessageTextField.text {
             if (!message.isEmpty) {
-                messageChat(message: message);
+                sendMessage(message: message); //Server - Database
+                messageChat(message: message); //Server- SocketIO
+
+                newMessageTextField.text = "";
             }
         }
 
@@ -154,21 +159,16 @@ extension MessageViewController: UITextFieldDelegate {
     }
 
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        print("User started typing");
         return true;
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        print("User is typing");
-        if let chatRoomID = chatRoomID {
-            let param = ["username": userData?.email, "chatID": chatRoomID] as AnyObject;
-            SocketIOManager.sharedInstance.emit(event: Constants.startTyping, data: param);
-        }
+        let param = ["username": userData?.email, "chatID": chatRoomID] as AnyObject;
+        SocketIOManager.sharedInstance.emit(event: Constants.startTyping, data: param);
         return true;
     }
 
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        print("User stopped typing");
         let param = ["username": userData?.email, "chatID": chatRoomID] as AnyObject;
         SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param);
         return true;
@@ -188,9 +188,8 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let messageData = friendConversation?.getStackOfMessages()[indexPath.row];
-
         let messageProfile = messageData?.getSender();
-//        let sender = messageProfile?.getHandle();
+
         let email = messageProfile?.getEmail();
         let name = messageProfile?.getFirstName();
         let picture = messageProfile?.getPicture();
@@ -214,6 +213,27 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
 }
 
+extension MessageViewController: SocketIODelegate {
+
+    // # Mark - SocketIODelegates
+    func receivedMessage(user: String, message: String, date: String) {
+        print("Received socket delegate event: Message - \(user): \(message), \(date)");
+
+        let newMessage = Message.init(sender: (friendConversation?.getFriendProfile())!, message: message, date: date);
+        friendConversation?.appendMessageToMessageStack(messageObj: newMessage);
+        updateMessagesTable();
+    }
+
+    func friendStoppedTyping() {
+        print("Received socket delegate event: Friend stopped typing");
+    }
+
+    func friendStartedTyping() {
+        print("Received socket delegate event: Friend started typing");
+    }
+
+}
+
 extension UITableView {
     func scrollToBottom() {
         let rows = self.numberOfRows(inSection: 0);
@@ -225,7 +245,7 @@ extension UITableView {
     }
 }
 
-extension MessageViewController: SocketIODelegate {
+extension MessageViewController {
 
     // # Mark - Crypto
     private func generateChatRoomID() {
@@ -234,19 +254,6 @@ extension MessageViewController: SocketIODelegate {
             chatRoomID = sortedArray.sha512();
             print("Chat ID: \(chatRoomID!)");
         }
-    }
-
-    // # Mark - SocketIODelegates
-    func receivedMessage(message: String) {
-        print("Received socket delegate event: Message - \(message)");
-    }
-
-    func friendStoppedTyping() {
-        print("Received socket delegate event: Friend stopped typing");
-    }
-
-    func friendStartedTyping() {
-        print("Received socket delegate event: Friend started typing");
     }
 
     // # Mark - SocketIO
@@ -266,24 +273,20 @@ extension MessageViewController: SocketIODelegate {
         generateChatRoomID();
         subscribeToChatEvents();
 
-        if let chatRoomID = chatRoomID {
-            let param = ["username": userData?.email, "chatID": chatRoomID];
-            SocketIOManager.sharedInstance.emit(event: Constants.joinRoom, data: param as AnyObject);
-        }
+        let param = ["username": userData?.email, "chatID": chatRoomID];
+        SocketIOManager.sharedInstance.emit(event: Constants.joinRoom, data: param as AnyObject);
     }
 
     private func leaveChatRoom() {
         unsubscribeFromChatEvents();
 
-        if let chatRoomID = chatRoomID {
-            let param = ["username": userData?.email, "chatID": chatRoomID];
-            SocketIOManager.sharedInstance.emit(event: Constants.leaveRoom, data: param as AnyObject);
-        }
+        let param = ["username": userData?.email, "chatID": chatRoomID];
+        SocketIOManager.sharedInstance.emit(event: Constants.leaveRoom, data: param as AnyObject);
     }
 
     private func messageChat(message: String) {
         print("message chat was called, message: \(message)");
-        let param = ["username": userData?.email, "chatID": chatRoomID, "message": message] as AnyObject;
+        let param = ["username": userData?.email, "chatID": chatRoomID, "message": message, "date": DateConverter.convert(date: Date(), format: Constants.serverDateFormat)] as AnyObject;
         SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param);
         SocketIOManager.sharedInstance.emit(event: Constants.sendMessage, data: param);
     }

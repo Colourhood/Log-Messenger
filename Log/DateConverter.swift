@@ -40,7 +40,7 @@ struct DateConverter {
         return "";
     }
 
-    private static func convert(date: Date, format: String) -> String {
+    static func convert(date: Date, format: String) -> String {
         //let dateFormat = "EEE, MMM d, yyyy, hh:mm a";
         let formatter = DateFormatter();
             formatter.dateFormat = format;
