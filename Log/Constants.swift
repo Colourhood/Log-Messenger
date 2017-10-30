@@ -39,4 +39,7 @@ struct Constants {
     static let sendMessage = "send message";
     static let startTyping = "start typing";
     static let stopTyping = "stop typing";
+
+    // #Mark - Date Format
+    static let serverDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 }

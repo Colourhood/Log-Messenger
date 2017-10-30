@@ -8,8 +8,6 @@
 
 import Foundation
 
-let serverDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-
 struct DateConverter {
 
     static let minute: TimeInterval = 60.0;
@@ -20,7 +18,7 @@ struct DateConverter {
     static func handleDate(date: String) -> String {
 
         let formatter = DateFormatter();
-            formatter.dateFormat = serverDateFormat;
+            formatter.dateFormat = Constants.serverDateFormat;
             formatter.amSymbol = "am";
             formatter.pmSymbol = "pm";
 
