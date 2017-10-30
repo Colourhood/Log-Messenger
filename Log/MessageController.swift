@@ -30,7 +30,7 @@ struct MessageController {
     }
 
     static func sendNewMessage(parameters: [String: Any], completionHandler: @escaping ([String: Any]) -> Void) {
-        let request = LOGHTTP.post(url: "/messages", parameters: parameters);
+        let request = LOGHTTP.post(url: "/user/messages", parameters: parameters);
 
         request.responseJSON(completionHandler: { (response) in
             switch(response.result) {
