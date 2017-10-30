@@ -109,9 +109,12 @@ class MessageViewController: UIViewController {
         let sentTo = friendConversation?.getFriendProfile()?.getEmail();
 
         let parameters = ["sentBy": userData?.email, "sentTo": sentTo, "message": message] as [String: AnyObject];
-        MessageController.sendNewMessage(parameters: parameters) { (json) in
+        MessageController.sendNewMessage(parameters: parameters) { (json) in //Server - Database
             print(json);
         }
+        messageChat(message: message); //Server - SocketIO
+
+
     }
 
 }
@@ -149,7 +152,6 @@ extension MessageViewController: UITextFieldDelegate {
         if let message = newMessageTextField.text {
             if (!message.isEmpty) {
                 sendMessage(message: message); //Server - Database
-                messageChat(message: message); //Server- SocketIO
 
                 newMessageTextField.text = "";
             }
