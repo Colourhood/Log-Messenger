@@ -102,8 +102,8 @@ class HomeViewController: UIViewController {
     }
 
     @IBAction func userTappedProfileButton(_ sender: UIButton) {
-        let userProfileVC = UserProfileViewController(nibName: "UserProfileViewController", bundle: nil)
-        self.present(userProfileVC, animated: true, completion: nil)
+        let userProfileVC = UserProfileViewController(nibName: "UserProfileViewController", bundle: nil);
+        present(userProfileVC, animated: true, completion: nil);
     }
 }
 
