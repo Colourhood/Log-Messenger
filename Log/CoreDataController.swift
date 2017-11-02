@@ -14,50 +14,50 @@ class CoreDataController {
     private init () {} //Private unaccessible initializer
 
     class func getContext() -> NSManagedObjectContext {
-        return (self.persistentContainer.viewContext);
+        return (self.persistentContainer.viewContext)
     }
 
     static var currentUserCoreData: [UserCoreData]? {
-        var userResults: [UserCoreData]?;
-        let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest();
-        fetchRequest.fetchLimit = 1;
-        fetchRequest.returnsObjectsAsFaults = false;
+        var userResults: [UserCoreData]?
+        let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        fetchRequest.returnsObjectsAsFaults = false
 
         do {
-            userResults = try self.getContext().fetch(fetchRequest);
+            userResults = try self.getContext().fetch(fetchRequest)
         } catch {
             // Process Error
         }
-        return userResults;
+        return userResults
     }
 
     // # Mark - Setters
     class func setUser(username: String, image: NSData) {
         guard let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: getContext()) as? UserCoreData else {
-            return;
+            return
         }
-        userCoreData.email = username;
-        userCoreData.image = image;
-        saveContext();
+        userCoreData.email = username
+        userCoreData.image = image
+        saveContext()
     }
 
     // #Mark - Getter
     class func getUserProfile() -> UserCoreData? {
-        let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest();
-        fetchRequest.returnsObjectsAsFaults = false;
+        let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest()
+        fetchRequest.returnsObjectsAsFaults = false
 
         do {
-            let searchResults = try getContext().fetch(fetchRequest);
+            let searchResults = try getContext().fetch(fetchRequest)
 
             if (searchResults.count > 0) {
-                return(searchResults[0]);
+                return(searchResults[0])
             } else {
-                return(nil);
+                return nil
             }
         } catch {
             //Process error
         }
-        return nil;
+        return nil
     }
 
     // MARK: - Core Data Stack
@@ -68,7 +68,7 @@ class CoreDataController {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
          */
-        let container = NSPersistentContainer(name: "AppState");
+        let container = NSPersistentContainer(name: "AppState")
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -82,23 +82,23 @@ class CoreDataController {
                  * The store could not be migrated to the current model version.
                  Check the error message to determine what the actual problem was.
                  */
-                fatalError("Unresolved error \(error), \(error.userInfo)");
+                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        return container;
+        return container
     }()
 
     // MARK: - Core Data Saving support
     class func saveContext () {
-        let context = persistentContainer.viewContext;
+        let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
-                try context.save();
+                try context.save()
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError;
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)");
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
     }

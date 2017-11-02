@@ -10,36 +10,36 @@ import Foundation
 
 struct Constants {
 
-    static let allDirectories = [Images];
+    static let allDirectories = [Images]
 
     // # Mark - File Types
-    static let JSON = "json";
-    static let Text = "txt";
-    static let PDF = "pdf";
-    static let PNG = "png";
-    static let JPEG = "jpeg";
-    static let JPG = "jpg";
-    static let TIFF = "tiff";
+    static let JSON = "json"
+    static let Text = "txt"
+    static let PDF = "pdf"
+    static let PNG = "png"
+    static let JPEG = "jpeg"
+    static let JPG = "jpg"
+    static let TIFF = "tiff"
 
     // # Mark - MIME Content Types
-    static let MPNG = "image/png";
-    static let MJPEG = "image/jpeg";
-    static let MJPG = "image/jpg";
+    static let MPNG = "image/png"
+    static let MJPEG = "image/jpeg"
+    static let MJPG = "image/jpg"
 
     // # Mark - Directory Name
-    static let Images = "Images";
+    static let Images = "Images"
 
     // # Mark - Filenames
-    static let profilePicture = "profilePicture";
+    static let profilePicture = "profilePicture"
 
     // # Mark - SocketIO Events
-    static let joinRoom = "join room";
-    static let leaveRoom = "leave room";
+    static let joinRoom = "join room"
+    static let leaveRoom = "leave room"
 
-    static let sendMessage = "send message";
-    static let startTyping = "start typing";
-    static let stopTyping = "stop typing";
+    static let sendMessage = "send message"
+    static let startTyping = "start typing"
+    static let stopTyping = "stop typing"
 
     // #Mark - Date Format
-    static let serverDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    static let serverDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 }

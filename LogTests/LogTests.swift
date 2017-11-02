@@ -11,33 +11,33 @@ import XCTest
 
 class LogTests: XCTestCase {
 
-    var username: String?;
-    var password: String?;
+    var username: String?
+    var password: String?
 
     override func setUp() {
-        super.setUp();
-        self.username = "andreicrimson@gmail.com";
-        self.password = "password";
+        super.setUp()
+        self.username = "andreicrimson@gmail.com"
+        self.password = "password"
     }
 
     override func tearDown() {
-        super.tearDown();
-        self.username = nil;
-        self.password = nil;
+        super.tearDown()
+        self.username = nil
+        self.password = nil
     }
 
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let promise = expectation(description: "These are equal to each other");
+        let promise = expectation(description: "These are equal to each other")
 
-        let number = 1;
+        let number = 1
 
         if (number == 1) {
-            promise.fulfill();
+            promise.fulfill()
         }
 
-        waitForExpectations(timeout: 4, handler: nil);
+        waitForExpectations(timeout: 4, handler: nil)
     }
 
     func testPerformanceExample() {

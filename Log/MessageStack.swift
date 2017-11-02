@@ -9,26 +9,26 @@
 import Foundation
 
 struct MessageStack {
-    private var messageStack: [Message] = [];
-    private var conversationWithFriend: LOGUser?;
+    private var messageStack: [Message] = []
+    private var conversationWithFriend: LOGUser?
 
     mutating func setFriendProfile(friendProfile: LOGUser?) {
-        conversationWithFriend = friendProfile;
+        conversationWithFriend = friendProfile
     }
 
     mutating func setStackOfMessages(stack: [Message]) {
-        messageStack = stack;
+        messageStack = stack
     }
 
     mutating func appendMessageToMessageStack(messageObj: Message) {
-        messageStack.append(messageObj);
+        messageStack.append(messageObj)
     }
 
     func getStackOfMessages() -> [Message] {
-        return messageStack;
+        return messageStack
     }
 
     func getFriendProfile() -> LOGUser? {
-        return conversationWithFriend;
+        return conversationWithFriend
     }
 }

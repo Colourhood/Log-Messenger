@@ -18,36 +18,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         //Creation of necessary directories for the app - created under Documents
-        LOGFileManager.createDirectoriesInDocuments();
+        LOGFileManager.createDirectoriesInDocuments()
 
         //Initial Configuration for AWS
-        AWSConfig.setAWS();
+        AWSConfig.setAWS()
 
-        let storyboard = UIStoryboard(name: "Main", bundle: nil);
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-        let currentUser = CoreDataController.getUserProfile();
+        let currentUser = CoreDataController.getUserProfile()
         if ((currentUser?.email != nil) || (currentUser?.firstName != nil) || (currentUser?.lastName != nil) || (currentUser?.handle != nil)) {
-//      self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MessageViewController");
-            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController");
+//      self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MessageViewController")
+            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
 
         } else {
-            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController");
+            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
         }
 
         return true
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        SocketIOManager.sharedInstance.establishConnection();
+        SocketIOManager.sharedInstance.establishConnection()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        SocketIOManager.sharedInstance.closeConnection();
+        SocketIOManager.sharedInstance.closeConnection()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        SocketIOManager.sharedInstance.closeConnection();
-        CoreDataController.saveContext();
+        SocketIOManager.sharedInstance.closeConnection()
+        CoreDataController.saveContext()
     }
 
 }
