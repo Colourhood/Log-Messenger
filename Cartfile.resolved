@@ -1,6 +1,6 @@
 github "Alamofire/Alamofire" "4.5.1"
-github "airbnb/lottie-ios" "973c08da8ccf3dbc171bcd9e8748e6368c5a2107"
-github "aws/aws-sdk-ios" "2.6.4"
+github "airbnb/lottie-ios" "2ca061681ac5c1ad67df2d4a04b645620634d73b"
+github "aws/aws-sdk-ios" "2.6.5"
 github "daltoniam/Starscream" "2.1.1"
 github "hyperoslo/ImagePicker" "3.0.0"
 github "krzyzanowskim/CryptoSwift" "0.8.0"

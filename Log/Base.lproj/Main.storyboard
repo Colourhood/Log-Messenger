@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RTV-wr-Wqx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RTV-wr-Wqx">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -67,16 +67,16 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="katherine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGL-rj-Igi" userLabel="Sender Label">
-                                                            <rect key="frame" x="50" y="6" width="156" height="11"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="katherine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGL-rj-Igi" userLabel="Sender Label">
+                                                            <rect key="frame" x="57" y="6" width="156" height="11"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NV8-xr-DuN" userLabel="Message View">
-                                                            <rect key="frame" x="50" y="20.5" width="155.5" height="53"/>
+                                                        <view contentMode="scaleToFill" horizontalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NV8-xr-DuN" userLabel="Message View">
+                                                            <rect key="frame" x="57" y="20.5" width="155.5" height="53"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, this is a message from me!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DZ-yR-iJx">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Hi, this is a message from me!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DZ-yR-iJx">
                                                                     <rect key="frame" x="12" y="10" width="133.5" height="33"/>
                                                                     <fontDescription key="fontDescription" name=".SFNSText" family=".SF NS Text" pointSize="14"/>
                                                                     <nil key="textColor"/>
@@ -95,7 +95,7 @@
                                                             </constraints>
                                                         </view>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="katherineUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="x4P-Fm-XfS">
-                                                            <rect key="frame" x="14" y="41" width="32" height="32"/>
+                                                            <rect key="frame" x="21" y="38" width="32" height="32"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="32" id="WBM-CE-w0h"/>
                                                                 <constraint firstAttribute="height" constant="32" id="ce2-tM-cQn"/>
@@ -127,16 +127,16 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="grrrlikestaquitos" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvX-eW-ygb" userLabel="Sender Label">
-                                                            <rect key="frame" x="153.5" y="13" width="193.5" height="11"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="grrrlikestaquitos" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvX-eW-ygb" userLabel="Sender Label">
+                                                            <rect key="frame" x="146.5" y="13" width="193.5" height="11"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jLG-H8-tCc" userLabel="Message View">
-                                                            <rect key="frame" x="153.5" y="28" width="193.5" height="36.5"/>
+                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jLG-H8-tCc" userLabel="Message View">
+                                                            <rect key="frame" x="146.5" y="28" width="193.5" height="36.5"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, thanks for the message!" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRu-nx-8Nr">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Hi, thanks for the message!" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRu-nx-8Nr">
                                                                     <rect key="frame" x="10" y="10" width="171.5" height="16.5"/>
                                                                     <fontDescription key="fontDescription" name=".SFNSText" family=".SF NS Text" pointSize="14"/>
                                                                     <nil key="textColor"/>
@@ -155,7 +155,7 @@
                                                             </constraints>
                                                         </view>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="andreiUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="eVy-nN-zVh">
-                                                            <rect key="frame" x="351" y="44" width="20" height="20"/>
+                                                            <rect key="frame" x="344" y="41.5" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="YYg-DU-HHd"/>
                                                                 <constraint firstAttribute="height" constant="20" id="yUA-Sz-9YD"/>
@@ -267,13 +267,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Andrei Villasana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ER4-t8-K38">
-                                                    <rect key="frame" x="70" y="17" width="183" height="20"/>
+                                                    <rect key="frame" x="70" y="20" width="183" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.19675097369828243" green="0.53885866212799804" blue="0.70258962563451777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:30 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulA-1m-fgb">
-                                                    <rect key="frame" x="315" y="20" width="52" height="15"/>
+                                                    <rect key="frame" x="308" y="23" width="52" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
                                                     <color key="textColor" red="0.85628172588832485" green="0.56957190392569979" blue="0.41173559991107" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
