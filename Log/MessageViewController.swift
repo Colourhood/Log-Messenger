@@ -30,10 +30,14 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var messagesTableView: UITableView!;
     @IBOutlet weak var messageNavigator: UINavigationItem!
 
-    /*UI-IBActions*/
-    @IBAction func unwindSegue() {
-        dismiss(animated: false, completion: nil);
-    }
+//    /*UI-IBActions*/
+//    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
+//    }
+//
+//    override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
+//        let segue = UnwindSegueFromRight(identifier: unwindSegue.identifier, source: unwindSegue.source, destination: unwindSegue.destination);
+//        segue.perform();
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad();

@@ -63,6 +63,7 @@
 		54EEB1251F57770E00AA548B /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1241F57770E00AA548B /* Lottie.framework */; };
 		54EEB1261F57770E00AA548B /* Lottie.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1241F57770E00AA548B /* Lottie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54EEB1281F577E2B00AA548B /* LOGHTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EEB1271F577E2B00AA548B /* LOGHTTP.swift */; };
+		54FC67B81FAA5B9D00587D68 /* SegueFromRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FC67B71FAA5B9D00587D68 /* SegueFromRight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,7 @@
 		54EEB1201F57770700AA548B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		54EEB1241F57770E00AA548B /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
 		54EEB1271F577E2B00AA548B /* LOGHTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGHTTP.swift; sourceTree = "<group>"; };
+		54FC67B71FAA5B9D00587D68 /* SegueFromRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueFromRight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +293,7 @@
 			children = (
 				5454F36E1F4A5844002D9AB5 /* Main.storyboard */,
 				5454F3731F4A5844002D9AB5 /* LaunchScreen.storyboard */,
+				54FC67B71FAA5B9D00587D68 /* SegueFromRight.swift */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				5454F3811F4A5F7C002D9AB5 /* LOGUser.swift in Sources */,
 				542364DF1F6DB82E00C47CB5 /* HomeController.swift in Sources */,
 				541141751F725F3A00CAF4CD /* Constants.swift in Sources */,
+				54FC67B81FAA5B9D00587D68 /* SegueFromRight.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

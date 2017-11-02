@@ -27,6 +27,15 @@ class HomeViewController: UIViewController {
     var recentMessages: [MessageStack] = [];
     var selectedConversationWithFriend: LOGUser?;
 
+    /*UI-IBActions*/
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
+    }
+
+    override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
+        let segue = UnwindSegueFromRight(identifier: unwindSegue.identifier, source: unwindSegue.source, destination: unwindSegue.destination);
+        segue.perform();
+    }
+
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()

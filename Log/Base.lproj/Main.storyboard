@@ -69,14 +69,11 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="katherine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGL-rj-Igi" userLabel="Sender Label">
                                                             <rect key="frame" x="50" y="6" width="156" height="11"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="11" id="Gv1-Eg-o3Y"/>
-                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NV8-xr-DuN" userLabel="Message View">
+                                                        <view contentMode="scaleToFill" horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NV8-xr-DuN" userLabel="Message View">
                                                             <rect key="frame" x="50" y="20.5" width="155.5" height="53"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, this is a message from me!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DZ-yR-iJx">
@@ -90,7 +87,9 @@
                                                             <constraints>
                                                                 <constraint firstItem="3DZ-yR-iJx" firstAttribute="top" secondItem="NV8-xr-DuN" secondAttribute="top" constant="10" id="OUB-jq-aaW"/>
                                                                 <constraint firstAttribute="bottom" secondItem="3DZ-yR-iJx" secondAttribute="bottom" constant="10" id="RS9-a9-HiS"/>
-                                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="210" id="fLb-J3-g2N"/>
+                                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="210" id="fLb-J3-g2N">
+                                                                    <variation key="heightClass=regular-widthClass=compact" constant="210"/>
+                                                                </constraint>
                                                                 <constraint firstAttribute="trailing" secondItem="3DZ-yR-iJx" secondAttribute="trailing" constant="10" id="pZB-Ie-KwR"/>
                                                                 <constraint firstItem="3DZ-yR-iJx" firstAttribute="leading" secondItem="NV8-xr-DuN" secondAttribute="leading" constant="12" id="uc0-o6-VJe"/>
                                                             </constraints>
@@ -207,7 +206,7 @@
                                     <navigationItem title="Katherine" id="bbQ-XH-jZH">
                                         <barButtonItem key="leftBarButtonItem" title="Home" id="UGj-21-WCz">
                                             <connections>
-                                                <action selector="unwindSegue" destination="BYZ-38-t0r" id="KdV-cZ-2lW"/>
+                                                <segue destination="Ylu-C3-n5C" kind="unwind" customClass="UnwindSegueFromRight" customModule="Log" customModuleProvider="target" unwindAction="prepareForUnwindWithSegue:" id="FMK-Lm-zpM"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -305,7 +304,7 @@
                                             <outlet property="friendName" destination="ER4-t8-K38" id="3tc-s9-tPm"/>
                                             <outlet property="friendPicture" destination="dgH-W8-GvX" id="Wuf-bB-T6q"/>
                                             <outlet property="mostRecentMessageFromConversation" destination="mWJ-01-uKI" id="bTl-8X-ZUN"/>
-                                            <segue destination="BYZ-38-t0r" kind="presentation" identifier="HomeToMessageSegue" id="c4B-T8-lkT"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="HomeToMessageSegue" customClass="SegueFromRight" customModule="Log" customModuleProvider="target" id="c4B-T8-lkT"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -445,6 +444,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jq9-rs-LYo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Ylu-C3-n5C" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-1351.2" y="1029.5352323838081"/>
         </scene>
