@@ -12,13 +12,13 @@ import CoreData
 extension UserCoreData {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<UserCoreData> {
-        return NSFetchRequest<UserCoreData>(entityName: "User");
+        return NSFetchRequest<UserCoreData>(entityName: "User")
     }
 
-    @NSManaged public var email: String?;
-    @NSManaged public var firstName: String?;
-    @NSManaged public var handle: String?;
-    @NSManaged public var lastName: String?;
-    @NSManaged public var image: NSData?;
+    @NSManaged public var email: String?
+    @NSManaged public var firstName: String?
+    @NSManaged public var handle: String?
+    @NSManaged public var lastName: String?
+    @NSManaged public var image: NSData?
 
 }
