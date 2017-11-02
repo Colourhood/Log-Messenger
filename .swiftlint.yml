@@ -1,5 +1,4 @@
 disabled_rules:
-- trailing_semicolon
 - control_statement
 excluded:
 - Carthage
