@@ -59,12 +59,12 @@ class MessageViewController: UIViewController {
     func fetchMessages() {
         //Network request to get all(for now) messages between two users
         let friendProfile = friendConversation?.getFriendProfile()
-        let friendname = friendProfile?.getEmail()
+        let friendEmail = friendProfile?.getEmail()
 
         let userProfile = LOGUser.init(email: userData?.email, firstName: nil, lastName: nil, picture: UIImage.init(data: (userData?.image)! as Data))
-        let username = userProfile.getEmail()
+        let userEmail = userProfile.getEmail()
 
-        MessageController.getMessagesForFriend(friendname: friendname!, completionHandler: { [weak self] (response) in
+        MessageController.getMessagesForFriend(friendEmail: friendEmail!, completionHandler: { [weak self] (response) in
             guard let `self` = self else { return }
             //print("Messages between these two friends:\n \(response)")
 
@@ -72,14 +72,14 @@ class MessageViewController: UIViewController {
             if let messages = response["messages"] as? [AnyObject] {
                 for messagePacket in messages {
                     if let messageDict = messagePacket as? [String: Any] {
-                        let sentBy = messageDict["sentBy"] as? String
+                        let sentBy = messageDict["sent_by"] as? String
                         let message = messageDict["message"] as? String
                         let date = messageDict["created_at"] as? String
                         var senderUser: LOGUser?
 
-                        if (sentBy == friendname) {
+                        if (sentBy == friendEmail) {
                             senderUser = friendProfile
-                        } else if (sentBy == username) {
+                        } else if (sentBy == userEmail) {
                             senderUser = userProfile
                         }
 
@@ -101,9 +101,9 @@ class MessageViewController: UIViewController {
     }
 
     fileprivate func sendMessage(message: String) {
-        let sentTo = friendConversation?.getFriendProfile()?.getEmail()
+        let friendEmail = friendConversation?.getFriendProfile()?.getEmail()
 
-        let parameters = ["sentBy": userData?.email, "sentTo": sentTo, "message": message] as [String: AnyObject]
+        let parameters = ["sent_by": userData?.email, "sent_to": friendEmail, "message": message] as [String: AnyObject]
         MessageController.sendNewMessage(parameters: parameters) { (json) in //Server - Database
             print(json)
         }
@@ -163,13 +163,13 @@ extension MessageViewController: UITextFieldDelegate {
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let param = ["username": userData?.email, "chatID": chatRoomID] as AnyObject
+        let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
         SocketIOManager.sharedInstance.emit(event: Constants.startTyping, data: param)
         return true
     }
 
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        let param = ["username": userData?.email, "chatID": chatRoomID] as AnyObject
+        let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
         SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param)
         return true
     }
@@ -249,8 +249,8 @@ extension MessageViewController {
 
     // # Mark - Crypto
     private func generateChatRoomID() {
-        if let username = userData?.email, let friendname = friendConversation?.getFriendProfile()?.getEmail() {
-            let sortedArray = [username, friendname].sorted().joined(separator: "")
+        if let userEmail = userData?.email, let friendEmail = friendConversation?.getFriendProfile()?.getEmail() {
+            let sortedArray = [userEmail, friendEmail].sorted().joined(separator: "")
             chatRoomID = sortedArray.sha512()
             print("Chat ID: \(chatRoomID!)")
         }
@@ -273,20 +273,20 @@ extension MessageViewController {
         generateChatRoomID()
         subscribeToChatEvents()
 
-        let param = ["username": userData?.email, "chatID": chatRoomID]
+        let param = ["user_email": userData?.email, "chat_id": chatRoomID]
         SocketIOManager.sharedInstance.emit(event: Constants.joinRoom, data: param as AnyObject)
     }
 
     private func leaveChatRoom() {
         unsubscribeFromChatEvents()
 
-        let param = ["username": userData?.email, "chatID": chatRoomID]
+        let param = ["user_email": userData?.email, "chat_id": chatRoomID]
         SocketIOManager.sharedInstance.emit(event: Constants.leaveRoom, data: param as AnyObject)
     }
 
     private func messageChat(message: String) {
         print("message chat was called, message: \(message)")
-        let param = ["username": userData?.email, "chatID": chatRoomID, "message": message, "date": DateConverter.convert(date: Date(), format: Constants.serverDateFormat)] as AnyObject
+        let param = ["user_email": userData?.email, "chat_id": chatRoomID, "message": message, "date": DateConverter.convert(date: Date(), format: Constants.serverDateFormat)] as AnyObject
         SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param)
         SocketIOManager.sharedInstance.emit(event: Constants.sendMessage, data: param)
     }

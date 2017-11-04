@@ -10,14 +10,14 @@ import Foundation
 
 struct LOGUserDefaults {
 
-    static func setUser(username: String) {
-        UserDefaults.standard.set(username, forKey: "username")
+    static func setUser(userEmail: String) {
+        UserDefaults.standard.set(userEmail, forKey: "user_email")
     }
 
     //computed variable
-    static var username: String? {
-        if let name = UserDefaults.standard.string(forKey: "username") {
-            return name
+    static var userEmail: String? {
+        if let email = UserDefaults.standard.string(forKey: "user_email") {
+            return email
         }
         return nil
     }

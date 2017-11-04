@@ -46,37 +46,30 @@ class HomeViewController: UIViewController {
     func fetchRecentMessages() {
         HomeController.getRecentMessages { [weak self] (responseData) in
             guard let `self` = self else { return }
-            guard let username = CoreDataController.getUserProfile()?.email else { return }
 
             for messagePackets in responseData {
                 var conversation = MessageStack()
                 var friendProfile: LOGUser?
                 var image: UIImage?
 
-                guard let conversationArray = messagePackets as? NSArray,
-                      let recentMessageDict = conversationArray[0] as? [String: Any],
-                      let sentBy = recentMessageDict["sentBy"] as? String,
-                      let sentTo = recentMessageDict["sentTo"] as? String,
+                guard let recentMessageDict = messagePackets as? [String: Any],
                       let message = recentMessageDict["message"] as? String,
-                      let date =  recentMessageDict["created_at"] as? String else { return }
-                let imageString: String? = recentMessageDict["image"] as? String
-                let error: String? = recentMessageDict["error"] as? String
+                      let date = recentMessageDict["created_at"] as? String,
+                      let friendEmail = recentMessageDict["email_address"] as? String,
+                      let firstName = recentMessageDict["first_name"] as? String,
+                      let lastName = recentMessageDict["last_name"] as? String else { return }
 
-                if imageString != nil {
-                    let imageData = NSData(base64Encoded: imageString!, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0)))
+                let imageString: String? = recentMessageDict["image"] as? String
+                //let error: String? = recentMessageDict["error"] as? String
+
+                if let imageString = imageString {
+                    let imageData = NSData(base64Encoded: imageString, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0)))
                     image = UIImage.init(data: imageData! as Data)!
                 } else {
                     image = UIImage(named: "defaultUserIcon")
                 }
 
-                switch (username) {
-                case sentBy:
-                    friendProfile = LOGUser.init(email: sentTo, firstName: sentTo, lastName: sentTo, picture: image)
-                case sentTo:
-                    friendProfile = LOGUser.init(email: sentBy, firstName: sentBy, lastName: sentBy, picture: image)
-                default:
-                    break
-                }
+                friendProfile = LOGUser.init(email: friendEmail, firstName: firstName, lastName: lastName, picture: image)
 
                 if let friendProfile = friendProfile {
                     let recentMessage = Message.init(sender: friendProfile, message: message, date: date)
@@ -120,14 +113,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let friendConversationData = recentMessages[indexPath.row]
 //        let friendName = friendConversationData.conversationWithFriend?.getFullName()
-        let friendEmail = friendConversationData.getFriendProfile()?.getEmail()
+        let friendName = friendConversationData.getFriendProfile()?.getFullName()
         let userImage = friendConversationData.getFriendProfile()?.getPicture()
         let mostRecentMessage = friendConversationData.getStackOfMessages()[0].getMessage()
         let date = friendConversationData.getStackOfMessages()[0].getDate()
 
         var cell: HomeTableViewCell?
         cell = homeTableView.dequeueReusableCell(withIdentifier: "Friend Conversation Cell", for: indexPath) as? HomeTableViewCell
-        cell?.friendName.text = friendEmail
+        cell?.friendName.text = friendName
         cell?.friendPicture.image = userImage
         cell?.mostRecentMessageFromConversation.text = mostRecentMessage
         cell?.date.text = DateConverter.handleDate(date: date)

@@ -74,18 +74,18 @@ class SignInViewController: UIViewController {
     private func handleLogin(parameters: [String: Any]) {
         SignInController.handleLoginSignUpRequest(url: "/user/login", parameters: parameters, completion: { (json) in
 
-            if let username = json["username"] as? String {
+            if let userEmail = json["user_email"] as? String {
                 if let image = json["image"] as? String {
                     if let imageData = NSData(base64Encoded: image, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0))) {
-                        CoreDataController.setUser(username: username, image: imageData)
-                        LOGUserDefaults.setUser(username: username)
+                        CoreDataController.setUser(userEmail: userEmail, image: imageData)
+                        LOGUserDefaults.setUser(userEmail: userEmail)
                         self.instantiateHomeView()
                     }
                 } else {
                     guard let image = UIImage(named: "defaultUserIcon") else { return }
                     let defaultImageData = ConvertImage.convertUIImageToJPEGData(image: image)! as NSData
-                    CoreDataController.setUser(username: username, image: defaultImageData)
-                    LOGUserDefaults.setUser(username: username)
+                    CoreDataController.setUser(userEmail: userEmail, image: defaultImageData)
+                    LOGUserDefaults.setUser(userEmail: userEmail)
                     self.instantiateHomeView()
                 }
             } else {
@@ -106,14 +106,14 @@ class SignInViewController: UIViewController {
         LOGFileManager.createFileInDocuments(file: userImageData, fileName: filename, directory: directory)
 
         SignInController.handleLoginSignUpRequest(url: "/user/signup", parameters: parameters, completion: { (json) in
-            if let username = json["username"] as? String {
+            if let userEmail = json["user_email"] as? String {
                 if let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: filename, directory: directory) {
-                    let key = "\(filename):\(username)"
+                    let key = "\(filename):\(userEmail)"
 
                     LOGS3.uploadToS3(key: key, fileURL: profileImageURL, completionHandler: { (result) in
                         if (result != nil) {
-                            CoreDataController.setUser(username: username, image: userImageData as NSData)
-                            LOGUserDefaults.setUser(username: username)
+                            CoreDataController.setUser(userEmail: userEmail, image: userImageData as NSData)
+                            LOGUserDefaults.setUser(userEmail: userEmail)
                             print(CoreDataController.currentUserCoreData as Any)
                             self.instantiateHomeView()
                         }
@@ -126,7 +126,7 @@ class SignInViewController: UIViewController {
     fileprivate func checkTextField() {
         if let email = emailTextField.text, let password = passwordTextField.text {
             if (!email.isEmpty && !password.isEmpty) {
-                let parameters = ["username": email, "password": password]
+                let parameters = ["user_email": email, "password": password]
                 if (loginOrSignupTypeText == "Sign Up") {
                     handleSignUp(parameters: parameters)
                 } else if (loginOrSignupTypeText == "Sign In") {

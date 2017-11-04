@@ -32,8 +32,11 @@ struct LOGUser {
     }
 
     func getFullName() -> String? {
-        let fullName: String? = "\(String(describing: firstName)) \(String(describing: lastName))"
-        return fullName
+        if let firstName = firstName, let lastName = lastName {
+            return "\(firstName) \(lastName)"
+        } else {
+            return "Unknown"
+        }
     }
 
     func getPicture() -> UIImage? {
