@@ -32,11 +32,11 @@ class CoreDataController {
     }
 
     // # Mark - Setters
-    class func setUser(username: String, image: NSData) {
+    class func setUser(userEmail: String, image: NSData) {
         guard let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: getContext()) as? UserCoreData else {
             return
         }
-        userCoreData.email = username
+        userCoreData.email = userEmail
         userCoreData.image = image
         saveContext()
     }

@@ -59,7 +59,7 @@ class SocketIOManager: NSObject {
             if let eventName = data["event"] {
                 switch (eventName) {
                 case Constants.sendMessage:
-                    guard let user = data["username"],
+                    guard let user = data["user_email"],
                           let message = data["message"],
                           let date = data["date"] else { return }
                     delegate.receivedMessage(user: user, message: message, date: date)

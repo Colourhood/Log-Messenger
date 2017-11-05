@@ -10,9 +10,9 @@ import Foundation
 
 struct MessageController {
 
-    static func getMessagesForFriend(friendname: String, completionHandler: @escaping ([String: Any]) -> Void) {
-        if let username = CoreDataController.getUserProfile()?.email {
-            let request = LOGHTTP.get(url: "/user/messages/\(username)/\(friendname)")
+    static func getMessagesForFriend(friendEmail: String, completionHandler: @escaping ([String: Any]) -> Void) {
+        if let userEmail = CoreDataController.getUserProfile()?.email {
+            let request = LOGHTTP.get(url: "/user/messages/\(userEmail)/\(friendEmail)")
 
             request.responseJSON(completionHandler: { (response) in
                 switch(response.result) {

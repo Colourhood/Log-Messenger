@@ -11,8 +11,8 @@ import Foundation
 struct HomeController {
 
     static func getRecentMessages(completion: @escaping ([AnyObject]) -> Void) {
-        if let username = CoreDataController.getUserProfile()?.email {
-            let request = LOGHTTP.get(url: "/user/messages/\(username)")
+        if let userEmail = CoreDataController.getUserProfile()?.email {
+            let request = LOGHTTP.get(url: "/user/messages/\(userEmail)")
 
             request.responseJSON(completionHandler: { (response) in
                 switch (response.result) {

@@ -11,18 +11,18 @@ import XCTest
 
 class LogTests: XCTestCase {
 
-    var username: String?
+    var userEmail: String?
     var password: String?
 
     override func setUp() {
         super.setUp()
-        self.username = "andreicrimson@gmail.com"
+        self.userEmail = "andreicrimson@gmail.com"
         self.password = "password"
     }
 
     override func tearDown() {
         super.tearDown()
-        self.username = nil
+        self.userEmail = nil
         self.password = nil
     }
 

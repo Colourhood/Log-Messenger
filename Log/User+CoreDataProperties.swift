@@ -17,7 +17,6 @@ extension UserCoreData {
 
     @NSManaged public var email: String?
     @NSManaged public var firstName: String?
-    @NSManaged public var handle: String?
     @NSManaged public var lastName: String?
     @NSManaged public var image: NSData?
 
