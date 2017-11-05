@@ -52,14 +52,13 @@ class HomeViewController: UIViewController {
                 var friendProfile: LOGUser?
                 var image: UIImage?
 
-                guard let recentMessageDict = messagePackets as? [String: Any],
-                      let message = recentMessageDict["message"] as? String,
-                      let date = recentMessageDict["created_at"] as? String,
-                      let friendEmail = recentMessageDict["email_address"] as? String,
-                      let firstName = recentMessageDict["first_name"] as? String,
-                      let lastName = recentMessageDict["last_name"] as? String else { return }
-
-                let imageString: String? = recentMessageDict["image"] as? String
+                let recentMessageDict = messagePackets as? [String: Any]
+                let message = recentMessageDict?["message"] as? String
+                let date = recentMessageDict?["created_at"] as? String
+                let friendEmail = recentMessageDict?["email_address"] as? String
+                let firstName = recentMessageDict?["first_name"] as? String
+                let lastName = recentMessageDict?["last_name"] as? String
+                let imageString: String? = recentMessageDict?["image"] as? String
                 //let error: String? = recentMessageDict["error"] as? String
 
                 if let imageString = imageString {
@@ -72,7 +71,7 @@ class HomeViewController: UIViewController {
                 friendProfile = LOGUser.init(email: friendEmail, firstName: firstName, lastName: lastName, picture: image)
 
                 if let friendProfile = friendProfile {
-                    let recentMessage = Message.init(sender: friendProfile, message: message, date: date)
+                    let recentMessage = Message.init(sender: friendProfile, message: message!, date: date!)
                     conversation.setFriendProfile(friendProfile: friendProfile)
                     conversation.setStackOfMessages(stack: [recentMessage])
                     self.recentMessages.append(conversation)
