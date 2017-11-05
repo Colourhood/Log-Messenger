@@ -35,7 +35,7 @@ struct LOGUser {
         if let firstName = firstName, let lastName = lastName {
             return "\(firstName) \(lastName)"
         } else {
-            return "Unknown"
+            return "Inactive User"
         }
     }
 
