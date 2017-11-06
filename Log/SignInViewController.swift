@@ -20,12 +20,12 @@ class InitialViewController: UIViewController {
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "SignUpSegue") {
+        if segue.identifier == "SignUpSegue" {
             print("Sign up segue was called")
             if let signInViewController = segue.destination as? SignInViewController {
                 signInViewController.loginOrSignupTypeText = "Sign Up"
             }
-        } else if (segue.identifier == "SignInSegue") {
+        } else if segue.identifier == "SignInSegue" {
             print("Sign in segue was called")
             if let signinViewController = segue.destination as? SignInViewController {
                 signinViewController.loginOrSignupTypeText = "Sign In"
@@ -111,7 +111,7 @@ class SignInViewController: UIViewController {
                     let key = "\(filename):\(userEmail)"
 
                     LOGS3.uploadToS3(key: key, fileURL: profileImageURL, completionHandler: { (result) in
-                        if (result != nil) {
+                        if result != nil {
                             CoreDataController.setUser(userEmail: userEmail, image: userImageData as NSData)
                             LOGUserDefaults.setUser(userEmail: userEmail)
                             print(CoreDataController.currentUserCoreData as Any)
@@ -125,11 +125,11 @@ class SignInViewController: UIViewController {
 
     fileprivate func checkTextField() {
         if let email = emailTextField.text, let password = passwordTextField.text {
-            if (!email.isEmpty && !password.isEmpty) {
+            if !email.isEmpty && !password.isEmpty {
                 let parameters = ["user_email": email, "password": password]
-                if (loginOrSignupTypeText == "Sign Up") {
+                if loginOrSignupTypeText == "Sign Up" {
                     handleSignUp(parameters: parameters)
-                } else if (loginOrSignupTypeText == "Sign In") {
+                } else if loginOrSignupTypeText == "Sign In" {
                     handleLogin(parameters: parameters)
                 }
             }
@@ -145,9 +145,9 @@ extension SignInViewController: UITextFieldDelegate {
              password
     }
 
-    /* UITextField Delegate Methods*/
+    /* UITextField Delegate Methods */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch(textField.tag) {
+        switch textField.tag {
         case TextFieldTags.email.rawValue:
             let nextResponder: UIResponder!
             nextResponder = textField.superview?.viewWithTag(TextFieldTags.password.rawValue)

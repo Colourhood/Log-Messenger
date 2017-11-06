@@ -33,7 +33,7 @@ class LogTests: XCTestCase {
 
         let number = 1
 
-        if (number == 1) {
+        if number == 1 {
             promise.fulfill()
         }
 

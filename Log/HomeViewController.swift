@@ -27,7 +27,7 @@ class HomeViewController: UIViewController {
     var recentMessages: [MessageStack] = []
     var selectedConversationWithFriend: LOGUser?
 
-    /*UI-IBActions*/
+    /* UI-IBActions */
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
     }
 
@@ -59,7 +59,7 @@ class HomeViewController: UIViewController {
                 let firstName = recentMessageDict?["first_name"] as? String
                 let lastName = recentMessageDict?["last_name"] as? String
                 let imageString: String? = recentMessageDict?["image"] as? String
-                //let error: String? = recentMessageDict["error"] as? String
+                // let error: String? = recentMessageDict["error"] as? String
 
                 if let imageString = imageString {
                     let imageData = NSData(base64Encoded: imageString, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0)))
@@ -87,7 +87,7 @@ class HomeViewController: UIViewController {
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "HomeToMessageSegue") {
+        if segue.identifier == "HomeToMessageSegue" {
             if let messageViewController = segue.destination as? MessageViewController {
                 var messageStack = MessageStack()
                 messageStack.setFriendProfile(friendProfile: selectedConversationWithFriend)
@@ -104,7 +104,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
-    //Table View Delegate Methods
+    // Table View Delegate Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recentMessages.count
     }

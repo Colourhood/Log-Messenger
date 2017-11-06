@@ -15,7 +15,7 @@ struct HomeController {
             let request = LOGHTTP.get(url: "/user/messages/\(userEmail)")
 
             request.responseJSON(completionHandler: { (response) in
-                switch (response.result) {
+                switch response.result {
                 case .success(let json):
                     if let jsonArray = json as? [AnyObject] {
                         completion(jsonArray)

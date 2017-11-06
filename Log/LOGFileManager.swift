@@ -15,7 +15,7 @@ struct LOGFileManager {
                                                                      in: .userDomainMask,
                                                                      appropriateFor: nil,
                                                                      create: false)
-    //static let temporaryDirectoryPath = fileManager.temporaryDirectory - currently not in use
+    // static let temporaryDirectoryPath = fileManager.temporaryDirectory - currently not in use
 
     //# Mark - Creating Directories
     static func createDirectoriesInDocuments() {

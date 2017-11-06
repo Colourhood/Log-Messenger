@@ -14,7 +14,7 @@ struct LOGUserDefaults {
         UserDefaults.standard.set(userEmail, forKey: "user_email")
     }
 
-    //computed variable
+    // computed variable
     static var userEmail: String? {
         if let email = UserDefaults.standard.string(forKey: "user_email") {
             return email

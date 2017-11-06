@@ -15,7 +15,7 @@ struct MessageController {
             let request = LOGHTTP.get(url: "/user/messages/\(userEmail)/\(friendEmail)")
 
             request.responseJSON(completionHandler: { (response) in
-                switch(response.result) {
+                switch response.result {
                 case .success(let json):
                     if let jsonDict = json as? [String: Any] {
                         completionHandler(jsonDict)
@@ -31,7 +31,7 @@ struct MessageController {
         let request = LOGHTTP.post(url: "/user/messages", parameters: parameters)
 
         request.responseJSON(completionHandler: { (response) in
-            switch(response.result) {
+            switch response.result {
             case .success(let json):
                 if let jsonDict = json as? [String: Any] {
                     completionHandler(jsonDict)

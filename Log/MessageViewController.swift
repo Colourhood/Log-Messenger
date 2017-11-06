@@ -25,7 +25,7 @@ class MessageViewController: UIViewController {
     var userData = CoreDataController.getUserProfile()
     var chatRoomID: String?
 
-    /*UI-IBOutlets*/
+    /* UI-IBOutlets */
     @IBOutlet weak var newMessageTextField: UITextField!
     @IBOutlet weak var messagesTableView: UITableView!
     @IBOutlet weak var messageNavigator: UINavigationItem!
@@ -33,7 +33,7 @@ class MessageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //Delegates
+        // Delegates
         SocketIOManager.sharedInstance.delegate = self
         prepareUI()
 
@@ -57,7 +57,7 @@ class MessageViewController: UIViewController {
     }
 
     func fetchMessages() {
-        //Network request to get all(for now) messages between two users
+        // Network request to get all(for now) messages between two users
         let friendProfile = friendConversation?.getFriendProfile()
         let friendEmail = friendProfile?.getEmail()
 
@@ -66,9 +66,9 @@ class MessageViewController: UIViewController {
 
         MessageController.getMessagesForFriend(friendEmail: friendEmail!, completionHandler: { [weak self] (response) in
             guard let `self` = self else { return }
-            //print("Messages between these two friends:\n \(response)")
+            // print("Messages between these two friends:\n \(response)")
 
-            //Array of messages for key 'messages'
+            // Array of messages for key 'messages'
             if let messages = response["messages"] as? [AnyObject] {
                 for messagePacket in messages {
                     if let messageDict = messagePacket as? [String: Any] {
@@ -77,9 +77,9 @@ class MessageViewController: UIViewController {
                         let date = messageDict["created_at"] as? String
                         var senderUser: LOGUser?
 
-                        if (sentBy == friendEmail) {
+                        if sentBy == friendEmail {
                             senderUser = friendProfile
-                        } else if (sentBy == userEmail) {
+                        } else if sentBy == userEmail {
                             senderUser = userProfile
                         }
 
@@ -126,7 +126,7 @@ extension MessageViewController: UITextFieldDelegate {
 
     @objc func keyboardDidShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if (self.view.frame.origin.y == 0) {
+            if self.view.frame.origin.y == 0 {
                 self.view.frame.origin.y -= keyboardSize.height
             }
         }
@@ -134,16 +134,16 @@ extension MessageViewController: UITextFieldDelegate {
 
     @objc func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if (self.view.frame.origin.y != 0) {
+            if self.view.frame.origin.y != 0 {
                 self.view.frame.origin.y += keyboardSize.height
             }
         }
     }
 
-    /* UITextField Delegate Methods*/
+    /* UITextField Delegate Methods */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let message = newMessageTextField.text {
-            if (!message.isEmpty) {
+            if !message.isEmpty {
                 sendMessage(message: message) //Server - Database
                 newMessageTextField.text = "" //Clear text
 
@@ -197,7 +197,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
         var cell: MessageTableViewCell?
 
-        if (email == userData?.email) {
+        if email == userData?.email {
             cell = messagesTableView.dequeueReusableCell(withIdentifier: "Message Sender Cell", for: indexPath) as? MessageTableViewCell
         } else {
             cell = messagesTableView.dequeueReusableCell(withIdentifier: "Message Receiver Cell", for: indexPath) as? MessageTableViewCell

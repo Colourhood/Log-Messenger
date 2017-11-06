@@ -49,7 +49,7 @@ class CoreDataController {
         do {
             let searchResults = try getContext().fetch(fetchRequest)
 
-            if (searchResults.count > 0) {
+            if searchResults.count > 0 {
                 return(searchResults[0])
             } else {
                 return nil
