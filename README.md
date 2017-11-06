@@ -1,5 +1,6 @@
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/Colourhood/Log-Messenger.svg?columns=In%20Progress,Review,Done&style=flat-square)](http://waffle.io/Colourhood/Log-Messenger)
 [![Build Status](https://travis-ci.org/Colourhood/Log-Messenger.svg?branch=master)](https://travis-ci.org/Colourhood/Log-Messenger)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/57b9e24805ab408288ccb4d6fdfbd31f)](https://www.codacy.com/app/grrrlikestaquitos/Log-Messenger?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Colourhood/Log-Messenger&amp;utm_campaign=Badge_Grade)
 
 # Log-Messenger
 An iOS instant messaging app (currently in progress) - written using Swift.
