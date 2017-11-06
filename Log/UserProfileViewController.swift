@@ -34,9 +34,11 @@ class UserProfileViewController: UIViewController {
     @IBAction func userTappedDoneButton(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
+
 }
 
 extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }

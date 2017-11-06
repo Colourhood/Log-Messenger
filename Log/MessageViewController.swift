@@ -104,10 +104,10 @@ class MessageViewController: UIViewController {
         let friendEmail = friendConversation?.getFriendProfile()?.getEmail()
 
         let parameters = ["sent_by": userData?.email, "sent_to": friendEmail, "message": message] as [String: AnyObject]
-        MessageController.sendNewMessage(parameters: parameters) { (json) in //Server - Database
+        MessageController.sendNewMessage(parameters: parameters) { (json) in // Server - Database
             print(json)
         }
-        messageChat(message: message) //Server - SocketIO
+        messageChat(message: message) // Server - SocketIO
     }
 
 }
@@ -144,8 +144,8 @@ extension MessageViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let message = newMessageTextField.text {
             if !message.isEmpty {
-                sendMessage(message: message) //Server - Database
-                newMessageTextField.text = "" //Clear text
+                sendMessage(message: message) // Server - Database
+                newMessageTextField.text = "" // Clear text
 
                 let userProfile = LOGUser.init(email: userData?.email, firstName: userData?.email, lastName: userData?.email, picture: UIImage.init(data: (userData?.image)! as Data))
                 let newMessage = Message.init(sender: userProfile, message: message, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
@@ -235,6 +235,7 @@ extension MessageViewController: SocketIODelegate {
 }
 
 extension UITableView {
+
     func scrollToBottom() {
         let rows = self.numberOfRows(inSection: 0)
         // This will guarantee rows - 1 >= 0
@@ -243,6 +244,7 @@ extension UITableView {
             self.scrollToRow(at: indexPath, at: .top, animated: false)
         }
     }
+    
 }
 
 extension MessageViewController {

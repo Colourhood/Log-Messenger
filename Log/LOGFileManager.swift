@@ -17,20 +17,20 @@ struct LOGFileManager {
                                                                      create: false)
     // static let temporaryDirectoryPath = fileManager.temporaryDirectory - currently not in use
 
-    //# Mark - Creating Directories
+    // # Mark - Creating Directories
     static func createDirectoriesInDocuments() {
         for directory in Constants.allDirectories {
             if let directoryPath = documentsDirectoryPath?.appendingPathComponent(directory, isDirectory: true) {
                 do {
                     try fileManager.createDirectory(at: directoryPath, withIntermediateDirectories: false, attributes: nil)
                 } catch {
-    //                print("Directory \(directoryPath) already exists")
+                    //print("Directory \(directoryPath) already exists")
                 }
             }
         }
     }
 
-    //# Mark - Creating Files
+    // # Mark - Creating Files
     static func createFileInDocuments(file: Data?, fileName: String, directory: String) {
         let storedFilePath = "\(directory)/\(fileName)"
         if let targetDirectoryPath = documentsDirectoryPath?.appendingPathComponent(storedFilePath) {
@@ -44,7 +44,7 @@ struct LOGFileManager {
         }
     }
 
-    //# Mark - Fetching Files
+    // # Mark - Fetching Files
     static func getAllFilesAtDirectory(directory: String) -> [String]? {
         if let targetDirectoryPath = documentsDirectoryPath?.appendingPathComponent(directory).path {
             do {
@@ -76,7 +76,7 @@ struct LOGFileManager {
         return (fileManager.contents(atPath: filepath))
     }
 
-    //# Mark - Get URL Paths
+    // # Mark - Get URL Paths
     static func getFileURLInDocumentsForDirectory(filename: String, directory: String) -> URL? {
         let storedFilePath = "\(directory)/\(filename)"
         if let urlPath = documentsDirectoryPath?.appendingPathComponent(storedFilePath) {

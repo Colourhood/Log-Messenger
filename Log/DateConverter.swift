@@ -24,7 +24,7 @@ struct DateConverter {
 
         if let dateObj = formatter.date(from: date) {
             // timeIntervalSinceNow returns a negative value, multiply it by negative 1 to make it positive
-            let timeDifference = (dateObj.timeIntervalSinceNow * -1)
+            let timeDifference = dateObj.timeIntervalSinceNow * -1
 
             if timeDifference < day {
                 // Message was sent in the last 24 hours
@@ -47,4 +47,5 @@ struct DateConverter {
 
         return formatter.string(from: date)
     }
+    
 }

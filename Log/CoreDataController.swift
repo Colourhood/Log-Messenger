@@ -11,7 +11,7 @@ import CoreData
 
 class CoreDataController {
 
-    private init () {} //Private unaccessible initializer
+    private init () {} // Private unaccessible initializer
 
     class func getContext() -> NSManagedObjectContext {
         return (self.persistentContainer.viewContext)
@@ -55,7 +55,7 @@ class CoreDataController {
                 return nil
             }
         } catch {
-            //Process error
+            // Process error
         }
         return nil
     }
