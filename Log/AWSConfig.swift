@@ -17,7 +17,7 @@ struct AWSConfig {
             let data = try Data(contentsOf: URL(fileURLWithPath: awsCredentialsPath!))
             return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
         } catch {
-            //Process error
+            // Process error
         }
         return nil
     }

@@ -9,7 +9,7 @@
 import Foundation
 import SocketIO
 
-//private let socketURL: String = "http://192.168.0.10:7555"
+// private let socketURL: String = "http://192.168.0.10:7555"
 private let socketURL: String = "http://127.0.0.1:7555"
 
 protocol SocketIODelegate: class {
@@ -38,7 +38,7 @@ class SocketIOManager: NSObject {
     func subscribe(event: String) {
         socket.on(event) { [weak self] (data, _) in
             guard let `self` = self else { return }
-            if (data.count > 0) {
+            if data.count > 0 {
                 if let data = data[0] as? [String: String] {
                     self.handleEvents(data: data)
                 }
@@ -57,7 +57,7 @@ class SocketIOManager: NSObject {
     private func handleEvents(data: [String: String]) {
         if let delegate = delegate {
             if let eventName = data["event"] {
-                switch (eventName) {
+                switch eventName {
                 case Constants.sendMessage:
                     guard let user = data["user_email"],
                           let message = data["message"],

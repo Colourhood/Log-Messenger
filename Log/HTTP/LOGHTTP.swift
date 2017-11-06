@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-//private let apiURL: String = "http://192.168.0.10:7555/api"
+// private let apiURL: String = "http://192.168.0.10:7555/api"
 private let apiURL: String = "http://127.0.0.1:7555/api"
 private let httpHeaders: HTTPHeaders = [ "Accept": "application/json" ]
 

@@ -1,5 +1,3 @@
-disabled_rules:
-- control_statement
 excluded:
 - Carthage
 line_length: 200
