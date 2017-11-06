@@ -35,7 +35,7 @@ class SegueFromRight: UIStoryboardSegue {
                        }
         )
     }
-    
+
 }
 
 class UnwindSegueFromRight: UIStoryboardSegue {

@@ -9,55 +9,12 @@
 import Foundation
 import CoreData
 
-class CoreDataController {
+class CoreDataBP {
 
     private init () {} // Private unaccessible initializer
 
     class func getContext() -> NSManagedObjectContext {
-        return (self.persistentContainer.viewContext)
-    }
-
-    static var currentUserCoreData: [UserCoreData]? {
-        var userResults: [UserCoreData]?
-        let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest()
-        fetchRequest.fetchLimit = 1
-        fetchRequest.returnsObjectsAsFaults = false
-
-        do {
-            userResults = try self.getContext().fetch(fetchRequest)
-        } catch {
-            // Process Error
-        }
-        return userResults
-    }
-
-    // # Mark - Setters
-    class func setUser(userEmail: String, image: NSData) {
-        guard let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: getContext()) as? UserCoreData else {
-            return
-        }
-        userCoreData.email = userEmail
-        userCoreData.image = image
-        saveContext()
-    }
-
-    // #Mark - Getter
-    class func getUserProfile() -> UserCoreData? {
-        let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest()
-        fetchRequest.returnsObjectsAsFaults = false
-
-        do {
-            let searchResults = try getContext().fetch(fetchRequest)
-
-            if searchResults.count > 0 {
-                return(searchResults[0])
-            } else {
-                return nil
-            }
-        } catch {
-            // Process error
-        }
-        return nil
+        return self.persistentContainer.viewContext
     }
 
     // MARK: - Core Data Stack

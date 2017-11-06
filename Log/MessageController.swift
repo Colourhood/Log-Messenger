@@ -11,7 +11,7 @@ import Foundation
 struct MessageController {
 
     static func getMessagesForFriend(friendEmail: String, completionHandler: @escaping ([String: Any]) -> Void) {
-        if let userEmail = CoreDataController.getUserProfile()?.email {
+        if let userEmail = UserCoreDataController.getUserProfile()?.email {
             let request = LOGHTTP.get(url: "/user/messages/\(userEmail)/\(friendEmail)")
 
             request.responseJSON(completionHandler: { (response) in

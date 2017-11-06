@@ -22,7 +22,7 @@ class MessageViewController: UIViewController {
 
     /* Class Variables */
     var friendConversation: MessageStack?
-    var userData = CoreDataController.getUserProfile()
+    var userData = UserCoreDataController.getUserProfile()
     var chatRoomID: String?
 
     /* UI-IBOutlets */
@@ -244,7 +244,7 @@ extension UITableView {
             self.scrollToRow(at: indexPath, at: .top, animated: false)
         }
     }
-    
+
 }
 
 extension MessageViewController {

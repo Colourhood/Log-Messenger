@@ -29,21 +29,23 @@ class LogTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let promise = expectation(description: "These are equal to each other")
-
-        let number = 1
-
-        if number == 1 {
+        let promise = expectation(description: "Getting data from server")
+        MessageController.getMessagesForFriend(friendEmail: "andreicrimson@gmail.com", completionHandler: { data in
+            print("Received data: \(data)")
             promise.fulfill()
+        })
+
+        waitForExpectations(timeout: 5.0) { (error) in
+            print("There was an error \(error!)")
         }
 
-        waitForExpectations(timeout: 4, handler: nil)
     }
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
+            testExample()
         }
     }
 

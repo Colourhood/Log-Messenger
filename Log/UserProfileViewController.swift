@@ -38,7 +38,7 @@ class UserProfileViewController: UIViewController {
 }
 
 extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }

@@ -47,5 +47,5 @@ struct DateConverter {
 
         return formatter.string(from: date)
     }
-    
+
 }
