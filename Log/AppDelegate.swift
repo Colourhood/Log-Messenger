@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-        let currentUser = CoreDataController.getUserProfile()
+        let currentUser = UserCoreDataController.getUserProfile()
         if currentUser?.email != nil ||
             currentUser?.firstName != nil ||
             currentUser?.lastName != nil {
@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         SocketIOManager.sharedInstance.closeConnection()
-        CoreDataController.saveContext()
+        CoreDataBP.saveContext()
     }
 
 }

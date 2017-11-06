@@ -78,14 +78,13 @@ class SignInViewController: UIViewController {
             if let userEmail = json["user_email"] as? String {
                 if let image = json["image"] as? String {
                     if let imageData = NSData(base64Encoded: image, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0))) {
-                        CoreDataController.setUser(userEmail: userEmail, image: imageData)
-                        LOGUserDefaults.setUser(userEmail: userEmail)
+                        UserCoreDataController.setUser(userEmail: userEmail, image: imageData)
                         self.instantiateHomeView()
                     }
                 } else {
                     guard let image = UIImage(named: "defaultUserIcon") else { return }
                     let defaultImageData = ConvertImage.convertUIImageToJPEGData(image: image)! as NSData
-                    CoreDataController.setUser(userEmail: userEmail, image: defaultImageData)
+                    UserCoreDataController.setUser(userEmail: userEmail, image: defaultImageData)
                     LOGUserDefaults.setUser(userEmail: userEmail)
                     self.instantiateHomeView()
                 }
@@ -113,9 +112,9 @@ class SignInViewController: UIViewController {
 
                     LOGS3.uploadToS3(key: key, fileURL: profileImageURL, completionHandler: { (result) in
                         if result != nil {
-                            CoreDataController.setUser(userEmail: userEmail, image: userImageData as NSData)
+                            UserCoreDataController.setUser(userEmail: userEmail, image: userImageData as NSData)
                             LOGUserDefaults.setUser(userEmail: userEmail)
-                            print(CoreDataController.currentUserCoreData as Any)
+                            print(UserCoreDataController.currentUserCoreData as Any)
                             self.instantiateHomeView()
                         }
                     })
