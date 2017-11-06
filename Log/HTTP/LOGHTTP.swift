@@ -26,5 +26,5 @@ struct LOGHTTP {
     static func put(url: String) -> Alamofire.DataRequest {
         return Alamofire.request(apiURL+url, method: .put, encoding: URLEncoding.default, headers: httpHeaders)
     }
-    
+
 }
