@@ -32,6 +32,7 @@ class InitialViewController: UIViewController {
             }
         }
     }
+
 }
 
 class SignInViewController: UIViewController {
@@ -89,7 +90,7 @@ class SignInViewController: UIViewController {
                     self.instantiateHomeView()
                 }
             } else {
-                //Error occurred
+                // Error occurred
                 if let error = json["error"] as? String {
                     print("Error: \(error)")
                 }

@@ -31,4 +31,5 @@ struct MessageStack {
     func getFriendProfile() -> LOGUser? {
         return conversationWithFriend
     }
+    
 }

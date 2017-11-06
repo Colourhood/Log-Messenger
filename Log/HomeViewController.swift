@@ -100,6 +100,7 @@ class HomeViewController: UIViewController {
         let userProfileVC = UserProfileViewController(nibName: "UserProfileViewController", bundle: nil)
         present(userProfileVC, animated: true, completion: nil)
     }
+    
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
