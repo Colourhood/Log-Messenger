@@ -18,7 +18,7 @@ struct ConvertImage {
     }
 
     static func convertUIImageToJPEGData(image: UIImage) -> Data? {
-        if let imageData = UIImageJPEGRepresentation(image, 0.2) {
+        if let imageData = UIImageJPEGRepresentation(image, 1) {
             return imageData
         }
         return nil
