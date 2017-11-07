@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class UserProfileViewController: UIViewController {
 
@@ -88,11 +89,26 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
                 if appDelegate.window?.rootViewController != initialVC {
                     appDelegate.window?.rootViewController = initialVC
                 }
+                self.cleanCoreData()
                 self.dismiss(animated: false, completion: nil)
                 self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
             }
         default:
             return
+        }
+    }
+}
+
+extension UserProfileViewController {
+    // Clean Core Data. Deleting all data in entity User
+    func cleanCoreData() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = UserCoreData.fetchRequest()
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        do {
+            try CoreDataBP.getContext().execute(batchDeleteRequest)
+        } catch {
+            // Error Handling
+            print("😂 Something goes wrong. I can't clean the core data. ")
         }
     }
 }
