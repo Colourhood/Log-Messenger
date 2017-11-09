@@ -61,7 +61,7 @@ class MessageViewController: UIViewController {
         let friendProfile = friendConversation?.getFriendProfile()
         let friendEmail = friendProfile?.getEmail()
 
-        let userProfile = LOGUser.init(email: userData?.email, firstName: nil, lastName: nil, picture: UIImage.init(data: (userData?.image)! as Data))
+        let userProfile = LOGUser.init(email: userData?.email, firstName: nil, lastName: nil, picture: UIImage(data: (userData?.image)! as Data))
         let userEmail = userProfile.getEmail()
 
         MessageController.getMessagesForFriend(friendEmail: friendEmail!, completionHandler: { [weak self] (response) in
@@ -147,7 +147,7 @@ extension MessageViewController: UITextFieldDelegate {
                 sendMessage(message: message) // Server - Database
                 newMessageTextField.text = "" // Clear text
 
-                let userProfile = LOGUser.init(email: userData?.email, firstName: userData?.email, lastName: userData?.email, picture: UIImage.init(data: (userData?.image)! as Data))
+                let userProfile = LOGUser.init(email: userData?.email, firstName: userData?.email, lastName: userData?.email, picture: UIImage(data: (userData?.image)! as Data))
                 let newMessage = Message.init(sender: userProfile, message: message, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
 
                 friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
