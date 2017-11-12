@@ -26,14 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
         let currentUser = UserCoreDataController.getUserProfile()
-        if currentUser?.email != nil ||
-            currentUser?.firstName != nil ||
-            currentUser?.lastName != nil {
-//      self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MessageViewController")
-            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
-
+        if currentUser?.email != nil || currentUser?.firstName != nil || currentUser?.lastName != nil {
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+            window?.makeKeyAndVisible()
+            window?.addSubview(FloatingActionView())
         } else {
-            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
         }
 
         return true
