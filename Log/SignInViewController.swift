@@ -20,16 +20,15 @@ class InitialViewController: UIViewController {
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SignUpSegue" {
-            print("Sign up segue was called")
-            if let signInViewController = segue.destination as? SignInViewController {
-                signInViewController.loginOrSignupTypeText = "Sign Up"
-            }
-        } else if segue.identifier == "SignInSegue" {
-            print("Sign in segue was called")
-            if let signinViewController = segue.destination as? SignInViewController {
-                signinViewController.loginOrSignupTypeText = "Sign In"
-            }
+        guard let destinationVC = segue.destination as? SignInViewController else { return }
+
+        switch segue.identifier! {
+        case "SignUpSegue":
+            destinationVC.loginOrSignupTypeText = "Sign Up"
+        case "SignInSegue":
+            destinationVC.loginOrSignupTypeText = "Sign In"
+        default:
+            break
         }
     }
 
