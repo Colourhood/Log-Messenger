@@ -12,15 +12,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FloatingActionView" customModule="Log" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OjE-oj-cTF">
-                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                    <state key="normal" image="katherineUserIcon">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OjE-oj-cTF" userLabel="ActionButton">
+                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                    <state key="normal">
                         <color key="titleColor" red="0.94458389021227196" green="0.96210739213197971" blue="0.89383951559570574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
+                    <connections>
+                        <action selector="actionButton" destination="iN0-l3-epB" eventType="touchUpInside" id="xET-Ih-Pbs"/>
+                    </connections>
                 </button>
             </subviews>
             <constraints>
@@ -33,9 +36,9 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="floatingActionButton" destination="OjE-oj-cTF" id="8Zt-xP-beA"/>
+            </connections>
         </view>
     </objects>
-    <resources>
-        <image name="katherineUserIcon" width="172" height="172"/>
-    </resources>
 </document>

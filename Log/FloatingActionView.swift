@@ -7,34 +7,53 @@
 //
 
 import Foundation
+import Lottie
 
 class FloatingActionView: UIView {
 
-    @IBOutlet weak var mainView: UIView!
+    var contentView: UIView!
+    @IBOutlet weak var floatingActionButton: UIButton!
+    @IBAction func actionButton() {
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        instanceFromNib()
+        xibSetup()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        instanceFromNib()
     }
 
-    func instanceFromNib() {
-        guard let view = UINib(nibName: "FloatingActionView", bundle: nil).instantiate(withOwner: nil, options: nil).first as? UIView else { return }
-        let viewBounds = view.bounds
+    private func loadFromNib<T: UIView>() -> T {
+        guard let view = UINib(nibName: "FloatingActionView", bundle: nil).instantiate(withOwner: nil, options: nil).first as? T else { fatalError("Error loading from nib") }
+        return view
+    }
+
+    private func xibSetup() {
+        contentView = loadFromNib()
+        designSetup()
+        addSubview(contentView)
+    }
+
+    private func designSetup() {
         let screenBounds = UIScreen.main.bounds
-        view.frame = CGRect(x: (screenBounds.width-viewBounds.width-10),
-                            y: ((screenBounds.height-viewBounds.height)/2),
-                            width: viewBounds.width,
-                            height: viewBounds.height)
-        view.alpha = 0.4
-        view.layer.cornerRadius = viewBounds.width/2
-        view.layer.masksToBounds = true
-        mainView = view
-        addSubview(mainView)
+        let contentBounds = contentView.bounds
+        let offset = CGFloat(10)
+        frame = CGRect(x: screenBounds.width-contentBounds.width-offset,
+                       y: (screenBounds.height/2),
+                       width: contentBounds.width,
+                       height: contentBounds.height)
+        layer.masksToBounds = true
+        contentView.addSubview(lottieView())
+    }
+
+    private func lottieView() -> UIView {
+        let animatedView = LOTAnimationView(name: "GreyCircleAnimation")
+        animatedView.frame = bounds
+        animatedView.loopAnimation = true
+        animatedView.play()
+        return animatedView
     }
 
 }

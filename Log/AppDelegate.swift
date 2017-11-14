@@ -15,23 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-
         // Creation of necessary directories for the app - created under Documents
         LOGFileManager.createDirectoriesInDocuments()
-
         // Initial Configuration for AWS
         AWSConfig.setAWS()
 
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
         let currentUser = UserCoreDataController.getUserProfile()
         if currentUser?.email != nil || currentUser?.firstName != nil || currentUser?.lastName != nil {
-            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
-            window?.makeKeyAndVisible()
-            window?.addSubview(FloatingActionView())
+            window = FloatingActionWindow()
         } else {
-            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
+            window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
         }
 
         return true
