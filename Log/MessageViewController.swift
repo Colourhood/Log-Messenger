@@ -125,15 +125,12 @@ extension MessageViewController: UITextFieldDelegate {
     }
 
     @objc func keyboardDidShow(notification: NSNotification) {
-        print("Keyboard did show was called")
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-                print("resize keyboard \(keyboardSize)")
                 self.view.frame.origin.y -= keyboardSize.height
         }
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        print("Keyboard did hide was called")
         if let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
                 self.view.frame.origin.y = 0
         }

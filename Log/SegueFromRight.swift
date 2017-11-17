@@ -17,7 +17,6 @@ class SegueFromRight: UIStoryboardSegue {
     func animation() {
         let sourceView = self.source
         let destinationView = self.destination
-
         let containerView = sourceView.view.superview
 
         destinationView.view.transform = CGAffineTransform(translationX: sourceView.view.frame.width, y: 0)
