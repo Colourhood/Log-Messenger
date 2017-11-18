@@ -255,7 +255,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUA-jV-OWW" userLabel="TopView">
-                                <rect key="frame" x="0.0" y="13" width="375" height="55"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JnR-SB-lcn">
                                         <rect key="frame" x="13" y="10" width="35" height="35"/>
@@ -298,7 +298,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="64" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dzg-TP-Kgd">
-                                <rect key="frame" x="0.0" y="68" width="375" height="599"/>
+                                <rect key="frame" x="0.0" y="55" width="375" height="612"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Friend Conversation Cell" rowHeight="70" id="CP0-b5-1QU" customClass="HomeTableViewCell" customModule="Log" customModuleProvider="target">
@@ -370,7 +370,7 @@
                             <constraint firstItem="LUA-jV-OWW" firstAttribute="leading" secondItem="HV8-b5-eeG" secondAttribute="leading" id="GTs-Tv-njF"/>
                             <constraint firstItem="Dzg-TP-Kgd" firstAttribute="top" secondItem="LUA-jV-OWW" secondAttribute="bottom" id="Wer-Lw-y4q"/>
                             <constraint firstAttribute="trailing" secondItem="LUA-jV-OWW" secondAttribute="trailing" id="bl5-D5-s6J"/>
-                            <constraint firstItem="LUA-jV-OWW" firstAttribute="top" secondItem="HV8-b5-eeG" secondAttribute="top" constant="13" id="bry-XG-b0h"/>
+                            <constraint firstItem="LUA-jV-OWW" firstAttribute="top" secondItem="HV8-b5-eeG" secondAttribute="top" id="bry-XG-b0h"/>
                             <constraint firstAttribute="trailing" secondItem="Dzg-TP-Kgd" secondAttribute="trailing" id="gFk-FW-cab"/>
                             <constraint firstItem="9Um-Tl-BhN" firstAttribute="top" secondItem="Dzg-TP-Kgd" secondAttribute="bottom" id="nke-68-3jB"/>
                         </constraints>
