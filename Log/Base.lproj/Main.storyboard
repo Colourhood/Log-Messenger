@@ -85,7 +85,7 @@
                                                                 <constraint firstItem="3DZ-yR-iJx" firstAttribute="leading" secondItem="NV8-xr-DuN" secondAttribute="leading" constant="12" id="uc0-o6-VJe"/>
                                                             </constraints>
                                                         </view>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="katherineUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="x4P-Fm-XfS" userLabel="Friend Image">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="katherineUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="x4P-Fm-XfS" userLabel="Friend Image" customClass="ProfileImageView" customModule="Log" customModuleProvider="target">
                                                             <rect key="frame" x="15" y="38" width="32" height="32"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="32" id="WBM-CE-w0h"/>
@@ -152,7 +152,7 @@
                                                                 <constraint firstItem="lRu-nx-8Nr" firstAttribute="top" secondItem="jLG-H8-tCc" secondAttribute="top" constant="10" id="qhO-au-CPd"/>
                                                             </constraints>
                                                         </view>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="andreiUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="eVy-nN-zVh">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="andreiUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="eVy-nN-zVh" customClass="ProfileImageView" customModule="Log" customModuleProvider="target">
                                                             <rect key="frame" x="344" y="41.5" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="YYg-DU-HHd"/>
@@ -316,7 +316,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="andreiUserIcon" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dgH-W8-GvX">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="andreiUserIcon" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dgH-W8-GvX" customClass="ProfileImageView" customModule="Log" customModuleProvider="target">
                                                     <rect key="frame" x="10" y="13" width="45" height="45"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="45" id="BKV-8D-CLW"/>

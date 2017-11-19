@@ -64,6 +64,7 @@
 		54EEB1251F57770E00AA548B /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1241F57770E00AA548B /* Lottie.framework */; };
 		54EEB1261F57770E00AA548B /* Lottie.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1241F57770E00AA548B /* Lottie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54EEB1281F577E2B00AA548B /* LOGHTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EEB1271F577E2B00AA548B /* LOGHTTP.swift */; };
+		54F2AA1B1FC242FC00F269E1 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F2AA1A1FC242FC00F269E1 /* ProfileImageView.swift */; };
 		54FC67B81FAA5B9D00587D68 /* SegueFromRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FC67B71FAA5B9D00587D68 /* SegueFromRight.swift */; };
 /* End PBXBuildFile section */
 
@@ -150,6 +151,7 @@
 		54EEB1201F57770700AA548B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		54EEB1241F57770E00AA548B /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
 		54EEB1271F577E2B00AA548B /* LOGHTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGHTTP.swift; sourceTree = "<group>"; };
+		54F2AA1A1FC242FC00F269E1 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		54FC67B71FAA5B9D00587D68 /* SegueFromRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueFromRight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -293,6 +295,7 @@
 				548A8E141F4C9A8300DD56C0 /* SignInViewController.swift */,
 				544EE7611F4EA01F00CD3380 /* HomeViewController.swift */,
 				54A27A271F6A031700DC0ACA /* Log-Bridging-Header.h */,
+				54F2AA1A1FC242FC00F269E1 /* ProfileImageView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				544EE7621F4EA01F00CD3380 /* HomeViewController.swift in Sources */,
 				541141771F72638500CAF4CD /* LOGS3.swift in Sources */,
 				5454F36B1F4A5844002D9AB5 /* AppDelegate.swift in Sources */,
+				54F2AA1B1FC242FC00F269E1 /* ProfileImageView.swift in Sources */,
 				54A05D7B1F4D74C4005B091F /* User+CoreDataProperties.swift in Sources */,
 				5414664A1FB1183F009893BE /* UserCoreDataController.swift in Sources */,
 				5454F3811F4A5F7C002D9AB5 /* LOGUser.swift in Sources */,

@@ -12,7 +12,7 @@ class HomeCollectionViewController {
 }
 
 class HomeTableViewCell: UITableViewCell {
-    @IBOutlet weak var friendPicture: UIImageView!
+    @IBOutlet weak var friendPicture: ProfileImageView!
     @IBOutlet weak var friendName: UILabel!
     @IBOutlet weak var mostRecentMessageFromConversation: UILabel!
     @IBOutlet weak var date: UILabel!
