@@ -214,6 +214,11 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         return cell!
     }
 
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        let messageCell = cell as? MessageTableViewCell
+//        messageCell?.animate()
+//    }
+
     func popMessage() {
         DispatchQueue.main.async {
             let dataCount = self.friendConversation!.getStackOfMessages().count
