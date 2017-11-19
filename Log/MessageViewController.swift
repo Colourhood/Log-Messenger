@@ -18,16 +18,30 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var userImage: UIImageView!
 }
 
+extension MessageTableViewCell {
+    func animate() {
+        self.alpha = 0
+        self.messageView.transform = CGAffineTransform(scaleX: 0.04, y: 0.04)
+        self.userImage.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+            self.alpha = 1
+            self.messageView.transform = CGAffineTransform.identity
+            self.userImage.transform = CGAffineTransform.identity
+        })
+    }
+}
+
 class MessageViewController: UIViewController {
 
     /* Class Variables */
-    var friendConversation: MessageStack?
+    open var friendConversation: MessageStack?
     var userData = UserCoreDataController.getUserProfile()
     var chatRoomID: String?
 
     /* UI-IBOutlets */
     @IBOutlet weak var newMessageTextField: UITextField!
-    @IBOutlet weak var messagesTableView: UITableView!
+    @IBOutlet weak fileprivate var messagesTableView: UITableView!
     @IBOutlet weak var messageNavigator: UINavigationItem!
 
     override func viewDidLoad() {
@@ -47,13 +61,6 @@ class MessageViewController: UIViewController {
         messagesTableView.rowHeight = UITableViewAutomaticDimension
         newMessageTextField.autocorrectionType = .no
         messageNavigator.title = friendConversation?.getFriendProfile()?.getFirstName()
-    }
-
-    func updateMessagesTable() {
-        DispatchQueue.main.async {
-            self.messagesTableView.reloadData()
-            self.messagesTableView.scrollToBottom()
-        }
     }
 
     func fetchMessages() {
@@ -89,7 +96,7 @@ class MessageViewController: UIViewController {
                         }
                     }
                 }
-                self.updateMessagesTable()
+                self.messagesTableView.initialReloadTable()
             }
         })
     }
@@ -131,7 +138,7 @@ extension MessageViewController: UITextFieldDelegate {
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        if let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue) {
                 self.view.frame.origin.y = 0
         }
     }
@@ -147,7 +154,7 @@ extension MessageViewController: UITextFieldDelegate {
                 let newMessage = Message.init(sender: userProfile, message: message, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
 
                 friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
-                updateMessagesTable()
+                popMessage()
             }
         }
 
@@ -182,7 +189,6 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let messageData = friendConversation?.getStackOfMessages()[indexPath.row]
         let messageProfile = messageData?.getSender()
 
@@ -194,17 +200,58 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         var cell: MessageTableViewCell?
 
         if email == userData?.email {
-            cell = messagesTableView.dequeueReusableCell(withIdentifier: "Message Sender Cell", for: indexPath) as? MessageTableViewCell
+            cell = messagesTableView.dequeueReusableCell(withIdentifier: "UserMessageCell", for: indexPath) as? MessageTableViewCell
+            cell?.senderToReceiverLabel.text = nil
         } else {
-            cell = messagesTableView.dequeueReusableCell(withIdentifier: "Message Receiver Cell", for: indexPath) as? MessageTableViewCell
+            cell = messagesTableView.dequeueReusableCell(withIdentifier: "FriendMessageCell", for: indexPath) as? MessageTableViewCell
+            cell?.senderToReceiverLabel.text = name
         }
 
-        cell?.senderToReceiverLabel.text = name
         cell?.userImage.image = picture
         cell?.messageLabel.text = messageSent
         cell?.messageView.layer.cornerRadius = 10
 
         return cell!
+    }
+
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        let messageCell = cell as? MessageTableViewCell
+//        messageCell?.animate()
+//    }
+
+    func popMessage() {
+        DispatchQueue.main.async {
+            let dataCount = self.friendConversation!.getStackOfMessages().count
+            let indexPath = IndexPath(row: dataCount-1, section: 0)
+
+            UIView.setAnimationsEnabled(false)
+            self.messagesTableView.insertRows(at: [indexPath], with: .none)
+            UIView.setAnimationsEnabled(true)
+            self.messagesTableView.scrollToBottom()
+
+            let cell = self.messagesTableView.cellForRow(at: indexPath) as? MessageTableViewCell
+            cell?.animate()
+        }
+    }
+
+}
+
+extension UITableView {
+
+    internal func scrollToBottom() {
+        let rows = self.numberOfRows(inSection: 0)
+        // This will guarantee rows - 1 >= 0
+        if rows > 0 {
+            let indexPath = IndexPath(row: rows - 1, section: 0)
+            self.scrollToRow(at: indexPath, at: .top, animated: false)
+        }
+    }
+
+    func initialReloadTable() {
+        DispatchQueue.main.async {
+            self.reloadData()
+            self.scrollToBottom()
+        }
     }
 
 }
@@ -217,7 +264,7 @@ extension MessageViewController: SocketIODelegate {
 
         let newMessage = Message.init(sender: (friendConversation?.getFriendProfile())!, message: message, date: date)
         friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
-        updateMessagesTable()
+        popMessage()
     }
 
     func friendStoppedTyping() {
@@ -226,19 +273,6 @@ extension MessageViewController: SocketIODelegate {
 
     func friendStartedTyping() {
         print("Received socket delegate event: Friend started typing")
-    }
-
-}
-
-extension UITableView {
-
-    func scrollToBottom() {
-        let rows = self.numberOfRows(inSection: 0)
-        // This will guarantee rows - 1 >= 0
-        if rows > 0 {
-            let indexPath = IndexPath(row: rows - 1, section: 0)
-            self.scrollToRow(at: indexPath, at: .top, animated: false)
-        }
     }
 
 }
