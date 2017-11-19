@@ -29,6 +29,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9F-wr-rj7">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Katherine" id="bbQ-XH-jZH">
+                                        <barButtonItem key="leftBarButtonItem" title="Home" id="UGj-21-WCz">
+                                            <connections>
+                                                <segue destination="Ylu-C3-n5C" kind="unwind" customClass="UnwindSegueFromRight" customModule="Log" customModuleProvider="target" unwindAction="prepareForUnwindWithSegue:" id="FMK-Lm-zpM"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FWd-JV-7yZ" userLabel="Main View">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
@@ -36,14 +48,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="555"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Message Receiver Cell" rowHeight="91" id="vLS-rL-PaC" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendMessageCell" rowHeight="91" id="vLS-rL-PaC" userLabel="Friend Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="91"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vLS-rL-PaC" id="SPT-3Y-c9E">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="katherine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGL-rj-Igi" userLabel="Sender Label">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="katherine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGL-rj-Igi" userLabel="Friend Name">
                                                             <rect key="frame" x="51" y="6" width="156" height="11"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="11" id="Bxh-Wc-dhL"/>
@@ -73,7 +85,7 @@
                                                                 <constraint firstItem="3DZ-yR-iJx" firstAttribute="leading" secondItem="NV8-xr-DuN" secondAttribute="leading" constant="12" id="uc0-o6-VJe"/>
                                                             </constraints>
                                                         </view>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="katherineUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="x4P-Fm-XfS">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="katherineUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="x4P-Fm-XfS" userLabel="Friend Image">
                                                             <rect key="frame" x="15" y="38" width="32" height="32"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="32" id="WBM-CE-w0h"/>
@@ -97,9 +109,13 @@
                                                     <outlet property="MessageView" destination="NV8-xr-DuN" id="JUC-R4-2uw"/>
                                                     <outlet property="SenderToReceiverLabel" destination="rGL-rj-Igi" id="8y9-Ho-Yvv"/>
                                                     <outlet property="UserImage" destination="x4P-Fm-XfS" id="b8B-l9-KfP"/>
+                                                    <outlet property="messageLabel" destination="3DZ-yR-iJx" id="GWc-FA-2OD"/>
+                                                    <outlet property="messageView" destination="NV8-xr-DuN" id="Lyc-IW-UdK"/>
+                                                    <outlet property="senderToReceiverLabel" destination="rGL-rj-Igi" id="2H0-8A-bCd"/>
+                                                    <outlet property="userImage" destination="x4P-Fm-XfS" id="Ifj-T4-YHw"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Message Sender Cell" rowHeight="75" id="bQ1-J7-sbw" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserMessageCell" rowHeight="75" id="bQ1-J7-sbw" userLabel="User Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="119" width="375" height="75"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bQ1-J7-sbw" id="1jX-ZS-2qS">
@@ -162,6 +178,10 @@
                                                     <outlet property="MessageView" destination="jLG-H8-tCc" id="AfC-4Z-TRm"/>
                                                     <outlet property="SenderToReceiverLabel" destination="yvX-eW-ygb" id="Yw5-4d-keG"/>
                                                     <outlet property="UserImage" destination="eVy-nN-zVh" id="Oqh-ou-KBT"/>
+                                                    <outlet property="messageLabel" destination="lRu-nx-8Nr" id="clQ-fT-lh9"/>
+                                                    <outlet property="messageView" destination="jLG-H8-tCc" id="Amr-mY-LzG"/>
+                                                    <outlet property="senderToReceiverLabel" destination="yvX-eW-ygb" id="Kua-do-ani"/>
+                                                    <outlet property="userImage" destination="eVy-nN-zVh" id="n5Z-Af-abY"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -206,18 +226,6 @@
                                     <constraint firstItem="wd8-4g-iiu" firstAttribute="leading" secondItem="FWd-JV-7yZ" secondAttribute="leading" id="otW-ji-HlI"/>
                                 </constraints>
                             </view>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9F-wr-rj7">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="Katherine" id="bbQ-XH-jZH">
-                                        <barButtonItem key="leftBarButtonItem" title="Home" id="UGj-21-WCz">
-                                            <connections>
-                                                <segue destination="Ylu-C3-n5C" kind="unwind" customClass="UnwindSegueFromRight" customModule="Log" customModuleProvider="target" unwindAction="prepareForUnwindWithSegue:" id="FMK-Lm-zpM"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -233,9 +241,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="ObZ-Jp-1jl"/>
                     <connections>
-                        <outlet property="MessageNavigator" destination="bbQ-XH-jZH" id="xCh-Bn-2Vu"/>
-                        <outlet property="MessagesTableView" destination="wd8-4g-iiu" id="f8Y-kX-POk"/>
-                        <outlet property="NewMessageTextField" destination="ybS-dW-Hfn" id="TfD-Pc-JDC"/>
+                        <outlet property="messageNavigator" destination="bbQ-XH-jZH" id="847-R0-Ibz"/>
+                        <outlet property="messagesTableView" destination="wd8-4g-iiu" id="ihv-vQ-9my"/>
+                        <outlet property="newMessageTextField" destination="ybS-dW-Hfn" id="5dg-93-a6d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
