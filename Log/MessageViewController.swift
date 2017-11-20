@@ -162,18 +162,17 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
         var cell: MessageTableViewCell?
 
-        func messageCellUI() {
+        func messageCell(identifier: String) {
+            cell = messagesTableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? MessageTableViewCell
             cell?.userImage.image = messageProfile?.getPicture()
             cell?.messageLabel.text = messageData?.getMessage()
         }
 
         if email == userData?.email {
-            cell = messagesTableView.dequeueReusableCell(withIdentifier: "UserMessageCell", for: indexPath) as? MessageTableViewCell
-            messageCellUI()
+            messageCell(identifier: "UserMessageCell")
         } else {
-            cell = messagesTableView.dequeueReusableCell(withIdentifier: "FriendMessageCell", for: indexPath) as? MessageTableViewCell
+            messageCell(identifier: "FriendMessageCell")
             cell?.senderToReceiverLabel.text = messageProfile?.getFirstName()
-            messageCellUI()
         }
 
         return cell!
