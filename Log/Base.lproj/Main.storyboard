@@ -44,19 +44,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FWd-JV-7yZ" userLabel="Main View">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="92" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wd8-4g-iiu">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wd8-4g-iiu">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="555"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendMessageCell" rowHeight="91" id="vLS-rL-PaC" userLabel="Friend Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="91"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendMessageCell" rowHeight="70" id="vLS-rL-PaC" userLabel="Friend Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vLS-rL-PaC" id="SPT-3Y-c9E">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="katherine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGL-rj-Igi" userLabel="Friend Name">
-                                                            <rect key="frame" x="51" y="6" width="156" height="11"/>
+                                                            <rect key="frame" x="51" y="2.5" width="156" height="11"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="11" id="Bxh-Wc-dhL"/>
                                                             </constraints>
@@ -65,10 +65,10 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NV8-xr-DuN" userLabel="Message View">
-                                                            <rect key="frame" x="51" y="20.5" width="155.5" height="49.5"/>
+                                                            <rect key="frame" x="51" y="17" width="155.5" height="42"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, this is a message from me!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DZ-yR-iJx">
-                                                                    <rect key="frame" x="12" y="10" width="133.5" height="29.5"/>
+                                                                    <rect key="frame" x="12" y="10" width="133.5" height="22"/>
                                                                     <fontDescription key="fontDescription" name=".SFNSText" family=".SF NS Text" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -86,7 +86,7 @@
                                                             </constraints>
                                                         </view>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="katherineUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="x4P-Fm-XfS" userLabel="Friend Image" customClass="ProfileImageView" customModule="Log" customModuleProvider="target">
-                                                            <rect key="frame" x="15" y="38" width="32" height="32"/>
+                                                            <rect key="frame" x="15" y="27" width="32" height="32"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="32" id="WBM-CE-w0h"/>
                                                                 <constraint firstAttribute="height" constant="32" id="ce2-tM-cQn"/>
@@ -99,9 +99,9 @@
                                                         <constraint firstItem="NV8-xr-DuN" firstAttribute="leading" secondItem="x4P-Fm-XfS" secondAttribute="trailing" constant="4" id="e9b-fF-68V"/>
                                                         <constraint firstItem="rGL-rj-Igi" firstAttribute="centerX" secondItem="NV8-xr-DuN" secondAttribute="centerX" id="jg1-Uk-dKL"/>
                                                         <constraint firstItem="NV8-xr-DuN" firstAttribute="top" secondItem="rGL-rj-Igi" secondAttribute="bottom" constant="4" id="jqY-7h-COv"/>
-                                                        <constraint firstItem="rGL-rj-Igi" firstAttribute="top" secondItem="SPT-3Y-c9E" secondAttribute="top" constant="5.5" id="rdf-t1-xvw"/>
+                                                        <constraint firstItem="rGL-rj-Igi" firstAttribute="top" secondItem="SPT-3Y-c9E" secondAttribute="top" constant="3" id="rdf-t1-xvw"/>
                                                         <constraint firstItem="x4P-Fm-XfS" firstAttribute="leading" secondItem="SPT-3Y-c9E" secondAttribute="leadingMargin" id="yDk-nZ-A0I"/>
-                                                        <constraint firstAttribute="bottomMargin" secondItem="NV8-xr-DuN" secondAttribute="bottom" constant="10" id="zcm-nH-pwO"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="NV8-xr-DuN" secondAttribute="bottom" id="zcm-nH-pwO"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
@@ -115,27 +115,18 @@
                                                     <outlet property="userImage" destination="x4P-Fm-XfS" id="Ifj-T4-YHw"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserMessageCell" rowHeight="75" id="bQ1-J7-sbw" userLabel="User Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="119" width="375" height="75"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserMessageCell" rowHeight="67" id="bQ1-J7-sbw" userLabel="User Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="98" width="375" height="67"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bQ1-J7-sbw" id="1jX-ZS-2qS">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="67"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="grrrlikestaquitos" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvX-eW-ygb" userLabel="Sender Label">
-                                                            <rect key="frame" x="146.5" y="16" width="193.5" height="11"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="11" id="k5L-dg-Yt5"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jLG-H8-tCc" userLabel="Message View">
-                                                            <rect key="frame" x="146.5" y="31" width="193.5" height="30.5"/>
+                                                            <rect key="frame" x="146.5" y="12" width="193.5" height="44"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, thanks for the message!" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRu-nx-8Nr">
-                                                                    <rect key="frame" x="10" y="10" width="171.5" height="10.5"/>
+                                                                    <rect key="frame" x="10" y="10" width="171.5" height="24"/>
                                                                     <fontDescription key="fontDescription" name=".SFNSText" family=".SF NS Text" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -153,7 +144,7 @@
                                                             </constraints>
                                                         </view>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="andreiUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="eVy-nN-zVh" customClass="ProfileImageView" customModule="Log" customModuleProvider="target">
-                                                            <rect key="frame" x="344" y="41.5" width="20" height="20"/>
+                                                            <rect key="frame" x="344" y="36" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="YYg-DU-HHd"/>
                                                                 <constraint firstAttribute="height" constant="20" id="yUA-Sz-9YD"/>
@@ -161,26 +152,19 @@
                                                         </imageView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="yvX-eW-ygb" firstAttribute="top" secondItem="1jX-ZS-2qS" secondAttribute="topMargin" constant="5" id="2aD-UR-Gs9"/>
-                                                        <constraint firstItem="jLG-H8-tCc" firstAttribute="top" secondItem="yvX-eW-ygb" secondAttribute="bottom" constant="4" id="3YO-UH-z96"/>
-                                                        <constraint firstItem="jLG-H8-tCc" firstAttribute="top" secondItem="yvX-eW-ygb" secondAttribute="bottom" constant="4" id="5dK-4Z-EWG"/>
                                                         <constraint firstItem="eVy-nN-zVh" firstAttribute="leading" secondItem="jLG-H8-tCc" secondAttribute="trailing" constant="4" id="A9G-Tk-OME"/>
-                                                        <constraint firstItem="yvX-eW-ygb" firstAttribute="trailing" secondItem="jLG-H8-tCc" secondAttribute="trailing" id="BYW-uH-v7i"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="jLG-H8-tCc" secondAttribute="trailing" constant="20" id="Bwx-zU-Vj4"/>
-                                                        <constraint firstItem="yvX-eW-ygb" firstAttribute="centerX" secondItem="jLG-H8-tCc" secondAttribute="centerX" id="Tnc-Mi-Xd1"/>
-                                                        <constraint firstAttribute="bottomMargin" secondItem="jLG-H8-tCc" secondAttribute="bottom" constant="2.5" id="edG-1i-WZ8"/>
-                                                        <constraint firstItem="yvX-eW-ygb" firstAttribute="width" secondItem="jLG-H8-tCc" secondAttribute="width" id="sxE-j4-COe"/>
+                                                        <constraint firstItem="jLG-H8-tCc" firstAttribute="top" secondItem="1jX-ZS-2qS" secondAttribute="topMargin" constant="1" id="Y0l-hc-CM9"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="jLG-H8-tCc" secondAttribute="bottom" id="edG-1i-WZ8"/>
                                                         <constraint firstItem="eVy-nN-zVh" firstAttribute="baseline" secondItem="jLG-H8-tCc" secondAttribute="baseline" id="xnW-x1-O0b"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="MessageLabel" destination="lRu-nx-8Nr" id="wTR-G4-uVI"/>
                                                     <outlet property="MessageView" destination="jLG-H8-tCc" id="AfC-4Z-TRm"/>
-                                                    <outlet property="SenderToReceiverLabel" destination="yvX-eW-ygb" id="Yw5-4d-keG"/>
                                                     <outlet property="UserImage" destination="eVy-nN-zVh" id="Oqh-ou-KBT"/>
                                                     <outlet property="messageLabel" destination="lRu-nx-8Nr" id="clQ-fT-lh9"/>
                                                     <outlet property="messageView" destination="jLG-H8-tCc" id="Amr-mY-LzG"/>
-                                                    <outlet property="senderToReceiverLabel" destination="yvX-eW-ygb" id="Kua-do-ani"/>
                                                     <outlet property="userImage" destination="eVy-nN-zVh" id="n5Z-Af-abY"/>
                                                 </connections>
                                             </tableViewCell>
