@@ -7,33 +7,10 @@
 //
 
 import UIKit
-import QuartzCore
 import CoreData
 import CryptoSwift
 
-class MessageTableViewCell: UITableViewCell {
-    @IBOutlet weak var senderToReceiverLabel: UILabel!
-    @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var messageView: UIView!
-    @IBOutlet weak var userImage: ProfileImageView!
-}
-
-extension MessageTableViewCell {
-    func animate() {
-        self.alpha = 0
-        self.messageView.transform = CGAffineTransform(scaleX: 0.04, y: 0.04)
-        self.userImage.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
-            self.alpha = 1
-            self.messageView.transform = CGAffineTransform.identity
-            self.userImage.transform = CGAffineTransform.identity
-        })
-    }
-}
-
 class MessageViewController: UIViewController {
-
     /* Class Variables */
     open var friendConversation: MessageStack?
     var userData = UserCoreDataController.getUserProfile()
@@ -46,14 +23,18 @@ class MessageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Delegates
         SocketIOManager.sharedInstance.delegate = self
         prepareUI()
-
         fetchMessages()
         joinChatRoom()
         registerForKeyboardNotifications()
+    }
+
+    deinit {
+        deregisterFromKeyboardNotifications()
+        leaveChatRoom()
+        print("MessageView deinit was called")
     }
 
     func prepareUI() {
@@ -65,15 +46,12 @@ class MessageViewController: UIViewController {
 
     func fetchMessages() {
         // Network request to get all(for now) messages between two users
-        let friendProfile = friendConversation?.getFriendProfile()
-        let friendEmail = friendProfile?.getEmail()
-
+        guard let friendProfile = friendConversation?.getFriendProfile() else { return }
         let userProfile = LOGUser(email: userData?.email, firstName: nil, lastName: nil, picture: UIImage(data: (userData?.image)! as Data))
-        let userEmail = userProfile.getEmail()
 
-        MessageController.getMessagesForFriend(friendEmail: friendEmail!, completionHandler: { [weak self] (response) in
+        MessageController.getMessagesForFriend(friendEmail: friendProfile.getEmail()!,
+                                               completionHandler: { [weak self] (response) in
             guard let `self` = self else { return }
-            // print("Messages between these two friends:\n \(response)")
 
             // Array of messages for key 'messages'
             if let messages = response["messages"] as? [AnyObject] {
@@ -84,9 +62,9 @@ class MessageViewController: UIViewController {
                         let date = messageDict["created_at"] as? String
                         var senderUser: LOGUser?
 
-                        if sentBy == friendEmail {
+                        if sentBy == friendProfile.getEmail() {
                             senderUser = friendProfile
-                        } else if sentBy == userEmail {
+                        } else if sentBy == userProfile.getEmail() {
                             senderUser = userProfile
                         }
 
@@ -101,15 +79,8 @@ class MessageViewController: UIViewController {
         })
     }
 
-    deinit {
-        deregisterFromKeyboardNotifications()
-        leaveChatRoom()
-        print("MessageView deinit was called")
-    }
-
     fileprivate func sendMessage(message: String) {
         let friendEmail = friendConversation?.getFriendProfile()?.getEmail()
-
         let parameters = ["sent_by": userData?.email, "sent_to": friendEmail, "message": message] as [String: AnyObject]
         MessageController.sendNewMessage(parameters: parameters) { (json) in // Server - Database
             print(json)
@@ -117,31 +88,18 @@ class MessageViewController: UIViewController {
         messageChat(message: message) // Server - SocketIO
     }
 
+    // # Mark - Crypto
+    private func generateChatRoomID() {
+        if let userEmail = userData?.email, let friendEmail = friendConversation?.getFriendProfile()?.getEmail() {
+            let sortedArray = [userEmail, friendEmail].sorted().joined(separator: "")
+            chatRoomID = sortedArray.sha512()
+            print("Chat ID: \(chatRoomID!)")
+        }
+    }
+
 }
 
 extension MessageViewController: UITextFieldDelegate {
-
-    func registerForKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector (MessageViewController.keyboardDidShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector (MessageViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
-
-    func deregisterFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
-    }
-
-    @objc func keyboardDidShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-                self.view.frame.origin.y -= keyboardSize.height
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue) {
-                self.view.frame.origin.y = 0
-        }
-    }
 
     /* UITextField Delegate Methods */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -157,11 +115,6 @@ extension MessageViewController: UITextFieldDelegate {
                 popMessage()
             }
         }
-
-        return true
-    }
-
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return true
     }
 
@@ -177,6 +130,30 @@ extension MessageViewController: UITextFieldDelegate {
         return true
     }
 
+    // UIKeyboard - Notification Center
+
+    func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector (MessageViewController.keyboardDidShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector (MessageViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+
+    func deregisterFromKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
+    }
+
+    @objc func keyboardDidShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            self.view.frame.origin.y -= keyboardSize.height
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue) {
+            self.view.frame.origin.y = 0
+        }
+    }
+
 }
 
 extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
@@ -190,14 +167,16 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let messageData = friendConversation?.getStackOfMessages()[indexPath.row]
+        let message = messageData?.getMessage()
         let messageProfile = messageData?.getSender()
-
+        
         let email = messageProfile?.getEmail()
         let name = messageProfile?.getFirstName()
         let picture = messageProfile?.getPicture()
-        let messageSent = messageData?.getMessage()
 
         var cell: MessageTableViewCell?
+        cell?.userImage.image = picture
+        cell?.messageLabel.text = message
 
         if email == userData?.email {
             cell = messagesTableView.dequeueReusableCell(withIdentifier: "UserMessageCell", for: indexPath) as? MessageTableViewCell
@@ -206,17 +185,8 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
             cell?.senderToReceiverLabel.text = name
         }
 
-        cell?.userImage.image = picture
-        cell?.messageLabel.text = messageSent
-        cell?.messageView.layer.cornerRadius = 10
-
         return cell!
     }
-
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let messageCell = cell as? MessageTableViewCell
-//        messageCell?.animate()
-//    }
 
     func popMessage() {
         DispatchQueue.main.async {
@@ -260,7 +230,6 @@ extension MessageViewController: SocketIODelegate {
     // # Mark - SocketIODelegates
     func receivedMessage(user: String, message: String, date: String) {
         print("Received socket delegate event: Message - \(user): \(message), \(date)")
-
         let newMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: message, date: date)
         friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
         popMessage()
@@ -274,20 +243,7 @@ extension MessageViewController: SocketIODelegate {
         print("Received socket delegate event: Friend started typing")
     }
 
-}
-
-extension MessageViewController {
-
-    // # Mark - Crypto
-    private func generateChatRoomID() {
-        if let userEmail = userData?.email, let friendEmail = friendConversation?.getFriendProfile()?.getEmail() {
-            let sortedArray = [userEmail, friendEmail].sorted().joined(separator: "")
-            chatRoomID = sortedArray.sha512()
-            print("Chat ID: \(chatRoomID!)")
-        }
-    }
-
-    // # Mark - SocketIO
+    // # Mark - SocketIO - NonDelegate
     private func subscribeToChatEvents() {
         SocketIOManager.sharedInstance.subscribe(event: Constants.sendMessage)
         SocketIOManager.sharedInstance.subscribe(event: Constants.startTyping)
@@ -303,14 +259,12 @@ extension MessageViewController {
     private func joinChatRoom() {
         generateChatRoomID()
         subscribeToChatEvents()
-
         let param = ["user_email": userData?.email, "chat_id": chatRoomID]
         SocketIOManager.sharedInstance.emit(event: Constants.joinRoom, data: param as AnyObject)
     }
 
     private func leaveChatRoom() {
         unsubscribeFromChatEvents()
-
         let param = ["user_email": userData?.email, "chat_id": chatRoomID]
         SocketIOManager.sharedInstance.emit(event: Constants.leaveRoom, data: param as AnyObject)
     }
