@@ -23,7 +23,6 @@ class MessageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Delegates
         SocketIOManager.sharedInstance.delegate = self
         prepareUI()
         fetchMessages()
@@ -86,15 +85,6 @@ class MessageViewController: UIViewController {
             print(json)
         }
         messageChat(message: message) // Server - SocketIO
-    }
-
-    // # Mark - Crypto
-    private func generateChatRoomID() {
-        if let userEmail = userData?.email, let friendEmail = friendConversation?.getFriendProfile()?.getEmail() {
-            let sortedArray = [userEmail, friendEmail].sorted().joined(separator: "")
-            chatRoomID = sortedArray.sha512()
-            print("Chat ID: \(chatRoomID!)")
-        }
     }
 
 }
@@ -167,22 +157,23 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let messageData = friendConversation?.getStackOfMessages()[indexPath.row]
-        let message = messageData?.getMessage()
         let messageProfile = messageData?.getSender()
-        
         let email = messageProfile?.getEmail()
-        let name = messageProfile?.getFirstName()
-        let picture = messageProfile?.getPicture()
 
         var cell: MessageTableViewCell?
-        cell?.userImage.image = picture
-        cell?.messageLabel.text = message
+
+        func messageCellUI() {
+            cell?.userImage.image = messageProfile?.getPicture()
+            cell?.messageLabel.text = messageData?.getMessage()
+        }
 
         if email == userData?.email {
             cell = messagesTableView.dequeueReusableCell(withIdentifier: "UserMessageCell", for: indexPath) as? MessageTableViewCell
+            messageCellUI()
         } else {
             cell = messagesTableView.dequeueReusableCell(withIdentifier: "FriendMessageCell", for: indexPath) as? MessageTableViewCell
-            cell?.senderToReceiverLabel.text = name
+            cell?.senderToReceiverLabel.text = messageProfile?.getFirstName()
+            messageCellUI()
         }
 
         return cell!
@@ -254,6 +245,15 @@ extension MessageViewController: SocketIODelegate {
         SocketIOManager.sharedInstance.unsubscribe(event: Constants.sendMessage)
         SocketIOManager.sharedInstance.unsubscribe(event: Constants.startTyping)
         SocketIOManager.sharedInstance.unsubscribe(event: Constants.stopTyping)
+    }
+
+    // # Mark - Crypto
+    private func generateChatRoomID() {
+        if let userEmail = userData?.email, let friendEmail = friendConversation?.getFriendProfile()?.getEmail() {
+            let sortedArray = [userEmail, friendEmail].sorted().joined(separator: "")
+            chatRoomID = sortedArray.sha512()
+            print("Chat ID: \(chatRoomID!)")
+        }
     }
 
     private func joinChatRoom() {
