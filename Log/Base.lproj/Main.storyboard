@@ -105,10 +105,6 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="MessageLabel" destination="3DZ-yR-iJx" id="UVU-rW-ZFq"/>
-                                                    <outlet property="MessageView" destination="NV8-xr-DuN" id="JUC-R4-2uw"/>
-                                                    <outlet property="SenderToReceiverLabel" destination="rGL-rj-Igi" id="8y9-Ho-Yvv"/>
-                                                    <outlet property="UserImage" destination="x4P-Fm-XfS" id="b8B-l9-KfP"/>
                                                     <outlet property="messageLabel" destination="3DZ-yR-iJx" id="GWc-FA-2OD"/>
                                                     <outlet property="messageView" destination="NV8-xr-DuN" id="Lyc-IW-UdK"/>
                                                     <outlet property="senderToReceiverLabel" destination="rGL-rj-Igi" id="2H0-8A-bCd"/>
@@ -160,12 +156,62 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="MessageLabel" destination="lRu-nx-8Nr" id="wTR-G4-uVI"/>
-                                                    <outlet property="MessageView" destination="jLG-H8-tCc" id="AfC-4Z-TRm"/>
-                                                    <outlet property="UserImage" destination="eVy-nN-zVh" id="Oqh-ou-KBT"/>
                                                     <outlet property="messageLabel" destination="lRu-nx-8Nr" id="clQ-fT-lh9"/>
                                                     <outlet property="messageView" destination="jLG-H8-tCc" id="Amr-mY-LzG"/>
                                                     <outlet property="userImage" destination="eVy-nN-zVh" id="n5Z-Af-abY"/>
+                                                </connections>
+                                            </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendTypingMessageCell" rowHeight="67" id="xOJ-uZ-VpU" userLabel="User Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="165" width="375" height="67"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xOJ-uZ-VpU" id="Otr-qM-YbS">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="67"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IRJ-Kw-Qt9" userLabel="Message View">
+                                                            <rect key="frame" x="146.5" y="12" width="193.5" height="44"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, thanks for the message!" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvM-BH-LQf">
+                                                                    <rect key="frame" x="10" y="10" width="171.5" height="24"/>
+                                                                    <fontDescription key="fontDescription" name=".SFNSText" family=".SF NS Text" pointSize="14"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" red="0.571398038" green="0.92512063300000003" blue="0.92512063300000003" alpha="0.47153253420000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="bvM-BH-LQf" secondAttribute="trailing" constant="12" id="ViB-ES-CH6"/>
+                                                                <constraint firstItem="bvM-BH-LQf" firstAttribute="top" secondItem="IRJ-Kw-Qt9" secondAttribute="top" constant="10" id="lfD-gb-We5"/>
+                                                                <constraint firstItem="bvM-BH-LQf" firstAttribute="leading" secondItem="IRJ-Kw-Qt9" secondAttribute="leading" constant="10" id="r7l-78-j9R"/>
+                                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="210" id="utj-m6-5bJ">
+                                                                    <variation key="heightClass=regular-widthClass=compact" constant="210"/>
+                                                                </constraint>
+                                                                <constraint firstAttribute="bottom" secondItem="bvM-BH-LQf" secondAttribute="bottom" constant="10" id="wSC-vv-HSW"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="andreiUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="kvy-9W-f79" customClass="ProfileImageView" customModule="Log" customModuleProvider="target">
+                                                            <rect key="frame" x="344" y="36" width="20" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="6Hd-Hz-Qv3"/>
+                                                                <constraint firstAttribute="width" constant="20" id="spJ-7X-lWt"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="kvy-9W-f79" firstAttribute="baseline" secondItem="IRJ-Kw-Qt9" secondAttribute="baseline" id="Fhh-Wq-xGB"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="IRJ-Kw-Qt9" secondAttribute="bottom" id="P65-FM-Mq8"/>
+                                                        <constraint firstItem="kvy-9W-f79" firstAttribute="leading" secondItem="IRJ-Kw-Qt9" secondAttribute="trailing" constant="4" id="VC3-YC-mtf"/>
+                                                        <constraint firstItem="IRJ-Kw-Qt9" firstAttribute="top" secondItem="Otr-qM-YbS" secondAttribute="topMargin" constant="1" id="X0j-5g-peX"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="IRJ-Kw-Qt9" secondAttribute="trailing" constant="20" id="rry-UH-Js1"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="MessageLabel" destination="bvM-BH-LQf" id="b8f-A1-Yos"/>
+                                                    <outlet property="MessageView" destination="IRJ-Kw-Qt9" id="z23-K3-j0H"/>
+                                                    <outlet property="UserImage" destination="kvy-9W-f79" id="1co-AL-pdw"/>
+                                                    <outlet property="messageLabel" destination="bvM-BH-LQf" id="f3I-uj-8kN"/>
+                                                    <outlet property="messageView" destination="IRJ-Kw-Qt9" id="tZC-x7-OGs"/>
+                                                    <outlet property="userImage" destination="kvy-9W-f79" id="jat-e6-3n1"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
