@@ -40,7 +40,17 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        UIAdjustments()
         fetchRecentMessages()
+    }
+
+    private func UIAdjustments() {
+        profileButton.clipsToBounds = true
+        profileButton.layer.cornerRadius = profileButton.frame.height/2
+        if let imageData = UserCoreDataController.getUserProfile()?.image {
+            let image = UIImage(data: imageData as Data)
+            profileButton.setBackgroundImage(image, for: .normal)
+        }
     }
 
     func fetchRecentMessages() {
@@ -63,15 +73,15 @@ class HomeViewController: UIViewController {
 
                 if let imageString = imageString {
                     let imageData = NSData(base64Encoded: imageString, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0)))
-                    image = UIImage.init(data: imageData! as Data)!
+                    image = UIImage(data: imageData! as Data)!
                 } else {
                     image = UIImage(named: "defaultUserIcon")
                 }
 
-                friendProfile = LOGUser.init(email: friendEmail, firstName: firstName, lastName: lastName, picture: image)
+                friendProfile = LOGUser(email: friendEmail, firstName: firstName, lastName: lastName, picture: image)
 
                 if let friendProfile = friendProfile {
-                    let recentMessage = Message.init(sender: friendProfile, message: message!, date: date!)
+                    let recentMessage = Message(sender: friendProfile, message: message!, date: date!)
                     conversation.setFriendProfile(friendProfile: friendProfile)
                     conversation.setStackOfMessages(stack: [recentMessage])
                     self.recentMessages.append(conversation)

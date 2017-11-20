@@ -265,7 +265,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUA-jV-OWW" userLabel="TopView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JnR-SB-lcn">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JnR-SB-lcn">
                                         <rect key="frame" x="13" y="10" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="3t7-xc-SgN"/>
@@ -385,8 +385,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="RTN-4D-QbA"/>
                     <connections>
-                        <outlet property="HomeTableView" destination="Dzg-TP-Kgd" id="W7j-Rc-h6B"/>
                         <outlet property="friendSearchBar" destination="k5Q-0b-KLI" id="fs9-zj-hnX"/>
+                        <outlet property="homeTableView" destination="Dzg-TP-Kgd" id="S7L-LM-fhC"/>
                         <outlet property="newMessageButton" destination="czH-1D-Tla" id="OLT-AF-k59"/>
                         <outlet property="profileButton" destination="JnR-SB-lcn" id="2Ys-Co-TNT"/>
                     </connections>

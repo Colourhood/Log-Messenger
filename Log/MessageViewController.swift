@@ -68,7 +68,7 @@ class MessageViewController: UIViewController {
         let friendProfile = friendConversation?.getFriendProfile()
         let friendEmail = friendProfile?.getEmail()
 
-        let userProfile = LOGUser.init(email: userData?.email, firstName: nil, lastName: nil, picture: UIImage.init(data: (userData?.image)! as Data))
+        let userProfile = LOGUser(email: userData?.email, firstName: nil, lastName: nil, picture: UIImage(data: (userData?.image)! as Data))
         let userEmail = userProfile.getEmail()
 
         MessageController.getMessagesForFriend(friendEmail: friendEmail!, completionHandler: { [weak self] (response) in
@@ -91,7 +91,7 @@ class MessageViewController: UIViewController {
                         }
 
                         if let senderUser = senderUser, let message = message, let date = date {
-                                let messageObj = Message.init(sender: senderUser, message: message, date: date)
+                                let messageObj = Message(sender: senderUser, message: message, date: date)
                                 self.friendConversation?.appendMessageToMessageStack(messageObj: messageObj)
                         }
                     }
@@ -150,8 +150,8 @@ extension MessageViewController: UITextFieldDelegate {
                 sendMessage(message: message) // Server - Database
                 newMessageTextField.text = "" // Clear text
 
-                let userProfile = LOGUser.init(email: userData?.email, firstName: userData?.email, lastName: userData?.email, picture: UIImage.init(data: (userData?.image)! as Data))
-                let newMessage = Message.init(sender: userProfile, message: message, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
+                let userProfile = LOGUser(email: userData?.email, firstName: userData?.email, lastName: userData?.email, picture: UIImage(data: (userData?.image)! as Data))
+                let newMessage = Message(sender: userProfile, message: message, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
 
                 friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
                 popMessage()
@@ -262,7 +262,7 @@ extension MessageViewController: SocketIODelegate {
     func receivedMessage(user: String, message: String, date: String) {
         print("Received socket delegate event: Message - \(user): \(message), \(date)")
 
-        let newMessage = Message.init(sender: (friendConversation?.getFriendProfile())!, message: message, date: date)
+        let newMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: message, date: date)
         friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
         popMessage()
     }
