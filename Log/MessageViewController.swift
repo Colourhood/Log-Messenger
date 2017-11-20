@@ -235,28 +235,21 @@ extension MessageViewController: SocketIODelegate {
     }
 
     // # Mark - SocketIO - NonDelegate
-    private func subscribeToChatEvents() {
-        SocketIOManager.sharedInstance.subscribe(event: Constants.sendMessage)
-        SocketIOManager.sharedInstance.subscribe(event: Constants.startTyping)
-        SocketIOManager.sharedInstance.subscribe(event: Constants.stopTyping)
-    }
-
-    private func unsubscribeFromChatEvents() {
-        SocketIOManager.sharedInstance.unsubscribe(event: Constants.sendMessage)
-        SocketIOManager.sharedInstance.unsubscribe(event: Constants.startTyping)
-        SocketIOManager.sharedInstance.unsubscribe(event: Constants.stopTyping)
-    }
-
-    // # Mark - Crypto
-    private func generateChatRoomID() {
-        if let userEmail = userData?.email, let friendEmail = friendConversation?.getFriendProfile()?.getEmail() {
-            let sortedArray = [userEmail, friendEmail].sorted().joined(separator: "")
-            chatRoomID = sortedArray.sha512()
-            print("Chat ID: \(chatRoomID!)")
-        }
-    }
-
     private func joinChatRoom() {
+        func generateChatRoomID() {
+            if let userEmail = userData?.email, let friendEmail = friendConversation?.getFriendProfile()?.getEmail() {
+                let sortedArray = [userEmail, friendEmail].sorted().joined(separator: "")
+                chatRoomID = sortedArray.sha512()
+                print("Chat ID: \(chatRoomID!)")
+            }
+        }
+
+        func subscribeToChatEvents() {
+            SocketIOManager.sharedInstance.subscribe(event: Constants.sendMessage)
+            SocketIOManager.sharedInstance.subscribe(event: Constants.startTyping)
+            SocketIOManager.sharedInstance.subscribe(event: Constants.stopTyping)
+        }
+
         generateChatRoomID()
         subscribeToChatEvents()
         let param = ["user_email": userData?.email, "chat_id": chatRoomID]
@@ -264,6 +257,12 @@ extension MessageViewController: SocketIODelegate {
     }
 
     private func leaveChatRoom() {
+        func unsubscribeFromChatEvents() {
+            SocketIOManager.sharedInstance.unsubscribe(event: Constants.sendMessage)
+            SocketIOManager.sharedInstance.unsubscribe(event: Constants.startTyping)
+            SocketIOManager.sharedInstance.unsubscribe(event: Constants.stopTyping)
+        }
+
         unsubscribeFromChatEvents()
         let param = ["user_email": userData?.email, "chat_id": chatRoomID]
         SocketIOManager.sharedInstance.emit(event: Constants.leaveRoom, data: param as AnyObject)
