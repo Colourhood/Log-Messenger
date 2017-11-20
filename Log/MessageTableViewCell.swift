@@ -15,7 +15,7 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var userImage: ProfileImageView!
 
     override func awakeFromNib() {
-        self.messageView.layer.cornerRadius = 10
+        self.messageView.layer.cornerRadius = 12
     }
 
 }
