@@ -201,7 +201,6 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
         if email == userData?.email {
             cell = messagesTableView.dequeueReusableCell(withIdentifier: "UserMessageCell", for: indexPath) as? MessageTableViewCell
-            cell?.senderToReceiverLabel.text = nil
         } else {
             cell = messagesTableView.dequeueReusableCell(withIdentifier: "FriendMessageCell", for: indexPath) as? MessageTableViewCell
             cell?.senderToReceiverLabel.text = name
