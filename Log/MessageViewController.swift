@@ -206,13 +206,13 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
     func removeTypingMessageCell() {
         let dataCount = friendConversation!.getStackOfMessages().count
-        let indexPath = IndexPath(row: dataCount-1, section: 0)
-        UIView.setAnimationsEnabled(false)
-        messagesTableView.deleteRows(at: [indexPath], with: .none)
-        UIView.setAnimationsEnabled(true)
+        let indexPath = IndexPath(row: dataCount, section: 0)
+        let possibleTypingCell = messagesTableView.cellForRow(at: indexPath)
 
-        DispatchQueue.main.async {
-            self.messagesTableView.scrollToBottom()
+        if possibleTypingCell?.reuseIdentifier == "FriendTypingMessageCell" {
+            UIView.setAnimationsEnabled(false)
+            messagesTableView.deleteRows(at: [indexPath], with: .none)
+            UIView.setAnimationsEnabled(true)
         }
     }
 
@@ -242,19 +242,15 @@ extension MessageViewController: SocketIODelegate {
 
     // # Mark - SocketIODelegates
     func receivedMessage(user: String, message: String, date: String) {
-        print("Received socket delegate event: Message - \(user): \(message), \(date)")
-        let newMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: message, date: date)
-        friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
-        insertMessageCell(isTyping: false)
-    }
-
-    func friendStoppedTyping() {
-        print("Received socket delegate event: Friend stopped typing")
         if didFriendType {
             didFriendType = false
             friendConversation?.removeLastMessageFromMessageStack()
             removeTypingMessageCell()
         }
+
+        let newMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: message, date: date)
+        friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
+        insertMessageCell(isTyping: false)
     }
 
     func friendStartedTyping() {
