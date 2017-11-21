@@ -105,10 +105,6 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="MessageLabel" destination="3DZ-yR-iJx" id="UVU-rW-ZFq"/>
-                                                    <outlet property="MessageView" destination="NV8-xr-DuN" id="JUC-R4-2uw"/>
-                                                    <outlet property="SenderToReceiverLabel" destination="rGL-rj-Igi" id="8y9-Ho-Yvv"/>
-                                                    <outlet property="UserImage" destination="x4P-Fm-XfS" id="b8B-l9-KfP"/>
                                                     <outlet property="messageLabel" destination="3DZ-yR-iJx" id="GWc-FA-2OD"/>
                                                     <outlet property="messageView" destination="NV8-xr-DuN" id="Lyc-IW-UdK"/>
                                                     <outlet property="senderToReceiverLabel" destination="rGL-rj-Igi" id="2H0-8A-bCd"/>
@@ -160,12 +156,94 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="MessageLabel" destination="lRu-nx-8Nr" id="wTR-G4-uVI"/>
-                                                    <outlet property="MessageView" destination="jLG-H8-tCc" id="AfC-4Z-TRm"/>
-                                                    <outlet property="UserImage" destination="eVy-nN-zVh" id="Oqh-ou-KBT"/>
                                                     <outlet property="messageLabel" destination="lRu-nx-8Nr" id="clQ-fT-lh9"/>
                                                     <outlet property="messageView" destination="jLG-H8-tCc" id="Amr-mY-LzG"/>
                                                     <outlet property="userImage" destination="eVy-nN-zVh" id="n5Z-Af-abY"/>
+                                                </connections>
+                                            </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendTypingMessageCell" rowHeight="60" id="jah-ig-Kil" userLabel="Friend Typing Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="165" width="375" height="60"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jah-ig-Kil" id="4bQ-xe-bYG">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="katherine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3S2-PL-iNR" userLabel="Friend Name">
+                                                            <rect key="frame" x="51" y="2.5" width="60.5" height="11"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="11" id="UqJ-PV-egD"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="inl-a2-v6H" userLabel="Message View">
+                                                            <rect key="frame" x="51" y="17" width="60" height="34"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UgC-RA-cTv" userLabel="Dot 1">
+                                                                    <rect key="frame" x="12" y="13" width="8" height="8"/>
+                                                                    <color key="backgroundColor" red="0.66412198604060912" green="0.66412198604060912" blue="0.66412198604060912" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="8" id="ZBt-Aj-uer"/>
+                                                                        <constraint firstAttribute="height" constant="8" id="jN7-eC-fIN"/>
+                                                                    </constraints>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JrZ-ZM-nFZ" userLabel="Dot 2">
+                                                                    <rect key="frame" x="26" y="13" width="8" height="8"/>
+                                                                    <color key="backgroundColor" red="0.66412198600000005" green="0.66412198600000005" blue="0.66412198600000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="8" id="BTH-fZ-5au"/>
+                                                                        <constraint firstAttribute="height" constant="8" id="w5r-hO-jDU"/>
+                                                                    </constraints>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6e9-AN-wd2" userLabel="Dot 3">
+                                                                    <rect key="frame" x="40" y="13" width="8" height="8"/>
+                                                                    <color key="backgroundColor" red="0.66412198600000005" green="0.66412198600000005" blue="0.66412198600000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="8" id="10P-Jk-9qs"/>
+                                                                        <constraint firstAttribute="height" constant="8" id="f9B-Jd-PIQ"/>
+                                                                    </constraints>
+                                                                </view>
+                                                            </subviews>
+                                                            <color key="backgroundColor" red="0.87178192180000003" green="0.89819955579999999" blue="0.89819955579999999" alpha="0.59974315069999995" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstItem="JrZ-ZM-nFZ" firstAttribute="centerY" secondItem="inl-a2-v6H" secondAttribute="centerY" id="6pe-rk-wWB"/>
+                                                                <constraint firstAttribute="bottom" secondItem="JrZ-ZM-nFZ" secondAttribute="bottom" constant="13" id="89l-oo-6Bx"/>
+                                                                <constraint firstAttribute="width" constant="60" id="FRU-xt-tnS"/>
+                                                                <constraint firstItem="JrZ-ZM-nFZ" firstAttribute="centerX" secondItem="inl-a2-v6H" secondAttribute="centerX" id="Ox4-At-HHg"/>
+                                                                <constraint firstItem="6e9-AN-wd2" firstAttribute="centerY" secondItem="inl-a2-v6H" secondAttribute="centerY" id="bc5-jI-Rbq"/>
+                                                                <constraint firstItem="6e9-AN-wd2" firstAttribute="leading" secondItem="JrZ-ZM-nFZ" secondAttribute="trailing" constant="6" id="cgg-fv-iUO"/>
+                                                                <constraint firstItem="JrZ-ZM-nFZ" firstAttribute="leading" secondItem="UgC-RA-cTv" secondAttribute="trailing" constant="6" id="dnB-zl-hZt"/>
+                                                                <constraint firstItem="UgC-RA-cTv" firstAttribute="centerY" secondItem="inl-a2-v6H" secondAttribute="centerY" id="h99-PD-gwQ"/>
+                                                                <constraint firstItem="JrZ-ZM-nFZ" firstAttribute="top" secondItem="inl-a2-v6H" secondAttribute="top" constant="13" id="zNo-U6-T7l"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="katherineUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="5WU-CV-f31" userLabel="Friend Image" customClass="ProfileImageView" customModule="Log" customModuleProvider="target">
+                                                            <rect key="frame" x="15" y="19" width="32" height="32"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="32" id="YP8-C7-W53"/>
+                                                                <constraint firstAttribute="height" constant="32" id="tIf-KA-shX"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="3S2-PL-iNR" firstAttribute="leading" secondItem="inl-a2-v6H" secondAttribute="leading" id="5Zj-CU-ye0"/>
+                                                        <constraint firstItem="3S2-PL-iNR" firstAttribute="centerX" secondItem="inl-a2-v6H" secondAttribute="centerX" id="8kB-PR-dpg"/>
+                                                        <constraint firstItem="3S2-PL-iNR" firstAttribute="top" secondItem="4bQ-xe-bYG" secondAttribute="top" constant="3" id="DgB-aX-zaS"/>
+                                                        <constraint firstItem="5WU-CV-f31" firstAttribute="leading" secondItem="4bQ-xe-bYG" secondAttribute="leadingMargin" id="LdO-nx-WCl"/>
+                                                        <constraint firstItem="inl-a2-v6H" firstAttribute="top" secondItem="3S2-PL-iNR" secondAttribute="bottom" constant="4" id="Puz-c6-hhv"/>
+                                                        <constraint firstItem="5WU-CV-f31" firstAttribute="baseline" secondItem="inl-a2-v6H" secondAttribute="baseline" id="QWk-zv-1Dr"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="inl-a2-v6H" secondAttribute="bottom" id="dpS-dl-5lY"/>
+                                                        <constraint firstItem="inl-a2-v6H" firstAttribute="leading" secondItem="5WU-CV-f31" secondAttribute="trailing" constant="4" id="tWl-RJ-vQU"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="dot1" destination="UgC-RA-cTv" id="JcI-FR-5zd"/>
+                                                    <outlet property="dot2" destination="JrZ-ZM-nFZ" id="DyU-hO-GKd"/>
+                                                    <outlet property="dot3" destination="6e9-AN-wd2" id="A6E-59-2GR"/>
+                                                    <outlet property="messageView" destination="inl-a2-v6H" id="YPK-q4-3AL"/>
+                                                    <outlet property="senderToReceiverLabel" destination="3S2-PL-iNR" id="HmQ-70-ywh"/>
+                                                    <outlet property="userImage" destination="5WU-CV-f31" id="tOy-Y7-G0c"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
