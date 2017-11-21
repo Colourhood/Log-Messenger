@@ -125,15 +125,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 //        let friendName = friendConversationData.conversationWithFriend?.getFullName()
         let friendName = friendConversationData.getFriendProfile()?.getFullName()
         let userImage = friendConversationData.getFriendProfile()?.getPicture()
-        let mostRecentMessage = friendConversationData.getStackOfMessages()[0].getMessage()
-        let date = friendConversationData.getStackOfMessages()[0].getDate()
+        let mostRecentMessage = friendConversationData.getStackOfMessages()[0]?.getMessage()
+        let date = friendConversationData.getStackOfMessages()[0]?.getDate()
 
         var cell: HomeTableViewCell?
         cell = homeTableView.dequeueReusableCell(withIdentifier: "Friend Conversation Cell", for: indexPath) as? HomeTableViewCell
         cell?.friendName.text = friendName
         cell?.friendPicture.image = userImage
         cell?.mostRecentMessageFromConversation.text = mostRecentMessage
-        cell?.date.text = DateConverter.handleDate(date: date)
+        cell?.date.text = DateConverter.handleDate(date: date!)
 
         return cell!
     }

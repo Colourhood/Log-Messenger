@@ -11,15 +11,16 @@ import CoreData
 import CryptoSwift
 
 class MessageViewController: UIViewController {
-    /* Class Variables */
-    open var friendConversation: MessageStack?
-    var userData = UserCoreDataController.getUserProfile()
-    var chatRoomID: String?
-
     /* UI-IBOutlets */
     @IBOutlet weak var newMessageTextField: UITextField!
     @IBOutlet weak fileprivate var messagesTableView: UITableView!
     @IBOutlet weak var messageNavigator: UINavigationItem!
+
+    /* Class Variables */
+    open var friendConversation: MessageStack?
+    var userData = UserCoreDataController.getUserProfile()
+    var chatRoomID: String?
+    var didFriendType: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,7 +103,7 @@ extension MessageViewController: UITextFieldDelegate {
                 let newMessage = Message(sender: userProfile, message: message, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
 
                 friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
-                popMessage()
+                insertMessageCell(isTyping: false)
             }
         }
         return true
@@ -165,31 +166,42 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         func messageCell(identifier: String) {
             cell = messagesTableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? MessageTableViewCell
             cell?.userImage.image = messageProfile?.getPicture()
-            cell?.messageLabel.text = messageData?.getMessage()
         }
 
-        if email == userData?.email {
-            messageCell(identifier: "UserMessageCell")
+        if let _ = messageData?.getMessage() {
+            if email == userData?.email {
+                messageCell(identifier: "UserMessageCell")
+            } else {
+                messageCell(identifier: "FriendMessageCell")
+                cell?.senderToReceiverLabel.text = messageProfile?.getFirstName()
+            }
+            cell?.messageLabel.text = messageData?.getMessage()
         } else {
-            messageCell(identifier: "FriendMessageCell")
+            messageCell(identifier: "FriendTypingMessageCell")
             cell?.senderToReceiverLabel.text = messageProfile?.getFirstName()
         }
 
         return cell!
     }
 
-    func popMessage() {
-        DispatchQueue.main.async {
-            let dataCount = self.friendConversation!.getStackOfMessages().count
-            let indexPath = IndexPath(row: dataCount-1, section: 0)
+    func insertMessageCell(isTyping: Bool) {
+        let dataCount = friendConversation!.getStackOfMessages().count
+        let indexPath = IndexPath(row: dataCount-1, section: 0)
 
+        func insertRow() {
             UIView.setAnimationsEnabled(false)
-            self.messagesTableView.insertRows(at: [indexPath], with: .none)
+            messagesTableView.insertRows(at: [indexPath], with: .none)
             UIView.setAnimationsEnabled(true)
-            self.messagesTableView.scrollToBottom()
-
+            messagesTableView.scrollToBottom()
+        }
+        DispatchQueue.main.async {
+            insertRow()
             let cell = self.messagesTableView.cellForRow(at: indexPath) as? MessageTableViewCell
-            cell?.animate()
+            if !isTyping {
+                cell?.animatePop()
+            } else {
+                cell?.animateTyping()
+            }
         }
     }
 
@@ -222,7 +234,7 @@ extension MessageViewController: SocketIODelegate {
         print("Received socket delegate event: Message - \(user): \(message), \(date)")
         let newMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: message, date: date)
         friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
-        popMessage()
+        insertMessageCell(isTyping: false)
     }
 
     func friendStoppedTyping() {
@@ -231,6 +243,12 @@ extension MessageViewController: SocketIODelegate {
 
     func friendStartedTyping() {
         print("Received socket delegate event: Friend started typing")
+        if !didFriendType {
+            didFriendType = true
+            let emptyMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: nil, date: nil)
+            friendConversation?.appendMessageToMessageStack(messageObj: emptyMessage)
+            insertMessageCell(isTyping: true)
+        }
     }
 
     // # Mark - SocketIO - NonDelegate
