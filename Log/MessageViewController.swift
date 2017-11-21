@@ -188,20 +188,31 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         let dataCount = friendConversation!.getStackOfMessages().count
         let indexPath = IndexPath(row: dataCount-1, section: 0)
 
-        func insertRow() {
-            UIView.setAnimationsEnabled(false)
-            messagesTableView.insertRows(at: [indexPath], with: .none)
-            UIView.setAnimationsEnabled(true)
-            messagesTableView.scrollToBottom()
-        }
+        UIView.setAnimationsEnabled(false)
+        messagesTableView.insertRows(at: [indexPath], with: .none)
+        UIView.setAnimationsEnabled(true)
+
         DispatchQueue.main.async {
-            insertRow()
             let cell = self.messagesTableView.cellForRow(at: indexPath) as? MessageTableViewCell
             if !isTyping {
                 cell?.animatePop()
             } else {
                 cell?.animateTyping()
             }
+            self.messagesTableView.scrollToBottom()
+        }
+
+    }
+
+    func removeTypingMessageCell() {
+        let dataCount = friendConversation!.getStackOfMessages().count
+        let indexPath = IndexPath(row: dataCount-1, section: 0)
+        UIView.setAnimationsEnabled(false)
+        messagesTableView.deleteRows(at: [indexPath], with: .none)
+        UIView.setAnimationsEnabled(true)
+
+        DispatchQueue.main.async {
+            self.messagesTableView.scrollToBottom()
         }
     }
 
@@ -213,7 +224,7 @@ extension UITableView {
         let rows = self.numberOfRows(inSection: 0)
         // This will guarantee rows - 1 >= 0
         if rows > 0 {
-            let indexPath = IndexPath(row: rows - 1, section: 0)
+            let indexPath = IndexPath(row: rows-1, section: 0)
             self.scrollToRow(at: indexPath, at: .top, animated: false)
         }
     }
@@ -239,6 +250,11 @@ extension MessageViewController: SocketIODelegate {
 
     func friendStoppedTyping() {
         print("Received socket delegate event: Friend stopped typing")
+        if didFriendType {
+            didFriendType = false
+            friendConversation?.removeLastMessageFromMessageStack()
+            removeTypingMessageCell()
+        }
     }
 
     func friendStartedTyping() {

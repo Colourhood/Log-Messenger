@@ -24,6 +24,10 @@ struct MessageStack {
         messageStack.append(messageObj)
     }
 
+    mutating func removeLastMessageFromMessageStack() {
+        messageStack.removeLast()
+    }
+
     func getStackOfMessages() -> [Message?] {
         return messageStack
     }
