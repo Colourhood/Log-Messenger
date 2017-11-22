@@ -47,7 +47,7 @@ class MessageViewController: UIViewController {
     func fetchMessages() {
         // Network request to get all(for now) messages between two users
         guard let friendProfile = friendConversation?.getFriendProfile() else { return }
-        let userProfile = LOGUser(email: userData?.email, firstName: nil, lastName: nil, picture: UIImage(data: (userData?.image)! as Data))
+        let userProfile = LOGUser(email: userData?.email, firstName: nil, picture: UIImage(data: (userData?.image)! as Data))
 
         MessageController.getMessagesForFriend(friendEmail: friendProfile.getEmail()!,
                                                completionHandler: { [weak self] (response) in
@@ -99,11 +99,23 @@ extension MessageViewController: UITextFieldDelegate {
                 sendMessage(message: message) // Server - Database
                 newMessageTextField.text = "" // Clear text
 
-                let userProfile = LOGUser(email: userData?.email, firstName: userData?.email, lastName: userData?.email, picture: UIImage(data: (userData?.image)! as Data))
+                let userProfile = LOGUser(email: userData?.email, firstName: userData?.email, picture: UIImage(data: (userData?.image)! as Data))
                 let newMessage = Message(sender: userProfile, message: message, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
 
-                friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
-                insertMessageCell(isTyping: false)
+                if didFriendType {
+                    //Rearrange message typing cell from row and dataSource
+                    friendConversation?.removeLastMessageFromMessageStack()
+                    removeTypingMessageCell()
+                    //Append message to dataSource and to tableview
+                    friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
+                    insertMessageCell(isTyping: false)
+                    let emptyMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: nil, date: nil)
+                    friendConversation?.appendMessageToMessageStack(messageObj: emptyMessage)
+                    insertMessageCell(isTyping: true)
+                } else {
+                    friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
+                    insertMessageCell(isTyping: false)
+                }
             }
         }
         return true

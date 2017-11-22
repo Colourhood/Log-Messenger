@@ -26,12 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
         let currentUser = UserCoreDataController.getUserProfile()
-        if currentUser?.email != nil ||
-            currentUser?.firstName != nil ||
-            currentUser?.lastName != nil {
+        if currentUser?.email != nil || currentUser?.firstName != nil {
 //      self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MessageViewController")
             self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
-
         } else {
             self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
         }
