@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 import ImagePicker
 
 class InitialViewController: UIViewController {
@@ -49,7 +50,7 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signInButton: UIButton!
-    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var lottieBackView: UIView!
 
     var loginOrSignupTypeText: String?
 
@@ -61,6 +62,12 @@ class SignInViewController: UIViewController {
             imageButton.translatesAutoresizingMaskIntoConstraints = false
             imageButton.layer.cornerRadius = (imageButton.frame.height / 2)
         }
+
+        let animatedButton = LOTAnimationView(name: "BackButton")
+        animatedButton.frame = lottieBackView.bounds
+        animatedButton.loopAnimation = true
+        animatedButton.play()
+        lottieBackView.addSubview(animatedButton)
     }
 
     @IBAction func logUserIn() {
