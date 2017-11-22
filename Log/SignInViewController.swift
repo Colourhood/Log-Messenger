@@ -13,6 +13,14 @@ class InitialViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
 
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
+    }
+
+    override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
+        let segue = UnwindSegueFromRight(identifier: unwindSegue.identifier, source: unwindSegue.source, destination: unwindSegue.destination)
+        segue.perform()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -41,6 +49,7 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
 
     var loginOrSignupTypeText: String?
 
