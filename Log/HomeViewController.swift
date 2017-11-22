@@ -67,7 +67,6 @@ class HomeViewController: UIViewController {
                 let date = recentMessageDict?["created_at"] as? String
                 let friendEmail = recentMessageDict?["email_address"] as? String
                 let firstName = recentMessageDict?["first_name"] as? String
-                let lastName = recentMessageDict?["last_name"] as? String
                 let imageString: String? = recentMessageDict?["image"] as? String
                 // let error: String? = recentMessageDict["error"] as? String
 
@@ -78,7 +77,7 @@ class HomeViewController: UIViewController {
                     image = UIImage(named: "defaultUserIcon")
                 }
 
-                friendProfile = LOGUser(email: friendEmail, firstName: firstName, lastName: lastName, picture: image)
+                friendProfile = LOGUser(email: friendEmail, firstName: firstName, picture: image)
 
                 if let friendProfile = friendProfile {
                     let recentMessage = Message(sender: friendProfile, message: message!, date: date!)

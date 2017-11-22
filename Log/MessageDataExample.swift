@@ -11,9 +11,9 @@ import UIKit
 
 class MessageDataExample {
 
-    static let andrei = LOGUser(email: "andreicrimson@gmail.com", firstName: "Andrei", lastName: "Villasana", picture: UIImage(named: "andreiUserIcon"))
-    static let katherine = LOGUser(email: "katherineli@gmail.com", firstName: "Katherine", lastName: "Li", picture: UIImage(named: "katherineUserIcon"))
-    static let sebastian = LOGUser(email: "sebastianfolzo@gmail.com", firstName: "Sebastian", lastName: "Folzo", picture: UIImage(named: "defaultUserIcon"))
+    static let andrei = LOGUser(email: "andreicrimson@gmail.com", firstName: "Andrei", picture: UIImage(named: "andreiUserIcon"))
+    static let katherine = LOGUser(email: "katherineli@gmail.com", firstName: "Katherine", picture: UIImage(named: "katherineUserIcon"))
+    static let sebastian = LOGUser(email: "sebastianfolzo@gmail.com", firstName: "Sebastian", picture: UIImage(named: "defaultUserIcon"))
 
     static let date = "8:00 pm"
 

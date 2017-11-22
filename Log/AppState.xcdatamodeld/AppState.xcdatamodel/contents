@@ -4,10 +4,9 @@
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="university" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="User" positionX="-54" positionY="-9" width="128" height="120"/>
+        <element name="User" positionX="-54" positionY="-9" width="128" height="105"/>
     </elements>
 </model>

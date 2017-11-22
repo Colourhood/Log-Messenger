@@ -13,13 +13,11 @@ struct LOGUser {
 
     private var email: String?
     private var firstName: String?
-    private var lastName: String?
     private var picture: UIImage?
 
-    init(email: String?, firstName: String?, lastName: String?, picture: UIImage?) {
+    init(email: String?, firstName: String?, picture: UIImage?) {
         self.email = email
         self.firstName = firstName
-        self.lastName = lastName
         self.picture = picture
     }
 
@@ -32,8 +30,8 @@ struct LOGUser {
     }
 
     func getFullName() -> String? {
-        if let firstName = firstName, let lastName = lastName {
-            return "\(firstName) \(lastName)"
+        if let firstName = firstName {
+            return firstName
         } else {
             return "Inactive User"
         }
