@@ -207,7 +207,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     func removeTypingMessageCell() {
         let dataCount = friendConversation!.getStackOfMessages().count
         let indexPath = IndexPath(row: dataCount, section: 0)
-        let possibleTypingCell = messagesTableView.cellForRow(at: indexPath)
+        let possibleTypingCell = messagesTableView.cellForRow(at: indexPath) as? MessageTableViewCell
 
         if possibleTypingCell?.reuseIdentifier == "FriendTypingMessageCell" {
             UIView.setAnimationsEnabled(false)
