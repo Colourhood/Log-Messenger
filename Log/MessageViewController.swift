@@ -102,8 +102,20 @@ extension MessageViewController: UITextFieldDelegate {
                 let userProfile = LOGUser(email: userData?.email, firstName: userData?.email, picture: UIImage(data: (userData?.image)! as Data))
                 let newMessage = Message(sender: userProfile, message: message, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
 
-                friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
-                insertMessageCell(isTyping: false)
+                if didFriendType {
+                    //Rearrange message typing cell from row and dataSource
+                    friendConversation?.removeLastMessageFromMessageStack()
+                    removeTypingMessageCell()
+                    //Append message to dataSource and to tableview
+                    friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
+                    insertMessageCell(isTyping: false)
+                    let emptyMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: nil, date: nil)
+                    friendConversation?.appendMessageToMessageStack(messageObj: emptyMessage)
+                    insertMessageCell(isTyping: true)
+                } else {
+                    friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
+                    insertMessageCell(isTyping: false)
+                }
             }
         }
         return true
