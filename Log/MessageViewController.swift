@@ -163,7 +163,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let friendConversation = friendConversation {
-            return (friendConversation.getStackOfMessages().count)
+            return friendConversation.getStackOfMessages().count
         }
         return 0
     }

@@ -40,6 +40,7 @@
 		5454F3831F4ABB4D002D9AB5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454F3821F4ABB4D002D9AB5 /* Message.swift */; };
 		5454F3851F4B6679002D9AB5 /* MessageDataExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */; };
 		545AE9381F7D0AF700482107 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 545AE9371F7D0AF700482107 /* .swiftlint.yml */; };
+		545D6CFE1FCCBC3000082E3C /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D6CFD1FCCBC3000082E3C /* HomeTableViewCell.swift */; };
 		5480F5ED1F953A4600453E03 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5480F5EC1F953A3A00453E03 /* CryptoSwift.framework */; };
 		5480F5EE1F953A4600453E03 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5480F5EC1F953A3A00453E03 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		548A8E131F4C161900DD56C0 /* AppState.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 548A8E111F4C161900DD56C0 /* AppState.xcdatamodeld */; };
@@ -136,6 +137,7 @@
 		5454F3821F4ABB4D002D9AB5 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDataExample.swift; sourceTree = "<group>"; };
 		545AE9371F7D0AF700482107 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		545D6CFD1FCCBC3000082E3C /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		5480F5EC1F953A3A00453E03 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		548A8E121F4C161900DD56C0 /* AppState.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppState.xcdatamodel; sourceTree = "<group>"; };
 		548A8E141F4C9A8300DD56C0 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -292,16 +294,11 @@
 		5454F37D1F4A58A5002D9AB5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5454F36C1F4A5844002D9AB5 /* MessageViewController.swift */,
-				36AA4CCA1F9702BF0037ED7E /* UserProfileViewController.swift */,
-				36AA4CCB1F9702BF0037ED7E /* UserProfileViewController.xib */,
-				3679425D1F9715A600B4AD91 /* UserProfileTableViewCell.swift */,
-				3679425E1F9715A600B4AD91 /* UserProfileTableViewCell.xib */,
+				545D6CFF1FCCBE7100082E3C /* Message */,
+				545D6CFC1FCCBC0F00082E3C /* Home */,
 				548A8E141F4C9A8300DD56C0 /* SignInViewController.swift */,
-				544EE7611F4EA01F00CD3380 /* HomeViewController.swift */,
 				54A27A271F6A031700DC0ACA /* Log-Bridging-Header.h */,
 				54F2AA1A1FC242FC00F269E1 /* ProfileImageView.swift */,
-				54F2AA1C1FC2F4B900F269E1 /* MessageTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -320,11 +317,41 @@
 		5454F37F1F4A590D002D9AB5 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				545D6D001FCCBE8900082E3C /* Segues */,
 				5454F36E1F4A5844002D9AB5 /* Main.storyboard */,
 				5454F3731F4A5844002D9AB5 /* LaunchScreen.storyboard */,
-				54FC67B71FAA5B9D00587D68 /* SegueFromRight.swift */,
 			);
 			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		545D6CFC1FCCBC0F00082E3C /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				36AA4CCA1F9702BF0037ED7E /* UserProfileViewController.swift */,
+				36AA4CCB1F9702BF0037ED7E /* UserProfileViewController.xib */,
+				3679425D1F9715A600B4AD91 /* UserProfileTableViewCell.swift */,
+				3679425E1F9715A600B4AD91 /* UserProfileTableViewCell.xib */,
+				544EE7611F4EA01F00CD3380 /* HomeViewController.swift */,
+				545D6CFD1FCCBC3000082E3C /* HomeTableViewCell.swift */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		545D6CFF1FCCBE7100082E3C /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				54F2AA1C1FC2F4B900F269E1 /* MessageTableViewCell.swift */,
+				5454F36C1F4A5844002D9AB5 /* MessageViewController.swift */,
+			);
+			name = Message;
+			sourceTree = "<group>";
+		};
+		545D6D001FCCBE8900082E3C /* Segues */ = {
+			isa = PBXGroup;
+			children = (
+				54FC67B71FAA5B9D00587D68 /* SegueFromRight.swift */,
+			);
+			name = Segues;
 			sourceTree = "<group>";
 		};
 		5463A6661F79079F00F23156 /* UserDefaults */ = {
@@ -515,6 +542,7 @@
 				3679425F1F9715A600B4AD91 /* UserProfileTableViewCell.swift in Sources */,
 				36AA4CCC1F9702BF0037ED7E /* UserProfileViewController.swift in Sources */,
 				543D24191F51183C00ACDC9D /* MessageStack.swift in Sources */,
+				545D6CFE1FCCBC3000082E3C /* HomeTableViewCell.swift in Sources */,
 				542364E31F6E755400C47CB5 /* MessageController.swift in Sources */,
 				54DFFDC91F8F4EEE009F31B3 /* SocketIOManager.swift in Sources */,
 				54B917871F71E35E00D39504 /* AWSConfig.swift in Sources */,

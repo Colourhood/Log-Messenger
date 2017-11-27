@@ -8,21 +8,10 @@
 
 import UIKit
 
-class HomeCollectionViewController {
-}
-
-class HomeTableViewCell: UITableViewCell {
-    @IBOutlet weak var friendPicture: ProfileImageView!
-    @IBOutlet weak var friendName: UILabel!
-    @IBOutlet weak var mostRecentMessageFromConversation: UILabel!
-    @IBOutlet weak var date: UILabel!
-}
-
 class HomeViewController: UIViewController {
     @IBOutlet weak var homeTableView: UITableView!
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var friendSearchBar: UISearchBar!
-    @IBOutlet weak var newMessageButton: UIButton!
 
     var recentMessages: [MessageStack] = []
     var selectedConversationWithFriend: LOGUser?
@@ -81,7 +70,7 @@ class HomeViewController: UIViewController {
 
                 if let friendProfile = friendProfile {
                     let recentMessage = Message(sender: friendProfile, message: message!, date: date!)
-                    conversation.setFriendProfile(friendProfile: friendProfile)
+                    conversation.setFriends(friendProfile: friendProfile)
                     conversation.setStackOfMessages(stack: [recentMessage])
                     self.recentMessages.append(conversation)
                 }
@@ -99,7 +88,7 @@ class HomeViewController: UIViewController {
         if segue.identifier == "HomeToMessageSegue" {
             if let messageViewController = segue.destination as? MessageViewController {
                 var messageStack = MessageStack()
-                messageStack.setFriendProfile(friendProfile: selectedConversationWithFriend)
+                messageStack.setFriends(friendProfile: selectedConversationWithFriend)
                 messageViewController.friendConversation = messageStack
             }
         }
@@ -121,14 +110,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let friendConversationData = recentMessages[indexPath.row]
-//        let friendName = friendConversationData.conversationWithFriend?.getFullName()
+
         let friendName = friendConversationData.getFriendProfile()?.getFullName()
         let userImage = friendConversationData.getFriendProfile()?.getPicture()
         let mostRecentMessage = friendConversationData.getStackOfMessages()[0]?.getMessage()
         let date = friendConversationData.getStackOfMessages()[0]?.getDate()
 
-        var cell: HomeTableViewCell?
-        cell = homeTableView.dequeueReusableCell(withIdentifier: "Friend Conversation Cell", for: indexPath) as? HomeTableViewCell
+        let cell = homeTableView.dequeueReusableCell(withIdentifier: "Friend Conversation Cell", for: indexPath) as? HomeTableViewCell
         cell?.friendName.text = friendName
         cell?.friendPicture.image = userImage
         cell?.mostRecentMessageFromConversation.text = mostRecentMessage

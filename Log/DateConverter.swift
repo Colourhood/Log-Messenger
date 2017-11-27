@@ -15,14 +15,15 @@ struct DateConverter {
     static let day: TimeInterval = 24 * hour
     static let week: TimeInterval = 7 * day
 
-    static func handleDate(date: String) -> String {
+    static func handleDate(date: String?) -> String? {
 
         let formatter = DateFormatter()
             formatter.dateFormat = Constants.serverDateFormat
             formatter.amSymbol = "am"
             formatter.pmSymbol = "pm"
 
-        if let dateObj = formatter.date(from: date) {
+        if let date = date {
+            guard let dateObj = formatter.date(from: date) else { return nil }
             // timeIntervalSinceNow returns a negative value, multiply it by negative 1 to make it positive
             let timeDifference = dateObj.timeIntervalSinceNow * -1
 
@@ -37,7 +38,7 @@ struct DateConverter {
                 return convert(date: dateObj, format: "MMM d")
             }
         }
-        return ""
+        return nil
     }
 
     static func convert(date: Date, format: String) -> String {
