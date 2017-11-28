@@ -328,7 +328,7 @@
                                 <rect key="frame" x="0.0" y="5" width="375" height="55"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JnR-SB-lcn">
-                                        <rect key="frame" x="13" y="10" width="35" height="35"/>
+                                        <rect key="frame" x="15" y="10" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="3t7-xc-SgN"/>
                                             <constraint firstAttribute="width" secondItem="JnR-SB-lcn" secondAttribute="height" multiplier="1:1" id="f4b-BV-8o6"/>
@@ -339,7 +339,7 @@
                                         </connections>
                                     </button>
                                     <searchBar contentMode="redraw" insetsLayoutMarginsFromSafeArea="NO" searchBarStyle="minimal" placeholder="Find Friends" translatesAutoresizingMaskIntoConstraints="NO" id="k5Q-0b-KLI">
-                                        <rect key="frame" x="63" y="10" width="297" height="35"/>
+                                        <rect key="frame" x="61" y="10" width="303" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="Wne-vw-e3j"/>
                                         </constraints>
@@ -351,9 +351,9 @@
                                     <constraint firstAttribute="height" constant="55" id="0sk-GY-aJ0"/>
                                     <constraint firstItem="k5Q-0b-KLI" firstAttribute="centerY" secondItem="LUA-jV-OWW" secondAttribute="centerY" id="3ur-Z5-fhe"/>
                                     <constraint firstItem="JnR-SB-lcn" firstAttribute="centerY" secondItem="LUA-jV-OWW" secondAttribute="centerY" id="8oS-WZ-fwM"/>
-                                    <constraint firstItem="k5Q-0b-KLI" firstAttribute="leading" secondItem="JnR-SB-lcn" secondAttribute="trailing" constant="15" id="LUM-Uc-oXY"/>
-                                    <constraint firstAttribute="trailing" secondItem="k5Q-0b-KLI" secondAttribute="trailing" constant="15" id="hn5-lZ-alN"/>
-                                    <constraint firstItem="JnR-SB-lcn" firstAttribute="leading" secondItem="LUA-jV-OWW" secondAttribute="leading" constant="13" id="wuD-Uz-qmJ"/>
+                                    <constraint firstItem="k5Q-0b-KLI" firstAttribute="leading" secondItem="JnR-SB-lcn" secondAttribute="trailing" constant="11" id="LUM-Uc-oXY"/>
+                                    <constraint firstAttribute="trailing" secondItem="k5Q-0b-KLI" secondAttribute="trailing" constant="11" id="hn5-lZ-alN"/>
+                                    <constraint firstItem="JnR-SB-lcn" firstAttribute="leading" secondItem="LUA-jV-OWW" secondAttribute="leading" constant="15" id="wuD-Uz-qmJ"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="64" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dzg-TP-Kgd">
