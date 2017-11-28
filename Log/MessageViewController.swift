@@ -123,25 +123,37 @@ extension MessageViewController: UITextFieldDelegate {
         return true
     }
 
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if !didUserType {
-            let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
-            SocketIOManager.sharedInstance.emit(event: Constants.startTyping, data: param)
-            didUserType = true
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if let message = newMessageTextField.text {
+
+            if message.isEmpty {
+                if didUserType {
+                    print("It's empty")
+                    didUserType = false
+                    let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
+                    SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param)
+                }
+            } else {
+                if !didUserType {
+                    didUserType = true
+                    let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
+                    SocketIOManager.sharedInstance.emit(event: Constants.startTyping, data: param)
+                }
+            }
         }
-        return true
     }
 
     // UIKeyboard - Notification Center
-
     func registerForKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector (MessageViewController.keyboardDidShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector (MessageViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        newMessageTextField.addTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
     }
 
     func deregisterFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
+        newMessageTextField.removeTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
     }
 
     @objc func keyboardDidShow(notification: NSNotification) {
@@ -271,6 +283,15 @@ extension MessageViewController: SocketIODelegate {
             let emptyMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: nil, date: nil)
             friendConversation?.appendMessageToMessageStack(messageObj: emptyMessage)
             insertMessageCell(isTyping: true)
+        }
+    }
+
+    func friendStoppedTyping() {
+        print("Received socket delegate event: Friend stopped typing")
+        if didFriendType {
+            didFriendType = false
+            friendConversation?.removeLastMessageFromMessageStack()
+            removeTypingMessageCell()
         }
     }
 

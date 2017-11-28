@@ -33,6 +33,7 @@ class MessageTableViewCell: UITableViewCell {
 }
 
 extension MessageTableViewCell {
+
     func animatePop() {
         messageView.transform = CGAffineTransform(scaleX: 0.04, y: 0.04)
 
@@ -68,4 +69,5 @@ extension MessageTableViewCell {
             })
         })
     }
+
 }
