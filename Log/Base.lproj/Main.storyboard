@@ -339,20 +339,20 @@
                                         </connections>
                                     </button>
                                     <searchBar contentMode="redraw" insetsLayoutMarginsFromSafeArea="NO" searchBarStyle="minimal" placeholder="Find Friends" translatesAutoresizingMaskIntoConstraints="NO" id="k5Q-0b-KLI">
-                                        <rect key="frame" x="65" y="10" width="293" height="35"/>
+                                        <rect key="frame" x="63" y="10" width="297" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="Wne-vw-e3j"/>
                                         </constraints>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                 </subviews>
-                                <color key="backgroundColor" red="0.96810261349736326" green="1" blue="0.98707161399933141" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="0sk-GY-aJ0"/>
                                     <constraint firstItem="k5Q-0b-KLI" firstAttribute="centerY" secondItem="LUA-jV-OWW" secondAttribute="centerY" id="3ur-Z5-fhe"/>
                                     <constraint firstItem="JnR-SB-lcn" firstAttribute="centerY" secondItem="LUA-jV-OWW" secondAttribute="centerY" id="8oS-WZ-fwM"/>
-                                    <constraint firstItem="k5Q-0b-KLI" firstAttribute="leading" secondItem="JnR-SB-lcn" secondAttribute="trailing" constant="17" id="LUM-Uc-oXY"/>
-                                    <constraint firstAttribute="trailing" secondItem="k5Q-0b-KLI" secondAttribute="trailing" constant="17" id="hn5-lZ-alN"/>
+                                    <constraint firstItem="k5Q-0b-KLI" firstAttribute="leading" secondItem="JnR-SB-lcn" secondAttribute="trailing" constant="15" id="LUM-Uc-oXY"/>
+                                    <constraint firstAttribute="trailing" secondItem="k5Q-0b-KLI" secondAttribute="trailing" constant="15" id="hn5-lZ-alN"/>
                                     <constraint firstItem="JnR-SB-lcn" firstAttribute="leading" secondItem="LUA-jV-OWW" secondAttribute="leading" constant="13" id="wuD-Uz-qmJ"/>
                                 </constraints>
                             </view>
@@ -381,13 +381,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:30 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulA-1m-fgb">
-                                                    <rect key="frame" x="308" y="23" width="52" height="15"/>
+                                                    <rect key="frame" x="271" y="23" width="89" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
                                                     <color key="textColor" red="0.85628172588832485" green="0.56957190392569979" blue="0.41173559991107" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey! I just got your message!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mWJ-01-uKI">
-                                                    <rect key="frame" x="70" y="36" width="305" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Hey! I just got your message!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mWJ-01-uKI">
+                                                    <rect key="frame" x="70" y="36" width="196" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <color key="textColor" red="0.4718402743925556" green="0.48366116751269039" blue="0.47769128667119132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -398,11 +398,11 @@
                                                 <constraint firstItem="ulA-1m-fgb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ER4-t8-K38" secondAttribute="leading" id="71O-6e-2hI"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ulA-1m-fgb" secondAttribute="trailing" id="I2F-gL-byg"/>
                                                 <constraint firstItem="mWJ-01-uKI" firstAttribute="centerY" secondItem="Ce1-KK-e8e" secondAttribute="centerY" constant="10" id="KwO-eq-1ZO"/>
+                                                <constraint firstItem="ulA-1m-fgb" firstAttribute="leading" secondItem="mWJ-01-uKI" secondAttribute="trailing" constant="5" id="XQ3-Aj-bdR"/>
                                                 <constraint firstItem="ER4-t8-K38" firstAttribute="leading" secondItem="mWJ-01-uKI" secondAttribute="leading" id="fl2-5g-Juc"/>
                                                 <constraint firstItem="dgH-W8-GvX" firstAttribute="leading" secondItem="Ce1-KK-e8e" secondAttribute="leading" constant="10" id="iIe-eS-36d"/>
                                                 <constraint firstItem="ER4-t8-K38" firstAttribute="leading" secondItem="dgH-W8-GvX" secondAttribute="trailing" constant="15" id="jwo-Mx-7e5"/>
                                                 <constraint firstItem="dgH-W8-GvX" firstAttribute="centerY" secondItem="Ce1-KK-e8e" secondAttribute="centerY" id="qHK-Y9-gBE"/>
-                                                <constraint firstAttribute="trailing" secondItem="mWJ-01-uKI" secondAttribute="trailing" id="r7f-b5-UdF"/>
                                                 <constraint firstItem="ER4-t8-K38" firstAttribute="firstBaseline" secondItem="ulA-1m-fgb" secondAttribute="baseline" id="rnJ-Dr-Ffx"/>
                                                 <constraint firstItem="ER4-t8-K38" firstAttribute="top" secondItem="Ce1-KK-e8e" secondAttribute="topMargin" constant="9" id="vzu-PR-cVF"/>
                                             </constraints>
