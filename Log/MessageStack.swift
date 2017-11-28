@@ -10,10 +10,10 @@ import Foundation
 
 struct MessageStack {
     private var messageStack: [Message?] = []
-    private var conversationWithFriend: LOGUser?
+    private var friends: LOGUser?
 
-    mutating func setFriendProfile(friendProfile: LOGUser?) {
-        conversationWithFriend = friendProfile
+    mutating func setFriends(friendProfile: LOGUser?) {
+        friends = friendProfile
     }
 
     mutating func setStackOfMessages(stack: [Message]) {
@@ -33,7 +33,7 @@ struct MessageStack {
     }
 
     func getFriendProfile() -> LOGUser? {
-        return conversationWithFriend
+        return friends
     }
 
 }

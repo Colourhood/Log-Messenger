@@ -15,6 +15,7 @@ private let socketURL: String = "http://192.168.0.10:7555"
 protocol SocketIODelegate: class {
     func receivedMessage(user: String, message: String, date: String)
     func friendStartedTyping()
+    func friendStoppedTyping()
 }
 
 class SocketIOManager: NSObject {
@@ -64,6 +65,8 @@ class SocketIOManager: NSObject {
                     delegate.receivedMessage(user: user, message: message, date: date)
                 case Constants.startTyping:
                     delegate.friendStartedTyping()
+                case Constants.stopTyping:
+                    delegate.friendStoppedTyping()
                 default:
                     break
                 }

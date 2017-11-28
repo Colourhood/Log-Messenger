@@ -21,6 +21,7 @@ class MessageViewController: UIViewController {
     var userData = UserCoreDataController.getUserProfile()
     var chatRoomID: String?
     var didFriendType: Bool = false
+    var didUserType: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,33 +117,43 @@ extension MessageViewController: UITextFieldDelegate {
                     friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
                     insertMessageCell(isTyping: false)
                 }
+                didUserType = false
             }
         }
         return true
     }
 
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
-        SocketIOManager.sharedInstance.emit(event: Constants.startTyping, data: param)
-        return true
-    }
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if let message = newMessageTextField.text {
 
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
-        SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param)
-        return true
+            if message.isEmpty {
+                if didUserType {
+                    print("It's empty")
+                    didUserType = false
+                    let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
+                    SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param)
+                }
+            } else {
+                if !didUserType {
+                    didUserType = true
+                    let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
+                    SocketIOManager.sharedInstance.emit(event: Constants.startTyping, data: param)
+                }
+            }
+        }
     }
 
     // UIKeyboard - Notification Center
-
     func registerForKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector (MessageViewController.keyboardDidShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector (MessageViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        newMessageTextField.addTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
     }
 
     func deregisterFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
+        newMessageTextField.removeTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
     }
 
     @objc func keyboardDidShow(notification: NSNotification) {
@@ -163,7 +174,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let friendConversation = friendConversation {
-            return (friendConversation.getStackOfMessages().count)
+            return friendConversation.getStackOfMessages().count
         }
         return 0
     }
@@ -275,6 +286,15 @@ extension MessageViewController: SocketIODelegate {
         }
     }
 
+    func friendStoppedTyping() {
+        print("Received socket delegate event: Friend stopped typing")
+        if didFriendType {
+            didFriendType = false
+            friendConversation?.removeLastMessageFromMessageStack()
+            removeTypingMessageCell()
+        }
+    }
+
     // # Mark - SocketIO - NonDelegate
     private func joinChatRoom() {
         func generateChatRoomID() {
@@ -310,9 +330,7 @@ extension MessageViewController: SocketIODelegate {
     }
 
     private func messageChat(message: String) {
-        print("message chat was called, message: \(message)")
         let param = ["user_email": userData?.email, "chat_id": chatRoomID, "message": message, "date": DateConverter.convert(date: Date(), format: Constants.serverDateFormat)] as AnyObject
-        SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param)
         SocketIOManager.sharedInstance.emit(event: Constants.sendMessage, data: param)
     }
 

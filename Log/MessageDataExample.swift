@@ -25,7 +25,7 @@ class MessageDataExample {
         let thirdMessage = Message(sender: andrei, message: "Where are you going to be later this evening? And what about on Friday?", date: MessageDataExample.date)
         let fourthMessage = Message(sender: katherine, message: "How about the movies at ten?", date: MessageDataExample.date)
 
-        conversationStack.setFriendProfile(friendProfile: katherine)
+        conversationStack.setFriends(friendProfile: katherine)
         conversationStack.appendMessageToMessageStack(messageObj: firstMessage)
         conversationStack.appendMessageToMessageStack(messageObj: secondMessage)
         conversationStack.appendMessageToMessageStack(messageObj: thirdMessage)
@@ -43,7 +43,7 @@ class MessageDataExample {
         let fourthMessage = Message(sender: sebastian, message: "How about the movies at ten?", date: MessageDataExample.date)
         let fithMessage = Message(sender: sebastian, message: "Actually I think I will be busy", date: date)
 
-        conversationStack.setFriendProfile(friendProfile: sebastian)
+        conversationStack.setFriends(friendProfile: sebastian)
         conversationStack.appendMessageToMessageStack(messageObj: firstMessage)
         conversationStack.appendMessageToMessageStack(messageObj: secondMessage)
         conversationStack.appendMessageToMessageStack(messageObj: thirdMessage)
