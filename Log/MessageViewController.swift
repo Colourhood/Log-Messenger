@@ -21,6 +21,7 @@ class MessageViewController: UIViewController {
     var userData = UserCoreDataController.getUserProfile()
     var chatRoomID: String?
     var didFriendType: Bool = false
+    var didUserType: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,20 +117,18 @@ extension MessageViewController: UITextFieldDelegate {
                     friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
                     insertMessageCell(isTyping: false)
                 }
+                didUserType = false
             }
         }
         return true
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
-        SocketIOManager.sharedInstance.emit(event: Constants.startTyping, data: param)
-        return true
-    }
-
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
-        SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param)
+        if !didUserType {
+            let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
+            SocketIOManager.sharedInstance.emit(event: Constants.startTyping, data: param)
+            didUserType = true
+        }
         return true
     }
 
