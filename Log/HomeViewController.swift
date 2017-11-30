@@ -101,9 +101,11 @@ class HomeViewController: UIViewController {
         userProfileVC.transitioningDelegate = slideInTransitionDelegate
         userProfileVC.modalPresentationStyle = .custom
 
-        //let offsetSize = (view.frame.size.width/3)*2
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+            let offsetSize = self.view.frame.size.width*(2.0/3.0)
+            self.view.frame.origin.x = offsetSize
+        })
         present(userProfileVC, animated: true)
-
     }
 
 }

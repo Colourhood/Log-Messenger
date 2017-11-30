@@ -31,12 +31,12 @@ class SlideInPresentationController: UIPresentationController {
                                            views: ["dimmingView": dimmingView]))
 
         guard let coordinator = presentedViewController.transitionCoordinator else {
-            dimmingView.alpha = 1.0
+            dimmingView.alpha = 0.5
             return
         }
 
         coordinator.animate(alongsideTransition: { _ in
-            self.dimmingView.alpha = 1.0
+            self.dimmingView.alpha = 0.5
         })
     }
 
@@ -75,12 +75,15 @@ private extension SlideInPresentationController {
 
     @objc dynamic func handleTap(recognizer: UITapGestureRecognizer) {
         presentingViewController.dismiss(animated: true)
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+            self.presentingViewController.view.frame.origin.x = 0.0
+        })
     }
 
     func setupDimView() {
         dimmingView = UIView()
         dimmingView.translatesAutoresizingMaskIntoConstraints = false
-        dimmingView.backgroundColor = UIColor(white: 0.0, alpha: 0.2)
+        dimmingView.backgroundColor = UIColor(white: 0.0, alpha: 0.1)
         dimmingView.alpha = 0
 
         let recognizer = UITapGestureRecognizer(target: self, action: #selector (SlideInPresentationController.handleTap))

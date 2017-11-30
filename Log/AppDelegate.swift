@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        window?.backgroundColor = UIColor.white
 
         // Creation of necessary directories for the app - created under Documents
         LOGFileManager.createDirectoriesInDocuments()
@@ -29,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if currentUser?.email != nil || currentUser?.firstName != nil {
 //      self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MessageViewController")
             self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+
         } else {
             self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
         }
