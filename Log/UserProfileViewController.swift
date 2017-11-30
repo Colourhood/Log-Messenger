@@ -12,7 +12,6 @@ import CoreData
 class UserProfileViewController: UIViewController {
 
     @IBOutlet weak var profileTableView: UITableView!
-    @IBOutlet weak var userProfileNavigationBar: UINavigationItem!
 
     let userInfoArray = ["Username", "Phone"]
 

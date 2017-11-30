@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +13,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserProfileViewController" customModule="Log" customModuleProvider="target">
             <connections>
                 <outlet property="profileTableView" destination="kTz-K9-uo3" id="xIV-zr-5Rc"/>
-                <outlet property="userProfileNavigationBar" destination="Q1q-Og-9BY" id="3lB-WA-VK7"/>
                 <outlet property="view" destination="Kcj-er-HCD" id="7st-ey-6ul"/>
             </connections>
         </placeholder>
@@ -22,18 +21,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8P-wV-hHD">
-                    <rect key="frame" x="0.0" y="25" width="375" height="44"/>
-                    <items>
-                        <navigationItem title="Me" id="Q1q-Og-9BY">
-                            <barButtonItem key="leftBarButtonItem" title="Done" id="FUy-Fq-yIl">
-                                <connections>
-                                    <action selector="userTappedDoneButton:" destination="-1" id="gpz-fM-u8B"/>
-                                </connections>
-                            </barButtonItem>
-                        </navigationItem>
-                    </items>
-                </navigationBar>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acd-Tv-Br1">
+                    <rect key="frame" x="0.0" y="20" width="375" height="219"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kTz-K9-uo3">
                     <rect key="frame" x="0.0" y="247" width="375" height="420"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -45,22 +36,15 @@
                         <outlet property="delegate" destination="-1" id="prG-4A-d4b"/>
                     </connections>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acd-Tv-Br1">
-                    <rect key="frame" x="0.0" y="69" width="375" height="170"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="kTz-K9-uo3" firstAttribute="bottom" secondItem="3Ps-ej-HjE" secondAttribute="bottom" id="0s9-xE-okp"/>
                 <constraint firstItem="kTz-K9-uo3" firstAttribute="top" secondItem="acd-Tv-Br1" secondAttribute="bottom" constant="8" id="2SW-ho-Hft"/>
-                <constraint firstItem="g8P-wV-hHD" firstAttribute="trailing" secondItem="3Ps-ej-HjE" secondAttribute="trailing" id="Rc3-Eb-JIq"/>
-                <constraint firstItem="g8P-wV-hHD" firstAttribute="top" secondItem="Kcj-er-HCD" secondAttribute="top" constant="25" id="RqX-Xp-8AY"/>
                 <constraint firstItem="kTz-K9-uo3" firstAttribute="trailing" secondItem="3Ps-ej-HjE" secondAttribute="trailing" id="V2k-A7-Kdp"/>
                 <constraint firstItem="kTz-K9-uo3" firstAttribute="leading" secondItem="3Ps-ej-HjE" secondAttribute="leading" id="XcR-Ff-ZEe"/>
                 <constraint firstItem="acd-Tv-Br1" firstAttribute="trailing" secondItem="3Ps-ej-HjE" secondAttribute="trailing" id="cXD-Z7-q7y"/>
-                <constraint firstItem="acd-Tv-Br1" firstAttribute="top" secondItem="g8P-wV-hHD" secondAttribute="bottom" id="dGb-ZY-Ojy"/>
-                <constraint firstItem="g8P-wV-hHD" firstAttribute="leading" secondItem="3Ps-ej-HjE" secondAttribute="leading" id="g29-1p-yhc"/>
+                <constraint firstItem="acd-Tv-Br1" firstAttribute="top" secondItem="3Ps-ej-HjE" secondAttribute="top" id="jzY-jz-234"/>
                 <constraint firstItem="acd-Tv-Br1" firstAttribute="leading" secondItem="3Ps-ej-HjE" secondAttribute="leading" id="vQx-dz-gX2"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="3Ps-ej-HjE"/>

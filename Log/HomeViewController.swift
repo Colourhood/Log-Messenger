@@ -15,6 +15,7 @@ class HomeViewController: UIViewController {
 
     var recentMessages: [MessageStack] = []
     var selectedConversationWithFriend: LOGUser?
+    lazy var slideInTransitionDelegate = SlideInPresentationManager()
 
     /* UI-IBActions */
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
@@ -95,8 +96,16 @@ class HomeViewController: UIViewController {
     }
 
     @IBAction func userTappedProfileButton(_ sender: UIButton) {
+        transitioningDelegate = slideInTransitionDelegate
         let userProfileVC = UserProfileViewController(nibName: "UserProfileViewController", bundle: nil)
-        present(userProfileVC, animated: true, completion: nil)
+        userProfileVC.transitioningDelegate = slideInTransitionDelegate
+        userProfileVC.modalPresentationStyle = .custom
+
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+            let offsetSize = self.view.frame.size.width*(2.0/3.0)
+            self.view.frame.origin.x = offsetSize
+        })
+        present(userProfileVC, animated: true)
     }
 
 }

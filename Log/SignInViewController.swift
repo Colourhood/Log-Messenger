@@ -101,7 +101,6 @@ class SignInViewController: UIViewController {
                     guard let image = UIImage(named: "defaultUserIcon") else { return }
                     let defaultImageData = ConvertImage.convertUIImageToJPEGData(image: image)! as NSData
                     UserCoreDataController.setUser(userEmail: userEmail, image: defaultImageData)
-                    LOGUserDefaults.setUser(userEmail: userEmail)
                     self.instantiateHomeView()
                 }
             } else {
@@ -129,8 +128,6 @@ class SignInViewController: UIViewController {
                     LOGS3.uploadToS3(key: key, fileURL: profileImageURL, completionHandler: { (result) in
                         if result != nil {
                             UserCoreDataController.setUser(userEmail: userEmail, image: userImageData as NSData)
-                            LOGUserDefaults.setUser(userEmail: userEmail)
-                            print(UserCoreDataController.currentUserCoreData as Any)
                             self.instantiateHomeView()
                         }
                     })
