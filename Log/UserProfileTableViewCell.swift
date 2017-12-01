@@ -24,4 +24,14 @@ class UserProfileTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    func animateBounce(delay: Double) {
+        contentView.transform = CGAffineTransform(translationX: -contentView.frame.width, y: 0)
+
+        UIView.animate(withDuration: 0.3, delay: TimeInterval(delay/3.5),
+                       usingSpringWithDamping: 1, initialSpringVelocity: 0.5,
+                       options: .curveEaseIn, animations: {
+            self.contentView.transform = CGAffineTransform.identity
+        })
+    }
+
 }
