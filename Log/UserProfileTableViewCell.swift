@@ -10,6 +10,9 @@ import UIKit
 
 class UserProfileTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var labelName: UILabel!
+    @IBOutlet weak var cellImage: UIImageView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

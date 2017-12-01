@@ -91,16 +91,20 @@ class SignInViewController: UIViewController {
     private func handleLogin(parameters: [String: Any]) {
         SignInController.handleLoginSignUpRequest(url: "/user/login", parameters: parameters, completion: { (json) in
 
-            if let userEmail = json["user_email"] as? String {
+            if let userEmail = json["user_email"] as? String, let firstName = json["first_name"] as? String {
                 if let image = json["image"] as? String {
                     if let imageData = NSData(base64Encoded: image, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0))) {
-                        UserCoreDataController.setUser(userEmail: userEmail, image: imageData)
+                        UserCoreDataController.setUser(userEmail: userEmail,
+                                                       firstName: firstName,
+                                                       image: imageData)
                         self.instantiateHomeView()
                     }
                 } else {
                     guard let image = UIImage(named: "defaultUserIcon") else { return }
                     let defaultImageData = ConvertImage.convertUIImageToJPEGData(image: image)! as NSData
-                    UserCoreDataController.setUser(userEmail: userEmail, image: defaultImageData)
+                    UserCoreDataController.setUser(userEmail: userEmail,
+                                                   firstName: firstName,
+                                                   image: defaultImageData)
                     self.instantiateHomeView()
                 }
             } else {
@@ -127,7 +131,9 @@ class SignInViewController: UIViewController {
 
                     LOGS3.uploadToS3(key: key, fileURL: profileImageURL, completionHandler: { (result) in
                         if result != nil {
-                            UserCoreDataController.setUser(userEmail: userEmail, image: userImageData as NSData)
+                            UserCoreDataController.setUser(userEmail: userEmail,
+                                                           firstName: "Mock Name",
+                                                           image: userImageData as NSData)
                             self.instantiateHomeView()
                         }
                     })
