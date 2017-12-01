@@ -43,10 +43,6 @@ class UserProfileViewController: UIViewController {
 
     }
 
-    @IBAction func userTappedDoneButton(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
-    }
-
 }
 
 extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate {
@@ -85,6 +81,11 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 45.0
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let profileCell = cell as? UserProfileTableViewCell
+        profileCell?.animateBounce(delay: Double(indexPath.row+1))
     }
 
 }
