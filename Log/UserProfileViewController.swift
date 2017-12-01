@@ -12,13 +12,25 @@ import CoreData
 class UserProfileViewController: UIViewController {
 
     @IBOutlet weak var profileTableView: UITableView!
+    @IBOutlet weak var profileImage: ProfileImageView!
+    @IBOutlet weak var profileName: UILabel!
 
-    let userInfoArray = ["Username", "Phone"]
+    let userInfoArray = [
+        ["Title": "Settings", "Image": #imageLiteral(resourceName: "setting")],
+        ["Title": "Log Out", "Image": #imageLiteral(resourceName: "out")]
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.profileTableView.register(UserProfileTableViewCell.self, forCellReuseIdentifier: "userProfileTableViewCell")
+        profileTableView.register(UserProfileTableViewCell.self, forCellReuseIdentifier: "userProfileTableViewCell")
+
+        if let image = UserCoreDataController.getUserProfile()?.image {
+            profileImage.image = UIImage(data: image as Data)
+        }
+        if let name = UserCoreDataController.getUserProfile()?.firstName {
+            profileName.text = name
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,48 +51,22 @@ class UserProfileViewController: UIViewController {
 
 extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate {
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 2
-        case 1:
-            return 1
-        case 2:
-            return 1
-        default:
-            return 1
-        }
+        return userInfoArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "userProfileTableViewCell", for: indexPath) as? UserProfileTableViewCell {
-            switch indexPath.section {
-            case 0:
-                cell.textLabel?.text = userInfoArray[indexPath.row]
-            case 1:
-                cell.textLabel?.text = "Settings"
-            case 2:
-                cell.textLabel?.text = "Log out"
-            default:
-                cell.textLabel?.text = ""
-            }
-            return cell
-        }
-
-        return UITableViewCell()
+        let cell = Bundle.main.loadNibNamed("UserProfileTableViewCell", owner: self, options: nil)?.first as? UserProfileTableViewCell
+        cell?.labelName?.text = userInfoArray[indexPath.row]["Title"] as? String
+        cell?.cellImage.image = userInfoArray[indexPath.row]["Image"] as? UIImage
+        return cell!
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
+        switch indexPath.row {
         case 0:
             return
         case 1:
-            return
-        case 2:
             // Log out
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let initialVC = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
@@ -96,6 +82,11 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
             return
         }
     }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 45.0
+    }
+
 }
 
 extension UserProfileViewController {
