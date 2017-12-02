@@ -52,7 +52,9 @@ class MessageViewController: UIViewController {
         case .began:
             transitioningDelegate = dismissTransitionDelegate
         case .changed:
-            view.frame.origin = CGPoint(x: translation.x, y: 0)
+            if translation.x > 0 {
+                view.frame.origin = CGPoint(x: translation.x, y: 0)
+            }
         case .ended:
             if translation.x > view.frame.size.width/3*2 || gesture.velocity(in: view).x > 100 {
                 dismiss(animated: true)
