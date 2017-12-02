@@ -23,6 +23,7 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var newMessageTextField: UITextField!
     @IBOutlet weak fileprivate var messagesTableView: UITableView!
     @IBOutlet weak var friendName: UILabel!
+    @IBOutlet weak var sendButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,12 +124,7 @@ class MessageViewController: UIViewController {
         messageChat(message: message) // Server - SocketIO
     }
 
-}
-
-extension MessageViewController: UITextFieldDelegate {
-
-    /* UITextField Delegate Methods */
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    @IBAction func didPressSendMessageButton() {
         if let message = newMessageTextField.text {
             if !message.isEmpty {
                 sendMessage(message: message) // Server - Database
@@ -154,6 +150,15 @@ extension MessageViewController: UITextFieldDelegate {
                 didUserType = false
             }
         }
+    }
+
+
+}
+
+extension MessageViewController: UITextFieldDelegate {
+
+    /* UITextField Delegate Methods */
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
     }
 
