@@ -11,17 +11,17 @@ import CoreData
 import CryptoSwift
 
 class MessageViewController: UIViewController {
-    /* UI-IBOutlets */
-    @IBOutlet weak var newMessageTextField: UITextField!
-    @IBOutlet weak fileprivate var messagesTableView: UITableView!
-    @IBOutlet weak var messageNavigator: UINavigationItem!
-
     /* Class Variables */
     open var friendConversation: MessageStack?
     var userData = UserCoreDataController.getUserProfile()
     var chatRoomID: String?
     var didFriendType: Bool = false
     var didUserType: Bool = false
+
+    /* UI-IBOutlets */
+    @IBOutlet weak var newMessageTextField: UITextField!
+    @IBOutlet weak fileprivate var messagesTableView: UITableView!
+    @IBOutlet weak var friendName: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +42,7 @@ class MessageViewController: UIViewController {
         messagesTableView.estimatedRowHeight = 50
         messagesTableView.rowHeight = UITableViewAutomaticDimension
         newMessageTextField.autocorrectionType = .no
-        messageNavigator.title = friendConversation?.getFriendProfile()?.getFirstName()
+        friendName.text = friendConversation?.getFriendProfile()?.getFirstName()
     }
 
     func fetchMessages() {
