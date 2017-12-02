@@ -48,7 +48,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Katherine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIW-Al-szG" userLabel="Name">
-                                        <rect key="frame" x="137.5" y="14.5" width="101" height="27.5"/>
+                                        <rect key="frame" x="137" y="14.5" width="101" height="27.5"/>
                                         <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="27"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -67,7 +67,7 @@
                                 <rect key="frame" x="0.0" y="75" width="375" height="592"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wd8-4g-iiu">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="547"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendMessageCell" rowHeight="70" id="vLS-rL-PaC" userLabel="Friend Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
@@ -275,14 +275,15 @@
                                         </connections>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FbP-5X-DGD" userLabel="Send Message View">
-                                        <rect key="frame" x="0.0" y="547" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="542" width="375" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rl8-bU-T87">
-                                                <rect key="frame" x="310" y="0.0" width="50" height="45"/>
+                                                <rect key="frame" x="310" y="3" width="50" height="44"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="2KS-Pa-S7B"/>
                                                     <constraint firstAttribute="width" constant="50" id="vMw-3G-ij7"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="23"/>
+                                                <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="21"/>
                                                 <state key="normal" title="Send">
                                                     <color key="titleColor" red="0.64147744171852961" green="0.82618178934010156" blue="0.70958722023253817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -291,10 +292,7 @@
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Write a message" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ybS-dW-Hfn">
-                                                <rect key="frame" x="15" y="0.0" width="287" height="45"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="45" id="cY2-aJ-FXB"/>
-                                                </constraints>
+                                                <rect key="frame" x="15" y="3" width="287" height="44"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="19"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -306,14 +304,13 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="ybS-dW-Hfn" firstAttribute="centerY" secondItem="FbP-5X-DGD" secondAttribute="centerY" id="8Rz-JN-RRd"/>
-                                            <constraint firstItem="rl8-bU-T87" firstAttribute="centerY" secondItem="FbP-5X-DGD" secondAttribute="centerY" id="9Su-AF-kVx"/>
-                                            <constraint firstItem="ybS-dW-Hfn" firstAttribute="top" secondItem="FbP-5X-DGD" secondAttribute="top" id="U1r-eT-IM7"/>
+                                            <constraint firstAttribute="height" constant="50" id="KzF-Zh-nHV"/>
+                                            <constraint firstItem="ybS-dW-Hfn" firstAttribute="top" secondItem="FbP-5X-DGD" secondAttribute="top" constant="3" id="U1r-eT-IM7"/>
                                             <constraint firstItem="rl8-bU-T87" firstAttribute="leading" secondItem="ybS-dW-Hfn" secondAttribute="trailing" constant="8" id="U90-21-QdD"/>
-                                            <constraint firstAttribute="bottom" secondItem="ybS-dW-Hfn" secondAttribute="bottom" id="WdQ-1H-cgs"/>
+                                            <constraint firstAttribute="bottom" secondItem="ybS-dW-Hfn" secondAttribute="bottom" constant="3" id="WdQ-1H-cgs"/>
                                             <constraint firstItem="ybS-dW-Hfn" firstAttribute="leading" secondItem="FbP-5X-DGD" secondAttribute="leading" constant="15" id="aC0-jL-Ewe"/>
-                                            <constraint firstItem="rl8-bU-T87" firstAttribute="top" secondItem="FbP-5X-DGD" secondAttribute="top" id="c3a-Jo-PXb"/>
                                             <constraint firstAttribute="trailing" secondItem="rl8-bU-T87" secondAttribute="trailing" constant="15" id="lwD-CM-S5g"/>
-                                            <constraint firstAttribute="bottom" secondItem="rl8-bU-T87" secondAttribute="bottom" id="oxD-vE-bji"/>
+                                            <constraint firstAttribute="bottom" secondItem="rl8-bU-T87" secondAttribute="bottom" constant="3" id="oxD-vE-bji"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -417,7 +414,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Andrei Villasana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ER4-t8-K38">
-                                                    <rect key="frame" x="77" y="14" width="122" height="19.5"/>
+                                                    <rect key="frame" x="77" y="14.5" width="122" height="19"/>
                                                     <fontDescription key="fontDescription" name="Brown-Regular" family="Brown" pointSize="16"/>
                                                     <color key="textColor" red="0.19675097369828243" green="0.53885866212799804" blue="0.70258962563451777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -429,7 +426,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Hey! I just got your message!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mWJ-01-uKI">
-                                                    <rect key="frame" x="77" y="37.5" width="190" height="17.5"/>
+                                                    <rect key="frame" x="77" y="38" width="190" height="17.5"/>
                                                     <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="17"/>
                                                     <color key="textColor" red="0.58785040679648393" green="0.60665847081218272" blue="0.60087970918572198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
