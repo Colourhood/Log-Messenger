@@ -24,7 +24,6 @@ class MessageControllerUnitTest: XCTestCase {
 
         userEntity?.email = "andreicrimson@gmail.com"
         userEntity?.firstName = "Andrei"
-        userEntity?.lastName = "Villasana"
     }
 
     override func tearDown() {
