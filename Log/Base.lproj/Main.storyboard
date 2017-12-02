@@ -30,10 +30,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jCI-Wc-AdT" userLabel="Friend View">
-                                <rect key="frame" x="16" y="20" width="343" height="50"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sp8-RW-Xt0">
-                                        <rect key="frame" x="5" y="6" width="55" height="37"/>
+                                        <rect key="frame" x="10" y="6" width="55" height="37"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <state key="normal" title="Home">
                                             <color key="titleColor" red="0.33467712789852011" green="0.55987627560366959" blue="0.66832566624365475" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -43,7 +43,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Katherine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIW-Al-szG" userLabel="Name">
-                                        <rect key="frame" x="120" y="9.5" width="103.5" height="30"/>
+                                        <rect key="frame" x="136" y="9.5" width="103.5" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -55,7 +55,7 @@
                                     <constraint firstItem="Sp8-RW-Xt0" firstAttribute="top" secondItem="jCI-Wc-AdT" secondAttribute="top" constant="6.5" id="4zZ-wF-XYJ"/>
                                     <constraint firstItem="uIW-Al-szG" firstAttribute="centerY" secondItem="jCI-Wc-AdT" secondAttribute="centerY" id="Ego-WQ-J4O"/>
                                     <constraint firstItem="uIW-Al-szG" firstAttribute="centerX" secondItem="jCI-Wc-AdT" secondAttribute="centerX" id="MJC-ln-Rbi"/>
-                                    <constraint firstItem="Sp8-RW-Xt0" firstAttribute="leading" secondItem="jCI-Wc-AdT" secondAttribute="leading" constant="5" id="fjq-gC-fif"/>
+                                    <constraint firstItem="Sp8-RW-Xt0" firstAttribute="leading" secondItem="jCI-Wc-AdT" secondAttribute="leading" constant="10" id="fjq-gC-fif"/>
                                     <constraint firstAttribute="height" constant="50" id="isa-wE-MOJ"/>
                                     <constraint firstItem="Sp8-RW-Xt0" firstAttribute="centerY" secondItem="jCI-Wc-AdT" secondAttribute="centerY" id="lbp-YE-xZl"/>
                                 </constraints>
@@ -311,13 +311,13 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="jCI-Wc-AdT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0eL-jj-ABY"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="FWd-JV-7yZ" secondAttribute="bottom" id="ASj-sg-8dY"/>
                             <constraint firstItem="FWd-JV-7yZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Fdv-Ns-Czg"/>
                             <constraint firstAttribute="trailing" secondItem="FWd-JV-7yZ" secondAttribute="trailing" id="HfC-73-4ne"/>
                             <constraint firstItem="jCI-Wc-AdT" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="PMW-MA-hl3"/>
-                            <constraint firstItem="jCI-Wc-AdT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="T2n-5F-hrH"/>
+                            <constraint firstAttribute="trailing" secondItem="jCI-Wc-AdT" secondAttribute="trailing" id="guE-jW-3nc"/>
                             <constraint firstItem="FWd-JV-7yZ" firstAttribute="top" secondItem="jCI-Wc-AdT" secondAttribute="bottom" id="msv-C5-84u"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="jCI-Wc-AdT" secondAttribute="trailing" id="xAC-aD-qex"/>
                             <constraint firstItem="FWd-JV-7yZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xJw-dq-qzg"/>
                         </constraints>
                     </view>
@@ -432,7 +432,7 @@
                                             <outlet property="friendName" destination="ER4-t8-K38" id="3tc-s9-tPm"/>
                                             <outlet property="friendPicture" destination="dgH-W8-GvX" id="Wuf-bB-T6q"/>
                                             <outlet property="mostRecentMessageFromConversation" destination="mWJ-01-uKI" id="bTl-8X-ZUN"/>
-                                            <segue destination="BYZ-38-t0r" kind="show" identifier="HomeToMessageSegue" customClass="SegueFromRight" customModule="Log" customModuleProvider="target" id="c4B-T8-lkT"/>
+                                            <segue destination="BYZ-38-t0r" kind="presentation" identifier="HomeToMessageSegue" customClass="SegueFromRight" customModule="Log" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="c4B-T8-lkT"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

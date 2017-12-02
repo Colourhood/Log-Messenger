@@ -17,6 +17,7 @@ class MessageViewController: UIViewController {
     var chatRoomID: String?
     var didFriendType: Bool = false
     var didUserType: Bool = false
+    lazy var dismissTransitionDelegate = DismissManager()
 
     /* UI-IBOutlets */
     @IBOutlet weak var newMessageTextField: UITextField!
@@ -27,6 +28,7 @@ class MessageViewController: UIViewController {
         super.viewDidLoad()
         SocketIOManager.sharedInstance.delegate = self
         prepareUI()
+        addGesture()
         fetchMessages()
         joinChatRoom()
         registerForKeyboardNotifications()
@@ -36,6 +38,36 @@ class MessageViewController: UIViewController {
         deregisterFromKeyboardNotifications()
         leaveChatRoom()
         print("MessageView deinit was called")
+    }
+
+    func addGesture() {
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector (MessageViewController.handleGesture))
+        self.view.addGestureRecognizer(panGestureRecognizer)
+    }
+
+    @objc func handleGesture(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: view)
+
+        switch gesture.state {
+        case .began:
+            transitioningDelegate = dismissTransitionDelegate
+        case .changed:
+            view.frame.origin = CGPoint(x: translation.x, y: 0)
+        case .ended:
+            if translation.x > view.frame.size.width/3*2 || gesture.velocity(in: view).x > 100 {
+                dismiss(animated: true)
+            } else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame.origin = CGPoint(x: 0, y: 0)
+                })
+            }
+        case .cancelled:
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.frame.origin = CGPoint(x: 0, y: 0)
+            })
+        default:
+            break
+        }
     }
 
     func prepareUI() {

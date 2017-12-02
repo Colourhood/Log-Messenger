@@ -15,11 +15,7 @@ class DismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromVC = transitionContext.viewController(forKey: .from),
-              let toVC  = transitionContext.viewController(forKey: .to) else { return }
-        let containerView = transitionContext.containerView
-
-        containerView.insertSubview(toVC.view, belowSubview: fromVC.view)
+        guard let fromVC = transitionContext.viewController(forKey: .from) else { return }
 
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
             fromVC.view.transform = CGAffineTransform(translationX: fromVC.view.frame.width, y: 0)
