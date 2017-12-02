@@ -78,7 +78,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="katherine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGL-rj-Igi" userLabel="Friend Name">
-                                                            <rect key="frame" x="47" y="2.5" width="183" height="11"/>
+                                                            <rect key="frame" x="47" y="2.5" width="181" height="11"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="11" id="Bxh-Wc-dhL"/>
                                                             </constraints>
@@ -87,10 +87,10 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NV8-xr-DuN" userLabel="Message View">
-                                                            <rect key="frame" x="47" y="17" width="182.5" height="42"/>
+                                                            <rect key="frame" x="47" y="17" width="180.5" height="42"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, this is a message from me!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DZ-yR-iJx">
-                                                                    <rect key="frame" x="12" y="10" width="160.5" height="22"/>
+                                                                    <rect key="frame" x="10" y="10" width="160.5" height="22"/>
                                                                     <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="14"/>
                                                                     <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -104,7 +104,7 @@
                                                                     <variation key="heightClass=regular-widthClass=compact" constant="210"/>
                                                                 </constraint>
                                                                 <constraint firstAttribute="trailing" secondItem="3DZ-yR-iJx" secondAttribute="trailing" constant="10" id="pZB-Ie-KwR"/>
-                                                                <constraint firstItem="3DZ-yR-iJx" firstAttribute="leading" secondItem="NV8-xr-DuN" secondAttribute="leading" constant="12" id="uc0-o6-VJe"/>
+                                                                <constraint firstItem="3DZ-yR-iJx" firstAttribute="leading" secondItem="NV8-xr-DuN" secondAttribute="leading" constant="10" id="uc0-o6-VJe"/>
                                                             </constraints>
                                                         </view>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="katherineUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="x4P-Fm-XfS" userLabel="Friend Image" customClass="ProfileImageView" customModule="Log" customModuleProvider="target">
@@ -141,7 +141,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jLG-H8-tCc" userLabel="Message View">
-                                                            <rect key="frame" x="158.5" y="12" width="169.5" height="47"/>
+                                                            <rect key="frame" x="160.5" y="12" width="167.5" height="47"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, thanks for the message!" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRu-nx-8Nr">
                                                                     <rect key="frame" x="10" y="10" width="147.5" height="27"/>
@@ -152,7 +152,7 @@
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.44353735096707342" green="0.95875634517766495" blue="0.61439217411876768" alpha="0.44394798801369861" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="lRu-nx-8Nr" secondAttribute="trailing" constant="12" id="MAm-B8-bQX"/>
+                                                                <constraint firstAttribute="trailing" secondItem="lRu-nx-8Nr" secondAttribute="trailing" constant="10" id="MAm-B8-bQX"/>
                                                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="210" id="N9Z-BV-gjI">
                                                                     <variation key="heightClass=regular-widthClass=compact" constant="210"/>
                                                                 </constraint>
