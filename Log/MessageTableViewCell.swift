@@ -19,7 +19,7 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var dot3: UIView?
 
     override func awakeFromNib() {
-        messageView.layer.cornerRadius = messageView.frame.width/12
+        messageView.layer.cornerRadius = messageView.frame.width/20
 
         if let dot1 = dot1, let dot2 = dot2, let dot3 = dot3 {
             messageView.layer.cornerRadius = messageView.frame.width/5
