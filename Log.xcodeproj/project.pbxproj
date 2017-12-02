@@ -62,6 +62,12 @@
 		54B917871F71E35E00D39504 /* AWSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B917861F71E35E00D39504 /* AWSConfig.swift */; };
 		54B917891F71E5E100D39504 /* AWSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B917881F71E5E100D39504 /* AWSCore.framework */; };
 		54B9178A1F71E5E100D39504 /* AWSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54B917881F71E5E100D39504 /* AWSCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54CE759F1FD289B900CC06A1 /* FuturaBT-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54CE75991FD289B400CC06A1 /* FuturaBT-Book.ttf */; };
+		54CE75A01FD289B900CC06A1 /* Brown-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54CE759A1FD289B500CC06A1 /* Brown-Light.ttf */; };
+		54CE75A11FD289B900CC06A1 /* Calibre-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54CE759B1FD289B600CC06A1 /* Calibre-Regular.ttf */; };
+		54CE75A21FD289B900CC06A1 /* Brown-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54CE759C1FD289B700CC06A1 /* Brown-Regular.ttf */; };
+		54CE75A31FD289B900CC06A1 /* SunValley.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54CE759D1FD289B700CC06A1 /* SunValley.ttf */; };
+		54CE75A41FD289B900CC06A1 /* FuturaBT-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54CE759E1FD289B800CC06A1 /* FuturaBT-Light.ttf */; };
 		54DFFDC61F8F4D4E009F31B3 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */; };
 		54DFFDC71F8F4D4E009F31B3 /* SocketIO.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54DFFDC91F8F4EEE009F31B3 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DFFDC81F8F4EEE009F31B3 /* SocketIOManager.swift */; };
@@ -160,6 +166,12 @@
 		54B917831F71E11000D39504 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSS3.framework; path = Carthage/Build/iOS/AWSS3.framework; sourceTree = "<group>"; };
 		54B917861F71E35E00D39504 /* AWSConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSConfig.swift; sourceTree = "<group>"; };
 		54B917881F71E5E100D39504 /* AWSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCore.framework; path = Carthage/Build/iOS/AWSCore.framework; sourceTree = "<group>"; };
+		54CE75991FD289B400CC06A1 /* FuturaBT-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FuturaBT-Book.ttf"; path = "../../../../Downloads/FuturaBT-Book.ttf"; sourceTree = "<group>"; };
+		54CE759A1FD289B500CC06A1 /* Brown-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Brown-Light.ttf"; path = "../../../../Downloads/Brown-Light.ttf"; sourceTree = "<group>"; };
+		54CE759B1FD289B600CC06A1 /* Calibre-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Calibre-Regular.ttf"; path = "../../../../Downloads/Calibre-Regular.ttf"; sourceTree = "<group>"; };
+		54CE759C1FD289B700CC06A1 /* Brown-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Brown-Regular.ttf"; path = "../../../../Downloads/Brown-Regular.ttf"; sourceTree = "<group>"; };
+		54CE759D1FD289B700CC06A1 /* SunValley.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SunValley.ttf; path = ../../../../Downloads/SunValley.ttf; sourceTree = "<group>"; };
+		54CE759E1FD289B800CC06A1 /* FuturaBT-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FuturaBT-Light.ttf"; path = "../../../../Downloads/FuturaBT-Light.ttf"; sourceTree = "<group>"; };
 		54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = Carthage/Build/iOS/SocketIO.framework; sourceTree = "<group>"; };
 		54DFFDC81F8F4EEE009F31B3 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		54EEB1201F57770700AA548B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -302,17 +314,17 @@
 		5454F3691F4A5843002D9AB5 /* Log */ = {
 			isa = PBXGroup;
 			children = (
-				5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */,
 				54F2AA1E1FC5038000F269E1 /* BackButton.json */,
 				5454F3761F4A5844002D9AB5 /* Info.plist */,
 				5454F36A1F4A5844002D9AB5 /* AppDelegate.swift */,
-				5454F3711F4A5844002D9AB5 /* Assets.xcassets */,
+				5454F3841F4B6679002D9AB5 /* MessageDataExample.swift */,
 				541141721F725EE200CAF4CD /* AWS */,
 				5454F37E1F4A58B7002D9AB5 /* Controller */,
 				548A8E101F4C156300DD56C0 /* CoreData */,
 				542364E71F70546B00C47CB5 /* Helper */,
 				54EA72781F7789D9005D8F5F /* HTTP */,
 				5454F37C1F4A589F002D9AB5 /* Model */,
+				54CE75971FD288EC00CC06A1 /* Resources */,
 				5454F37F1F4A590D002D9AB5 /* Storyboard */,
 				5454F37D1F4A58A5002D9AB5 /* View */,
 			);
@@ -427,6 +439,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		54CE75971FD288EC00CC06A1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				54CE75981FD288FD00CC06A1 /* Fonts */,
+				5454F3711F4A5844002D9AB5 /* Assets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		54CE75981FD288FD00CC06A1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				54CE759B1FD289B600CC06A1 /* Calibre-Regular.ttf */,
+				54CE75991FD289B400CC06A1 /* FuturaBT-Book.ttf */,
+				54CE759E1FD289B800CC06A1 /* FuturaBT-Light.ttf */,
+				54CE759A1FD289B500CC06A1 /* Brown-Light.ttf */,
+				54CE759C1FD289B700CC06A1 /* Brown-Regular.ttf */,
+				54CE759D1FD289B700CC06A1 /* SunValley.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		54EA72781F7789D9005D8F5F /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
@@ -532,10 +566,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				545AE9381F7D0AF700482107 /* .swiftlint.yml in Resources */,
+				54CE75A11FD289B900CC06A1 /* Calibre-Regular.ttf in Resources */,
 				541141711F72590C00CAF4CD /* credentials.json in Resources */,
+				54CE75A21FD289B900CC06A1 /* Brown-Regular.ttf in Resources */,
 				5454F3751F4A5844002D9AB5 /* LaunchScreen.storyboard in Resources */,
+				54CE75A01FD289B900CC06A1 /* Brown-Light.ttf in Resources */,
 				36AA4CCD1F9702BF0037ED7E /* UserProfileViewController.xib in Resources */,
+				54CE75A31FD289B900CC06A1 /* SunValley.ttf in Resources */,
+				54CE759F1FD289B900CC06A1 /* FuturaBT-Book.ttf in Resources */,
 				54F2AA1F1FC5038100F269E1 /* BackButton.json in Resources */,
+				54CE75A41FD289B900CC06A1 /* FuturaBT-Light.ttf in Resources */,
 				367942601F9715A600B4AD91 /* UserProfileTableViewCell.xib in Resources */,
 				5454F3721F4A5844002D9AB5 /* Assets.xcassets in Resources */,
 				5454F3701F4A5844002D9AB5 /* Main.storyboard in Resources */,
