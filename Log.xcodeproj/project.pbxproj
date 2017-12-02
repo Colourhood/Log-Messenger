@@ -68,6 +68,7 @@
 		54CE75A21FD289B900CC06A1 /* Brown-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54CE759C1FD289B700CC06A1 /* Brown-Regular.ttf */; };
 		54CE75A31FD289B900CC06A1 /* SunValley.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54CE759D1FD289B700CC06A1 /* SunValley.ttf */; };
 		54CE75A41FD289B900CC06A1 /* FuturaBT-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54CE759E1FD289B800CC06A1 /* FuturaBT-Light.ttf */; };
+		54CE75A71FD2AE1100CC06A1 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CE75A61FD2AE1100CC06A1 /* InitialViewController.swift */; };
 		54DFFDC61F8F4D4E009F31B3 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */; };
 		54DFFDC71F8F4D4E009F31B3 /* SocketIO.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54DFFDC91F8F4EEE009F31B3 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DFFDC81F8F4EEE009F31B3 /* SocketIOManager.swift */; };
@@ -172,6 +173,7 @@
 		54CE759C1FD289B700CC06A1 /* Brown-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Brown-Regular.ttf"; path = "../../../../Downloads/Brown-Regular.ttf"; sourceTree = "<group>"; };
 		54CE759D1FD289B700CC06A1 /* SunValley.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SunValley.ttf; path = ../../../../Downloads/SunValley.ttf; sourceTree = "<group>"; };
 		54CE759E1FD289B800CC06A1 /* FuturaBT-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FuturaBT-Light.ttf"; path = "../../../../Downloads/FuturaBT-Light.ttf"; sourceTree = "<group>"; };
+		54CE75A61FD2AE1100CC06A1 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = Carthage/Build/iOS/SocketIO.framework; sourceTree = "<group>"; };
 		54DFFDC81F8F4EEE009F31B3 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		54EEB1201F57770700AA548B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -344,13 +346,14 @@
 		5454F37D1F4A58A5002D9AB5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				54CE75A81FD2AE2E00CC06A1 /* Higher Order Components */,
+				54CE75A51FD2ADF800CC06A1 /* Initial */,
 				5429625D1FD007FA0049EE2F /* Presentation */,
 				545D6D031FCE3B7100082E3C /* User Profile */,
 				545D6CFF1FCCBE7100082E3C /* Message */,
 				545D6CFC1FCCBC0F00082E3C /* Home */,
 				548A8E141F4C9A8300DD56C0 /* SignInViewController.swift */,
 				54A27A271F6A031700DC0ACA /* Log-Bridging-Header.h */,
-				54F2AA1A1FC242FC00F269E1 /* ProfileImageView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -459,6 +462,22 @@
 				54CE759D1FD289B700CC06A1 /* SunValley.ttf */,
 			);
 			name = Fonts;
+			sourceTree = "<group>";
+		};
+		54CE75A51FD2ADF800CC06A1 /* Initial */ = {
+			isa = PBXGroup;
+			children = (
+				54CE75A61FD2AE1100CC06A1 /* InitialViewController.swift */,
+			);
+			name = Initial;
+			sourceTree = "<group>";
+		};
+		54CE75A81FD2AE2E00CC06A1 /* Higher Order Components */ = {
+			isa = PBXGroup;
+			children = (
+				54F2AA1A1FC242FC00F269E1 /* ProfileImageView.swift */,
+			);
+			name = "Higher Order Components";
 			sourceTree = "<group>";
 		};
 		54EA72781F7789D9005D8F5F /* HTTP */ = {
@@ -642,6 +661,7 @@
 				544EE7621F4EA01F00CD3380 /* HomeViewController.swift in Sources */,
 				541141771F72638500CAF4CD /* LOGS3.swift in Sources */,
 				5454F36B1F4A5844002D9AB5 /* AppDelegate.swift in Sources */,
+				54CE75A71FD2AE1100CC06A1 /* InitialViewController.swift in Sources */,
 				54F2AA1B1FC242FC00F269E1 /* ProfileImageView.swift in Sources */,
 				54F2AA1D1FC2F4B900F269E1 /* MessageTableViewCell.swift in Sources */,
 				54A05D7B1F4D74C4005B091F /* User+CoreDataProperties.swift in Sources */,
