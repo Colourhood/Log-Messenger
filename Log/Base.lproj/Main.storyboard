@@ -35,20 +35,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jCI-Wc-AdT" userLabel="Friend View">
-                                <rect key="frame" x="0.0" y="20" width="375" height="55"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="45"/>
                                 <subviews>
                                     <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sp8-RW-Xt0">
-                                        <rect key="frame" x="15" y="10.5" width="49" height="33"/>
+                                        <rect key="frame" x="15" y="5.5" width="49" height="33"/>
                                         <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="18"/>
                                         <state key="normal" title="Home">
-                                            <color key="titleColor" red="0.64339607954025269" green="0.73538202047348022" blue="0.68037229776382446" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" red="0.60984134346429553" green="0.79961135786802029" blue="0.67850594419280463" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="8Wu-AK-nDI" kind="unwind" customClass="UnwindSegueFromRight" customModule="Log" customModuleProvider="target" unwindAction="prepareForUnwindWithSegue:" id="3WX-Xm-Y9l"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Katherine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIW-Al-szG" userLabel="Name">
-                                        <rect key="frame" x="130" y="12.5" width="115.5" height="31.5"/>
+                                        <rect key="frame" x="130" y="7.5" width="115.5" height="31.5"/>
                                         <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="27"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -59,12 +59,12 @@
                                     <constraint firstItem="uIW-Al-szG" firstAttribute="centerY" secondItem="jCI-Wc-AdT" secondAttribute="centerY" id="Ego-WQ-J4O"/>
                                     <constraint firstItem="uIW-Al-szG" firstAttribute="centerX" secondItem="jCI-Wc-AdT" secondAttribute="centerX" id="MJC-ln-Rbi"/>
                                     <constraint firstItem="Sp8-RW-Xt0" firstAttribute="leading" secondItem="jCI-Wc-AdT" secondAttribute="leading" constant="15" id="fjq-gC-fif"/>
-                                    <constraint firstAttribute="height" constant="55" id="isa-wE-MOJ"/>
+                                    <constraint firstAttribute="height" constant="45" id="isa-wE-MOJ"/>
                                     <constraint firstItem="Sp8-RW-Xt0" firstAttribute="centerY" secondItem="jCI-Wc-AdT" secondAttribute="centerY" id="lbp-YE-xZl"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FWd-JV-7yZ" userLabel="Main View">
-                                <rect key="frame" x="0.0" y="75" width="375" height="592"/>
+                                <rect key="frame" x="0.0" y="65" width="375" height="602"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wd8-4g-iiu">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
@@ -275,12 +275,12 @@
                                         </connections>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FbP-5X-DGD" userLabel="Send Message View">
-                                        <rect key="frame" x="0.0" y="542" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="542" width="375" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rl8-bU-T87">
-                                                <rect key="frame" x="310" y="3" width="50" height="44"/>
+                                                <rect key="frame" x="310" y="-3" width="50" height="60"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="2KS-Pa-S7B"/>
+                                                    <constraint firstAttribute="height" constant="60" id="2KS-Pa-S7B"/>
                                                     <constraint firstAttribute="width" constant="50" id="vMw-3G-ij7"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="21"/>
@@ -292,7 +292,7 @@
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Write a message" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ybS-dW-Hfn">
-                                                <rect key="frame" x="15" y="3" width="287" height="44"/>
+                                                <rect key="frame" x="15" y="3" width="287" height="54"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="19"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -304,7 +304,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="ybS-dW-Hfn" firstAttribute="centerY" secondItem="FbP-5X-DGD" secondAttribute="centerY" id="8Rz-JN-RRd"/>
-                                            <constraint firstAttribute="height" constant="50" id="KzF-Zh-nHV"/>
+                                            <constraint firstAttribute="height" constant="60" id="KzF-Zh-nHV"/>
                                             <constraint firstItem="ybS-dW-Hfn" firstAttribute="top" secondItem="FbP-5X-DGD" secondAttribute="top" constant="3" id="U1r-eT-IM7"/>
                                             <constraint firstItem="rl8-bU-T87" firstAttribute="leading" secondItem="ybS-dW-Hfn" secondAttribute="trailing" constant="8" id="U90-21-QdD"/>
                                             <constraint firstAttribute="bottom" secondItem="ybS-dW-Hfn" secondAttribute="bottom" constant="3" id="WdQ-1H-cgs"/>
