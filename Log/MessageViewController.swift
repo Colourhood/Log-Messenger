@@ -11,22 +11,24 @@ import CoreData
 import CryptoSwift
 
 class MessageViewController: UIViewController {
-    /* UI-IBOutlets */
-    @IBOutlet weak var newMessageTextField: UITextField!
-    @IBOutlet weak fileprivate var messagesTableView: UITableView!
-    @IBOutlet weak var messageNavigator: UINavigationItem!
-
     /* Class Variables */
     open var friendConversation: MessageStack?
     var userData = UserCoreDataController.getUserProfile()
     var chatRoomID: String?
     var didFriendType: Bool = false
     var didUserType: Bool = false
+    lazy var dismissTransitionDelegate = DismissManager()
+
+    /* UI-IBOutlets */
+    @IBOutlet weak var newMessageTextField: UITextField!
+    @IBOutlet weak fileprivate var messagesTableView: UITableView!
+    @IBOutlet weak var friendName: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         SocketIOManager.sharedInstance.delegate = self
         prepareUI()
+        addGesture()
         fetchMessages()
         joinChatRoom()
         registerForKeyboardNotifications()
@@ -38,11 +40,43 @@ class MessageViewController: UIViewController {
         print("MessageView deinit was called")
     }
 
+    func addGesture() {
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector (MessageViewController.handleGesture))
+        self.view.addGestureRecognizer(panGestureRecognizer)
+    }
+
+    @objc func handleGesture(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: view)
+
+        switch gesture.state {
+        case .began:
+            transitioningDelegate = dismissTransitionDelegate
+        case .changed:
+            if translation.x > 0 {
+                view.frame.origin = CGPoint(x: translation.x, y: 0)
+            }
+        case .ended:
+            if translation.x > view.frame.size.width/3*2 || gesture.velocity(in: view).x > 100 {
+                dismiss(animated: true)
+            } else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame.origin = CGPoint(x: 0, y: 0)
+                })
+            }
+        case .cancelled:
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.frame.origin = CGPoint(x: 0, y: 0)
+            })
+        default:
+            break
+        }
+    }
+
     func prepareUI() {
         messagesTableView.estimatedRowHeight = 50
         messagesTableView.rowHeight = UITableViewAutomaticDimension
         newMessageTextField.autocorrectionType = .no
-        messageNavigator.title = friendConversation?.getFriendProfile()?.getFirstName()
+        friendName.text = friendConversation?.getFriendProfile()?.getFirstName()
     }
 
     func fetchMessages() {

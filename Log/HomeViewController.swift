@@ -30,17 +30,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        UIAdjustments()
         fetchRecentMessages()
-    }
-
-    private func UIAdjustments() {
-        profileButton.clipsToBounds = true
-        profileButton.layer.cornerRadius = profileButton.frame.height/2
-        if let imageData = UserCoreDataController.getUserProfile()?.image {
-            let image = UIImage(data: imageData as Data)
-            profileButton.setBackgroundImage(image, for: .normal)
-        }
     }
 
     func fetchRecentMessages() {
