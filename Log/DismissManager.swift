@@ -13,5 +13,5 @@ class DismissManager: NSObject, UIViewControllerTransitioningDelegate {
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return DismissAnimator()
     }
-    
+
 }

@@ -152,7 +152,6 @@ class MessageViewController: UIViewController {
         }
     }
 
-
 }
 
 extension MessageViewController: UITextFieldDelegate {

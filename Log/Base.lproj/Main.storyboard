@@ -38,12 +38,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jCI-Wc-AdT" userLabel="Friend View">
-                                <rect key="frame" x="0.0" y="20" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="45"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sp8-RW-Xt0">
-                                        <rect key="frame" x="15" y="14.5" width="20" height="20"/>
+                                        <rect key="frame" x="15" y="14.5" width="15" height="15"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="RPx-l2-f0V"/>
+                                            <constraint firstAttribute="height" constant="15" id="RPx-l2-f0V"/>
                                             <constraint firstAttribute="width" secondItem="Sp8-RW-Xt0" secondAttribute="height" multiplier="1:1" id="aFr-EW-SdK"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -55,8 +55,8 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Katherine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIW-Al-szG" userLabel="Name">
-                                        <rect key="frame" x="139" y="12" width="97.5" height="26.5"/>
-                                        <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="26"/>
+                                        <rect key="frame" x="148" y="11.5" width="81" height="22.5"/>
+                                        <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="19"/>
                                         <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -66,15 +66,15 @@
                                     <constraint firstItem="uIW-Al-szG" firstAttribute="centerY" secondItem="jCI-Wc-AdT" secondAttribute="centerY" id="Ego-WQ-J4O"/>
                                     <constraint firstItem="uIW-Al-szG" firstAttribute="centerX" secondItem="jCI-Wc-AdT" secondAttribute="centerX" id="MJC-ln-Rbi"/>
                                     <constraint firstItem="Sp8-RW-Xt0" firstAttribute="leading" secondItem="jCI-Wc-AdT" secondAttribute="leading" constant="15" id="fjq-gC-fif"/>
-                                    <constraint firstAttribute="height" constant="50" id="isa-wE-MOJ"/>
+                                    <constraint firstAttribute="height" constant="45" id="isa-wE-MOJ"/>
                                     <constraint firstItem="Sp8-RW-Xt0" firstAttribute="centerY" secondItem="jCI-Wc-AdT" secondAttribute="centerY" id="lbp-YE-xZl"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FWd-JV-7yZ" userLabel="Main View">
-                                <rect key="frame" x="0.0" y="70" width="375" height="597"/>
+                                <rect key="frame" x="0.0" y="65" width="375" height="602"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wd8-4g-iiu">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="537"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendMessageCell" rowHeight="70" id="vLS-rL-PaC" userLabel="Friend Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
@@ -85,7 +85,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="katherine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGL-rj-Igi" userLabel="Friend Name">
-                                                            <rect key="frame" x="47" y="2.5" width="181" height="11"/>
+                                                            <rect key="frame" x="47" y="2.5" width="210.5" height="11"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="11" id="Bxh-Wc-dhL"/>
                                                             </constraints>
@@ -94,10 +94,10 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NV8-xr-DuN" userLabel="Message View">
-                                                            <rect key="frame" x="47" y="17" width="180.5" height="42"/>
+                                                            <rect key="frame" x="47" y="17" width="210" height="42"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, this is a message from me!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DZ-yR-iJx">
-                                                                    <rect key="frame" x="10" y="10" width="160.5" height="22"/>
+                                                                    <rect key="frame" x="10" y="10" width="190" height="22"/>
                                                                     <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="14"/>
                                                                     <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -148,10 +148,10 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jLG-H8-tCc" userLabel="Message View">
-                                                            <rect key="frame" x="160.5" y="12" width="167.5" height="47"/>
+                                                            <rect key="frame" x="136.5" y="12" width="191.5" height="47"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, thanks for the message!" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRu-nx-8Nr">
-                                                                    <rect key="frame" x="10" y="10" width="147.5" height="27"/>
+                                                                    <rect key="frame" x="10" y="10" width="171.5" height="27"/>
                                                                     <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="14"/>
                                                                     <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -282,7 +282,7 @@
                                         </connections>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FbP-5X-DGD" userLabel="Send Message View">
-                                        <rect key="frame" x="0.0" y="537" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="542" width="375" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rl8-bU-T87">
                                                 <rect key="frame" x="310" y="-3" width="50" height="60"/>
@@ -421,13 +421,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Andrei Villasana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ER4-t8-K38">
-                                                    <rect key="frame" x="77" y="15" width="113" height="18.5"/>
+                                                    <rect key="frame" x="77" y="14.5" width="127.5" height="21"/>
                                                     <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="18"/>
                                                     <color key="textColor" red="0.19675097369828243" green="0.53885866212799804" blue="0.70258962563451777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:30 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulA-1m-fgb">
-                                                    <rect key="frame" x="264" y="17.5" width="86" height="15"/>
+                                                    <rect key="frame" x="264" y="18" width="86" height="14"/>
                                                     <fontDescription key="fontDescription" name="Brown-Light" family="Brown" pointSize="12"/>
                                                     <color key="textColor" red="0.85628172588832485" green="0.56957190392569979" blue="0.41173559991107" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
