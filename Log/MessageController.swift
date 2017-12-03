@@ -96,7 +96,6 @@ struct MessageController {
         SocketIOManager.sharedInstance.emit(event: Constants.sendMessage, data: param)
     }
 
-    /* Private Methods */
     func emitToChatSocket(event: String) {
         let userEmail = userProfile?.email
         let param = ["user_email": userEmail, "chat_id": chatRoomID] as AnyObject
