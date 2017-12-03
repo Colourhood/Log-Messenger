@@ -11,9 +11,9 @@ import UIKit
 
 struct LOGUser {
 
-    private var email: String?
-    private var firstName: String?
-    private var picture: UIImage?
+    var email: String?
+    var firstName: String?
+    var picture: UIImage?
 
     init(email: String?, firstName: String?, picture: UIImage?) {
         self.email = email
@@ -21,24 +21,12 @@ struct LOGUser {
         self.picture = picture
     }
 
-    func getEmail() -> String? {
-        return email
-    }
-
-    func getFirstName() -> String? {
-        return firstName
-    }
-
-    func getFullName() -> String? {
+    func getName() -> String? {
         if let firstName = firstName {
             return firstName
         } else {
             return "Inactive User"
         }
-    }
-
-    func getPicture() -> UIImage? {
-        return picture
     }
 
 }
