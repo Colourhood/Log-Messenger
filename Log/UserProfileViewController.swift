@@ -22,9 +22,15 @@ class UserProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerCells()
+        setProfileImage()
+    }
 
+    func registerCells() {
         profileTableView.register(UserProfileTableViewCell.self, forCellReuseIdentifier: "userProfileTableViewCell")
+    }
 
+    func setProfileImage() {
         if let image = UserCoreDataController.getUserProfile()?.image {
             profileImage.image = UIImage(data: image as Data)
         }
@@ -33,14 +39,8 @@ class UserProfileViewController: UIViewController {
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
     }
 
 }

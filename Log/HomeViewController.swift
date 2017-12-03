@@ -9,15 +9,18 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    @IBOutlet weak var homeTableView: UITableView!
-    @IBOutlet weak var profileButton: UIButton!
-    @IBOutlet weak var friendSearchBar: UISearchBar!
 
     var recentMessages: [MessageStack] = []
     var selectedConversationWithFriend: LOGUser?
+
     lazy var slideInTransitionDelegate = SlideInPresentationManager()
 
-    /* UI-IBActions */
+    /* UI-IBOutlets */
+    @IBOutlet weak var homeTableView: UITableView!
+    @IBOutlet weak var profileButton: UIButton!
+    @IBOutlet weak var friendSearchBar: UISearchBar!
+    
+    /* IBActions */
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
     }
 
@@ -110,8 +113,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let friendConversationData = recentMessages[indexPath.row]
 
-        let friendName = friendConversationData.getFriendProfile()?.getFullName()
-        let userImage = friendConversationData.getFriendProfile()?.getPicture()
+        let friendName = friendConversationData.getFriendProfile()?.getName()
+        let userImage = friendConversationData.getFriendProfile()?.picture
         let mostRecentMessage = friendConversationData.getStackOfMessages()[0]?.getMessage()
         let date = friendConversationData.getStackOfMessages()[0]?.getDate()
 

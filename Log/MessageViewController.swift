@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MessageViewController.swift
 //  Log
 //
 //  Created by Andrei Villasana on 8/20/17.
@@ -7,16 +7,13 @@
 //
 
 import UIKit
-import CoreData
-import CryptoSwift
 
 class MessageViewController: UIViewController {
-    /* Class Variables */
+
     open var friendConversation: MessageStack?
-    var userData = UserCoreDataController.getUserProfile()
-    var chatRoomID: String?
     var didFriendType: Bool = false
     var didUserType: Bool = false
+    var controller = MessageController()
     lazy var dismissTransitionDelegate = DismissManager()
 
     /* UI-IBOutlets */
@@ -31,27 +28,26 @@ class MessageViewController: UIViewController {
         prepareUI()
         addGesture()
         fetchMessages()
-        joinChatRoom()
+        controller.joinChatRoom(friendEmail: friendConversation?.getFriendProfile()?.email)
         registerForKeyboardNotifications()
     }
 
     deinit {
         deregisterFromKeyboardNotifications()
-        leaveChatRoom()
+        controller.leaveChatRoom()
         print("MessageView deinit was called")
     }
 
     func addGesture() {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector (MessageViewController.handleGesture))
         self.view.addGestureRecognizer(panGestureRecognizer)
+        transitioningDelegate = dismissTransitionDelegate
     }
 
     @objc func handleGesture(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
 
         switch gesture.state {
-        case .began:
-            transitioningDelegate = dismissTransitionDelegate
         case .changed:
             if translation.x > 0 {
                 view.frame.origin = CGPoint(x: translation.x, y: 0)
@@ -77,16 +73,15 @@ class MessageViewController: UIViewController {
         messagesTableView.estimatedRowHeight = 50
         messagesTableView.rowHeight = UITableViewAutomaticDimension
         newMessageTextField.autocorrectionType = .no
-        friendName.text = friendConversation?.getFriendProfile()?.getFirstName()
+        friendName.text = friendConversation?.getFriendProfile()?.getName()
     }
 
     func fetchMessages() {
         // Network request to get all(for now) messages between two users
         guard let friendProfile = friendConversation?.getFriendProfile() else { return }
-        let userProfile = LOGUser(email: userData?.email, firstName: nil, picture: UIImage(data: (userData?.image)! as Data))
 
-        MessageController.getMessagesForFriend(friendEmail: friendProfile.getEmail()!,
-                                               completionHandler: { [weak self] (response) in
+        controller.getMessagesForFriend(friendEmail: friendProfile.email,
+                                        completionHandler: { [weak self] (response) in
             guard let `self` = self else { return }
 
             // Array of messages for key 'messages'
@@ -98,10 +93,10 @@ class MessageViewController: UIViewController {
                         let date = messageDict["created_at"] as? String
                         var senderUser: LOGUser?
 
-                        if sentBy == friendProfile.getEmail() {
+                        if sentBy == friendProfile.email {
                             senderUser = friendProfile
-                        } else if sentBy == userProfile.getEmail() {
-                            senderUser = userProfile
+                        } else if sentBy == self.controller.userProfile?.email {
+                            senderUser = self.controller.userProfile
                         }
 
                         if let senderUser = senderUser, let message = message, let date = date {
@@ -116,12 +111,15 @@ class MessageViewController: UIViewController {
     }
 
     fileprivate func sendMessage(message: String) {
-        let friendEmail = friendConversation?.getFriendProfile()?.getEmail()
-        let parameters = ["sent_by": userData?.email, "sent_to": friendEmail, "message": message] as [String: AnyObject]
-        MessageController.sendNewMessage(parameters: parameters) { (json) in // Server - Database
+        let friendEmail = friendConversation?.getFriendProfile()?.email
+        let parameters = ["sent_by": controller.userProfile?.email,
+                          "sent_to": friendEmail,
+                          "message": message
+                         ] as [String: AnyObject]
+        controller.sendNewMessage(parameters: parameters) { (json) in // Server - Database
             print(json)
         }
-        messageChat(message: message) // Server - SocketIO
+        controller.messageChat(message: message) // Server - SocketIO
     }
 
     @IBAction func didPressSendMessageButton() {
@@ -130,8 +128,7 @@ class MessageViewController: UIViewController {
                 sendMessage(message: message) // Server - Database
                 newMessageTextField.text = "" // Clear text
 
-                let userProfile = LOGUser(email: userData?.email, firstName: userData?.email, picture: UIImage(data: (userData?.image)! as Data))
-                let newMessage = Message(sender: userProfile, message: message, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
+                let newMessage = Message(sender: controller.userProfile, message: message, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
 
                 if didFriendType {
                     //Rearrange message typing cell from row and dataSource
@@ -163,19 +160,16 @@ extension MessageViewController: UITextFieldDelegate {
 
     @objc func textFieldDidChange(_ textField: UITextField) {
         if let message = newMessageTextField.text {
-
             if message.isEmpty {
                 if didUserType {
                     print("It's empty")
                     didUserType = false
-                    let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
-                    SocketIOManager.sharedInstance.emit(event: Constants.stopTyping, data: param)
+                    controller.emitToChatSocket(event: Constants.stopTyping)
                 }
             } else {
                 if !didUserType {
                     didUserType = true
-                    let param = ["user_email": userData?.email, "chat_id": chatRoomID] as AnyObject
-                    SocketIOManager.sharedInstance.emit(event: Constants.startTyping, data: param)
+                    controller.emitToChatSocket(event: Constants.startTyping)
                 }
             }
         }
@@ -220,26 +214,26 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let messageData = friendConversation?.getStackOfMessages()[indexPath.row]
         let messageProfile = messageData?.getSender()
-        let email = messageProfile?.getEmail()
+        let email = messageProfile?.email
 
         var cell: MessageTableViewCell?
 
         func messageCell(identifier: String) {
             cell = messagesTableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? MessageTableViewCell
-            cell?.userImage.image = messageProfile?.getPicture()
+            cell?.userImage.image = messageProfile?.picture
         }
 
         if let _ = messageData?.getMessage() {
-            if email == userData?.email {
+            if email == controller.userProfile?.email {
                 messageCell(identifier: "UserMessageCell")
             } else {
                 messageCell(identifier: "FriendMessageCell")
-                cell?.senderToReceiverLabel.text = messageProfile?.getFirstName()
+                cell?.senderToReceiverLabel.text = messageProfile?.getName()
             }
             cell?.messageLabel.text = messageData?.getMessage()
         } else {
             messageCell(identifier: "FriendTypingMessageCell")
-            cell?.senderToReceiverLabel.text = messageProfile?.getFirstName()
+            cell?.senderToReceiverLabel.text = messageProfile?.getName()
         }
 
         return cell!
@@ -301,21 +295,18 @@ extension UITableView {
 
 extension MessageViewController: SocketIODelegate {
 
-    // # Mark - SocketIODelegates
     func receivedMessage(user: String, message: String, date: String) {
         if didFriendType {
             didFriendType = false
             friendConversation?.removeLastMessageFromMessageStack()
             removeTypingMessageCell()
         }
-
         let newMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: message, date: date)
         friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
         insertMessageCell(isTyping: false)
     }
 
     func friendStartedTyping() {
-        print("Received socket delegate event: Friend started typing")
         if !didFriendType {
             didFriendType = true
             let emptyMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: nil, date: nil)
@@ -325,51 +316,11 @@ extension MessageViewController: SocketIODelegate {
     }
 
     func friendStoppedTyping() {
-        print("Received socket delegate event: Friend stopped typing")
         if didFriendType {
             didFriendType = false
             friendConversation?.removeLastMessageFromMessageStack()
             removeTypingMessageCell()
         }
-    }
-
-    // # Mark - SocketIO - NonDelegate
-    private func joinChatRoom() {
-        func generateChatRoomID() {
-            if let userEmail = userData?.email, let friendEmail = friendConversation?.getFriendProfile()?.getEmail() {
-                let sortedArray = [userEmail, friendEmail].sorted().joined(separator: "")
-                chatRoomID = sortedArray.sha512()
-                print("Chat ID: \(chatRoomID!)")
-            }
-        }
-
-        func subscribeToChatEvents() {
-            SocketIOManager.sharedInstance.subscribe(event: Constants.sendMessage)
-            SocketIOManager.sharedInstance.subscribe(event: Constants.startTyping)
-            SocketIOManager.sharedInstance.subscribe(event: Constants.stopTyping)
-        }
-
-        generateChatRoomID()
-        subscribeToChatEvents()
-        let param = ["user_email": userData?.email, "chat_id": chatRoomID]
-        SocketIOManager.sharedInstance.emit(event: Constants.joinRoom, data: param as AnyObject)
-    }
-
-    private func leaveChatRoom() {
-        func unsubscribeFromChatEvents() {
-            SocketIOManager.sharedInstance.unsubscribe(event: Constants.sendMessage)
-            SocketIOManager.sharedInstance.unsubscribe(event: Constants.startTyping)
-            SocketIOManager.sharedInstance.unsubscribe(event: Constants.stopTyping)
-        }
-
-        unsubscribeFromChatEvents()
-        let param = ["user_email": userData?.email, "chat_id": chatRoomID]
-        SocketIOManager.sharedInstance.emit(event: Constants.leaveRoom, data: param as AnyObject)
-    }
-
-    private func messageChat(message: String) {
-        let param = ["user_email": userData?.email, "chat_id": chatRoomID, "message": message, "date": DateConverter.convert(date: Date(), format: Constants.serverDateFormat)] as AnyObject
-        SocketIOManager.sharedInstance.emit(event: Constants.sendMessage, data: param)
     }
 
 }
