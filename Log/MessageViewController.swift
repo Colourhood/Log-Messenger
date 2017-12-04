@@ -190,14 +190,16 @@ extension MessageViewController: UITextFieldDelegate {
 
     @objc func keyboardDidShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.view.frame.size.height -= keyboardSize.size.height
-            messagesTableView.bounds.size.height -= keyboardSize.size.height
+            self.view.frame.size.height = UIScreen.main.bounds.size.height-keyboardSize.size.height
         }
-        self.messagesTableView.scrollToBottom()
+        let debounceTableViewFrame = Debouncer(delay: 0.1) {
+            self.messagesTableView.scrollToBottom()
+        }
+        debounceTableViewFrame.call()
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        self.view.frame.size.height = (self.view.window?.frame.size.height)!
+        self.view.frame.size.height = UIScreen.main.bounds.size.height
     }
 
 }
