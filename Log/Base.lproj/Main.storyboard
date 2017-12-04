@@ -475,19 +475,19 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Andrei Villasana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ER4-t8-K38">
-                                                    <rect key="frame" x="77" y="16" width="113" height="18.5"/>
+                                                    <rect key="frame" x="70" y="16" width="113" height="18.5"/>
                                                     <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="18"/>
                                                     <color key="textColor" red="0.19675097369828243" green="0.53885866212799804" blue="0.70258962563451777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:30 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulA-1m-fgb">
-                                                    <rect key="frame" x="264" y="17.5" width="86" height="15"/>
+                                                    <rect key="frame" x="257" y="17.5" width="93" height="15"/>
                                                     <fontDescription key="fontDescription" name="Brown-Light" family="Brown" pointSize="12"/>
                                                     <color key="textColor" red="0.85628172588832485" green="0.56957190392569979" blue="0.41173559991107" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Hey! I just got your message!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mWJ-01-uKI">
-                                                    <rect key="frame" x="77" y="38.5" width="182" height="16.5"/>
+                                                    <rect key="frame" x="70" y="38.5" width="182" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" red="0.58785040679648393" green="0.60665847081218272" blue="0.60087970918572198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -502,7 +502,7 @@
                                                 <constraint firstItem="ulA-1m-fgb" firstAttribute="leading" secondItem="mWJ-01-uKI" secondAttribute="trailing" constant="5" id="XQ3-Aj-bdR"/>
                                                 <constraint firstItem="ER4-t8-K38" firstAttribute="leading" secondItem="mWJ-01-uKI" secondAttribute="leading" id="fl2-5g-Juc"/>
                                                 <constraint firstItem="dgH-W8-GvX" firstAttribute="leading" secondItem="Ce1-KK-e8e" secondAttribute="leading" constant="17" id="iIe-eS-36d"/>
-                                                <constraint firstItem="ER4-t8-K38" firstAttribute="leading" secondItem="dgH-W8-GvX" secondAttribute="trailing" constant="15" id="jwo-Mx-7e5"/>
+                                                <constraint firstItem="ER4-t8-K38" firstAttribute="leading" secondItem="dgH-W8-GvX" secondAttribute="trailing" constant="8" id="jwo-Mx-7e5"/>
                                                 <constraint firstItem="dgH-W8-GvX" firstAttribute="centerY" secondItem="Ce1-KK-e8e" secondAttribute="centerY" id="qHK-Y9-gBE"/>
                                             </constraints>
                                         </tableViewCellContentView>
