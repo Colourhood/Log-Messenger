@@ -229,13 +229,26 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
         if let _ = messageData?.getMessage() {
             if email == controller.userProfile?.email {
-                messageCell(identifier: "UserMessageCell", withImage: true)
-            } else {
-                let possibleSameProfile = friendConversation?.getStackOfMessages()[indexPath.row+1]?.getSender()
-                if possibleSameProfile?.email == email {
-                    messageCell(identifier: "FriendOnlyMessageCell", withImage: false)
+                if (friendConversation?.getStackOfMessages().count)!-1 == indexPath.row {
+                    messageCell(identifier: "UserMessageCell", withImage: true)
                 } else {
+                    let possibleSameProfile = friendConversation?.getStackOfMessages()[indexPath.row+1]?.getSender()
+                    if possibleSameProfile?.email == email {
+                        messageCell(identifier: "UserOnlyMessageCell", withImage: false)
+                    } else {
+                        messageCell(identifier: "UserMessageCell", withImage: true)
+                    }
+                }
+            } else {
+                if (friendConversation?.getStackOfMessages().count)!-1 == indexPath.row {
                     messageCell(identifier: "FriendMessageCell", withImage: true)
+                } else {
+                    let possibleSameProfile = friendConversation?.getStackOfMessages()[indexPath.row+1]?.getSender()
+                    if possibleSameProfile?.email == email {
+                        messageCell(identifier: "FriendOnlyMessageCell", withImage: false)
+                    } else {
+                        messageCell(identifier: "FriendMessageCell", withImage: true)
+                    }
                 }
             }
             cell?.messageLabel.text = messageData?.getMessage()
