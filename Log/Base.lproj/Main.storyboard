@@ -77,18 +77,58 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendMessageCell" rowHeight="70" id="vLS-rL-PaC" userLabel="Friend Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="70"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendOnlyMessageCell" rowHeight="50" id="Daq-EY-ejK" userLabel="Friend Only Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="50"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Daq-EY-ejK" id="8Tq-tw-VIJ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7oH-yI-zIr" userLabel="Message View">
+                                                            <rect key="frame" x="47" y="5" width="176" height="45"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's assume this could work" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMM-dO-XmD">
+                                                                    <rect key="frame" x="10" y="10" width="156" height="25"/>
+                                                                    <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="14"/>
+                                                                    <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" red="0.87178192180000003" green="0.89819955579999999" blue="0.89819955579999999" alpha="0.59974315069999995" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstItem="xMM-dO-XmD" firstAttribute="leading" secondItem="7oH-yI-zIr" secondAttribute="leading" constant="10" id="1M0-qU-oPl"/>
+                                                                <constraint firstAttribute="trailing" secondItem="xMM-dO-XmD" secondAttribute="trailing" constant="10" id="4Gp-4c-P9t"/>
+                                                                <constraint firstItem="xMM-dO-XmD" firstAttribute="top" secondItem="7oH-yI-zIr" secondAttribute="top" constant="10" id="L3u-9Z-E9x"/>
+                                                                <constraint firstAttribute="bottom" secondItem="xMM-dO-XmD" secondAttribute="bottom" constant="10" id="O8T-nu-Le3"/>
+                                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="210" id="mam-rc-VIP">
+                                                                    <variation key="heightClass=regular-widthClass=compact" constant="210"/>
+                                                                </constraint>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="7oH-yI-zIr" firstAttribute="leading" secondItem="8Tq-tw-VIJ" secondAttribute="leading" constant="47" id="NWg-sx-s16"/>
+                                                        <constraint firstItem="7oH-yI-zIr" firstAttribute="top" secondItem="8Tq-tw-VIJ" secondAttribute="top" constant="5" id="o2S-tZ-hFr"/>
+                                                        <constraint firstAttribute="bottom" secondItem="7oH-yI-zIr" secondAttribute="bottom" id="sOO-eX-cDx"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="messageLabel" destination="xMM-dO-XmD" id="kxF-VR-nLE"/>
+                                                    <outlet property="messageView" destination="7oH-yI-zIr" id="Pcw-Bx-xGo"/>
+                                                </connections>
+                                            </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendMessageCell" rowHeight="50" id="vLS-rL-PaC" userLabel="Friend Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="78" width="375" height="50"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vLS-rL-PaC" id="SPT-3Y-c9E">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NV8-xr-DuN" userLabel="Message View">
-                                                            <rect key="frame" x="47" y="12" width="180.5" height="47"/>
+                                                            <rect key="frame" x="47" y="5" width="180.5" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, this is a message from me!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DZ-yR-iJx">
-                                                                    <rect key="frame" x="10" y="10" width="160.5" height="27"/>
+                                                                    <rect key="frame" x="10" y="10" width="160.5" height="20"/>
                                                                     <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="14"/>
                                                                     <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -106,7 +146,7 @@
                                                             </constraints>
                                                         </view>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="katherineUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="x4P-Fm-XfS" userLabel="Friend Image" customClass="ProfileImageView" customModule="Log" customModuleProvider="target">
-                                                            <rect key="frame" x="15" y="31" width="28" height="28"/>
+                                                            <rect key="frame" x="15" y="17" width="28" height="28"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="28" id="ce2-tM-cQn"/>
                                                                 <constraint firstAttribute="width" secondItem="x4P-Fm-XfS" secondAttribute="height" multiplier="1:1" id="hXQ-Ps-R7m"/>
@@ -114,11 +154,11 @@
                                                         </imageView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="NV8-xr-DuN" firstAttribute="top" secondItem="SPT-3Y-c9E" secondAttribute="topMargin" constant="1" id="Fbq-uc-E3i"/>
+                                                        <constraint firstItem="NV8-xr-DuN" firstAttribute="top" secondItem="SPT-3Y-c9E" secondAttribute="top" constant="5" id="6sn-Qa-AHL"/>
                                                         <constraint firstItem="x4P-Fm-XfS" firstAttribute="leading" secondItem="SPT-3Y-c9E" secondAttribute="leading" constant="15" id="GcZ-yi-Bgr"/>
                                                         <constraint firstItem="x4P-Fm-XfS" firstAttribute="baseline" secondItem="NV8-xr-DuN" secondAttribute="baseline" id="QbQ-pl-BY6"/>
+                                                        <constraint firstAttribute="bottom" secondItem="NV8-xr-DuN" secondAttribute="bottom" constant="5" id="Vqg-sO-XV2"/>
                                                         <constraint firstItem="NV8-xr-DuN" firstAttribute="leading" secondItem="x4P-Fm-XfS" secondAttribute="trailing" constant="4" id="e9b-fF-68V"/>
-                                                        <constraint firstAttribute="bottomMargin" secondItem="NV8-xr-DuN" secondAttribute="bottom" id="zcm-nH-pwO"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
@@ -128,7 +168,7 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserMessageCell" rowHeight="70" id="bQ1-J7-sbw" userLabel="User Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="98" width="375" height="70"/>
+                                                <rect key="frame" x="0.0" y="128" width="375" height="70"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bQ1-J7-sbw" id="1jX-ZS-2qS">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
@@ -178,7 +218,7 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendTypingMessageCell" rowHeight="60" id="jah-ig-Kil" userLabel="Friend Typing Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="168" width="375" height="60"/>
+                                                <rect key="frame" x="0.0" y="198" width="375" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jah-ig-Kil" id="4bQ-xe-bYG">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>

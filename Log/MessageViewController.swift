@@ -220,20 +220,27 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
         var cell: MessageTableViewCell?
 
-        func messageCell(identifier: String) {
+        func messageCell(identifier: String, withImage: Bool) {
             cell = messagesTableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? MessageTableViewCell
-            cell?.userImage.image = messageProfile?.picture
+            if withImage {
+                cell?.userImage.image = messageProfile?.picture
+            }
         }
 
         if let _ = messageData?.getMessage() {
             if email == controller.userProfile?.email {
-                messageCell(identifier: "UserMessageCell")
+                messageCell(identifier: "UserMessageCell", withImage: true)
             } else {
-                messageCell(identifier: "FriendMessageCell")
+                let possibleSameProfile = friendConversation?.getStackOfMessages()[indexPath.row+1]?.getSender()
+                if possibleSameProfile?.email == email {
+                    messageCell(identifier: "FriendOnlyMessageCell", withImage: false)
+                } else {
+                    messageCell(identifier: "FriendMessageCell", withImage: true)
+                }
             }
             cell?.messageLabel.text = messageData?.getMessage()
         } else {
-            messageCell(identifier: "FriendTypingMessageCell")
+            messageCell(identifier: "FriendTypingMessageCell", withImage: true)
         }
 
         return cell!
