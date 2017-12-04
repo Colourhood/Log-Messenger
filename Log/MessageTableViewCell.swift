@@ -9,7 +9,6 @@
 import Foundation
 
 class MessageTableViewCell: UITableViewCell {
-    @IBOutlet weak var senderToReceiverLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var messageView: UIView!
     @IBOutlet weak var userImage: ProfileImageView!

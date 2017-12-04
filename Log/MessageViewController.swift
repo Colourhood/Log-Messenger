@@ -220,22 +220,40 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
         var cell: MessageTableViewCell?
 
-        func messageCell(identifier: String) {
+        func messageCell(identifier: String, withImage: Bool) {
             cell = messagesTableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? MessageTableViewCell
-            cell?.userImage.image = messageProfile?.picture
+            if withImage {
+                cell?.userImage.image = messageProfile?.picture
+            }
         }
 
         if let _ = messageData?.getMessage() {
             if email == controller.userProfile?.email {
-                messageCell(identifier: "UserMessageCell")
+                if (friendConversation?.getStackOfMessages().count)!-1 == indexPath.row {
+                    messageCell(identifier: "UserMessageCell", withImage: true)
+                } else {
+                    let possibleSameProfile = friendConversation?.getStackOfMessages()[indexPath.row+1]?.getSender()
+                    if possibleSameProfile?.email == email {
+                        messageCell(identifier: "UserOnlyMessageCell", withImage: false)
+                    } else {
+                        messageCell(identifier: "UserMessageCell", withImage: true)
+                    }
+                }
             } else {
-                messageCell(identifier: "FriendMessageCell")
-                cell?.senderToReceiverLabel.text = messageProfile?.getName()
+                if (friendConversation?.getStackOfMessages().count)!-1 == indexPath.row {
+                    messageCell(identifier: "FriendMessageCell", withImage: true)
+                } else {
+                    let possibleSameProfile = friendConversation?.getStackOfMessages()[indexPath.row+1]?.getSender()
+                    if possibleSameProfile?.email == email {
+                        messageCell(identifier: "FriendOnlyMessageCell", withImage: false)
+                    } else {
+                        messageCell(identifier: "FriendMessageCell", withImage: true)
+                    }
+                }
             }
             cell?.messageLabel.text = messageData?.getMessage()
         } else {
-            messageCell(identifier: "FriendTypingMessageCell")
-            cell?.senderToReceiverLabel.text = messageProfile?.getName()
+            messageCell(identifier: "FriendTypingMessageCell", withImage: true)
         }
 
         return cell!
@@ -244,9 +262,11 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     func insertMessageCell(isTyping: Bool) {
         let dataCount = friendConversation!.getStackOfMessages().count
         let indexPath = IndexPath(row: dataCount-1, section: 0)
+        let previousIndexPath = IndexPath(row: dataCount-2, section: 0)
 
         UIView.setAnimationsEnabled(false)
         messagesTableView.insertRows(at: [indexPath], with: .none)
+        messagesTableView.reloadRows(at: [previousIndexPath], with: .none)
         UIView.setAnimationsEnabled(true)
 
         DispatchQueue.main.async {
