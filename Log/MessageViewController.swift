@@ -230,12 +230,10 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
                 messageCell(identifier: "UserMessageCell")
             } else {
                 messageCell(identifier: "FriendMessageCell")
-                cell?.senderToReceiverLabel.text = messageProfile?.getName()
             }
             cell?.messageLabel.text = messageData?.getMessage()
         } else {
             messageCell(identifier: "FriendTypingMessageCell")
-            cell?.senderToReceiverLabel.text = messageProfile?.getName()
         }
 
         return cell!
