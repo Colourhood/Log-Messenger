@@ -55,7 +55,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Katherine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIW-Al-szG" userLabel="Name">
-                                        <rect key="frame" x="152" y="13" width="71.5" height="19.5"/>
+                                        <rect key="frame" x="147.5" y="11.5" width="81" height="22.5"/>
                                         <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="19"/>
                                         <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -85,10 +85,10 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7oH-yI-zIr" userLabel="Message View">
-                                                            <rect key="frame" x="47" y="5" width="176" height="35"/>
+                                                            <rect key="frame" x="47" y="5" width="203" height="35"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's assume this could work" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMM-dO-XmD">
-                                                                    <rect key="frame" x="10" y="10" width="156" height="15"/>
+                                                                    <rect key="frame" x="10" y="10" width="183" height="15"/>
                                                                     <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="14"/>
                                                                     <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -125,10 +125,10 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NV8-xr-DuN" userLabel="Message View">
-                                                            <rect key="frame" x="47" y="5" width="180.5" height="35"/>
+                                                            <rect key="frame" x="47" y="5" width="210" height="35"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, this is a message from me!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DZ-yR-iJx">
-                                                                    <rect key="frame" x="10" y="10" width="160.5" height="15"/>
+                                                                    <rect key="frame" x="10" y="10" width="190" height="15"/>
                                                                     <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="14"/>
                                                                     <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -247,10 +247,10 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xSW-3D-YzR" userLabel="Message View">
-                                                            <rect key="frame" x="221.5" y="5" width="106.5" height="35"/>
+                                                            <rect key="frame" x="207" y="5" width="121" height="35"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Does this work?" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drf-Yn-k7l">
-                                                                    <rect key="frame" x="10" y="10" width="86.5" height="15"/>
+                                                                    <rect key="frame" x="10" y="10" width="101" height="15"/>
                                                                     <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="14"/>
                                                                     <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -287,10 +287,10 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jLG-H8-tCc" userLabel="Message View">
-                                                            <rect key="frame" x="160.5" y="5" width="167.5" height="35"/>
+                                                            <rect key="frame" x="136.5" y="5" width="191.5" height="35"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, thanks for the message!" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRu-nx-8Nr">
-                                                                    <rect key="frame" x="10" y="10" width="147.5" height="15"/>
+                                                                    <rect key="frame" x="10" y="10" width="171.5" height="15"/>
                                                                     <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="14"/>
                                                                     <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -338,8 +338,15 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FbP-5X-DGD" userLabel="Send Message View">
                                         <rect key="frame" x="0.0" y="542" width="375" height="60"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yOa-sL-NOF" userLabel="Line">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                                                <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="PX8-Hp-1s1"/>
+                                                </constraints>
+                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rl8-bU-T87">
-                                                <rect key="frame" x="310" y="-3" width="50" height="60"/>
+                                                <rect key="frame" x="310" y="0.0" width="50" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="2KS-Pa-S7B"/>
                                                     <constraint firstAttribute="width" constant="50" id="vMw-3G-ij7"/>
@@ -365,13 +372,16 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="ybS-dW-Hfn" firstAttribute="centerY" secondItem="FbP-5X-DGD" secondAttribute="centerY" id="8Rz-JN-RRd"/>
+                                            <constraint firstItem="yOa-sL-NOF" firstAttribute="top" secondItem="FbP-5X-DGD" secondAttribute="top" id="9YI-fN-hK1"/>
                                             <constraint firstAttribute="height" constant="60" id="KzF-Zh-nHV"/>
                                             <constraint firstItem="ybS-dW-Hfn" firstAttribute="top" secondItem="FbP-5X-DGD" secondAttribute="top" constant="3" id="U1r-eT-IM7"/>
                                             <constraint firstItem="rl8-bU-T87" firstAttribute="leading" secondItem="ybS-dW-Hfn" secondAttribute="trailing" constant="8" id="U90-21-QdD"/>
                                             <constraint firstAttribute="bottom" secondItem="ybS-dW-Hfn" secondAttribute="bottom" constant="3" id="WdQ-1H-cgs"/>
                                             <constraint firstItem="ybS-dW-Hfn" firstAttribute="leading" secondItem="FbP-5X-DGD" secondAttribute="leading" constant="15" id="aC0-jL-Ewe"/>
                                             <constraint firstAttribute="trailing" secondItem="rl8-bU-T87" secondAttribute="trailing" constant="15" id="lwD-CM-S5g"/>
-                                            <constraint firstAttribute="bottom" secondItem="rl8-bU-T87" secondAttribute="bottom" constant="3" id="oxD-vE-bji"/>
+                                            <constraint firstAttribute="bottom" secondItem="rl8-bU-T87" secondAttribute="bottom" id="oxD-vE-bji"/>
+                                            <constraint firstAttribute="trailing" secondItem="yOa-sL-NOF" secondAttribute="trailing" id="vAU-GB-6NB"/>
+                                            <constraint firstItem="yOa-sL-NOF" firstAttribute="leading" secondItem="FbP-5X-DGD" secondAttribute="leading" id="zKX-eD-VNs"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -475,13 +485,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Andrei Villasana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ER4-t8-K38">
-                                                    <rect key="frame" x="70" y="16" width="113" height="18.5"/>
+                                                    <rect key="frame" x="70" y="15" width="127.5" height="21"/>
                                                     <fontDescription key="fontDescription" name="Calibre-Regular" family="Calibre" pointSize="18"/>
                                                     <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:30 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulA-1m-fgb">
-                                                    <rect key="frame" x="257" y="17.5" width="93" height="15"/>
+                                                    <rect key="frame" x="257" y="18" width="93" height="14"/>
                                                     <fontDescription key="fontDescription" name="Brown-Light" family="Brown" pointSize="12"/>
                                                     <color key="textColor" red="0.66422420739999999" green="0.66424006219999998" blue="0.66423153879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
