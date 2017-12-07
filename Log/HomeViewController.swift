@@ -19,7 +19,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var homeTableView: UITableView!
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var friendSearchBar: UISearchBar!
-    
+
     /* IBActions */
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
     }
