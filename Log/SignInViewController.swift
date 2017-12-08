@@ -84,25 +84,24 @@ class SignInViewController: UIViewController {
 
     private func handleSignUp(parameters: [String: Any]) {
         let filename = Constants.profilePicture
-        let directory = Constants.Images
 
         guard let image = imageButton.imageView?.image else { return }
         guard let userImageData = ConvertImage.convertUIImageToJPEGData(image: image) else { return }
-        LOGFileManager.createFileInDocuments(file: userImageData, fileName: filename, directory: directory)
 
         SignInController.handleLoginSignUpRequest(url: "/user/signup", parameters: parameters, completion: { (json) in
             if let userEmail = json["user_email"] as? String {
-                if let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: filename, directory: directory) {
-                    let key = "\(filename):\(userEmail)"
-
-                    LOGS3.uploadToS3(key: key, fileURL: profileImageURL, completionHandler: { (result) in
-                        if result != nil {
-                            UserCoreDataController.setUser(userEmail: userEmail,
-                                                           firstName: "Mock Name",
-                                                           image: userImageData as NSData)
-                            self.instantiateHomeView()
-                        }
-                    })
+                if let dataString = String(data: userImageData, encoding: String.Encoding.utf8) {
+                    if let dataURL = URL(string: dataString) {
+                        let key = "\(filename):\(userEmail)"
+                        LOGS3.uploadToS3(key: key, fileURL: dataURL, completionHandler: { (result) in
+                            if result != nil {
+                                UserCoreDataController.setUser(userEmail: userEmail,
+                                                               firstName: "Mock Name",
+                                                               image: userImageData as NSData)
+                                self.instantiateHomeView()
+                            }
+                        })
+                    }
                 }
             }
         })
