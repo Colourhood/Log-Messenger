@@ -10,7 +10,6 @@
 import Foundation
 import CoreData
 
-
 extension MessagesCoreData {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<MessagesCoreData> {
@@ -18,7 +17,6 @@ extension MessagesCoreData {
     }
 
     @NSManaged public var sentBy: String?
-    @NSManaged public var sentTo: String?
     @NSManaged public var message: String?
     @NSManaged public var id: Int64
     @NSManaged public var date: NSDate?

@@ -12,32 +12,29 @@ import CryptoSwift
 struct MessageController {
 
     var userProfile: LOGUser?
-    var chatRoomID: String?
+    var chatID: String?
 
-    init() {
+    init(chatIdentifier: String?) {
         let userData = UserCoreDataController.getUserProfile()
-        userProfile = LOGUser(email: userData?.email,
-                              firstName: userData?.firstName,
-                              picture: UIImage(data: (userData?.image)! as Data))
+        userProfile = LOGUser(email: userData?.email, firstName: userData?.firstName, picture: UIImage(data: (userData?.image)! as Data))
+        chatID = chatIdentifier
     }
 
     /* HTTP Methods */
-    func getMessagesForFriend(friendEmail: String?, completionHandler: @escaping ([String: Any]) -> Void) {
-        if let userEmail = UserCoreDataController.getUserProfile()?.email,
-           let friendEmail = friendEmail {
-            let request = LOGHTTP.get(url: "/user/messages/\(userEmail)/\(friendEmail)")
+    func getMessagesForFriend(completionHandler: @escaping ([String: Any]) -> Void) {
+        guard let userEmail = userProfile?.email, let chatID = chatID else { return }
+        let request = LOGHTTP.get(url: "/user/messages/\(userEmail)/\(chatID)")
 
-            request.responseJSON(completionHandler: { (response) in
-                switch response.result {
-                case .success(let json):
-                    if let jsonDict = json as? [String: Any] {
-                        completionHandler(jsonDict)
-                    }
-                case .failure(let error):
-                    print("Error: \(error)")
+        request.responseJSON(completionHandler: { (response) in
+            switch response.result {
+            case .success(let json):
+                if let jsonDict = json as? [String: Any] {
+                    completionHandler(jsonDict)
                 }
-            })
-        }
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        })
     }
 
     func sendNewMessage(parameters: [String: AnyObject], completionHandler: @escaping ([String: Any]) -> Void) {
@@ -56,22 +53,13 @@ struct MessageController {
     }
 
     /* SocketIO Methods */
-    mutating func joinChatRoom(friendEmail: String?) {
-        func generateChatRoomID() {
-            let userEmail = userProfile?.email
-            if let userEmail = userEmail, let friendEmail = friendEmail {
-                let sortedArray = [userEmail, friendEmail].sorted().joined(separator: "")
-                    chatRoomID = sortedArray.sha512()
-            }
-        }
-
+    mutating func joinChatRoom() {
         func subscribeToChatEvents() {
             SocketIOManager.sharedInstance.subscribe(event: Constants.sendMessage)
             SocketIOManager.sharedInstance.subscribe(event: Constants.startTyping)
             SocketIOManager.sharedInstance.subscribe(event: Constants.stopTyping)
         }
 
-        generateChatRoomID()
         subscribeToChatEvents()
         emitToChatSocket(event: Constants.joinRoom)
     }
@@ -87,9 +75,9 @@ struct MessageController {
         emitToChatSocket(event: Constants.leaveRoom)
     }
 
-    func messageChat(message: String) {
+    func messageChat(message: String, chatID: String) {
         let param = ["user_email": userProfile?.email,
-                     "chat_id": chatRoomID,
+                     "chat_id": chatID,
                      "message": message,
                      "date": DateConverter.convert(date: Date(), format: Constants.serverDateFormat)
                     ] as AnyObject
@@ -98,7 +86,7 @@ struct MessageController {
 
     func emitToChatSocket(event: String) {
         let userEmail = userProfile?.email
-        let param = ["user_email": userEmail, "chat_id": chatRoomID] as AnyObject
+        let param = ["user_email": userEmail, "chat_id": chatID] as AnyObject
         SocketIOManager.sharedInstance.emit(event: event, data: param)
     }
 

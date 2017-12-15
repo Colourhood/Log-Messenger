@@ -10,6 +10,7 @@ import Foundation
 
 struct MessageStack {
     private var messageStack: [Message?] = []
+    private var chatID: String?
     private var friends: LOGUser?
 
     mutating func setFriends(friendProfile: LOGUser?) {
@@ -18,6 +19,10 @@ struct MessageStack {
 
     mutating func setStackOfMessages(stack: [Message]) {
         messageStack = stack
+    }
+
+    mutating func setChatID(chatIdentifier: String) {
+        chatID = chatIdentifier
     }
 
     mutating func appendMessageToMessageStack(messageObj: Message?) {
@@ -34,6 +39,10 @@ struct MessageStack {
 
     func getFriendProfile() -> LOGUser? {
         return friends
+    }
+
+    func getChatID() -> String? {
+        return chatID
     }
 
 }

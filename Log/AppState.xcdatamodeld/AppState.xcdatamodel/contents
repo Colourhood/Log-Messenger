@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17B1003" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Messages" representedClassName="MessagesCoreData" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Messages" representedClassName="MessagesCoreData" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sentBy" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sentTo" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="UserCoreData" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,7 +13,7 @@
         <attribute name="university" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Messages" positionX="-270" positionY="-9" width="128" height="103"/>
         <element name="User" positionX="-54" positionY="-9" width="128" height="103"/>
-        <element name="Messages" positionX="-270" positionY="-9" width="128" height="118"/>
     </elements>
 </model>

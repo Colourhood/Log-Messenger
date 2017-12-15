@@ -11,7 +11,7 @@ import UIKit
 class HomeViewController: UIViewController {
 
     var recentMessages: [MessageStack] = []
-    var selectedConversationWithFriend: LOGUser?
+    var selectedMessageStack: MessageStack?
 
     lazy var slideInTransitionDelegate = SlideInPresentationManager()
 
@@ -46,27 +46,31 @@ class HomeViewController: UIViewController {
                 var image: UIImage?
 
                 let recentMessageDict = messagePackets as? [String: Any]
-                let message = recentMessageDict?["message"] as? String
-                let date = recentMessageDict?["created_at"] as? String
-                let friendEmail = recentMessageDict?["email_address"] as? String
-                let firstName = recentMessageDict?["first_name"] as? String
-                let imageString: String? = recentMessageDict?["image"] as? String
-                // let error: String? = recentMessageDict["error"] as? String
 
-                if let imageString = imageString {
-                    let imageData = NSData(base64Encoded: imageString, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0)))
-                    image = UIImage(data: imageData! as Data)!
-                } else {
-                    image = UIImage(named: "defaultUserIcon")
-                }
+                if let email = recentMessageDict?["email_address"] as? String,
+                   let firstName = recentMessageDict?["first_name"] as? String,
+                   let message = recentMessageDict?["message"] as? String,
+                   let date = recentMessageDict?["created_at"] as? String,
+                   let chatID = recentMessageDict?["chat_id"] as? String {
 
-                friendProfile = LOGUser(email: friendEmail, firstName: firstName, picture: image)
+                    let imageString: String? = recentMessageDict?["image"] as? String
 
-                if let friendProfile = friendProfile {
-                    let recentMessage = Message(sender: friendProfile, message: message!, date: date!)
-                    conversation.setFriends(friendProfile: friendProfile)
-                    conversation.setStackOfMessages(stack: [recentMessage])
-                    self.recentMessages.append(conversation)
+                    if let imageString = imageString {
+                        let imageData = NSData(base64Encoded: imageString, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0)))
+                        image = UIImage(data: imageData! as Data)!
+                    } else {
+                        image = UIImage(named: "defaultUserIcon")
+                    }
+
+                    friendProfile = LOGUser(email: email, firstName: firstName, picture: image)
+
+                    if let friendProfile = friendProfile {
+                        let recentMessage = Message(sender: friendProfile, message: message, date: date)
+                        conversation.setFriends(friendProfile: friendProfile)
+                        conversation.setStackOfMessages(stack: [recentMessage])
+                        conversation.setChatID(chatIdentifier: chatID)
+                        self.recentMessages.append(conversation)
+                    }
                 }
             }
 
@@ -81,9 +85,7 @@ class HomeViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "HomeToMessageSegue" {
             if let messageViewController = segue.destination as? MessageViewController {
-                var messageStack = MessageStack()
-                messageStack.setFriends(friendProfile: selectedConversationWithFriend)
-                messageViewController.friendConversation = messageStack
+                messageViewController.friendConversation = selectedMessageStack
             }
         }
     }
@@ -122,14 +124,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell?.friendName.text = friendName
         cell?.friendPicture.image = userImage
         cell?.mostRecentMessageFromConversation.text = mostRecentMessage
-        cell?.date.text = DateConverter.handleDate(date: date!)
+        cell?.date.text = DateConverter.handleDate(date: date)
 
         return cell!
     }
 
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let friendConversationData = recentMessages[indexPath.row]
-        selectedConversationWithFriend = friendConversationData.getFriendProfile()
+        let friendMessageStack = recentMessages[indexPath.row]
+        selectedMessageStack = friendMessageStack
         return indexPath
     }
 
