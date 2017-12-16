@@ -29,6 +29,10 @@ struct MessageStack {
         messageStack.append(messageObj)
     }
 
+    mutating func removeAllMessages() {
+        messageStack.removeAll()
+    }
+
     mutating func removeLastMessageFromMessageStack() {
         messageStack.removeLast()
     }

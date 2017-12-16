@@ -78,6 +78,8 @@ class MessageViewController: UIViewController {
     }
 
     func fetchMessages() {
+        //Clear up any messages that may still be present
+        friendConversation?.removeAllMessages()
         // Network request to get all(for now) messages between two users
         guard let friendProfile = friendConversation?.getFriendProfile() else { return }
 
