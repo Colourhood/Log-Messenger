@@ -31,21 +31,3 @@ class SegueFromRight: UIStoryboardSegue {
     }
 
 }
-
-class UnwindSegueFromRight: UIStoryboardSegue {
-
-    override func perform() {
-        unwindAnimation()
-    }
-
-    func unwindAnimation() {
-        let sourceView = self.source
-
-        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
-            sourceView.view.transform = CGAffineTransform(translationX: sourceView.view.frame.width, y: 0)
-        }, completion: { _ in
-            sourceView.dismiss(animated: false, completion: nil)
-        })
-    }
-
-}

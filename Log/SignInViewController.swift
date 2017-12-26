@@ -98,7 +98,7 @@ class SignInViewController: UIViewController {
                     LOGS3.uploadToS3(key: key, fileURL: profileImageURL, completionHandler: { (result) in
                         if result != nil {
                             UserCoreDataController.setUser(userEmail: userEmail,
-                                                           firstName: "Mock Name",
+                                                           firstName: "Alex",
                                                            image: userImageData as NSData)
                             self.instantiateHomeView()
                         }

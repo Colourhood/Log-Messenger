@@ -11,9 +11,9 @@ import UIKit
 class MessageViewController: UIViewController {
 
     open var friendConversation: MessageStack?
+    var controller: MessageController!
     var didFriendType: Bool = false
     var didUserType: Bool = false
-    var controller = MessageController()
     lazy var dismissTransitionDelegate = DismissManager()
 
     /* UI-IBOutlets */
@@ -27,8 +27,9 @@ class MessageViewController: UIViewController {
         SocketIOManager.sharedInstance.delegate = self
         prepareUI()
         addGesture()
+        controller = MessageController(chatIdentifier: friendConversation?.getChatID())
+        controller.joinChatRoom()
         fetchMessages()
-        controller.joinChatRoom(friendEmail: friendConversation?.getFriendProfile()?.email)
         registerForKeyboardNotifications()
     }
 
@@ -77,11 +78,12 @@ class MessageViewController: UIViewController {
     }
 
     func fetchMessages() {
+        //Clear up any messages that may still be present
+        friendConversation?.removeAllMessages()
         // Network request to get all(for now) messages between two users
         guard let friendProfile = friendConversation?.getFriendProfile() else { return }
 
-        controller.getMessagesForFriend(friendEmail: friendProfile.email,
-                                        completionHandler: { [weak self] (response) in
+        controller.getMessagesForFriend(completionHandler: { [weak self] (response) in
             guard let `self` = self else { return }
 
             // Array of messages for key 'messages'
@@ -111,15 +113,11 @@ class MessageViewController: UIViewController {
     }
 
     fileprivate func sendMessage(message: String) {
-        let friendEmail = friendConversation?.getFriendProfile()?.email
-        let parameters = ["sent_by": controller.userProfile?.email,
-                          "sent_to": friendEmail,
-                          "message": message
-                         ] as [String: AnyObject]
-        controller.sendNewMessage(parameters: parameters) { (json) in // Server - Database
-            print(json)
-        }
-        controller.messageChat(message: message) // Server - SocketIO
+        guard let chatID = friendConversation?.getChatID() else { return }
+        let parameters = ["sent_by": controller.userProfile?.email, "message": message, "chat_id": chatID] as [String: AnyObject]
+
+        controller.sendNewMessage(parameters: parameters) { (json) in print(json) }
+        controller.messageChat(message: message, chatID: chatID) // Server - SocketIO
     }
 
     @IBAction func didPressSendMessageButton() {
