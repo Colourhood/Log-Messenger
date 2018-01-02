@@ -13,14 +13,17 @@ private let socketURL: String = "http://192.168.0.10:7555"
 // private let socketURL: String = "http://127.0.0.1:7555"
 
 protocol SocketIODelegate: class {
+    var didFriendType: Bool { get set }
+    var didUserType: Bool { get set }
+
     func receivedMessage(user: String, message: String, date: String)
-    func friendStartedTyping()
-    func friendStoppedTyping()
+    func friendStartedTyping(user: String)
+    func friendStoppedTyping(user: String)
 }
 
 class SocketIOManager: NSObject {
     static let sharedInstance = SocketIOManager()
-    var socket: SocketIOClient = SocketIOClient(socketURL: URL(string: socketURL)!)
+    private var socket: SocketIOClient = SocketIOClient(socketURL: URL(string: socketURL)!)
     weak var delegate: SocketIODelegate?
 
     private override init() {
@@ -64,9 +67,11 @@ class SocketIOManager: NSObject {
                           let date = data["date"] else { return }
                     delegate.receivedMessage(user: user, message: message, date: date)
                 case Constants.startTyping:
-                    delegate.friendStartedTyping()
+                    guard let user = data["user_email"] else { return }
+                    delegate.friendStartedTyping(user: user)
                 case Constants.stopTyping:
-                    delegate.friendStoppedTyping()
+                    guard let user = data["user_email"] else { return }
+                    delegate.friendStoppedTyping(user: user)
                 default:
                     break
                 }

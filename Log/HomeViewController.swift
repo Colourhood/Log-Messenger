@@ -42,7 +42,7 @@ class HomeViewController: UIViewController {
 
             for messagePackets in responseData {
                 var conversation = MessageStack()
-                var friendProfile: LOGUser?
+                var friendProfile: User?
                 var image: UIImage?
 
                 let recentMessageDict = messagePackets as? [String: Any]
@@ -62,10 +62,10 @@ class HomeViewController: UIViewController {
                         image = UIImage(named: "defaultUserIcon")
                     }
 
-                    friendProfile = LOGUser(email: email, firstName: firstName, picture: image)
+                    friendProfile = User(email: email, firstName: firstName, picture: image)
 
                     if let friendProfile = friendProfile {
-                        let recentMessage = Message(sender: friendProfile, message: message, date: date)
+                        let recentMessage = Message(user: friendProfile, message: message, date: date)
                         conversation.setFriends(friendProfile: friendProfile)
                         conversation.setStackOfMessages(stack: [recentMessage])
                         conversation.setChatID(chatIdentifier: chatID)

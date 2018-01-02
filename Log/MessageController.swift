@@ -11,12 +11,12 @@ import CryptoSwift
 
 struct MessageController {
 
-    var userProfile: LOGUser?
+    var userProfile: User?
     var chatID: String?
 
     init(chatIdentifier: String?) {
         let userData = UserCoreDataController.getUserProfile()
-        userProfile = LOGUser(email: userData?.email, firstName: userData?.firstName, picture: UIImage(data: (userData?.image)! as Data))
+        userProfile = User(email: userData?.email, firstName: userData?.firstName, picture: UIImage(data: (userData?.image)! as Data))
         chatID = chatIdentifier
     }
 

@@ -83,11 +83,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FWd-JV-7yZ" userLabel="Main View">
                                 <rect key="frame" x="0.0" y="65" width="375" height="602"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wd8-4g-iiu">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wd8-4g-iiu" customClass="MessageTableView" customModule="Log" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendOnlyMessageCell" rowHeight="35" id="Daq-EY-ejK" userLabel="Friend Only Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendPreviousMessageCell" rowHeight="35" id="Daq-EY-ejK" userLabel="Friend Only Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="35"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Daq-EY-ejK" id="8Tq-tw-VIJ">
@@ -177,7 +177,7 @@
                                                     <outlet property="userImage" destination="x4P-Fm-XfS" id="Ifj-T4-YHw"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendTypingMessageCell" rowHeight="45" id="jah-ig-Kil" userLabel="Friend Typing Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TypingMessageCell" rowHeight="45" id="jah-ig-Kil" userLabel="Friend Typing Message Cell" customClass="MessageTypingTableViewCell" customModule="Log" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="108" width="375" height="45"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jah-ig-Kil" id="4bQ-xe-bYG">
@@ -249,7 +249,7 @@
                                                     <outlet property="userImage" destination="5WU-CV-f31" id="tOy-Y7-G0c"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserOnlyMessageCell" rowHeight="35" id="dCh-4E-PfV" userLabel="User Only Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserPreviousMessageCell" rowHeight="35" id="dCh-4E-PfV" userLabel="User Only Message Cell" customClass="MessageTableViewCell" customModule="Log" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="153" width="375" height="35"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dCh-4E-PfV" id="kmD-24-hGF">
@@ -422,7 +422,7 @@
                     </view>
                     <connections>
                         <outlet property="friendName" destination="uIW-Al-szG" id="Hoz-Mi-0ON"/>
-                        <outlet property="messagesTableView" destination="wd8-4g-iiu" id="ihv-vQ-9my"/>
+                        <outlet property="messagesTableView" destination="wd8-4g-iiu" id="CE4-8x-dSM"/>
                         <outlet property="newMessageTextField" destination="ybS-dW-Hfn" id="5dg-93-a6d"/>
                         <outlet property="sendButton" destination="rl8-bU-T87" id="bOA-WF-XVw"/>
                     </connections>
