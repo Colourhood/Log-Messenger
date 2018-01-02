@@ -95,16 +95,18 @@ class MessageViewController: UIViewController {
                 let message = Message(user: controller.userProfile!, message: messageText, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
 
                 if stackViewModel.didFriendType {
+                    // Store last message reference
+                    guard let lastMessage = stackViewModel.stack.last else { return }
+
                     //Rearrange message typing cell from row and dataSource
                     stackViewModel.popLastMessage()
                     removeTypingMessageCell()
 
                     //Append message to dataSource and to tableview
                     stackViewModel.add(message: message)
-
                     addMessageCell()
-                    let emptyMessage = Message(user: stackViewModel.friends[0], message: nil, date: nil)
-                    stackViewModel.add(message: emptyMessage)
+
+                    stackViewModel.add(message: lastMessage)
                     addMessageCell()
                 } else {
                     stackViewModel.add(message: message)
@@ -191,7 +193,7 @@ extension MessageViewController: UITextFieldDelegate {
     func deregisterFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
-        
+
         newMessageTextField.removeTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
     }
 
@@ -213,50 +215,58 @@ extension MessageViewController: UITextFieldDelegate {
 
 extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
-    private func loadCell(identifier: String, withImage: Bool) ->  UITableViewCell {
-        cell = messagesTableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? MessageTableViewCell
-        if withImage {
-            cell?.userImage.image = messageObj.user.picture
-        }
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return stackViewModel.stack.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let messageObj = stackViewModel.stack[indexPath.row]
+        let cellIndex = indexPath.row
+        let messageObj = stackViewModel.stack[cellIndex]
+        let userObj = messageObj.user
+        let message = messageObj.message
+        let email = userObj.email
 
-        if let _ = messageData?.getMessage() {
-            if email == controller.userProfile?.email {
-                if (friendConversation?.getStackOfMessages().count)!-1 == indexPath.row {
-                    messageCell(identifier: "UserMessageCell", withImage: true)
-                } else {
-                    let possibleSameProfile = friendConversation?.getStackOfMessages()[indexPath.row+1]?.getSender()
-                    if possibleSameProfile?.email == email {
-                        messageCell(identifier: "UserOnlyMessageCell", withImage: false)
-                    } else {
-                        messageCell(identifier: "UserMessageCell", withImage: true)
-                    }
-                }
+        func determineCellType(isUser: Bool) -> MessageCellType {
+            let userCells = [MessageCellType.UserMessageCell, MessageCellType.UserPreviousMessageCell]
+            let friendCells = [MessageCellType.FriendMessageCell, MessageCellType.FriendPreviousMessageCell]
+            var cellArrayType: [MessageCellType]
+
+            isUser ? (cellArrayType = userCells) : (cellArrayType = friendCells)
+
+            if stackViewModel.stack.count-1 == cellIndex {
+                return cellArrayType[0]
             } else {
-                if (friendConversation?.getStackOfMessages().count)!-1 == indexPath.row {
-                    messageCell(identifier: "FriendMessageCell", withImage: true)
-                } else {
-                    let possibleSameProfile = friendConversation?.getStackOfMessages()[indexPath.row+1]?.getSender()
-                    if possibleSameProfile?.email == email {
-                        messageCell(identifier: "FriendOnlyMessageCell", withImage: false)
-                    } else {
-                        messageCell(identifier: "FriendMessageCell", withImage: true)
-                    }
-                }
+                let previousUser = stackViewModel.stack[cellIndex+1].user
+                return previousUser.email == email ? cellArrayType[1] : cellArrayType[0]
             }
-            cell?.messageLabel.text = messageData?.getMessage()
-        } else {
-            messageCell(identifier: "FriendTypingMessageCell", withImage: true)
         }
 
-        return cell!
+        func loadCell(cellType: MessageCellType) -> UITableViewCell {
+            if cellType == MessageCellType.TypingMessageCell {
+                guard let cell = messagesTableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? MessageTypingTableViewCell
+                    else { return UITableViewCell() }
+                cell.userImage.image = userObj.picture
+            } else {
+                guard let cell = messagesTableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? MessageTableViewCell
+                    else { return UITableViewCell() }
+                cell.userImage.image = userObj.picture
+                cell.messageLabel.text = message
+            }
+        }
+
+        if message != nil {
+            // Load cell that are supposed to be displayed by user
+            if email == controller.userProfile?.email {
+                return loadCell(cellType: determineCellType(isUser: true))
+            } else {
+                return loadCell(cellType: determineCellType(isUser: false))
+            }
+            //cell?.messageLabel.text = messageData?.getMessage()
+        } else {
+            return loadCell(cellType: MessageCellType.TypingMessageCell)
+        }
+
+        return UITableViewCell()
     }
 
     // Inserting && Removing Cells from TableView

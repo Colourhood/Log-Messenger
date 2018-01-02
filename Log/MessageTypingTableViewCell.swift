@@ -12,7 +12,6 @@ class MessageTypingTableViewCell: UITableViewCell {
 
     @IBOutlet weak var messageView: UIView!
     @IBOutlet weak var userImage: ProfileImageView!
-
     @IBOutlet weak var dot1: UIView!
     @IBOutlet weak var dot2: UIView!
     @IBOutlet weak var dot3: UIView!
