@@ -28,26 +28,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let currentUser = UserCoreDataController.getUserProfile()
         if currentUser?.email != nil || currentUser?.firstName != nil {
-//      self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MessageViewController")
-            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
 
         } else {
-            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
         }
 
         return true
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        SocketIOManager.sharedInstance.establishConnection()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        SocketIOManager.sharedInstance.closeConnection()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        SocketIOManager.sharedInstance.closeConnection()
         CoreDataBP.saveContext()
     }
 

@@ -8,9 +8,15 @@
 
 import Foundation
 
+extension Notification.Name {
+    public static let MessageAddCell = Notification.Name("AddMessageTableViewCell")
+    public static let MessageRemoveCell = Notification.Name("RemoveMessageTableViewCell")
+}
+
 class MessageStackViewModel {
 
     fileprivate var msObj: MessageStack
+    fileprivate var socket: MessageSocket = MessageSocket()
     fileprivate var _didFriendType: Bool = false
     fileprivate var _didUserType: Bool = false
     // View Model only displays data to the viewcontroller
@@ -18,7 +24,13 @@ class MessageStackViewModel {
 
     init (chatID: String) {
         msObj = MessageStack(friends: [:], stack: [], chatID: chatID)
-        SocketIOManager.sharedInstance.delegate = self
+        socket.delegate = self
+        socket.join(param: ["user_email": "", "chat_id": chatID])
+    }
+
+    deinit {
+        socket.delegate = nil
+        socket.leave(param: ["user_email": "", "chat_id": chatID])
     }
 
     var stack: [Message] {
@@ -51,20 +63,20 @@ extension MessageStackViewModel {
         msObj.stack.removeAll()
     }
 
-    func popLastMessage() {
-        msObj.stack.removeLast()
+    @discardableResult func popLastMessage() -> Message {
+        return msObj.stack.removeLast()
     }
 
 }
 
-extension MessageStackViewModel: SocketIODelegate {
+extension MessageStackViewModel: MessageSocketDelegate {
 
-    internal var didFriendType: Bool {
+    var didFriendType: Bool {
         get { return _didFriendType }
         set { _didFriendType = newValue }
     }
 
-    internal var didUserType: Bool {
+    var didUserType: Bool {
         get { return _didUserType }
         set { _didUserType = newValue }
     }
@@ -74,21 +86,23 @@ extension MessageStackViewModel: SocketIODelegate {
         if didFriendType {
             didFriendType = false
             popLastMessage()
-            removeTypingMessageCell()
+            NotificationCenter.default.post(name: Notification.Name.MessageRemoveCell, object: nil)
         }
+
         guard let friend = get(friend: user) else { return }
         let message = Message(user: friend, message: message, date: date)
         add(message: message)
-        addTableViewCell()
+        NotificationCenter.default.post(name: Notification.Name.MessageAddCell, object: nil)
     }
 
     func friendStartedTyping(user: String) {
         if !didFriendType {
             didFriendType = true
+
             guard let friend = get(friend: user) else { return }
             let message = Message(user: friend, message: nil, date: nil)
             add(message: message)
-            addTableViewCell()
+            NotificationCenter.default.post(name: Notification.Name.MessageAddCell, object: nil)
         }
     }
 
@@ -96,8 +110,20 @@ extension MessageStackViewModel: SocketIODelegate {
         if didFriendType {
             didFriendType = false
             popLastMessage()
-            removeTypingMessageCell()
+            NotificationCenter.default.post(name: Notification.Name.MessageRemoveCell, object: nil)
         }
+    }
+
+    func userStoppedTyping() {
+        socket.startTyping(param: <#T##[String : String]#>)
+    }
+
+    func userStartedTyping() {
+        socket.stopTyping(param: <#T##[String : String]#>)
+    }
+
+    func sendMessage() {
+        socket.sendMessage(param: <#T##[String : String]#>)
     }
 
 }

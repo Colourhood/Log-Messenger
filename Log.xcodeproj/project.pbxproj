@@ -48,6 +48,7 @@
 		547B1A861FF3E50D008284A9 /* MessageTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547B1A851FF3E50D008284A9 /* MessageTableView.swift */; };
 		547B1A8A1FF6415F008284A9 /* MessageStackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547B1A891FF6415F008284A9 /* MessageStackViewModel.swift */; };
 		547B1A8C1FF64BBF008284A9 /* MessageTypingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547B1A8B1FF64BBF008284A9 /* MessageTypingTableViewCell.swift */; };
+		547B1A8F1FFC5457008284A9 /* MessageSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547B1A8E1FFC5457008284A9 /* MessageSocket.swift */; };
 		5480F5ED1F953A4600453E03 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5480F5EC1F953A3A00453E03 /* CryptoSwift.framework */; };
 		5480F5EE1F953A4600453E03 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5480F5EC1F953A3A00453E03 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		548A8E131F4C161900DD56C0 /* AppState.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 548A8E111F4C161900DD56C0 /* AppState.xcdatamodeld */; };
@@ -75,7 +76,7 @@
 		54CE75A71FD2AE1100CC06A1 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CE75A61FD2AE1100CC06A1 /* InitialViewController.swift */; };
 		54DFFDC61F8F4D4E009F31B3 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */; };
 		54DFFDC71F8F4D4E009F31B3 /* SocketIO.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		54DFFDC91F8F4EEE009F31B3 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DFFDC81F8F4EEE009F31B3 /* SocketIOManager.swift */; };
+		54DFFDC91F8F4EEE009F31B3 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DFFDC81F8F4EEE009F31B3 /* SocketManager.swift */; };
 		54ECCA7E1FE4A07500721CF5 /* UnwindSegueFromRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ECCA7D1FE4A07500721CF5 /* UnwindSegueFromRight.swift */; };
 		54EEB1211F57770700AA548B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1201F57770700AA548B /* Alamofire.framework */; };
 		54EEB1221F57770700AA548B /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1201F57770700AA548B /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -162,6 +163,7 @@
 		547B1A851FF3E50D008284A9 /* MessageTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableView.swift; sourceTree = "<group>"; };
 		547B1A891FF6415F008284A9 /* MessageStackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageStackViewModel.swift; sourceTree = "<group>"; };
 		547B1A8B1FF64BBF008284A9 /* MessageTypingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTypingTableViewCell.swift; sourceTree = "<group>"; };
+		547B1A8E1FFC5457008284A9 /* MessageSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSocket.swift; sourceTree = "<group>"; };
 		5480F5EC1F953A3A00453E03 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		548A8E121F4C161900DD56C0 /* AppState.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppState.xcdatamodel; sourceTree = "<group>"; };
 		548A8E141F4C9A8300DD56C0 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -184,7 +186,7 @@
 		54CE759E1FD289B800CC06A1 /* FuturaBT-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FuturaBT-Light.ttf"; path = "../../../../Downloads/FuturaBT-Light.ttf"; sourceTree = "<group>"; };
 		54CE75A61FD2AE1100CC06A1 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = Carthage/Build/iOS/SocketIO.framework; sourceTree = "<group>"; };
-		54DFFDC81F8F4EEE009F31B3 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
+		54DFFDC81F8F4EEE009F31B3 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		54ECCA7D1FE4A07500721CF5 /* UnwindSegueFromRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwindSegueFromRight.swift; sourceTree = "<group>"; };
 		54EEB1201F57770700AA548B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		54EEB1241F57770E00AA548B /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
@@ -326,8 +328,6 @@
 		5454F3691F4A5843002D9AB5 /* Log */ = {
 			isa = PBXGroup;
 			children = (
-				547B1A821FF3E131008284A9 /* Home */,
-				547B1A811FF3E116008284A9 /* Messages */,
 				54F2AA1E1FC5038000F269E1 /* BackButton.json */,
 				5454F3761F4A5844002D9AB5 /* Info.plist */,
 				5454F36A1F4A5844002D9AB5 /* AppDelegate.swift */,
@@ -335,7 +335,9 @@
 				5454F37E1F4A58B7002D9AB5 /* Controller */,
 				548A8E101F4C156300DD56C0 /* CoreData */,
 				542364E71F70546B00C47CB5 /* Helper */,
+				547B1A821FF3E131008284A9 /* Home */,
 				54EA72781F7789D9005D8F5F /* HTTP */,
+				547B1A811FF3E116008284A9 /* Messages */,
 				5454F37C1F4A589F002D9AB5 /* Models */,
 				54CE75971FD288EC00CC06A1 /* Resources */,
 				5454F37F1F4A590D002D9AB5 /* Storyboard */,
@@ -347,6 +349,7 @@
 		5454F37C1F4A589F002D9AB5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				54DFFDC81F8F4EEE009F31B3 /* SocketManager.swift */,
 				5454F3801F4A5F7C002D9AB5 /* User.swift */,
 				5454F3821F4ABB4D002D9AB5 /* Message.swift */,
 				543D24181F51183C00ACDC9D /* MessageStack.swift */,
@@ -372,9 +375,7 @@
 		5454F37E1F4A58B7002D9AB5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				54DFFDC81F8F4EEE009F31B3 /* SocketIOManager.swift */,
 				542364DE1F6DB82E00C47CB5 /* HomeController.swift */,
-				542364E21F6E755400C47CB5 /* MessageController.swift */,
 				542364D61F6CE0FC00C47CB5 /* SignInController.swift */,
 			);
 			name = Controller;
@@ -429,6 +430,8 @@
 		547B1A811FF3E116008284A9 /* Messages */ = {
 			isa = PBXGroup;
 			children = (
+				542364E21F6E755400C47CB5 /* MessageController.swift */,
+				547B1A901FFCCC81008284A9 /* Models */,
 				547B1A871FF3ECAB008284A9 /* ViewController */,
 				547B1A841FF3E19F008284A9 /* Views */,
 				547B1A831FF3E152008284A9 /* ViewModels */,
@@ -467,6 +470,14 @@
 				5454F36C1F4A5844002D9AB5 /* MessageViewController.swift */,
 			);
 			name = ViewController;
+			sourceTree = "<group>";
+		};
+		547B1A901FFCCC81008284A9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				547B1A8E1FFC5457008284A9 /* MessageSocket.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		548A8E101F4C156300DD56C0 /* CoreData */ = {
@@ -711,7 +722,7 @@
 				545D6CFE1FCCBC3000082E3C /* HomeTableViewCell.swift in Sources */,
 				542364E31F6E755400C47CB5 /* MessageController.swift in Sources */,
 				545D6D071FCE9D6300082E3C /* SlideInPresentationController.swift in Sources */,
-				54DFFDC91F8F4EEE009F31B3 /* SocketIOManager.swift in Sources */,
+				54DFFDC91F8F4EEE009F31B3 /* SocketManager.swift in Sources */,
 				54B917871F71E35E00D39504 /* AWSConfig.swift in Sources */,
 				548A8E1B1F4CFAE400DD56C0 /* CoreDataBP.swift in Sources */,
 				547B1A861FF3E50D008284A9 /* MessageTableView.swift in Sources */,
@@ -729,6 +740,7 @@
 				541141771F72638500CAF4CD /* LOGS3.swift in Sources */,
 				5454F36B1F4A5844002D9AB5 /* AppDelegate.swift in Sources */,
 				54CE75A71FD2AE1100CC06A1 /* InitialViewController.swift in Sources */,
+				547B1A8F1FFC5457008284A9 /* MessageSocket.swift in Sources */,
 				54F2AA1B1FC242FC00F269E1 /* ProfileImageView.swift in Sources */,
 				54F2AA1D1FC2F4B900F269E1 /* MessageTableViewCell.swift in Sources */,
 				54A05D7B1F4D74C4005B091F /* User+CoreDataProperties.swift in Sources */,

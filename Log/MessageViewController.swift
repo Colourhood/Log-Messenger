@@ -16,9 +16,13 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var sendButton: UIButton!
 
     var controller: MessageController!
-    var stackViewModel: MessageStackViewModel!
 
-    lazy var dismissTransitionDelegate = DismissManager()
+    var stackViewModel: MessageStackViewModel!
+    private lazy var dismissTransitionDelegate = DismissManager()
+    private let observables: [NSNotification.Name : Selector] = [Notification.Name.UIKeyboardWillShow: #selector (MessageViewController.keyboardDidShow), // UIKeyboard
+                                                                 Notification.Name.UIKeyboardWillHide: #selector (MessageViewController.keyboardWillHide), // UIKeyboard
+                                                                 Notification.Name.MessageAddCell: #selector (MessageViewController.addMessageCell), // UITableView
+                                                                 Notification.Name.MessageRemoveCell: #selector (MessageViewController.removeTypingMessageCell)] // UITableView
 
     // Clean up Code for MVVM Architecture
     // Models In App - 1. MessageStack
@@ -27,15 +31,13 @@ class MessageViewController: UIViewController {
         super.viewDidLoad()
         prepareUI()
         addGesture()
-        controller.joinChatRoom()
         fetchMessages()
-        observeKeyboard()
+        observeNotifications()
     }
 
     deinit {
-        deregisterFromKeyboardNotifications()
-        controller.leaveChatRoom()
-        print("MessageView deinit was called")
+        disregardNotifications()
+        print("MessageViewController deinit was called")
     }
 
     func prepareUI() {
@@ -55,10 +57,10 @@ class MessageViewController: UIViewController {
             if let messages = response["messages"] as? [AnyObject] {
                 for messagePacket in messages {
                     if let messageDict = messagePacket as? [String: Any] {
-                        let sentBy = messageDict["sent_by"] as? String
+                        guard let sentBy = messageDict["sent_by"] as? String else { return }
                         let message = messageDict["message"] as? String
                         let date = messageDict["created_at"] as? String
-                        guard let senderUser: User = stackViewModel.get(friend: sentBy) else { return }
+                        guard let senderUser: User = self.stackViewModel.get(friend: sentBy) else { return }
 
                         if sentBy == friendProfile.email {
                             senderUser = friendProfile
@@ -87,32 +89,33 @@ class MessageViewController: UIViewController {
     }
 
     @IBAction func didPressSendMessageButton() {
-        if let messageText = newMessageTextField.text {
-            if !messageText.isEmpty {
-                sendMessage(message: messageText) // Server - Database
-                newMessageTextField.text = "" // Clear text
+        guard let messageText = newMessageTextField.text else { return }
+        
+        if !messageText.isEmpty {
+            sendMessage(message: messageText) // Server - Database
+            newMessageTextField.text = "" // Clear text
+            stackViewModel.didUserType = false
 
-                let message = Message(user: controller.userProfile!, message: messageText, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
+            let message = Message(user: controller.userProfile!, message: messageText, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
 
-                if stackViewModel.didFriendType {
-                    // Store last message reference
-                    guard let lastMessage = stackViewModel.stack.last else { return }
+            if stackViewModel.didFriendType {
+                // Store last message reference && Rearrange message typing cell from row and dataSource
+                let typingMessage = stackViewModel.popLastMessage()
+                removeTypingMessageCell()
 
-                    //Rearrange message typing cell from row and dataSource
-                    stackViewModel.popLastMessage()
-                    removeTypingMessageCell()
+                //Append message to dataSource and to tableview
+                stackViewModel.add(message: message)
+                stackViewModel.add(message: typingMessage)
+                addMessageCell() // Would I get the same results? TOTEST
 
-                    //Append message to dataSource and to tableview
-                    stackViewModel.add(message: message)
-                    addMessageCell()
-
-                    stackViewModel.add(message: lastMessage)
-                    addMessageCell()
-                } else {
-                    stackViewModel.add(message: message)
-                    addMessageCell()
-                }
-                stackViewModel.didUserType = false
+//                stackViewModel.add(message: message)
+//                addMessageCell()
+//
+//                stackViewModel.add(message: typingMessage)
+//                addMessageCell()
+            } else {
+                stackViewModel.add(message: message)
+                addMessageCell()
             }
         }
     }
@@ -140,13 +143,13 @@ extension MessageViewController {
             if translation.x > view.frame.size.width/3*2 || gesture.velocity(in: view).x > 100 {
                 dismiss(animated: true)
             } else {
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.view.frame.origin = CGPoint(x: 0, y: 0)
+                UIView.animate(withDuration: 0.3, animations: { [weak self] in
+                    self?.view.frame.origin = CGPoint(x: 0, y: 0)
                 })
             }
         case .cancelled:
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.frame.origin = CGPoint(x: 0, y: 0)
+            UIView.animate(withDuration: 0.3, animations: { [weak self] in
+                self?.view.frame.origin = CGPoint(x: 0, y: 0)
             })
         default:
             break
@@ -162,53 +165,47 @@ extension MessageViewController: UITextFieldDelegate {
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
-        if let message = newMessageTextField.text {
-            if message.isEmpty {
-                if stackViewModel.didUserType {
-                    stackViewModel.didUserType = false
-                    controller.emitToChatSocket(event: Constants.stopTyping)
-                }
-            } else {
-                if !stackViewModel.didUserType {
-                    stackViewModel.didUserType = true
-                    controller.emitToChatSocket(event: Constants.startTyping)
-                }
+        guard let message = newMessageTextField.text else { return }
+
+        if message.isEmpty {
+            if stackViewModel.didUserType {
+                stackViewModel.didUserType = false
+                stackViewModel.us
+            }
+        } else {
+            if !stackViewModel.didUserType {
+                stackViewModel.didUserType = true
+                stackViewModel.socket.emitChat(event: ChatEvent.start, param: param)
             }
         }
+
     }
 
     // UIKeyboard - Notification Center
-    func observeKeyboard() {
-        let observableFunctions: [NSNotification.Name : Selector] =
-            [NSNotification.Name.UIKeyboardWillHide: #selector (MessageViewController.keyboardDidShow),
-             NSNotification.Name.UIKeyboardWillHide: #selector (MessageViewController.textFieldDidChange)]
-
-        for (notification, selector) in observableFunctions {
+    func observeNotifications() {
+        for (notification, selector) in observables {
             NotificationCenter.default.addObserver(self, selector: selector, name: notification, object: nil)
         }
-
-        newMessageTextField.addTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
+        //newMessageTextField.addTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
     }
 
-    func deregisterFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
-
-        newMessageTextField.removeTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
+    func disregardNotifications() {
+        for (notification, _) in observables {
+            NotificationCenter.default.removeObserver(self, name: notification, object: nil)
+        }
+        //newMessageTextField.removeTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
     }
 
     @objc func keyboardDidShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.view.frame.size.height = UIScreen.main.bounds.size.height-keyboardSize.size.height
-        }
-        let debounceTableViewFrame = Debouncer(delay: 0.1) {
-            self.messagesTableView.scrollToBottom()
-        }
+        guard let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        let debounceTableViewFrame = Debouncer(delay: 0.1) { [weak self] in self?.messagesTableView.scrollToBottom() }
+
+        view.frame.size.height = UIScreen.main.bounds.size.height-keyboardSize.size.height
         debounceTableViewFrame.call()
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        self.view.frame.size.height = UIScreen.main.bounds.size.height
+        view.frame.size.height = UIScreen.main.bounds.size.height
     }
 
 }
@@ -243,26 +240,28 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
         func loadCell(cellType: MessageCellType) -> UITableViewCell {
             if cellType == MessageCellType.TypingMessageCell {
-                guard let cell = messagesTableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? MessageTypingTableViewCell
-                    else { return UITableViewCell() }
-                cell.userImage.image = userObj.picture
+                guard let typingCell = messagesTableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? MessageTypingTableViewCell else { }
+                typingCell.userImage.image = userObj.picture
+                return typingCell
             } else {
-                guard let cell = messagesTableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? MessageTableViewCell
-                    else { return UITableViewCell() }
-                cell.userImage.image = userObj.picture
-                cell.messageLabel.text = message
+                guard let messageCell = messagesTableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? MessageTableViewCell else { }
+                messageCell.userImage.image = userObj.picture
+                messageCell.messageLabel.text = message
+                return messageCell
             }
         }
 
-        if message != nil {
-            // Load cell that are supposed to be displayed by user
+        if let _ = message {
             if email == controller.userProfile?.email {
+                // Load cell that is classified as user cells
                 return loadCell(cellType: determineCellType(isUser: true))
             } else {
+                // Load cell that is classified as friend cells
                 return loadCell(cellType: determineCellType(isUser: false))
             }
             //cell?.messageLabel.text = messageData?.getMessage()
         } else {
+            // Load cell that is classified as typing cell
             return loadCell(cellType: MessageCellType.TypingMessageCell)
         }
 
@@ -270,7 +269,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     // Inserting && Removing Cells from TableView
-    func addMessageCell() {
+    @objc func addMessageCell() {
         let count = stackViewModel.stack.count-1
         let indexPath = IndexPath(row: count, section: 0)
         let previousIndexPath = IndexPath(row: count-1, section: 0)
@@ -283,7 +282,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         messagesTableView.scrollToBottom()
     }
 
-    func removeTypingMessageCell() {
+    @objc func removeTypingMessageCell() {
         let count = stackViewModel.stack.count
         let indexPath = IndexPath(row: count, section: 0)
         guard let typingcell = messagesTableView.cellForRow(at: indexPath) else { return }
