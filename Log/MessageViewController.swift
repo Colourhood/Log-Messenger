@@ -170,12 +170,12 @@ extension MessageViewController: UITextFieldDelegate {
         if message.isEmpty {
             if stackViewModel.didUserType {
                 stackViewModel.didUserType = false
-                stackViewModel.us
+                stackViewModel.userStoppedTyping()
             }
         } else {
             if !stackViewModel.didUserType {
                 stackViewModel.didUserType = true
-                stackViewModel.socket.emitChat(event: ChatEvent.start, param: param)
+                stackViewModel.userStartedTyping()
             }
         }
 

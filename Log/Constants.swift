@@ -32,6 +32,4 @@ struct Constants {
     // # Mark - Filenames
     static let profilePicture = "profilePicture"
 
-    // #Mark - Date Format
-    static let serverDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 }

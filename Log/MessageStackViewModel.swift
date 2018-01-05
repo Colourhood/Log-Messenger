@@ -115,15 +115,20 @@ extension MessageStackViewModel: MessageSocketDelegate {
     }
 
     func userStoppedTyping() {
-        socket.startTyping(param: <#T##[String : String]#>)
+        socket.startTyping(param: ["user_email": "", "chat_id": chatID])
     }
 
     func userStartedTyping() {
-        socket.stopTyping(param: <#T##[String : String]#>)
+        socket.stopTyping(param: ["user_email": "", "chat_id": chatID])
     }
 
-    func sendMessage() {
-        socket.sendMessage(param: <#T##[String : String]#>)
+    func send(message: String) {
+        let param = ["user_email": "",
+                     "chat_id": chatID,
+                     "message": message,
+                     "date": DateConverter.convert(date: Date(), format: .server)
+        ]
+        socket.sendMessage(param: param)
     }
 
 }

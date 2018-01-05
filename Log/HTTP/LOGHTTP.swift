@@ -11,9 +11,10 @@ import Alamofire
 
 private let apiURL: String = "http://192.168.0.105:7555/api"
 // private let apiURL: String = "http://127.0.0.1:7555/api"
-private let httpHeaders: HTTPHeaders = [ "Accept": "application/json" ]
 
 struct LOGHTTP {
+
+    static private let httpHeaders: HTTPHeaders = [ "Accept": "application/json" ]
 
     static func get(url: String, completionHandler: @escaping ([String: Any]?) -> Void) {
         let request = Alamofire.request(apiURL+url, method: .get, encoding: URLEncoding.default, headers: httpHeaders)

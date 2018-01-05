@@ -8,17 +8,23 @@
 
 import Foundation
 
+enum DateFormats: String {
+    case server = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    case timeOfDay = "hh:mm a" // e.g, 12:21 pm
+    case dayOfWeek = "EEE"  // e.g, Mon, Tue, Wed,
+    case monthAndDay =  "MMM d" // e.g, Sep 15, Oct 3
+}
+
 struct DateConverter {
 
-    static let minute: TimeInterval = 60.0
-    static let hour: TimeInterval = 60.0 * minute
-    static let day: TimeInterval = 24 * hour
-    static let week: TimeInterval = 7 * day
+    private static let minute: TimeInterval = 60.0
+    private static let hour: TimeInterval = 60.0 * minute
+    private static let day: TimeInterval = 24 * hour
+    private static let week: TimeInterval = 7 * day
 
-    static func handleDate(date: String?) -> String? {
-
+    static func handle(date: String?) -> String? {
         let formatter = DateFormatter()
-            formatter.dateFormat = Constants.serverDateFormat
+            formatter.dateFormat = DateFormats.server.rawValue
             formatter.amSymbol = "am"
             formatter.pmSymbol = "pm"
 
@@ -29,22 +35,21 @@ struct DateConverter {
 
             if timeDifference < day {
                 // Message was sent in the last 24 hours
-                return convert(date: dateObj, format: "hh:mm a")
+                return convert(date: dateObj, format: .timeOfDay)
             } else if timeDifference > day && timeDifference < week {
                 // Message was sent in the last week
-                return convert(date: dateObj, format: "EEE")
+                return convert(date: dateObj, format: .dayOfWeek)
             } else if timeDifference > week {
                 // Message was sent over a week ago
-                return convert(date: dateObj, format: "MMM d")
+                return convert(date: dateObj, format: .monthAndDay)
             }
         }
         return nil
     }
 
-    static func convert(date: Date, format: String) -> String {
-        // let dateFormat = "EEE, MMM d, yyyy, hh:mm a"
+    static func convert(date: Date, format: DateFormats) -> String {
         let formatter = DateFormatter()
-            formatter.dateFormat = format
+            formatter.dateFormat = format.rawValue
 
         return formatter.string(from: date)
     }

@@ -81,22 +81,22 @@ extension MessageSocket {
     }
 
     func join(param: [String: String]) {
-        emitChat(event: ChatEvent.join, param: param)
+        emitChat(event: .join, param: param)
     }
 
     func leave(param: [String: String]) {
-        emitChat(event: ChatEvent.leave, param: param)
+        emitChat(event: .leave, param: param)
     }
 
     func sendMessage(param: [String: String]) {
-        emitChat(event: ChatEvent.sendMessage, param: param)
+        emitChat(event: .sendMessage, param: param)
     }
 
     func startTyping(param: [String: String]) {
-        emitChat(event: ChatEvent.startTyping, param: param)
+        emitChat(event: .startTyping, param: param)
     }
 
     func stopTyping(param: [String: String]) {
-        emitChat(event: ChatEvent.stopTyping, param: param)
+        emitChat(event: .stopTyping, param: param)
     }
 }

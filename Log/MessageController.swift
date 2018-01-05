@@ -45,19 +45,4 @@ struct MessageController {
         })
     }
 
-    func messageChat(message: String, chatID: String) {
-        let param = ["user_email": userProfile?.email,
-                     "chat_id": chatID,
-                     "message": message,
-                     "date": DateConverter.convert(date: Date(), format: Constants.serverDateFormat)
-                    ] as AnyObject
-        //SocketIOManager.sharedInstance.emit(event: Constants.sendMessage, data: param)
-    }
-
-    func emitToChatSocket(event: String) {
-        let userEmail = userProfile?.email
-        let param = ["user_email": userEmail, "chat_id": chatID] as AnyObject
-        //SocketIOManager.sharedInstance.emit(event: event, data: param)
-    }
-
 }
