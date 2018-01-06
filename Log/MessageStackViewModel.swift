@@ -126,7 +126,7 @@ extension MessageStackViewModel: MessageSocketDelegate {
         let param = ["user_email": "",
                      "chat_id": chatID,
                      "message": message,
-                     "date": DateConverter.convert(date: Date(), format: .server)
+                     "date": DateConverter.transform(date: Date(), format: .server)
         ]
         socket.sendMessage(param: param)
     }

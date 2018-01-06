@@ -35,19 +35,19 @@ struct DateConverter {
 
             if timeDifference < day {
                 // Message was sent in the last 24 hours
-                return convert(date: dateObj, format: .timeOfDay)
+                return transform(date: dateObj, format: .timeOfDay)
             } else if timeDifference > day && timeDifference < week {
                 // Message was sent in the last week
-                return convert(date: dateObj, format: .dayOfWeek)
+                return transform(date: dateObj, format: .dayOfWeek)
             } else if timeDifference > week {
                 // Message was sent over a week ago
-                return convert(date: dateObj, format: .monthAndDay)
+                return transform(date: dateObj, format: .monthAndDay)
             }
         }
         return nil
     }
 
-    static func convert(date: Date, format: DateFormats) -> String {
+    static func transform(date: Date, format: DateFormats) -> String {
         let formatter = DateFormatter()
             formatter.dateFormat = format.rawValue
 

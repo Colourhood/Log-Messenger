@@ -12,17 +12,17 @@ import CoreData
 struct SignInController {
 
     static func handleLoginSignUpRequest(url: String, parameters: [String: Any], completion: @escaping ([String: Any]) -> Void) {
-        let request = LOGHTTP.post(url: url, parameters: parameters)
-        request.responseJSON(completionHandler: { (response) in
-            switch response.result {
-            case .success(let json):
-                    if let jsonDict = json as? [String: Any] {
-                        completion(jsonDict)
-                    }
-            case .failure(let error):
-                    print("Error: \(error)")
-            }
-        }).resume()
+        //let request = HTTP.post(url: url, parameters: parameters)
+//        request.responseJSON(completionHandler: { (response) in
+//            switch response.result {
+//            case .success(let json):
+//                    if let jsonDict = json as? [String: Any] {
+//                        completion(jsonDict)
+//                    }
+//            case .failure(let error):
+//                    print("Error: \(error)")
+//            }
+//        }).resume()
     }
 
 }

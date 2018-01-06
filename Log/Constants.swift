@@ -31,5 +31,4 @@ struct Constants {
 
     // # Mark - Filenames
     static let profilePicture = "profilePicture"
-
 }
