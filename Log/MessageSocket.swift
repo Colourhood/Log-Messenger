@@ -54,7 +54,7 @@ extension MessageSocket {
         unsubscribe(events: events)
     }
 
-    private func handle(data: [String : String]) {
+    private func handle(data: [String: String]) {
         guard let delegate = delegate, let event = data["event"], let chatEvent = ChatEvent(rawValue: event) else { return }
 
         switch chatEvent {

@@ -10,73 +10,42 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    var recentMessages: [MessageStack] = []
-    var selectedMessageStack: MessageStack?
-
-    lazy var slideInTransitionDelegate = SlideInPresentationManager()
-
-    /* UI-IBOutlets */
     @IBOutlet weak var homeTableView: UITableView!
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var friendSearchBar: UISearchBar!
 
-    /* IBActions */
-    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
-    }
-
-    override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
-        let segue = UnwindSegueFromRight(identifier: unwindSegue.identifier, source: unwindSegue.source, destination: unwindSegue.destination)
-        segue.perform()
-    }
+    var stackViewModel = HomeStackViewModel()
+    var router = HomeRouter()
+    lazy var slideInTransitionDelegate = SlideInPresentationManager()
+    var selectedMessageStack: MessageStack?
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         fetchRecentMessages()
     }
 
     func fetchRecentMessages() {
-        HomeController.getRecentMessages { [weak self] (responseData) in
-            guard let `self` = self else { return }
+        router.fetchMessages(userEmail: "user_email") { [weak self] (JSON) in
+            guard let messageStacks = JSON["messages"] as? [ [String: Any] ] else { return }
 
-            for messagePackets in responseData {
-                var conversation = MessageStack()
-                var friendProfile: User?
-                var image: UIImage?
+            for stack in messageStacks {
+                guard let email = stack["email_address"] as? String,
+                      let firstName = stack["first_name"] as? String,
+                      let message = stack["message"] as? String,
+                      let date = stack["created_at"] as? String,
+                      let chatID = stack["chat_id"] as? String else { return }
 
-                let recentMessageDict = messagePackets as? [String: Any]
+                let image = (stack["image"] as? String ?? "").data(using: .utf8)?.base64EncodedData() ?? Data()
+                guard let userImage = UIImage(data: image) ?? UIImage(named: "defaultUserIcon") else { return }
 
-                if let email = recentMessageDict?["email_address"] as? String,
-                   let firstName = recentMessageDict?["first_name"] as? String,
-                   let message = recentMessageDict?["message"] as? String,
-                   let date = recentMessageDict?["created_at"] as? String,
-                   let chatID = recentMessageDict?["chat_id"] as? String {
+                let user = User(email: email, firstName: firstName, picture: userImage)
+                let newMessage = Message(user: user, message: message, date: date)
+                let stack = MessageStack(friends: [:], stack: [newMessage], chatID: chatID)
 
-                    let imageString: String? = recentMessageDict?["image"] as? String
-
-                    if let imageString = imageString {
-                        let imageData = NSData(base64Encoded: imageString, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0)))
-                        image = UIImage(data: imageData! as Data)!
-                    } else {
-                        image = UIImage(named: "defaultUserIcon")
-                    }
-
-                    friendProfile = User(email: email, firstName: firstName, picture: image)
-
-                    if let friendProfile = friendProfile {
-                        let recentMessage = Message(user: friendProfile, message: message, date: date)
-                        conversation.setFriends(friendProfile: friendProfile)
-                        conversation.setStackOfMessages(stack: [recentMessage])
-                        conversation.setChatID(chatIdentifier: chatID)
-                        self.recentMessages.append(conversation)
-                    }
-                }
+                self?.stackViewModel.add(stack: stack)
             }
-
-            DispatchQueue.main.async {
-                self.homeTableView.reloadData()
-            }
+            self?.homeTableView.reloadData()
         }
     }
 
@@ -84,11 +53,23 @@ class HomeViewController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "HomeToMessageSegue" {
-            if let messageViewController = segue.destination as? MessageViewController {
-                //messageViewController.stackViewModel
-            }
+            guard let messageViewController = segue.destination as? MessageViewController,
+                  let selectedStack = selectedMessageStack else { return }
+            messageViewController.stackViewModel = MessageStackViewModel(chatID: selectedStack.chatID)
         }
     }
+
+    override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
+        let segue = UnwindSegueFromRight(identifier: unwindSegue.identifier, source: unwindSegue.source, destination: unwindSegue.destination)
+        segue.perform()
+    }
+
+}
+
+extension HomeViewController {
+
+    /* IBActions */
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) { }
 
     @IBAction func userTappedProfileButton(_ sender: UIButton) {
         transitioningDelegate = slideInTransitionDelegate
@@ -109,29 +90,26 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     // Table View Delegate Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recentMessages.count
+        return stackViewModel.msArr.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let friendConversationData = recentMessages[indexPath.row]
+        let cellIndex = indexPath.row
+        let stackObj = stackViewModel.msArr[cellIndex]
+        let messageObj = stackObj.stack[0]
 
-        let friendName = friendConversationData.getFriendProfile()?.getName()
-        let userImage = friendConversationData.getFriendProfile()?.picture
-        let mostRecentMessage = friendConversationData.getStackOfMessages()[0]?.getMessage()
-        let date = friendConversationData.getStackOfMessages()[0]?.getDate()
+        guard let cell = homeTableView.dequeueReusableCell(withIdentifier: "Friend Conversation Cell", for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
+        cell.friendName.text = messageObj.user.firstName
+        cell.friendPicture.image = messageObj.user.picture
+        cell.mostRecentMessageFromConversation.text = messageObj.message
+        cell.date.text = DateConverter.handle(date: messageObj.date)
 
-        let cell = homeTableView.dequeueReusableCell(withIdentifier: "Friend Conversation Cell", for: indexPath) as? HomeTableViewCell
-        cell?.friendName.text = friendName
-        cell?.friendPicture.image = userImage
-        cell?.mostRecentMessageFromConversation.text = mostRecentMessage
-        cell?.date.text = DateConverter.handleDate(date: date)
-
-        return cell!
+        return cell
     }
 
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let friendMessageStack = recentMessages[indexPath.row]
-        selectedMessageStack = friendMessageStack
+        let messageStack = stackViewModel.msArr[indexPath.row]
+        selectedMessageStack = messageStack
         return indexPath
     }
 

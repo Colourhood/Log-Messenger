@@ -14,7 +14,7 @@ class SegueFromRight: UIStoryboardSegue {
         animation()
     }
 
-    func animation() {
+    private func animation() {
         let sourceView = self.source
         let destinationView = self.destination
         let containerView = sourceView.view.superview

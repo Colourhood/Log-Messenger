@@ -9,7 +9,6 @@
 import Foundation
 
 struct User {
-
     var email: String
     var firstName: String
     var picture: UIImage

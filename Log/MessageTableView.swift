@@ -9,9 +9,9 @@
 import Foundation
 
 enum MessageCellType: String {
-    case UserMessageCell, FriendMessageCell,
-         UserPreviousMessageCell, FriendPreviousMessageCell,
-         TypingMessageCell
+    case userMessageCell, friendMessageCell,
+         userPreviousMessageCell, friendPreviousMessageCell,
+         typingMessageCell
 }
 
 class MessageTableView: UITableView {

@@ -17,6 +17,7 @@
 		541141751F725F3A00CAF4CD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141741F725F3A00CAF4CD /* Constants.swift */; };
 		541141771F72638500CAF4CD /* LOGS3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141761F72638500CAF4CD /* LOGS3.swift */; };
 		541141791F72FA9C00CAF4CD /* LOGFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141781F72FA9C00CAF4CD /* LOGFileManager.swift */; };
+		5412F4382004B4C4004A259C /* HomeStackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5412F4372004B4C4004A259C /* HomeStackViewModel.swift */; };
 		541466461FB111C6009893BE /* MessageControllerUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541466451FB111C6009893BE /* MessageControllerUnitTest.swift */; };
 		5414664A1FB1183F009893BE /* UserCoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541466491FB1183F009893BE /* UserCoreDataController.swift */; };
 		5416366A1F9E989B00CF4B2A /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541636691F9E989B00CF4B2A /* DateConverter.swift */; };
@@ -25,7 +26,7 @@
 		542364D81F6CE13200C47CB5 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1201F57770700AA548B /* Alamofire.framework */; };
 		542364DA1F6CE13200C47CB5 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1241F57770E00AA548B /* Lottie.framework */; };
 		542364DB1F6CE13200C47CB5 /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A27A241F6A02BA00DC0ACA /* RSKImageCropper.framework */; };
-		542364DF1F6DB82E00C47CB5 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364DE1F6DB82E00C47CB5 /* HomeController.swift */; };
+		542364DF1F6DB82E00C47CB5 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364DE1F6DB82E00C47CB5 /* HomeRouter.swift */; };
 		542364E31F6E755400C47CB5 /* MessageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364E21F6E755400C47CB5 /* MessageRouter.swift */; };
 		542364E91F70549F00C47CB5 /* ConvertImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364E81F70549F00C47CB5 /* ConvertImage.swift */; };
 		5429625F1FD008460049EE2F /* SlideInPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5429625E1FD008460049EE2F /* SlideInPresentationAnimator.swift */; };
@@ -131,6 +132,7 @@
 		541141741F725F3A00CAF4CD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		541141761F72638500CAF4CD /* LOGS3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGS3.swift; sourceTree = "<group>"; };
 		541141781F72FA9C00CAF4CD /* LOGFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGFileManager.swift; sourceTree = "<group>"; };
+		5412F4372004B4C4004A259C /* HomeStackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStackViewModel.swift; sourceTree = "<group>"; };
 		541466451FB111C6009893BE /* MessageControllerUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageControllerUnitTest.swift; sourceTree = "<group>"; };
 		541466491FB1183F009893BE /* UserCoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreDataController.swift; sourceTree = "<group>"; };
 		541636691F9E989B00CF4B2A /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
@@ -138,7 +140,7 @@
 		542364CE1F6CE0B700C47CB5 /* LogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTests.swift; sourceTree = "<group>"; };
 		542364D01F6CE0B700C47CB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		542364D61F6CE0FC00C47CB5 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
-		542364DE1F6DB82E00C47CB5 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		542364DE1F6DB82E00C47CB5 /* HomeRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		542364E21F6E755400C47CB5 /* MessageRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageRouter.swift; sourceTree = "<group>"; };
 		542364E81F70549F00C47CB5 /* ConvertImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertImage.swift; sourceTree = "<group>"; };
 		5429625E1FD008460049EE2F /* SlideInPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationAnimator.swift; sourceTree = "<group>"; };
@@ -237,6 +239,74 @@
 			name = AWS;
 			sourceTree = "<group>";
 		};
+		5412F42F20035ADF004A259C /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				5412F43020035B06004A259C /* Sign In */,
+				547B1A821FF3E131008284A9 /* Home */,
+				547B1A811FF3E116008284A9 /* Messages */,
+			);
+			name = Features;
+			sourceTree = "<group>";
+		};
+		5412F43020035B06004A259C /* Sign In */ = {
+			isa = PBXGroup;
+			children = (
+				542364D61F6CE0FC00C47CB5 /* SignInController.swift */,
+			);
+			name = "Sign In";
+			sourceTree = "<group>";
+		};
+		5412F43120035B2C004A259C /* API */ = {
+			isa = PBXGroup;
+			children = (
+				5412F43220035B5E004A259C /* SocketIO */,
+				54EA72781F7789D9005D8F5F /* HTTP */,
+				541141721F725EE200CAF4CD /* AWS */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		5412F43220035B5E004A259C /* SocketIO */ = {
+			isa = PBXGroup;
+			children = (
+				54DFFDC81F8F4EEE009F31B3 /* SocketManager.swift */,
+			);
+			path = SocketIO;
+			sourceTree = "<group>";
+		};
+		5412F43320035B8B004A259C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				544EE7611F4EA01F00CD3380 /* HomeViewController.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		5412F43420035B93004A259C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				545D6CFD1FCCBC3000082E3C /* HomeTableViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		5412F43520035B99004A259C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5412F4372004B4C4004A259C /* HomeStackViewModel.swift */,
+			);
+			name = ViewModels;
+			sourceTree = "<group>";
+		};
+		5412F43620035BAB004A259C /* API */ = {
+			isa = PBXGroup;
+			children = (
+				542364DE1F6DB82E00C47CB5 /* HomeRouter.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
 		541466441FB10EA5009893BE /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,17 +401,14 @@
 				54F2AA1E1FC5038000F269E1 /* BackButton.json */,
 				5454F3761F4A5844002D9AB5 /* Info.plist */,
 				5454F36A1F4A5844002D9AB5 /* AppDelegate.swift */,
-				541141721F725EE200CAF4CD /* AWS */,
-				5454F37E1F4A58B7002D9AB5 /* Controller */,
+				5412F43120035B2C004A259C /* API */,
 				548A8E101F4C156300DD56C0 /* CoreData */,
+				5412F42F20035ADF004A259C /* Features */,
 				542364E71F70546B00C47CB5 /* Helper */,
-				547B1A821FF3E131008284A9 /* Home */,
-				54EA72781F7789D9005D8F5F /* HTTP */,
-				547B1A811FF3E116008284A9 /* Messages */,
+				5454F37D1F4A58A5002D9AB5 /* Higher Order Components UI */,
 				5454F37C1F4A589F002D9AB5 /* Models */,
 				54CE75971FD288EC00CC06A1 /* Resources */,
 				5454F37F1F4A590D002D9AB5 /* Storyboard */,
-				5454F37D1F4A58A5002D9AB5 /* View */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -349,7 +416,6 @@
 		5454F37C1F4A589F002D9AB5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				54DFFDC81F8F4EEE009F31B3 /* SocketManager.swift */,
 				5454F3801F4A5F7C002D9AB5 /* User.swift */,
 				5454F3821F4ABB4D002D9AB5 /* Message.swift */,
 				543D24181F51183C00ACDC9D /* MessageStack.swift */,
@@ -357,10 +423,10 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		5454F37D1F4A58A5002D9AB5 /* View */ = {
+		5454F37D1F4A58A5002D9AB5 /* Higher Order Components UI */ = {
 			isa = PBXGroup;
 			children = (
-				54CE75A81FD2AE2E00CC06A1 /* Higher Order Components */,
+				54CE75A81FD2AE2E00CC06A1 /* UIImageView */,
 				54CE75A51FD2ADF800CC06A1 /* Initial */,
 				5429625D1FD007FA0049EE2F /* Presentation */,
 				545D6D031FCE3B7100082E3C /* User Profile */,
@@ -369,16 +435,7 @@
 				548A8E141F4C9A8300DD56C0 /* SignInViewController.swift */,
 				54A27A271F6A031700DC0ACA /* Log-Bridging-Header.h */,
 			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		5454F37E1F4A58B7002D9AB5 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				542364DE1F6DB82E00C47CB5 /* HomeController.swift */,
-				542364D61F6CE0FC00C47CB5 /* SignInController.swift */,
-			);
-			name = Controller;
+			name = "Higher Order Components UI";
 			sourceTree = "<group>";
 		};
 		5454F37F1F4A590D002D9AB5 /* Storyboard */ = {
@@ -394,8 +451,6 @@
 		545D6CFC1FCCBC0F00082E3C /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				544EE7611F4EA01F00CD3380 /* HomeViewController.swift */,
-				545D6CFD1FCCBC3000082E3C /* HomeTableViewCell.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -441,6 +496,10 @@
 		547B1A821FF3E131008284A9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				5412F43620035BAB004A259C /* API */,
+				5412F43520035B99004A259C /* ViewModels */,
+				5412F43420035B93004A259C /* Views */,
+				5412F43320035B8B004A259C /* ViewController */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -546,12 +605,12 @@
 			name = Initial;
 			sourceTree = "<group>";
 		};
-		54CE75A81FD2AE2E00CC06A1 /* Higher Order Components */ = {
+		54CE75A81FD2AE2E00CC06A1 /* UIImageView */ = {
 			isa = PBXGroup;
 			children = (
 				54F2AA1A1FC242FC00F269E1 /* ProfileImageView.swift */,
 			);
-			name = "Higher Order Components";
+			name = UIImageView;
 			sourceTree = "<group>";
 		};
 		54EA72781F7789D9005D8F5F /* HTTP */ = {
@@ -730,6 +789,7 @@
 				5454F36D1F4A5844002D9AB5 /* MessageViewController.swift in Sources */,
 				548A8E131F4C161900DD56C0 /* AppState.xcdatamodeld in Sources */,
 				5416366A1F9E989B00CF4B2A /* DateConverter.swift in Sources */,
+				5412F4382004B4C4004A259C /* HomeStackViewModel.swift in Sources */,
 				54A05D7A1F4D74C4005B091F /* User+CoreDataClass.swift in Sources */,
 				54EEB1281F577E2B00AA548B /* HTTP.swift in Sources */,
 				5454F3831F4ABB4D002D9AB5 /* Message.swift in Sources */,
@@ -746,7 +806,7 @@
 				54A05D7B1F4D74C4005B091F /* User+CoreDataProperties.swift in Sources */,
 				5414664A1FB1183F009893BE /* UserCoreDataController.swift in Sources */,
 				5454F3811F4A5F7C002D9AB5 /* User.swift in Sources */,
-				542364DF1F6DB82E00C47CB5 /* HomeController.swift in Sources */,
+				542364DF1F6DB82E00C47CB5 /* HomeRouter.swift in Sources */,
 				541141751F725F3A00CAF4CD /* Constants.swift in Sources */,
 				54ECCA7E1FE4A07500721CF5 /* UnwindSegueFromRight.swift in Sources */,
 				54FC67B81FAA5B9D00587D68 /* SegueFromRight.swift in Sources */,

@@ -18,7 +18,7 @@ class MessageViewController: UIViewController {
     var stackViewModel: MessageStackViewModel!
     var router = MessageRouter()
     private lazy var dismissTransitionDelegate = DismissManager()
-    private let observables: [NSNotification.Name : Selector] = [Notification.Name.UIKeyboardWillShow: #selector (MessageViewController.keyboardDidShow), //    UIKeyboard
+    private let observables: [NSNotification.Name: Selector] = [Notification.Name.UIKeyboardWillShow: #selector (MessageViewController.keyboardDidShow), //    UIKeyboard
                                                                  Notification.Name.UIKeyboardWillHide: #selector (MessageViewController.keyboardWillHide), // UIKeyboard
                                                                  Notification.Name.MessageAddCell: #selector (MessageViewController.addMessageCell), // UITableView
                                                                  Notification.Name.MessageRemoveCell: #selector (MessageViewController.removeTypingMessageCell)] // UITableView
@@ -28,7 +28,7 @@ class MessageViewController: UIViewController {
     // ViewModels - MessageStackViewModel
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareUI()
+        friendName.text = ""
         addGesture()
         fetchMessages()
         observeNotifications()
@@ -39,16 +39,17 @@ class MessageViewController: UIViewController {
         print("MessageViewController deinit was called")
     }
 
-    func prepareUI() {
-        friendName.text = ""
-    }
+}
 
+extension MessageViewController {
+
+    //API Calls
     func fetchMessages() {
         // Clear up any messages that may still be present
         stackViewModel.dumpStack()
         // Fetch Messages for given chat id
         router.fetchMessages(chatID: stackViewModel.chatID) { [weak self] (JSON) in
-            guard let messageStackArray = JSON["messages"] as? Array<[String: Any]> else { return }
+            guard let messageStackArray = JSON["messages"] as? [ [String: Any] ] else { return }
 
             for messageModel in messageStackArray {
                 let sentBy = messageModel["sent_by"] as? String ?? ""
@@ -63,18 +64,19 @@ class MessageViewController: UIViewController {
         }
     }
 
+}
+
+extension MessageViewController {
+
+    // IBActions
     fileprivate func sendMessage(message: String) {
-//        let chatID = stackViewModel.chatID
-
-//        let parameters = ["sent_by": controller.userProfile?.email, "message": message, "chat_id": chatID] as [String: AnyObject]
-
-//        controller.sendNewMessage(parameters: parameters) { (json) in print(json) }
-//        controller.messageChat(message: message, chatID: chatID) // Server - SocketIO
+        stackViewModel.send(message: message)
+        router.sendMessage(param: ["sent_by": "user_email", "message": message, "chat_id": stackViewModel.chatID]) { (_) in }
     }
 
     @IBAction func didPressSendMessageButton() {
         guard let messageText = newMessageTextField.text else { return }
-        
+
         if !messageText.isEmpty {
             sendMessage(message: messageText) // Server - Database
             newMessageTextField.text = "" // Clear text
@@ -105,7 +107,6 @@ class MessageViewController: UIViewController {
             }
         }
     }
-
 
 }
 
@@ -210,8 +211,8 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         let email = userObj.email
 
         func determineCellType(isUser: Bool) -> MessageCellType {
-            let userCells = [MessageCellType.UserMessageCell, MessageCellType.UserPreviousMessageCell]
-            let friendCells = [MessageCellType.FriendMessageCell, MessageCellType.FriendPreviousMessageCell]
+            let userCells = [MessageCellType.userMessageCell, MessageCellType.userPreviousMessageCell]
+            let friendCells = [MessageCellType.friendMessageCell, MessageCellType.friendPreviousMessageCell]
             var cellArrayType: [MessageCellType]
 
             isUser ? (cellArrayType = userCells) : (cellArrayType = friendCells)
@@ -225,7 +226,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         }
 
         func loadCell(cellType: MessageCellType) -> UITableViewCell {
-            if cellType == MessageCellType.TypingMessageCell {
+            if cellType == .typingMessageCell {
                 guard let typingCell = messagesTableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? MessageTypingTableViewCell else { return UITableViewCell() }
                 typingCell.userImage.image = userObj.picture
                 return typingCell
@@ -237,7 +238,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
 
-        if let _ = message {
+        if message != nil {
             if email == "current_user_email" {
                 // Load cell that is classified as user cells
                 return loadCell(cellType: determineCellType(isUser: true))
@@ -248,7 +249,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
             //cell?.messageLabel.text = messageData?.getMessage()
         } else {
             // Load cell that is classified as typing cell
-            return loadCell(cellType: MessageCellType.TypingMessageCell)
+            return loadCell(cellType: .typingMessageCell)
         }
     }
 
@@ -271,7 +272,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         let indexPath = IndexPath(row: count, section: 0)
         guard let typingcell = messagesTableView.cellForRow(at: indexPath) else { return }
 
-        if typingcell.reuseIdentifier == MessageCellType.TypingMessageCell.rawValue {
+        if typingcell.reuseIdentifier == MessageCellType.typingMessageCell.rawValue {
             let previousIndexPath = IndexPath(row: count-1, section: 0)
 
             UIView.setAnimationsEnabled(false)

@@ -9,7 +9,6 @@
 import Foundation
 
 struct Message {
-
     var user: User
     var message: String?
     var date: String?

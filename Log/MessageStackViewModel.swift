@@ -9,8 +9,8 @@
 import Foundation
 
 extension Notification.Name {
-    public static let MessageAddCell = Notification.Name("AddMessageTableViewCell")
-    public static let MessageRemoveCell = Notification.Name("RemoveMessageTableViewCell")
+    static let MessageAddCell = Notification.Name("AddMessageTableViewCell")
+    static let MessageRemoveCell = Notification.Name("RemoveMessageTableViewCell")
 }
 
 class MessageStackViewModel {
@@ -80,7 +80,6 @@ extension MessageStackViewModel: MessageSocketDelegate {
         get { return _didUserType }
         set { _didUserType = newValue }
     }
-
 
     func receivedMessage(user: String, message: String, date: String) {
         if didFriendType {

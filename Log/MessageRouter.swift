@@ -19,6 +19,7 @@ class MessageRouter: HTTP {
 
     func sendMessage(param: [String: Any], completionHandler: @escaping ([String: Any]) -> Void) {
         post(url: "/user/messages", parameters: param) { (JSON) in
+            print(JSON)
         }
     }
 

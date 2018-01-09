@@ -14,7 +14,7 @@ class UnwindSegueFromRight: UIStoryboardSegue {
         unwindAnimation()
     }
 
-    func unwindAnimation() {
+    private func unwindAnimation() {
         let sourceView = self.source
 
         UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
