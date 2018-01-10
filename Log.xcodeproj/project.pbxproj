@@ -85,7 +85,6 @@
 		54EEB1281F577E2B00AA548B /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EEB1271F577E2B00AA548B /* HTTP.swift */; };
 		54F2AA1B1FC242FC00F269E1 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F2AA1A1FC242FC00F269E1 /* ProfileImageView.swift */; };
 		54F2AA1D1FC2F4B900F269E1 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F2AA1C1FC2F4B900F269E1 /* MessageTableViewCell.swift */; };
-		54F2AA1F1FC5038100F269E1 /* BackButton.json in Resources */ = {isa = PBXBuildFile; fileRef = 54F2AA1E1FC5038000F269E1 /* BackButton.json */; };
 		54FC67B81FAA5B9D00587D68 /* SegueFromRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FC67B71FAA5B9D00587D68 /* SegueFromRight.swift */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +140,7 @@
 		542364DE1F6DB82E00C47CB5 /* HomeRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		542364E21F6E755400C47CB5 /* MessageRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageRouter.swift; sourceTree = "<group>"; };
 		542364E81F70549F00C47CB5 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		54264DC52006AB6B00562AF1 /* BackButton.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = BackButton.json; path = "../../../../Documents/Adobe/After Effects Animations/BackButton/BackButton.json"; sourceTree = "<group>"; };
 		5429625E1FD008460049EE2F /* SlideInPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationAnimator.swift; sourceTree = "<group>"; };
 		542962641FD1D43B0049EE2F /* DismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissAnimator.swift; sourceTree = "<group>"; };
 		5429626D1FD232860049EE2F /* DismissManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissManager.swift; sourceTree = "<group>"; };
@@ -193,7 +193,6 @@
 		54EEB1271F577E2B00AA548B /* HTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
 		54F2AA1A1FC242FC00F269E1 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		54F2AA1C1FC2F4B900F269E1 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
-		54F2AA1E1FC5038000F269E1 /* BackButton.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = BackButton.json; path = "../../../../Documents/Adobe/After Effects Animations/BackButton/BackButton.json"; sourceTree = "<group>"; };
 		54FC67B71FAA5B9D00587D68 /* SegueFromRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueFromRight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -416,8 +415,6 @@
 		5454F3691F4A5843002D9AB5 /* Log */ = {
 			isa = PBXGroup;
 			children = (
-				54F2AA1E1FC5038000F269E1 /* BackButton.json */,
-				5454F3761F4A5844002D9AB5 /* Info.plist */,
 				5454F36A1F4A5844002D9AB5 /* AppDelegate.swift */,
 				5412F43120035B2C004A259C /* API */,
 				5412F42F20035ADF004A259C /* Features */,
@@ -575,6 +572,8 @@
 		54CE75971FD288EC00CC06A1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5454F3761F4A5844002D9AB5 /* Info.plist */,
+				54264DC52006AB6B00562AF1 /* BackButton.json */,
 				54CE75981FD288FD00CC06A1 /* Fonts */,
 				5454F3711F4A5844002D9AB5 /* Assets.xcassets */,
 			);
@@ -723,7 +722,6 @@
 				36AA4CCD1F9702BF0037ED7E /* UserProfileViewController.xib in Resources */,
 				54CE75A31FD289B900CC06A1 /* SunValley.ttf in Resources */,
 				54CE759F1FD289B900CC06A1 /* FuturaBT-Book.ttf in Resources */,
-				54F2AA1F1FC5038100F269E1 /* BackButton.json in Resources */,
 				54CE75A41FD289B900CC06A1 /* FuturaBT-Light.ttf in Resources */,
 				367942601F9715A600B4AD91 /* UserProfileTableViewCell.xib in Resources */,
 				5454F3721F4A5844002D9AB5 /* Assets.xcassets in Resources */,
