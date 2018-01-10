@@ -26,10 +26,10 @@ class UserCoreDataController {
     }
 
     // # Mark - Setters
-    class func setUser(userEmail: String, firstName: String, image: NSData) {
+    class func setUser(email: String, name: String, image: NSData) {
         guard let userCoreData: UserCoreData = NSEntityDescription.insertNewObject(forEntityName: "User", into: CoreDataBP.getContext()) as? UserCoreData else { return }
-        userCoreData.email = userEmail
-        userCoreData.firstName = firstName
+        userCoreData.email = email
+        userCoreData.firstName = name
         userCoreData.image = image
         CoreDataBP.saveContext()
     }
@@ -44,12 +44,10 @@ class UserCoreDataController {
 
             if searchResults.count > 0 {
                 return searchResults[0]
-            } else {
-                return nil
             }
-        } catch {
-            // Process error
-        }
+        } catch { /* Process error */ }
+
+
         return nil
     }
 

@@ -16,7 +16,7 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var sendButton: UIButton!
 
     var stackViewModel: MessageStackViewModel!
-    var router = MessageRouter()
+    let router = MessageRouter()
     private lazy var dismissTransitionDelegate = DismissManager()
     private let observables: [NSNotification.Name: Selector] = [Notification.Name.UIKeyboardWillShow: #selector (MessageViewController.keyboardDidShow), //    UIKeyboard
                                                                  Notification.Name.UIKeyboardWillHide: #selector (MessageViewController.keyboardWillHide), // UIKeyboard

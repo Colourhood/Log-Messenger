@@ -15,7 +15,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var friendSearchBar: UISearchBar!
 
     var stackViewModel = HomeStackViewModel()
-    var router = HomeRouter()
+    let router = HomeRouter()
     lazy var slideInTransitionDelegate = SlideInPresentationManager()
     var selectedMessageStack: MessageStack?
 

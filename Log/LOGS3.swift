@@ -27,13 +27,8 @@ struct LOGS3 {
                 if let result = task.result {
                     completionHandler(result)
                 }
-                completionHandler(nil)
             }
         }
-    }
-
-    private static func startUploadRequest(uploadRequest: AWSS3TransferManagerUploadRequest) -> AWSTask<AnyObject> {
-        return (transferManager.upload(uploadRequest))
     }
 
     static func downloadFromS3(key: String?, fileURLPath: URL, completionHandler: @escaping (Any?) -> Void) {
@@ -49,9 +44,12 @@ struct LOGS3 {
                 if let result = task.result {
                     completionHandler(result)
                 }
-                completionHandler(nil)
             }
         }
+    }
+
+    private static func startUploadRequest(uploadRequest: AWSS3TransferManagerUploadRequest) -> AWSTask<AnyObject> {
+        return (transferManager.upload(uploadRequest))
     }
 
     private static func startDownloadRequest(downloadRequest: AWSS3TransferManagerDownloadRequest) -> AWSTask<AnyObject> {
