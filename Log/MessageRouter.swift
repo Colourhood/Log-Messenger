@@ -11,7 +11,7 @@ import Foundation
 class MessageRouter: HTTP {
 
     func fetchMessages(chatID: String, completionHandler: @escaping ([String: Any]) -> Void) {
-        let patchedURL = "/user/messages/\("user_email")/\(chatID)"
+        let patchedURL = "/user/messages/t/\(chatID)"
         get(url: patchedURL) { (JSON) in
             completionHandler(JSON)
         }

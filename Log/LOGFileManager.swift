@@ -58,7 +58,7 @@ struct LOGFileManager {
     }
 
     // # Mark - Get URL Paths
-    
+
     static func fetchURL(filename: String, directory: String) -> URL? {
         let storedFilePath = "\(directory)/\(filename)"
         guard let urlPath = documentsDirectoryPath?.appendingPathComponent(storedFilePath) else { return nil }

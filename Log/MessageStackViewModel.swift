@@ -25,12 +25,12 @@ class MessageStackViewModel {
     init (chatID: String) {
         msObj = MessageStack(friends: [:], stack: [], chatID: chatID)
         socket.delegate = self
-        socket.join(param: ["user_email": "", "chat_id": chatID])
+        socket.join(param: ["user_email": (UserCoreData.user?.email)!, "chat_id": chatID])
     }
 
     deinit {
         socket.delegate = nil
-        socket.leave(param: ["user_email": "", "chat_id": chatID])
+        socket.leave(param: ["user_email": (UserCoreData.user?.email)!, "chat_id": chatID])
     }
 
     var stack: [Message] {
@@ -114,15 +114,15 @@ extension MessageStackViewModel: MessageSocketDelegate {
     }
 
     func userStoppedTyping() {
-        socket.startTyping(param: ["user_email": "", "chat_id": chatID])
+        socket.startTyping(param: ["user_email": (UserCoreData.user?.email)!, "chat_id": chatID])
     }
 
     func userStartedTyping() {
-        socket.stopTyping(param: ["user_email": "", "chat_id": chatID])
+        socket.stopTyping(param: ["user_email": (UserCoreData.user?.email)!, "chat_id": chatID])
     }
 
     func send(message: String) {
-        let param = ["user_email": "",
+        let param = ["user_email": (UserCoreData.user?.email)!,
                      "chat_id": chatID,
                      "message": message,
                      "date": DateConverter.transform(date: Date(), format: .server)

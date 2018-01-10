@@ -67,7 +67,7 @@ extension SignInViewController {
                   let image = (JSON["image"] as? String ?? "").data(using: .utf8)
                               ?? UIImage(named: "defaultUserIcon")?.dataJPEG() else { return }
             let imageData = NSData(data: image)
-            UserCoreDataController.setUser(email: email, name: name, image: imageData)
+            UserCoreData.set(email: email, name: name, image: imageData)
             self?.instantiateHomeView()
         }
     }
@@ -88,7 +88,7 @@ extension SignInViewController {
 
             LOGS3.uploadToS3(key: key, fileURL: imageURL, completionHandler: { (result) in
                 guard result != nil else { return }
-                UserCoreDataController.setUser(email: email, name: "Name", image: imageData)
+                UserCoreData.set(email: email, name: "Name", image: imageData)
                 self.instantiateHomeView()
             })
         }

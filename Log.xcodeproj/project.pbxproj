@@ -19,7 +19,6 @@
 		541141791F72FA9C00CAF4CD /* LOGFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541141781F72FA9C00CAF4CD /* LOGFileManager.swift */; };
 		5412F4382004B4C4004A259C /* HomeStackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5412F4372004B4C4004A259C /* HomeStackViewModel.swift */; };
 		541466461FB111C6009893BE /* MessageControllerUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541466451FB111C6009893BE /* MessageControllerUnitTest.swift */; };
-		5414664A1FB1183F009893BE /* UserCoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541466491FB1183F009893BE /* UserCoreDataController.swift */; };
 		5416366A1F9E989B00CF4B2A /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541636691F9E989B00CF4B2A /* DateConverter.swift */; };
 		542364CF1F6CE0B700C47CB5 /* LogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364CE1F6CE0B700C47CB5 /* LogTests.swift */; };
 		542364D71F6CE0FC00C47CB5 /* SignInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542364D61F6CE0FC00C47CB5 /* SignInRouter.swift */; };
@@ -134,7 +133,6 @@
 		541141781F72FA9C00CAF4CD /* LOGFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOGFileManager.swift; sourceTree = "<group>"; };
 		5412F4372004B4C4004A259C /* HomeStackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStackViewModel.swift; sourceTree = "<group>"; };
 		541466451FB111C6009893BE /* MessageControllerUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageControllerUnitTest.swift; sourceTree = "<group>"; };
-		541466491FB1183F009893BE /* UserCoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreDataController.swift; sourceTree = "<group>"; };
 		541636691F9E989B00CF4B2A /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		542364CC1F6CE0B700C47CB5 /* LogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		542364CE1F6CE0B700C47CB5 /* LogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTests.swift; sourceTree = "<group>"; };
@@ -324,7 +322,6 @@
 			children = (
 				54A05D781F4D74C4005B091F /* User+CoreDataClass.swift */,
 				54A05D791F4D74C4005B091F /* User+CoreDataProperties.swift */,
-				541466491FB1183F009893BE /* UserCoreDataController.swift */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -804,7 +801,6 @@
 				54F2AA1B1FC242FC00F269E1 /* ProfileImageView.swift in Sources */,
 				54F2AA1D1FC2F4B900F269E1 /* MessageTableViewCell.swift in Sources */,
 				54A05D7B1F4D74C4005B091F /* User+CoreDataProperties.swift in Sources */,
-				5414664A1FB1183F009893BE /* UserCoreDataController.swift in Sources */,
 				5454F3811F4A5F7C002D9AB5 /* User.swift in Sources */,
 				542364DF1F6DB82E00C47CB5 /* HomeRouter.swift in Sources */,
 				541141751F725F3A00CAF4CD /* Constants.swift in Sources */,

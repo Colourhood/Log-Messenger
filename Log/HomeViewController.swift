@@ -26,7 +26,8 @@ class HomeViewController: UIViewController {
     }
 
     func fetchRecentMessages() {
-        router.fetchMessages(userEmail: "user_email") { [weak self] (JSON) in
+        guard let email = UserCoreData.user?.email else { return }
+        router.fetchMessages(userEmail: email) { [weak self] (JSON) in
             guard let messageStacks = JSON["messages"] as? [ [String: Any] ] else { return }
 
             for stack in messageStacks {
