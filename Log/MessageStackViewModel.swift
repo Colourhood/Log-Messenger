@@ -22,10 +22,10 @@ class MessageStackViewModel {
     // View Model only displays data to the viewcontroller
     // && View Model handles data between the model
 
-    init (chatID: String) {
-        msObj = MessageStack(friends: [:], stack: [], chatID: chatID)
+    init (stack: MessageStack) {
+        msObj = stack
         socket.delegate = self
-        socket.join(param: ["user_email": (UserCoreData.user?.email)!, "chat_id": chatID])
+        socket.join(param: ["user_email": (UserCoreData.user?.email)!, "chat_id": stack.chatID])
     }
 
     deinit {

@@ -56,7 +56,7 @@ class HomeViewController: UIViewController {
         if segue.identifier == "HomeToMessageSegue" {
             guard let messageViewController = segue.destination as? MessageViewController,
                   let selectedStack = selectedMessageStack else { return }
-            messageViewController.stackViewModel = MessageStackViewModel(chatID: selectedStack.chatID)
+            messageViewController.stackViewModel = MessageStackViewModel(stack: selectedStack)
         }
     }
 

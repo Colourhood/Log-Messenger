@@ -55,7 +55,7 @@ extension MessageViewController {
                 let sentBy = messageModel["sent_by"] as? String ?? ""
                 let message = messageModel["message"] as? String ?? ""
                 let date = messageModel["created_at"] as? String ?? ""
-                guard let user: User = self?.stackViewModel.get(friend: sentBy) else { return }
+                guard let user = self?.stackViewModel.get(friend: sentBy) else { return }
 
                 let messageObj = Message(user: user, message: message, date: date)
                 self?.stackViewModel.add(message: messageObj)
@@ -82,7 +82,7 @@ extension MessageViewController {
             newMessageTextField.text = "" // Clear text
             stackViewModel.didUserType = false
 
-            guard let user: User = stackViewModel.get(friend: "user_email") else { return }
+            guard let user = stackViewModel.get(friend: (UserCoreData.user?.email)!) else { return }
             let message = Message(user: user, message: messageText, date: DateConverter.transform(date: Date(), format: .server))
 
             if stackViewModel.didFriendType {

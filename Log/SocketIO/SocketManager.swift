@@ -9,8 +9,8 @@
 import Foundation
 import SocketIO
 
-private let socketURL: String = "http://192.168.0.10:7555"
-// private let socketURL: String = "http://127.0.0.1:7555"
+//private let socketURL: String = "http://192.168.0.10:7555"
+private let socketURL: String = "http://127.0.0.1:7555"
 
 class SocketManager: NSObject {
     fileprivate var socket: SocketIOClient = SocketIOClient(socketURL: URL(string: socketURL)!)
