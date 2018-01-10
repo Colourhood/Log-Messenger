@@ -64,9 +64,8 @@ extension SignInViewController {
         router.handleLogin(param: param) { [weak self] (JSON) in
             guard let email = JSON["user_email"] as? String,
                   let name = JSON["first_name"] as? String,
-                  let image = (JSON["image"] as? String ?? "").data(using: .utf8)
-                              ?? UIImage(named: "defaultUserIcon")?.dataJPEG() else { return }
-            let imageData = NSData(data: image)
+                  let image = (JSON["image"] as? String)?.data(using: .utf8) ?? UIImage(named: "defaultUserIcon")?.dataJPEG(),
+                  let imageData = NSData(base64Encoded: image, options: NSData.Base64DecodingOptions(rawValue: 0)) ?? image as? NSData else { return }
             UserCoreData.set(email: email, name: name, image: imageData)
             self?.instantiateHomeView()
         }
