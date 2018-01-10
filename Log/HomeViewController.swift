@@ -35,14 +35,14 @@ class HomeViewController: UIViewController {
                       let firstName = stack["first_name"] as? String,
                       let message = stack["message"] as? String,
                       let date = stack["created_at"] as? String,
-                      let chatID = stack["chat_id"] as? String else { return }
-
-                let image = (stack["image"] as? String ?? "").data(using: .utf8)?.base64EncodedData() ?? Data()
-                guard let userImage = UIImage(data: image) ?? UIImage(named: "defaultUserIcon") else { return }
+                      let chatID = stack["chat_id"] as? String,
+                      let image = (stack["image"] as? String)?.data(using: .utf8) ?? UIImage(named: "defaultUserIcon")?.dataJPEG(),
+                      let imageData = NSData(base64Encoded: image, options: NSData.Base64DecodingOptions(rawValue: 0)) ?? image as? NSData,
+                      let userImage = UIImage(data: imageData as Data) else { return }
 
                 let user = User(email: email, firstName: firstName, picture: userImage)
                 let newMessage = Message(user: user, message: message, date: date)
-                let stack = MessageStack(friends: [:], stack: [newMessage], chatID: chatID)
+                let stack = MessageStack(friends: [email: user], stack: [newMessage], chatID: chatID)
 
                 self?.stackViewModel.add(stack: stack)
             }

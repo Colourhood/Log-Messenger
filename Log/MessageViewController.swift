@@ -71,7 +71,7 @@ extension MessageViewController {
     // IBActions
     fileprivate func sendMessage(message: String) {
         stackViewModel.send(message: message)
-        router.sendMessage(param: ["sent_by": "user_email", "message": message, "chat_id": stackViewModel.chatID]) { (_) in }
+        router.sendMessage(param: ["sent_by": UserCoreData.user?.email! as Any, "message": message, "chat_id": stackViewModel.chatID]) { (_) in }
     }
 
     @IBAction func didPressSendMessageButton() {
@@ -239,7 +239,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         }
 
         if message != nil {
-            if email == "current_user_email" {
+            if email == UserCoreData.user?.email! {
                 // Load cell that is classified as user cells
                 return loadCell(cellType: determineCellType(isUser: true))
             } else {
