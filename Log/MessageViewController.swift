@@ -231,8 +231,10 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
                 typingCell.userImage.image = userObj.picture
                 return typingCell
             } else {
-                guard let messageCell = messagesTableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? MessageTableViewCell else { return UITableViewCell()}
-                messageCell.userImage.image = userObj.picture
+                guard let messageCell = messagesTableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? MessageTableViewCell else { return UITableViewCell() }
+                if cellType == .friendMessageCell || cellType == .userMessageCell {
+                    messageCell.userImage.image = userObj.picture
+                }
                 messageCell.messageLabel.text = message
                 return messageCell
             }
