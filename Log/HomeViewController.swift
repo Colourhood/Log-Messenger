@@ -43,7 +43,7 @@ class HomeViewController: UIViewController {
                 let friend = User(email: email, firstName: firstName, picture: userImage)
                 let user = User(email: (UserCoreData.user?.email)!, firstName: (UserCoreData.user?.firstName)!, picture: UIImage(data: (UserCoreData.user?.image)! as Data)!)
                 let newMessage = Message(user: friend, message: message, date: date)
-                let stack = MessageStack(friends: [email: user, (UserCoreData.user?.email)!: user], stack: [newMessage], chatID: chatID)
+                let stack = MessageStack(friends: [email: friend, (UserCoreData.user?.email)!: user], stack: [newMessage], chatID: chatID)
 
                 self?.stackViewModel.add(stack: stack)
             }
