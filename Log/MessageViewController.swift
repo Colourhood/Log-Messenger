@@ -248,7 +248,6 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
                 // Load cell that is classified as friend cells
                 return loadCell(cellType: determineCellType(isUser: false))
             }
-            //cell?.messageLabel.text = messageData?.getMessage()
         } else {
             // Load cell that is classified as typing cell
             return loadCell(cellType: .typingMessageCell)
