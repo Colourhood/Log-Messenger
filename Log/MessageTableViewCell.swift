@@ -15,7 +15,6 @@ class MessageTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         messageView.layer.cornerRadius = messageView.frame.width/20
-        animatePop()
     }
 
 }

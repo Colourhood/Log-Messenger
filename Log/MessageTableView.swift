@@ -43,12 +43,4 @@ extension MessageTableView {
         }
     }
 
-    func initialReloadTable() {
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self else { return }
-            self.reloadData()
-            self.scrollToBottom()
-        }
-    }
-
 }

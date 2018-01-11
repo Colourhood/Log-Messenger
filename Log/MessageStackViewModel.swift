@@ -95,6 +95,7 @@ extension MessageStackViewModel: MessageSocketDelegate {
     }
 
     func friendStartedTyping(user: String) {
+        print("Received event: friend started typing")
         if !didFriendType {
             didFriendType = true
 
@@ -106,6 +107,7 @@ extension MessageStackViewModel: MessageSocketDelegate {
     }
 
     func friendStoppedTyping(user: String) {
+        print("Received event: friend stopped typing")
         if didFriendType {
             didFriendType = false
             popLastMessage()
@@ -125,8 +127,7 @@ extension MessageStackViewModel: MessageSocketDelegate {
         let param = ["user_email": (UserCoreData.user?.email)!,
                      "chat_id": chatID,
                      "message": message,
-                     "date": DateConverter.transform(date: Date(), format: .server)
-        ]
+                     "date": DateConverter.transform(date: Date(), format: .server)]
         socket.sendMessage(param: param)
     }
 

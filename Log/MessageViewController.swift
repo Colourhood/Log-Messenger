@@ -23,9 +23,6 @@ class MessageViewController: UIViewController {
                                                                  Notification.Name.MessageAddCell: #selector (MessageViewController.addMessageCell), // UITableView
                                                                  Notification.Name.MessageRemoveCell: #selector (MessageViewController.removeTypingMessageCell)] // UITableView
 
-    // Clean up Code for MVVM Architecture
-    // Models In App - 1. MessageStack
-    // ViewModels - MessageStackViewModel
     override func viewDidLoad() {
         super.viewDidLoad()
         friendName.text = ""
@@ -60,7 +57,10 @@ extension MessageViewController {
                 let messageObj = Message(user: user, message: message, date: date)
                 self?.stackViewModel.add(message: messageObj)
             }
-            self?.messagesTableView.reloadData()
+            DispatchQueue.main.async {
+                self?.messagesTableView.reloadData()
+                self?.messagesTableView.scrollToBottom()
+            }
         }
     }
 
@@ -173,20 +173,19 @@ extension MessageViewController: UITextFieldDelegate {
         for (notification, selector) in observables {
             NotificationCenter.default.addObserver(self, selector: selector, name: notification, object: nil)
         }
-        //newMessageTextField.addTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
+        newMessageTextField.addTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
     }
 
     func disregardNotifications() {
         for (notification, _) in observables {
             NotificationCenter.default.removeObserver(self, name: notification, object: nil)
         }
-        //newMessageTextField.removeTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
+        newMessageTextField.removeTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
     }
 
     @objc func keyboardDidShow(notification: NSNotification) {
         guard let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         let debounceTableViewFrame = Debouncer(delay: 0.1) { [weak self] in self?.messagesTableView.scrollToBottom() }
-
         view.frame.size.height = UIScreen.main.bounds.size.height-keyboardSize.size.height
         debounceTableViewFrame.call()
     }
