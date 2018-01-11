@@ -263,8 +263,10 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         messagesTableView.insertRows(at: [indexPath], with: .none)
         messagesTableView.reloadRows(at: [previousIndexPath], with: .none)
         UIView.setAnimationsEnabled(true)
-
         messagesTableView.scrollToBottom()
+
+        guard let messageCell = messagesTableView.cellForRow(at: indexPath) as? MessageTableViewCell else { return }
+        messageCell.animatePop()
     }
 
     @objc func removeTypingMessageCell() {
