@@ -16,10 +16,12 @@ class SocketManager: NSObject {
     fileprivate var socket: SocketIOClient = SocketIOClient(socketURL: URL(string: socketURL)!)
 
     override init() {
+        print("Socket Manager was initialized")
         socket.connect()
     }
 
     deinit {
+        print("Socket Manager was deinitialized")
         socket.disconnect()
     }
 

@@ -26,6 +26,7 @@ protocol MessageSocketDelegate: class {
 }
 
 class MessageSocket: SocketManager {
+    
     weak var delegate: MessageSocketDelegate?
     fileprivate let events: [String] = [ChatEvent.sendMessage.rawValue,
                                         ChatEvent.startTyping.rawValue,
