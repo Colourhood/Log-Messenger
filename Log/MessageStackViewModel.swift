@@ -116,11 +116,11 @@ extension MessageStackViewModel: MessageSocketDelegate {
     }
 
     func userStoppedTyping() {
-        socket.startTyping(param: ["user_email": (UserCoreData.user?.email)!, "chat_id": chatID])
+        socket.stopTyping(param: ["user_email": (UserCoreData.user?.email)!, "chat_id": chatID])
     }
 
     func userStartedTyping() {
-        socket.stopTyping(param: ["user_email": (UserCoreData.user?.email)!, "chat_id": chatID])
+        socket.startTyping(param: ["user_email": (UserCoreData.user?.email)!, "chat_id": chatID])
     }
 
     func send(message: String) {
