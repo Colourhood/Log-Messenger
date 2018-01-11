@@ -40,9 +40,10 @@ class HomeViewController: UIViewController {
                       let imageData = NSData(base64Encoded: image, options: NSData.Base64DecodingOptions(rawValue: 0)) ?? image as? NSData,
                       let userImage = UIImage(data: imageData as Data) else { return }
 
-                let user = User(email: email, firstName: firstName, picture: userImage)
-                let newMessage = Message(user: user, message: message, date: date)
-                let stack = MessageStack(friends: [email: user], stack: [newMessage], chatID: chatID)
+                let friend = User(email: email, firstName: firstName, picture: userImage)
+                let user = User(email: (UserCoreData.user?.email)!, firstName: (UserCoreData.user?.firstName)!, picture: UIImage(data: (UserCoreData.user?.image)! as Data)!)
+                let newMessage = Message(user: friend, message: message, date: date)
+                let stack = MessageStack(friends: [email: user, (UserCoreData.user?.email)!: user], stack: [newMessage], chatID: chatID)
 
                 self?.stackViewModel.add(stack: stack)
             }
