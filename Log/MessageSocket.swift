@@ -100,7 +100,8 @@ extension MessageSocket {
     }
 
     func join(param: [String: String]) {
-        emitChat(event: .join, param: param)
+        let debounce = Debouncer(delay: 5) { [weak self] in self?.emitChat(event: .join, param: param) }
+        debounce.call()
     }
 
     func leave(param: [String: String]) {
