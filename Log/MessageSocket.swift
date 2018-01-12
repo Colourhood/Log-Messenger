@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SocketIO
 
 private enum ChatEvent: String {
     case join = "join room"
@@ -26,36 +27,49 @@ protocol MessageSocketDelegate: class {
 }
 
 class MessageSocket: SocketManager {
-    
+
+    var socket: SocketIOClient = SocketIOClient(socketURL: URL(string: AppURL.socketURL)!)
     weak var delegate: MessageSocketDelegate?
     fileprivate let events: [String] = [ChatEvent.sendMessage.rawValue,
                                         ChatEvent.startTyping.rawValue,
                                         ChatEvent.stopTyping.rawValue]
 
-    override init() {
-        super.init()
-        observeEvents()
+    init() {
+        connect()
+        subscribe(events: events)
     }
 
     deinit {
-        disregardEvents()
+        unsubscribe(events: events)
+        disconnect()
     }
 
-}
+    func connect() {
+        socket.connect()
+    }
 
-extension MessageSocket {
+    func disconnect() {
+        socket.disconnect()
+    }
 
-    private func observeEvents() {
-        subscribe(events: events) { [weak self] (eventData) in
-            self?.handle(data: eventData)
+    func subscribe(events: [String]) {
+        for event in events {
+            socket.on(event) { [weak self] (data, _) in
+                if data.count > 0 {
+                    guard let result = data[0] as? [String: String] else { return }
+                    self?.handler(data: result)
+                }
+            }
         }
     }
 
-    private func disregardEvents() {
-        unsubscribe(events: events)
+    func unsubscribe(events: [String]) {
+        for event in events {
+            socket.off(event)
+        }
     }
 
-    private func handle(data: [String: String]) {
+    func handler(data: [String: String]) {
         guard let delegate = delegate, let event = data["event"], let chatEvent = ChatEvent(rawValue: event) else { return }
 
         switch chatEvent {
@@ -71,6 +85,10 @@ extension MessageSocket {
         default:
             break
         }
+    }
+
+    func emit(event: String, data: AnyObject) {
+        socket.emit(event, with: [data])
     }
 
 }

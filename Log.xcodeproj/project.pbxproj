@@ -62,6 +62,7 @@
 		54A27A231F69E1E800DC0ACA /* ImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54A27A211F69E1E800DC0ACA /* ImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54A27A251F6A02BA00DC0ACA /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A27A241F6A02BA00DC0ACA /* RSKImageCropper.framework */; };
 		54A27A261F6A02BA00DC0ACA /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54A27A241F6A02BA00DC0ACA /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54B4187E200957CA00B9BC13 /* AppURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B4187D200957CA00B9BC13 /* AppURL.swift */; };
 		54B917841F71E11100D39504 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B917831F71E11000D39504 /* AWSS3.framework */; };
 		54B917851F71E11100D39504 /* AWSS3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54B917831F71E11000D39504 /* AWSS3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54B917871F71E35E00D39504 /* AWSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B917861F71E35E00D39504 /* AWSConfig.swift */; };
@@ -76,7 +77,7 @@
 		54CE75A71FD2AE1100CC06A1 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CE75A61FD2AE1100CC06A1 /* InitialViewController.swift */; };
 		54DFFDC61F8F4D4E009F31B3 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */; };
 		54DFFDC71F8F4D4E009F31B3 /* SocketIO.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		54DFFDC91F8F4EEE009F31B3 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DFFDC81F8F4EEE009F31B3 /* SocketManager.swift */; };
+		54DFFDC91F8F4EEE009F31B3 /* SocketManager+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DFFDC81F8F4EEE009F31B3 /* SocketManager+Protocol.swift */; };
 		54ECCA7E1FE4A07500721CF5 /* UnwindSegueFromRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ECCA7D1FE4A07500721CF5 /* UnwindSegueFromRight.swift */; };
 		54EEB1211F57770700AA548B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1201F57770700AA548B /* Alamofire.framework */; };
 		54EEB1221F57770700AA548B /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EEB1201F57770700AA548B /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -175,6 +176,7 @@
 		54A27A211F69E1E800DC0ACA /* ImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImagePicker.framework; path = Carthage/Build/iOS/ImagePicker.framework; sourceTree = "<group>"; };
 		54A27A241F6A02BA00DC0ACA /* RSKImageCropper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RSKImageCropper.framework; path = Carthage/Build/iOS/RSKImageCropper.framework; sourceTree = "<group>"; };
 		54A27A271F6A031700DC0ACA /* Log-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Log-Bridging-Header.h"; sourceTree = "<group>"; };
+		54B4187D200957CA00B9BC13 /* AppURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppURL.swift; sourceTree = "<group>"; };
 		54B917831F71E11000D39504 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSS3.framework; path = Carthage/Build/iOS/AWSS3.framework; sourceTree = "<group>"; };
 		54B917861F71E35E00D39504 /* AWSConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSConfig.swift; sourceTree = "<group>"; };
 		54B917881F71E5E100D39504 /* AWSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCore.framework; path = Carthage/Build/iOS/AWSCore.framework; sourceTree = "<group>"; };
@@ -186,7 +188,7 @@
 		54CE759E1FD289B800CC06A1 /* FuturaBT-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FuturaBT-Light.ttf"; path = "../../../../Downloads/FuturaBT-Light.ttf"; sourceTree = "<group>"; };
 		54CE75A61FD2AE1100CC06A1 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		54DFFDC51F8F4D3F009F31B3 /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = Carthage/Build/iOS/SocketIO.framework; sourceTree = "<group>"; };
-		54DFFDC81F8F4EEE009F31B3 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
+		54DFFDC81F8F4EEE009F31B3 /* SocketManager+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SocketManager+Protocol.swift"; sourceTree = "<group>"; };
 		54ECCA7D1FE4A07500721CF5 /* UnwindSegueFromRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwindSegueFromRight.swift; sourceTree = "<group>"; };
 		54EEB1201F57770700AA548B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		54EEB1241F57770E00AA548B /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
@@ -271,7 +273,7 @@
 		5412F43220035B5E004A259C /* SocketIO */ = {
 			isa = PBXGroup;
 			children = (
-				54DFFDC81F8F4EEE009F31B3 /* SocketManager.swift */,
+				54DFFDC81F8F4EEE009F31B3 /* SocketManager+Protocol.swift */,
 			);
 			path = SocketIO;
 			sourceTree = "<group>";
@@ -612,6 +614,7 @@
 		54EA72781F7789D9005D8F5F /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
+				54B4187D200957CA00B9BC13 /* AppURL.swift */,
 				54EEB1271F577E2B00AA548B /* HTTP.swift */,
 			);
 			path = HTTP;
@@ -768,6 +771,7 @@
 				547B1A8A1FF6415F008284A9 /* MessageStackViewModel.swift in Sources */,
 				542364E91F70549F00C47CB5 /* UIImage+Extensions.swift in Sources */,
 				548A8E151F4C9A8300DD56C0 /* SignInViewController.swift in Sources */,
+				54B4187E200957CA00B9BC13 /* AppURL.swift in Sources */,
 				3679425F1F9715A600B4AD91 /* UserProfileTableViewCell.swift in Sources */,
 				36AA4CCC1F9702BF0037ED7E /* UserProfileViewController.swift in Sources */,
 				54A013641FD7BB9400DAD606 /* Messages+CoreDataProperties.swift in Sources */,
@@ -776,7 +780,7 @@
 				545D6CFE1FCCBC3000082E3C /* HomeTableViewCell.swift in Sources */,
 				542364E31F6E755400C47CB5 /* MessageRouter.swift in Sources */,
 				545D6D071FCE9D6300082E3C /* SlideInPresentationController.swift in Sources */,
-				54DFFDC91F8F4EEE009F31B3 /* SocketManager.swift in Sources */,
+				54DFFDC91F8F4EEE009F31B3 /* SocketManager+Protocol.swift in Sources */,
 				54B917871F71E35E00D39504 /* AWSConfig.swift in Sources */,
 				548A8E1B1F4CFAE400DD56C0 /* CoreDataBP.swift in Sources */,
 				547B1A861FF3E50D008284A9 /* MessageTableView.swift in Sources */,

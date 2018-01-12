@@ -9,8 +9,8 @@
 import Foundation
 import Alamofire
 
-// private let apiURL = "http://192.168.0.105:7555/api"
-private let apiURL = "http://127.0.0.1:7555/api"
+// let apiURL = "http://192.168.0.105:7555/api"
+let apiURL = "http://127.0.0.1:7555/api"
 private let httpHeaders: HTTPHeaders = [ "Accept": "application/json" ]
 
 protocol HTTPMethods {
@@ -22,7 +22,7 @@ protocol HTTPMethods {
 class HTTP: HTTPMethods {
 
     func get(url: String, completionHandler: @escaping ([String: Any]) -> Void) {
-        let request = Alamofire.request(apiURL+url, method: .get, encoding: URLEncoding.default, headers: httpHeaders)
+        let request = Alamofire.request(AppURL.apiURL+url, method: .get, encoding: URLEncoding.default, headers: httpHeaders)
         request.responseJSON { [weak self] (response) in
             guard let JSON = self?.handle(response: response) else { return }
             completionHandler(JSON)
@@ -30,7 +30,7 @@ class HTTP: HTTPMethods {
     }
 
     func post(url: String, parameters: [String: Any], completionHandler: @escaping ([String: Any]) -> Void) {
-        let request = Alamofire.request(apiURL+url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: httpHeaders)
+        let request = Alamofire.request(AppURL.apiURL+url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: httpHeaders)
         request.responseJSON { [weak self] (response) in
             guard let JSON = self?.handle(response: response) else { return }
             completionHandler(JSON)
@@ -38,7 +38,7 @@ class HTTP: HTTPMethods {
     }
 
     func put(url: String, completionHandler: @escaping ([String: Any]) -> Void) {
-        let request = Alamofire.request(apiURL+url, method: .put, encoding: URLEncoding.default, headers: httpHeaders)
+        let request = Alamofire.request(AppURL.apiURL+url, method: .put, encoding: URLEncoding.default, headers: httpHeaders)
         request.responseJSON { [weak self ](response) in
             guard let JSON = self?.handle(response: response) else { return }
             completionHandler(JSON)
