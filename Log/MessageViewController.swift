@@ -18,14 +18,16 @@ class MessageViewController: UIViewController {
     var stackViewModel: MessageStackViewModel!
     let router = MessageRouter()
     private lazy var dismissTransitionDelegate = DismissManager()
-    private let observables: [NSNotification.Name: Selector] = [Notification.Name.UIKeyboardWillShow: #selector (MessageViewController.keyboardDidShow), //    UIKeyboard
-                                                                 Notification.Name.UIKeyboardWillHide: #selector (MessageViewController.keyboardWillHide), // UIKeyboard
-                                                                 Notification.Name.MessageAddCell: #selector (MessageViewController.addMessageCell), // UITableView
-                                                                 Notification.Name.MessageRemoveCell: #selector (MessageViewController.removeTypingMessageCell)] // UITableView
+
+    private let observables: [NSNotification.Name: Selector] =
+        [Notification.Name.UIKeyboardWillShow: #selector (MessageViewController.keyboardDidShow), // UIKeyboard
+         Notification.Name.UIKeyboardWillHide: #selector (MessageViewController.keyboardWillHide), // UIKeyboard
+         Notification.Name.MessageAddCell: #selector (MessageViewController.addMessageCell), // UITableView
+         Notification.Name.MessageRemoveCell: #selector (MessageViewController.removeTypingMessageCell)] // UITableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        friendName.text = ""
+        friendName.text = "Saved Friend"
         addGesture()
         fetchMessages()
         observeNotifications()
