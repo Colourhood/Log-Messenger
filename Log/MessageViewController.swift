@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageViewController: UIViewController {
+class MessageViewController: DraggableRightViewController {
 
     @IBOutlet weak var newMessageTextField: UITextField!
     @IBOutlet weak var messagesTableView: MessageTableView!
@@ -17,7 +17,6 @@ class MessageViewController: UIViewController {
 
     var stackViewModel: MessageStackViewModel!
     let router = MessageRouter()
-    private lazy var dismissTransitionDelegate = DismissManager()
 
     private let observables: [NSNotification.Name: Selector] =
         [Notification.Name.UIKeyboardWillShow: #selector (MessageViewController.keyboardDidShow), // UIKeyboard
@@ -28,7 +27,6 @@ class MessageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         friendName.text = "Saved Friend"
-        addGesture()
         fetchMessages()
         observeNotifications()
     }
@@ -110,40 +108,6 @@ extension MessageViewController {
         }
     }
 
-}
-
-extension MessageViewController {
-
-    func addGesture() {
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector (MessageViewController.handleGesture))
-        self.view.addGestureRecognizer(panGestureRecognizer)
-        transitioningDelegate = dismissTransitionDelegate
-    }
-
-    @objc func handleGesture(_ gesture: UIPanGestureRecognizer) {
-        let translation = gesture.translation(in: view)
-
-        switch gesture.state {
-        case .changed:
-            if translation.x > 0 {
-                view.frame.origin = CGPoint(x: translation.x, y: 0)
-            }
-        case .ended:
-            if translation.x > view.frame.size.width/3*2 || gesture.velocity(in: view).x > 100 {
-                dismiss(animated: true)
-            } else {
-                UIView.animate(withDuration: 0.3, animations: { [weak self] in
-                    self?.view.frame.origin = CGPoint(x: 0, y: 0)
-                })
-            }
-        case .cancelled:
-            UIView.animate(withDuration: 0.3, animations: { [weak self] in
-                self?.view.frame.origin = CGPoint(x: 0, y: 0)
-            })
-        default:
-            break
-        }
-    }
 }
 
 extension MessageViewController: UITextFieldDelegate {
