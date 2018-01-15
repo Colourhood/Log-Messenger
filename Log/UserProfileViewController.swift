@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 
 class UserProfileViewController: UIViewController {
-
     @IBOutlet weak var profileTableView: UITableView!
     @IBOutlet weak var profileImage: ProfileImageView!
     @IBOutlet weak var profileName: UILabel!
@@ -31,10 +30,10 @@ class UserProfileViewController: UIViewController {
     }
 
     func setProfileImage() {
-        if let image = UserCoreDataController.getUserProfile()?.image {
+        if let image = UserCoreData.user?.image {
             profileImage.image = UIImage(data: image as Data)
         }
-        if let name = UserCoreDataController.getUserProfile()?.firstName {
+        if let name = UserCoreData.user?.firstName {
             profileName.text = name
         }
     }

@@ -30,14 +30,12 @@ struct LOGFileManager {
         }
     }
 
-    // # Mark - Creating Files
-    static func createFileInDocuments(file: Data?, fileName: String, directory: String) {
+    // # Mark - Saving Files
+    static func save(file: Data, fileName: String, directory: String) {
         let storedFilePath = "\(directory)/\(fileName)"
         if let targetDirectoryPath = documentsDirectoryPath?.appendingPathComponent(storedFilePath) {
             do {
-                if let file = file {
-                    try file.write(to: targetDirectoryPath)
-                }
+                try file.write(to: targetDirectoryPath)
             } catch {
                 print(error)
             }
@@ -45,51 +43,31 @@ struct LOGFileManager {
     }
 
     // # Mark - Fetching Files
-    static func getAllFilesAtDirectory(directory: String) -> [String]? {
-        if let targetDirectoryPath = documentsDirectoryPath?.appendingPathComponent(directory).path {
-            do {
-                let contents = try fileManager.contentsOfDirectory(atPath: targetDirectoryPath)
-                return contents
-            } catch {
-                print("There was a problem getting contents in directory \(targetDirectoryPath)")
-            }
-        }
-        return nil
+
+    static func fetch(filename: String) -> Data? {
+        guard let filePath = documentsDirectoryPath?.appendingPathComponent(filename).path else { return nil }
+        let file = fileManager.contents(atPath: filePath)
+        return file
     }
 
-    static func getFileInDocuments(filename: String) -> Data? {
-        if let targetDirectoryPath = documentsDirectoryPath?.appendingPathComponent(filename).path {
-            return (fileManager.contents(atPath: targetDirectoryPath))
-        }
-        return nil
-    }
-
-    static func getFileInDocuments(filename: String, directory: String) -> Data? {
-        let storedFilePath = "\(directory)/\(filename)"
-        if let targetDirectoryPath = documentsDirectoryPath?.appendingPathComponent(storedFilePath).path {
-            return (fileManager.contents(atPath: targetDirectoryPath))
-        }
-        return nil
-    }
-
-    static func getFile(filepath: String) -> Data? {
-        return (fileManager.contents(atPath: filepath))
+    static func fetch(filename: String, directory: String) -> Data? {
+        let filePath = "\(directory)/\(filename)"
+        guard let targetDirectoryPath = documentsDirectoryPath?.appendingPathComponent(filePath).path else { return nil }
+        let file = fileManager.contents(atPath: targetDirectoryPath)
+        return file
     }
 
     // # Mark - Get URL Paths
-    static func getFileURLInDocumentsForDirectory(filename: String, directory: String) -> URL? {
+
+    static func fetchURL(filename: String, directory: String) -> URL? {
         let storedFilePath = "\(directory)/\(filename)"
-        if let urlPath = documentsDirectoryPath?.appendingPathComponent(storedFilePath) {
-            return urlPath
-        }
-        return nil
+        guard let urlPath = documentsDirectoryPath?.appendingPathComponent(storedFilePath) else { return nil }
+        return urlPath
     }
 
-    static func getFileURLInDocuments(filename: String) -> URL? {
-        if let urlPath = documentsDirectoryPath?.appendingPathComponent(filename) {
-            return urlPath
-        }
-        return nil
+    static func fetchURL(filename: String) -> URL? {
+        guard let urlPath = documentsDirectoryPath?.appendingPathComponent(filename) else { return nil }
+        return urlPath
     }
 
 }

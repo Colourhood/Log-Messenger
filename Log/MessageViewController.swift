@@ -8,141 +8,100 @@
 
 import UIKit
 
-class MessageViewController: UIViewController {
+class MessageViewController: DraggableRightViewController {
 
-    open var friendConversation: MessageStack?
-    var controller: MessageController!
-    var didFriendType: Bool = false
-    var didUserType: Bool = false
-    lazy var dismissTransitionDelegate = DismissManager()
-
-    /* UI-IBOutlets */
     @IBOutlet weak var newMessageTextField: UITextField!
-    @IBOutlet weak fileprivate var messagesTableView: UITableView!
+    @IBOutlet weak var messagesTableView: MessageTableView!
     @IBOutlet weak var friendName: UILabel!
     @IBOutlet weak var sendButton: UIButton!
 
+    var stackViewModel: MessageStackViewModel!
+    let router = MessageRouter()
+
+    private let observables: [NSNotification.Name: Selector] =
+        [Notification.Name.UIKeyboardWillShow: #selector (MessageViewController.keyboardDidShow), // UIKeyboard
+         Notification.Name.UIKeyboardWillHide: #selector (MessageViewController.keyboardWillHide), // UIKeyboard
+         Notification.Name.MessageAddCell: #selector (MessageViewController.addMessageCell), // UITableView
+         Notification.Name.MessageRemoveCell: #selector (MessageViewController.removeTypingMessageCell)] // UITableView
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        SocketIOManager.sharedInstance.delegate = self
-        prepareUI()
-        addGesture()
-        controller = MessageController(chatIdentifier: friendConversation?.getChatID())
-        controller.joinChatRoom()
+        renderName()
         fetchMessages()
-        registerForKeyboardNotifications()
+        observeNotifications()
     }
 
     deinit {
-        deregisterFromKeyboardNotifications()
-        controller.leaveChatRoom()
-        print("MessageView deinit was called")
+        disregardNotifications()
+        print("MessageViewController deinit was called")
     }
 
-    func addGesture() {
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector (MessageViewController.handleGesture))
-        self.view.addGestureRecognizer(panGestureRecognizer)
-        transitioningDelegate = dismissTransitionDelegate
+    func renderName() {
+        friendName.text = stackViewModel.friends
     }
 
-    @objc func handleGesture(_ gesture: UIPanGestureRecognizer) {
-        let translation = gesture.translation(in: view)
+}
 
-        switch gesture.state {
-        case .changed:
-            if translation.x > 0 {
-                view.frame.origin = CGPoint(x: translation.x, y: 0)
+extension MessageViewController {
+
+    //API Calls
+    func fetchMessages() {
+        // Clear up any messages that may still be present
+        stackViewModel.dumpStack()
+        // Fetch Messages for given chat id
+        router.fetchMessages(chatID: stackViewModel.chatID) { [weak self] (JSON) in
+            guard let messageStackArray = JSON["messages"] as? [ [String: Any] ] else { return }
+
+            for messageModel in messageStackArray {
+                let sentBy = messageModel["sent_by"] as? String ?? ""
+                let message = messageModel["message"] as? String ?? ""
+                let date = messageModel["created_at"] as? String ?? ""
+                guard let user = self?.stackViewModel.get(friend: sentBy) else { return }
+
+                let messageObj = Message(user: user, message: message, date: date)
+                self?.stackViewModel.add(message: messageObj)
             }
-        case .ended:
-            if translation.x > view.frame.size.width/3*2 || gesture.velocity(in: view).x > 100 {
-                dismiss(animated: true)
-            } else {
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.view.frame.origin = CGPoint(x: 0, y: 0)
-                })
+            DispatchQueue.main.async {
+                self?.messagesTableView.reloadData()
+                self?.messagesTableView.scrollToBottom()
             }
-        case .cancelled:
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.frame.origin = CGPoint(x: 0, y: 0)
-            })
-        default:
-            break
         }
     }
 
-    func prepareUI() {
-        messagesTableView.estimatedRowHeight = 50
-        messagesTableView.rowHeight = UITableViewAutomaticDimension
-        newMessageTextField.autocorrectionType = .no
-        friendName.text = friendConversation?.getFriendProfile()?.getName()
-    }
+}
 
-    func fetchMessages() {
-        //Clear up any messages that may still be present
-        friendConversation?.removeAllMessages()
-        // Network request to get all(for now) messages between two users
-        guard let friendProfile = friendConversation?.getFriendProfile() else { return }
+extension MessageViewController {
 
-        controller.getMessagesForFriend(completionHandler: { [weak self] (response) in
-            guard let `self` = self else { return }
-
-            // Array of messages for key 'messages'
-            if let messages = response["messages"] as? [AnyObject] {
-                for messagePacket in messages {
-                    if let messageDict = messagePacket as? [String: Any] {
-                        let sentBy = messageDict["sent_by"] as? String
-                        let message = messageDict["message"] as? String
-                        let date = messageDict["created_at"] as? String
-                        var senderUser: LOGUser?
-
-                        if sentBy == friendProfile.email {
-                            senderUser = friendProfile
-                        } else if sentBy == self.controller.userProfile?.email {
-                            senderUser = self.controller.userProfile
-                        }
-
-                        if let senderUser = senderUser, let message = message, let date = date {
-                                let messageObj = Message(sender: senderUser, message: message, date: date)
-                                self.friendConversation?.appendMessageToMessageStack(messageObj: messageObj)
-                        }
-                    }
-                }
-                self.messagesTableView.initialReloadTable()
-            }
-        })
-    }
-
+    // IBActions
     fileprivate func sendMessage(message: String) {
-        guard let chatID = friendConversation?.getChatID() else { return }
-        let parameters = ["sent_by": controller.userProfile?.email, "message": message, "chat_id": chatID] as [String: AnyObject]
-
-        controller.sendNewMessage(parameters: parameters) { (json) in print(json) }
-        controller.messageChat(message: message, chatID: chatID) // Server - SocketIO
+        stackViewModel.send(message: message)
+        router.sendMessage(param: ["sent_by": UserCoreData.user?.email! as Any, "message": message, "chat_id": stackViewModel.chatID]) { (_) in }
     }
 
     @IBAction func didPressSendMessageButton() {
-        if let message = newMessageTextField.text {
-            if !message.isEmpty {
-                sendMessage(message: message) // Server - Database
-                newMessageTextField.text = "" // Clear text
+        guard let messageText = newMessageTextField.text else { return }
 
-                let newMessage = Message(sender: controller.userProfile, message: message, date: DateConverter.convert(date: Date(), format: Constants.serverDateFormat))
+        if !messageText.isEmpty {
+            sendMessage(message: messageText) // Server - Database
+            newMessageTextField.text = "" // Clear text
+            stackViewModel.didUserType = false
 
-                if didFriendType {
-                    //Rearrange message typing cell from row and dataSource
-                    friendConversation?.removeLastMessageFromMessageStack()
-                    removeTypingMessageCell()
-                    //Append message to dataSource and to tableview
-                    friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
-                    insertMessageCell(isTyping: false)
-                    let emptyMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: nil, date: nil)
-                    friendConversation?.appendMessageToMessageStack(messageObj: emptyMessage)
-                    insertMessageCell(isTyping: true)
-                } else {
-                    friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
-                    insertMessageCell(isTyping: false)
-                }
-                didUserType = false
+            guard let user = stackViewModel.get(friend: (UserCoreData.user?.email)!) else { return }
+            let message = Message(user: user, message: messageText, date: DateConverter.transform(date: Date(), format: .server))
+
+            if stackViewModel.didFriendType {
+                // Store last message reference && Rearrange message typing cell from row and dataSource
+                let typingMessage = stackViewModel.popLastMessage()
+                removeTypingMessageCell()
+
+                //Append message to dataSource and to tableview
+                stackViewModel.add(message: message)
+                addMessageCell()
+                stackViewModel.add(message: typingMessage)
+                addMessageCell() 
+            } else {
+                stackViewModel.add(message: message)
+                addMessageCell()
             }
         }
     }
@@ -157,47 +116,46 @@ extension MessageViewController: UITextFieldDelegate {
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
-        if let message = newMessageTextField.text {
-            if message.isEmpty {
-                if didUserType {
-                    print("It's empty")
-                    didUserType = false
-                    controller.emitToChatSocket(event: Constants.stopTyping)
-                }
-            } else {
-                if !didUserType {
-                    didUserType = true
-                    controller.emitToChatSocket(event: Constants.startTyping)
-                }
+        guard let message = newMessageTextField.text else { return }
+
+        if message.isEmpty {
+            if stackViewModel.didUserType {
+                stackViewModel.didUserType = false
+                stackViewModel.userStoppedTyping()
+            }
+        } else {
+            if !stackViewModel.didUserType {
+                stackViewModel.didUserType = true
+                stackViewModel.userStartedTyping()
             }
         }
+
     }
 
     // UIKeyboard - Notification Center
-    func registerForKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector (MessageViewController.keyboardDidShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector (MessageViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    func observeNotifications() {
+        for (notification, selector) in observables {
+            NotificationCenter.default.addObserver(self, selector: selector, name: notification, object: nil)
+        }
         newMessageTextField.addTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
     }
 
-    func deregisterFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
+    func disregardNotifications() {
+        for (notification, _) in observables {
+            NotificationCenter.default.removeObserver(self, name: notification, object: nil)
+        }
         newMessageTextField.removeTarget(self, action: #selector (MessageViewController.textFieldDidChange), for: .editingChanged)
     }
 
     @objc func keyboardDidShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.view.frame.size.height = UIScreen.main.bounds.size.height-keyboardSize.size.height
-        }
-        let debounceTableViewFrame = Debouncer(delay: 0.1) {
-            self.messagesTableView.scrollToBottom()
-        }
+        guard let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        let debounceTableViewFrame = Debouncer(delay: 0.1) { [weak self] in self?.messagesTableView.scrollToBottom() }
+        view.frame.size.height = UIScreen.main.bounds.size.height-keyboardSize.size.height
         debounceTableViewFrame.call()
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        self.view.frame.size.height = UIScreen.main.bounds.size.height
+        view.frame.size.height = UIScreen.main.bounds.size.height
     }
 
 }
@@ -205,144 +163,88 @@ extension MessageViewController: UITextFieldDelegate {
 extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let friendConversation = friendConversation {
-            return friendConversation.getStackOfMessages().count
-        }
-        return 0
+        return stackViewModel.stack.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let messageData = friendConversation?.getStackOfMessages()[indexPath.row]
-        let messageProfile = messageData?.getSender()
-        let email = messageProfile?.email
+        let cellIndex = indexPath.row
+        let messageObj = stackViewModel.stack[cellIndex]
+        let userObj = messageObj.user
+        let message = messageObj.message
+        let email = userObj.email
 
-        var cell: MessageTableViewCell?
+        func determineCellType(isUser: Bool) -> MessageCellType {
+            let userCells = [MessageCellType.userMessageCell, MessageCellType.userPreviousMessageCell]
+            let friendCells = [MessageCellType.friendMessageCell, MessageCellType.friendPreviousMessageCell]
+            var cellArrayType: [MessageCellType]
 
-        func messageCell(identifier: String, withImage: Bool) {
-            cell = messagesTableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? MessageTableViewCell
-            if withImage {
-                cell?.userImage.image = messageProfile?.picture
-            }
-        }
+            isUser ? (cellArrayType = userCells) : (cellArrayType = friendCells)
 
-        if let _ = messageData?.getMessage() {
-            if email == controller.userProfile?.email {
-                if (friendConversation?.getStackOfMessages().count)!-1 == indexPath.row {
-                    messageCell(identifier: "UserMessageCell", withImage: true)
-                } else {
-                    let possibleSameProfile = friendConversation?.getStackOfMessages()[indexPath.row+1]?.getSender()
-                    if possibleSameProfile?.email == email {
-                        messageCell(identifier: "UserOnlyMessageCell", withImage: false)
-                    } else {
-                        messageCell(identifier: "UserMessageCell", withImage: true)
-                    }
-                }
+            if stackViewModel.stack.count-1 == cellIndex {
+                return cellArrayType[0]
             } else {
-                if (friendConversation?.getStackOfMessages().count)!-1 == indexPath.row {
-                    messageCell(identifier: "FriendMessageCell", withImage: true)
-                } else {
-                    let possibleSameProfile = friendConversation?.getStackOfMessages()[indexPath.row+1]?.getSender()
-                    if possibleSameProfile?.email == email {
-                        messageCell(identifier: "FriendOnlyMessageCell", withImage: false)
-                    } else {
-                        messageCell(identifier: "FriendMessageCell", withImage: true)
-                    }
-                }
+                let previousUser = stackViewModel.stack[cellIndex+1].user
+                return previousUser.email == email ? cellArrayType[1] : cellArrayType[0]
             }
-            cell?.messageLabel.text = messageData?.getMessage()
-        } else {
-            messageCell(identifier: "FriendTypingMessageCell", withImage: true)
         }
 
-        return cell!
+        func loadCell(cellType: MessageCellType) -> UITableViewCell {
+            if cellType == .typingMessageCell {
+                guard let typingCell = messagesTableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? MessageTypingTableViewCell else { return UITableViewCell() }
+                typingCell.userImage.image = userObj.picture
+                return typingCell
+            } else {
+                guard let messageCell = messagesTableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? MessageTableViewCell else { return UITableViewCell() }
+                if cellType == .friendMessageCell || cellType == .userMessageCell {
+                    messageCell.userImage.image = userObj.picture
+                }
+                messageCell.messageLabel.text = message
+                return messageCell
+            }
+        }
+
+        if message != nil {
+            if email == UserCoreData.user?.email! {
+                // Load cell that is classified as user cells
+                return loadCell(cellType: determineCellType(isUser: true))
+            } else {
+                // Load cell that is classified as friend cells
+                return loadCell(cellType: determineCellType(isUser: false))
+            }
+        } else {
+            // Load cell that is classified as typing cell
+            return loadCell(cellType: .typingMessageCell)
+        }
     }
 
-    func insertMessageCell(isTyping: Bool) {
-        let dataCount = friendConversation!.getStackOfMessages().count
-        let indexPath = IndexPath(row: dataCount-1, section: 0)
-        let previousIndexPath = IndexPath(row: dataCount-2, section: 0)
+    // Inserting && Removing Cells from TableView
+    @objc func addMessageCell() {
+        let count = stackViewModel.stack.count-1
+        let indexPath = IndexPath(row: count, section: 0)
+        let previousIndexPath = IndexPath(row: count-1, section: 0)
 
         UIView.setAnimationsEnabled(false)
         messagesTableView.insertRows(at: [indexPath], with: .none)
         messagesTableView.reloadRows(at: [previousIndexPath], with: .none)
         UIView.setAnimationsEnabled(true)
+        messagesTableView.scrollToBottom()
 
-        DispatchQueue.main.async {
-            let cell = self.messagesTableView.cellForRow(at: indexPath) as? MessageTableViewCell
-            if !isTyping {
-                cell?.animatePop()
-            } else {
-                cell?.animateTyping()
-            }
-            self.messagesTableView.scrollToBottom()
-        }
-
+        guard let messageCell = messagesTableView.cellForRow(at: indexPath) as? MessageTableViewCell else { return }
+        messageCell.animatePop()
     }
 
-    func removeTypingMessageCell() {
-        let dataCount = friendConversation!.getStackOfMessages().count
-        let indexPath = IndexPath(row: dataCount, section: 0)
-        let previousIndexPath = IndexPath(row: dataCount-1, section: 0)
-        let possibleTypingCell = messagesTableView.cellForRow(at: indexPath) as? MessageTableViewCell
+    @objc func removeTypingMessageCell() {
+        let count = stackViewModel.stack.count
+        let indexPath = IndexPath(row: count, section: 0)
+        guard let typingcell = messagesTableView.cellForRow(at: indexPath) else { return }
 
-        if possibleTypingCell?.reuseIdentifier == "FriendTypingMessageCell" {
+        if typingcell.reuseIdentifier == MessageCellType.typingMessageCell.rawValue {
+            let previousIndexPath = IndexPath(row: count-1, section: 0)
+
             UIView.setAnimationsEnabled(false)
             messagesTableView.deleteRows(at: [indexPath], with: .none)
             messagesTableView.reloadRows(at: [previousIndexPath], with: .none)
             UIView.setAnimationsEnabled(true)
         }
     }
-
-}
-
-extension UITableView {
-
-    internal func scrollToBottom() {
-        let rows = self.numberOfRows(inSection: 0)
-        // This will guarantee rows - 1 >= 0
-        if rows > 0 {
-            let indexPath = IndexPath(row: rows-1, section: 0)
-            self.scrollToRow(at: indexPath, at: .top, animated: false)
-        }
-    }
-
-    func initialReloadTable() {
-        DispatchQueue.main.async {
-            self.reloadData()
-            self.scrollToBottom()
-        }
-    }
-
-}
-
-extension MessageViewController: SocketIODelegate {
-
-    func receivedMessage(user: String, message: String, date: String) {
-        if didFriendType {
-            didFriendType = false
-            friendConversation?.removeLastMessageFromMessageStack()
-            removeTypingMessageCell()
-        }
-        let newMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: message, date: date)
-        friendConversation?.appendMessageToMessageStack(messageObj: newMessage)
-        insertMessageCell(isTyping: false)
-    }
-
-    func friendStartedTyping() {
-        if !didFriendType {
-            didFriendType = true
-            let emptyMessage = Message(sender: (friendConversation?.getFriendProfile())!, message: nil, date: nil)
-            friendConversation?.appendMessageToMessageStack(messageObj: emptyMessage)
-            insertMessageCell(isTyping: true)
-        }
-    }
-
-    func friendStoppedTyping() {
-        if didFriendType {
-            didFriendType = false
-            friendConversation?.removeLastMessageFromMessageStack()
-            removeTypingMessageCell()
-        }
-    }
-
 }

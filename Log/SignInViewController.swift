@@ -19,6 +19,7 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var lottieBackView: UIView!
 
     var loginOrSignupTypeText: String?
+    let router = SignInRouter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,73 +50,58 @@ class SignInViewController: UIViewController {
 
     func instantiateHomeView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let appDelegate: AppDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+        guard let appDelegate: AppDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        appDelegate.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+    }
+
+}
+
+extension SignInViewController {
+
+    // API - Networking
+
+    private func login(param: [String: Any]) {
+        router.handleLogin(param: param) { [weak self] (JSON) in
+            guard let email = JSON["user_email"] as? String,
+                  let name = JSON["first_name"] as? String,
+                  let image = (JSON["image"] as? String)?.data(using: .utf8) ?? UIImage(named: "defaultUserIcon")?.dataJPEG(),
+                  let imageData = NSData(base64Encoded: image, options: NSData.Base64DecodingOptions(rawValue: 0)) ?? image as? NSData else { return }
+            UserCoreData.set(email: email, name: name, image: imageData)
+            self?.instantiateHomeView()
         }
     }
 
-    private func handleLogin(parameters: [String: Any]) {
-        SignInController.handleLoginSignUpRequest(url: "/user/login", parameters: parameters, completion: { (json) in
-
-            if let userEmail = json["user_email"] as? String, let firstName = json["first_name"] as? String {
-                if let image = json["image"] as? String {
-                    if let imageData = NSData(base64Encoded: image, options: NSData.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0))) {
-                        UserCoreDataController.setUser(userEmail: userEmail,
-                                                       firstName: firstName,
-                                                       image: imageData)
-                        self.instantiateHomeView()
-                    }
-                } else {
-                    guard let image = UIImage(named: "defaultUserIcon") else { return }
-                    let defaultImageData = ConvertImage.convertUIImageToJPEGData(image: image)! as NSData
-                    UserCoreDataController.setUser(userEmail: userEmail,
-                                                   firstName: firstName,
-                                                   image: defaultImageData)
-                    self.instantiateHomeView()
-                }
-            } else {
-                // Error occurred
-                if let error = json["error"] as? String {
-                    print("Error: \(error)")
-                }
-            }
-        })
-    }
-
-    private func handleSignUp(parameters: [String: Any]) {
+    private func signup(param: [String: Any]) {
         let filename = Constants.profilePicture
         let directory = Constants.Images
 
-        guard let image = imageButton.imageView?.image else { return }
-        guard let userImageData = ConvertImage.convertUIImageToJPEGData(image: image) else { return }
-        LOGFileManager.createFileInDocuments(file: userImageData, fileName: filename, directory: directory)
+        guard let image = imageButton.imageView?.image?.dataJPEG() else { return }
+        LOGFileManager.save(file: image, fileName: filename, directory: directory)
 
-        SignInController.handleLoginSignUpRequest(url: "/user/signup", parameters: parameters, completion: { (json) in
-            if let userEmail = json["user_email"] as? String {
-                if let profileImageURL = LOGFileManager.getFileURLInDocumentsForDirectory(filename: filename, directory: directory) {
-                    let key = "\(filename):\(userEmail)"
+        router.handleSignUp(param: param) { (JSON) in
+            guard let email = JSON["user_email"] as? String,
+                  let imageURL = LOGFileManager.fetchURL(filename: filename, directory: directory) else { return }
 
-                    LOGS3.uploadToS3(key: key, fileURL: profileImageURL, completionHandler: { (result) in
-                        if result != nil {
-                            UserCoreDataController.setUser(userEmail: userEmail,
-                                                           firstName: "Alex",
-                                                           image: userImageData as NSData)
-                            self.instantiateHomeView()
-                        }
-                    })
-                }
-            }
-        })
+            let key = "\(filename):\(email)"
+            let imageData = NSData(data: image)
+
+            LOGS3.uploadToS3(key: key, fileURL: imageURL, completionHandler: { (result) in
+                guard result != nil else { return }
+                UserCoreData.set(email: email, name: "Name", image: imageData)
+                self.instantiateHomeView()
+            })
+        }
     }
 
     fileprivate func checkTextField() {
         if let email = emailTextField.text, let password = passwordTextField.text {
             if !email.isEmpty && !password.isEmpty {
-                let parameters = ["user_email": email, "password": password]
+                let param = ["user_email": email, "password": password]
+
                 if loginOrSignupTypeText == "Sign Up" {
-                    handleSignUp(parameters: parameters)
+                    signup(param: param)
                 } else if loginOrSignupTypeText == "Sign In" {
-                    handleLogin(parameters: parameters)
+                    login(param: param)
                 }
             }
         }
