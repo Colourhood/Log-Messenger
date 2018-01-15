@@ -9,7 +9,6 @@
 import Foundation
 
 class MessageTypingTableViewCell: UITableViewCell {
-
     @IBOutlet weak var messageView: UIView!
     @IBOutlet weak var userImage: ProfileImageView!
     @IBOutlet weak var dot1: UIView!
@@ -17,7 +16,7 @@ class MessageTypingTableViewCell: UITableViewCell {
     @IBOutlet weak var dot3: UIView!
 
     override func awakeFromNib() {
-        messageView.layer.cornerRadius = messageView.frame.width/5
+        messageView.layer.cornerRadius = messageView.frame.width/20
         let circleRadius = dot1.frame.height/2
         dot1.layer.cornerRadius = circleRadius
         dot2.layer.cornerRadius = circleRadius
@@ -25,6 +24,7 @@ class MessageTypingTableViewCell: UITableViewCell {
 
         animateTyping()
     }
+
 }
 
 extension MessageTypingTableViewCell {

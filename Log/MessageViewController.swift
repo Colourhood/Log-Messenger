@@ -92,15 +92,9 @@ extension MessageViewController {
 
                 //Append message to dataSource and to tableview
                 stackViewModel.add(message: message)
+                addMessageCell()
                 stackViewModel.add(message: typingMessage)
-                addMessageCell() // Would I get the same results? TOTEST
-                // Maybe it won't work; maybe make it recursive, taking in amount of cells to insert as a parameter
-
-//                stackViewModel.add(message: message)
-//                addMessageCell()
-//
-//                stackViewModel.add(message: typingMessage)
-//                addMessageCell()
+                addMessageCell() 
             } else {
                 stackViewModel.add(message: message)
                 addMessageCell()
