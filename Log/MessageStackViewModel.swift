@@ -41,8 +41,10 @@ class MessageStackViewModel {
         return msObj.chatID
     }
 
-    var friends: [String: User] {
-        return msObj.friends
+    var friends: String {
+        let filteredFriends = msObj.friends.values.filter { $0.email == UserCoreData.user?.email }
+        let names = filteredFriends.map { (user) -> String in return user.firstName }.joined(separator: ", ")
+        return names
     }
 
     func get(friend: String) -> User? {

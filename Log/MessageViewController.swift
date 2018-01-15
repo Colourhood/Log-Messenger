@@ -37,9 +37,7 @@ class MessageViewController: DraggableRightViewController {
     }
 
     func renderName() {
-        let filteredFriends = stackViewModel.friends.values.filter { $0.email == UserCoreData.user?.email }
-        let names = filteredFriends.map { (user) -> String in return user.firstName }.joined(separator: ", ")
-        friendName.text = names
+        friendName.text = stackViewModel.friends
     }
 
 }
