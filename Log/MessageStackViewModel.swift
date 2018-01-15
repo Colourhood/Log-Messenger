@@ -41,6 +41,10 @@ class MessageStackViewModel {
         return msObj.chatID
     }
 
+    var friends: [String: User] {
+        return msObj.friends
+    }
+
     func get(friend: String) -> User? {
         guard let friendUser: User = msObj.friends[friend] else { return nil }
         return friendUser

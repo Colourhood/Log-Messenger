@@ -26,7 +26,7 @@ class MessageViewController: DraggableRightViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        friendName.text = "Saved Friend"
+        renderName()
         fetchMessages()
         observeNotifications()
     }
@@ -34,6 +34,12 @@ class MessageViewController: DraggableRightViewController {
     deinit {
         disregardNotifications()
         print("MessageViewController deinit was called")
+    }
+
+    func renderName() {
+        let filteredFriends = stackViewModel.friends.values.filter { $0.email == UserCoreData.user?.email }
+        let names = filteredFriends.map { (user) -> String in return user.firstName }.joined(separator: ", ")
+        friendName.text = names
     }
 
 }
