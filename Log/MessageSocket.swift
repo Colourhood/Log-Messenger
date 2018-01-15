@@ -100,8 +100,19 @@ extension MessageSocket {
     }
 
     func join(param: [String: String]) {
-        let debounce = Debouncer(delay: 5) { [weak self] in self?.emitChat(event: .join, param: param) }
-        debounce.call()
+        let state = socket.status
+        switch state {
+        case .connected:
+            print("Socket was connected, time to join chat")
+            emitChat(event: .join, param: param)
+        case .connecting:
+            print("Socket is in process of connecting")
+            let debouncer = Debouncer(delay: 2.0, callback: { [weak self] in self?.join(param: param) })
+            debouncer.call()
+        default:
+            break
+        }
+
     }
 
     func leave(param: [String: String]) {
