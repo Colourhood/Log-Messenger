@@ -229,8 +229,15 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
         UIView.setAnimationsEnabled(true)
         messagesTableView.scrollToBottom()
 
-        guard let messageCell = messagesTableView.cellForRow(at: indexPath) as? MessageTableViewCell else { return }
-        messageCell.animatePop()
+        guard let cell = messagesTableView.cellForRow(at: indexPath) else { return }
+
+        if cell.reuseIdentifier == MessageCellType.typingMessageCell.rawValue {
+            guard let typingCell = cell as? MessageTypingTableViewCell else { return }
+            typingCell.animateTyping()
+        } else {
+            guard let messageCell = cell as? MessageTableViewCell else { return }
+            messageCell.animatePop()
+        }
     }
 
     @objc func removeTypingMessageCell() {
@@ -245,6 +252,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
             messagesTableView.deleteRows(at: [indexPath], with: .none)
             messagesTableView.reloadRows(at: [previousIndexPath], with: .none)
             UIView.setAnimationsEnabled(true)
+            messagesTableView.scrollToBottom()
         }
     }
 }
