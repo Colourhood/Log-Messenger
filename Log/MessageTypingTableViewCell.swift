@@ -16,7 +16,7 @@ class MessageTypingTableViewCell: UITableViewCell {
     @IBOutlet weak var dot3: UIView!
 
     override func awakeFromNib() {
-        messageView.layer.cornerRadius = messageView.frame.width/20
+        messageView.layer.cornerRadius = messageView.frame.width/8
         let circleRadius = dot1.frame.height/2
         dot1.layer.cornerRadius = circleRadius
         dot2.layer.cornerRadius = circleRadius
@@ -30,7 +30,6 @@ class MessageTypingTableViewCell: UITableViewCell {
 extension MessageTypingTableViewCell {
 
     func animateTyping() {
-        guard let dot1 = dot1, let dot2 = dot2, let dot3 = dot3 else { return }
 
         userImage.transform = CGAffineTransform(translationX: userImage.bounds.origin.x, y: bounds.height)
         messageView.transform = CGAffineTransform(scaleX: 0.04, y: 0.04)
@@ -38,6 +37,8 @@ extension MessageTypingTableViewCell {
             self.userImage.transform = CGAffineTransform(translationX: self.userImage.bounds.origin.x, y: self.userImage.bounds.origin.y)
             self.messageView.transform = CGAffineTransform.identity
         })
+
+        guard let dot1 = dot1, let dot2 = dot2, let dot3 = dot3 else { return }
 
         UIView.animateKeyframes(withDuration: 1.0, delay: 0, options: [.repeat], animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations: {

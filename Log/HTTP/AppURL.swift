@@ -9,9 +9,9 @@
 import Foundation
 
 struct AppURL {
-    // static let apiURL = "http://192.168.0.105:7555/api"
-    static let apiURL = "http://127.0.0.1:7555/api"
+    static let apiURL = "http://192.168.0.102:7555/api"
+//    static let apiURL = "http://127.0.0.1:7555/api"
 
-    // static private let socketURL = "http://192.168.0.10:7555"
-    static let socketURL = "http://127.0.0.1:7555"
+    static let socketURL = "http://192.168.0.102:7555"
+//    static let socketURL = "http://127.0.0.1:7555"
 }
